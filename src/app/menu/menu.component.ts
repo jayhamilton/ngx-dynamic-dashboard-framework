@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MenuEventService} from './menu-service';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _menuEventService: MenuEventService) { }
 
   ngOnInit(): void {
   }
+
+  emitMenuEvent(eventData: string) {
+
+    switch (eventData){
+      case "create":
+        this._menuEventService.raiseMenuEvent({name: 'createEvent', data: eventData});
+        break;
+      case "config":
+        this._menuEventService.raiseMenuEvent({name: 'configEvent', data: eventData});
+        break;
+      default:
+    }
+}
 
 }
