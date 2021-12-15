@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuEventService} from './menu-service';
+import { MenuEventService} from './menu-service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfigurationComponent } from '../configuration/configuration.component';
 
 @Component({
   selector: 'app-menu',
@@ -8,22 +10,29 @@ import {MenuEventService} from './menu-service';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private _menuEventService: MenuEventService) { }
+  constructor(private _menuEventService: MenuEventService, public dialog:MatDialog) { }
 
   ngOnInit(): void {
   }
 
-  emitMenuEvent(eventData: string) {
+  menuClickEvent(eventData: string) {
 
     switch (eventData){
       case "create":
-        this._menuEventService.raiseMenuEvent({name: 'createEvent', data: eventData});
+        //this._menuEventService.raiseMenuEvent({name: 'createEvent', data: eventData});
         break;
       case "config":
-        this._menuEventService.raiseMenuEvent({name: 'configEvent', data: eventData});
+        //this._menuEventService.raiseMenuEvent({name: 'configEvent', data: eventData});
+        this.openDialog();
         break;
       default:
     }
 }
 
+  openDialog() {
+    this.dialog.open(ConfigurationComponent,{
+      width: '700px'
+    });
+  }
 }
+
