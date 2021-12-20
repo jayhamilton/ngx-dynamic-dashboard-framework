@@ -1,5 +1,12 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    row-gap: 30px;
+    place-content: center;
+}
+
 .example-container {
-    width: 20%;
+    width: 100%;
     max-width: 100%;
     margin: 0 25px 25px 0;
     display: inline-block;
@@ -16,19 +23,15 @@
 }
 
 .example-box {
-    padding: 20px 10px;
+    display: grid;
+    place-content: center;
     min-height: 200px;
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     box-sizing: border-box;
     cursor: move;
     background: white;
     font-size: 14px;
-    text-align: center;
 }
 
 .cdk-drag-preview {

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BoardComponent } from './board.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { BoardService } from './board.service';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 
@@ -11,10 +13,14 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
   ],
   imports: [
     CommonModule,
-    DragDropModule
+    DragDropModule,
+    MatGridListModule
   ],
   exports:[
     BoardComponent
+  ],
+  providers:[
+    BoardService
   ]
 })
 export class BoardModule { }
