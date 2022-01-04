@@ -33,7 +33,8 @@ export class MenuComponent implements OnInit {
 
   openConfigDialog() {
     this.dialog.open(ConfigurationComponent,{
-      width: '700px'
+      width: '700px',
+
     });
   }
 

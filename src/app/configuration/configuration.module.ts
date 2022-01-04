@@ -8,13 +8,15 @@ import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule} from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { TabBoardsComponent } from './tab-boards/tab-boards.component';
 
 
 
 @NgModule({
   declarations: [
     ConfigurationComponent,
-    TabProductsComponent
+    TabProductsComponent,
+    TabBoardsComponent
   ],
   imports: [
     CommonModule,
