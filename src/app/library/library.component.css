@@ -1,0 +1,11 @@
+.example-card {
+    max-width: 400px;
+    margin-bottom: 8px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: .25fr .75fr;
+    row-gap: 30px;
+    place-content: center;
+}
