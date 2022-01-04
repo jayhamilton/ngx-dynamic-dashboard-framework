@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject, Observable} from 'rxjs';
-import {IEvent} from './IEvent';
+import {IEvent} from './menu.event.model';
 
 
 @Injectable()

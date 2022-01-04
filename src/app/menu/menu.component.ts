@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuEventService} from './menu-service';
+import { MenuEventService} from './menu.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfigurationComponent } from '../configuration/configuration.component';
+import { LibraryComponent } from '../library/library.component';
 
 @Component({
   selector: 'app-menu',
@@ -20,17 +21,25 @@ export class MenuComponent implements OnInit {
     switch (eventData){
       case "create":
         //this._menuEventService.raiseMenuEvent({name: 'createEvent', data: eventData});
+        this.openGadgetLibraryDialog();
         break;
       case "config":
         //this._menuEventService.raiseMenuEvent({name: 'configEvent', data: eventData});
-        this.openDialog();
+        this.openConfigDialog();
         break;
       default:
     }
 }
 
-  openDialog() {
+  openConfigDialog() {
     this.dialog.open(ConfigurationComponent,{
+      width: '700px'
+    });
+  }
+
+  openGadgetLibraryDialog(){
+
+    this.dialog.open(LibraryComponent,{
       width: '700px'
     });
   }

@@ -56,6 +56,8 @@ export class BoardComponent implements OnInit{
     //todo create a gadget based on the incoming data
     gridHost.createComponent(ImageComponent);
 
+    //set instance config
+
   }
 
   getColumnIndexAsString(idx: number) {

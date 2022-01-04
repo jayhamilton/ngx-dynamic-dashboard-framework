@@ -5,9 +5,10 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule}from '@angular/material/icon';
-import {MenuEventService} from './menu-service';
+import {MenuEventService} from './menu.service';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { ConfigurationModule } from '../configuration/configuration.module';
+import { LibraryModule } from '../library/library.module';
 @NgModule({
   declarations: [
     MenuComponent
@@ -19,7 +20,9 @@ import { ConfigurationModule } from '../configuration/configuration.module';
     MatToolbarModule,
     MatIconModule,
     MatDialogModule,
-    ConfigurationModule
+    ConfigurationModule,
+    MatDialogModule,
+    LibraryModule
   ],
   exports:[
     MenuComponent
