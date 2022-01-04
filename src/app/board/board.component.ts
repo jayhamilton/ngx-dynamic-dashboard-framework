@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
 import {
   CdkDragDrop,
   CdkDropList,
@@ -7,16 +7,26 @@ import {
 } from '@angular/cdk/drag-drop';
 
 import { BoardService } from './board.service';
+import { ImageComponent } from '../gadgets/image/image.component';
+import { BoardGridDirective } from './boardgrid.directive';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
 })
-export class BoardComponent {
+export class BoardComponent implements OnInit{
+
+  @ViewChild(BoardGridDirective, {static: true}) gadgetGridHost!: BoardGridDirective;
+
   boardData: any;
-  constructor(private boardService: BoardService) {
+
+  constructor(private boardService: BoardService, private componentFactoryResolver: ComponentFactoryResolver) {
     this.boardData = this.boardService.getDefaultData();
+  }
+
+  ngOnInit(): void {
+    this.createGadgetInstance();
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -38,8 +48,14 @@ export class BoardComponent {
     this.updateDataModel(event.container, event.previousContainer);
   }
 
-  getImage(colIdx: number, gadgetIdx: number) {
-    return '/assets/images/img' + gadgetIdx;
+  createGadgetInstance(){
+
+    const gridHost = this.gadgetGridHost.viewContainerRef;
+    gridHost.clear();
+
+    //todo create a gadget based on the incoming data
+    gridHost.createComponent(ImageComponent);
+
   }
 
   getColumnIndexAsString(idx: number) {
