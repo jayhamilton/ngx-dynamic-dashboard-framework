@@ -1,2 +1,44 @@
-<br> Use this tab to define a production line and associate it with a product.
+<p> Use this tab to define a production line and associate it with a product.</p>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+    <!-- Position Column -->
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+    </ng-container>
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let element">{{element.description}}</td>
+    </ng-container>
+
+    <!-- Tools Column -->
+    <ng-container matColumnDef="tools">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+            <mat-toolbar>
+                <button mat-icon-button (click)="addData()" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+          <mat-icon>mode_edit</mat-icon>
+        </button>
+                <button mat-icon-button (click)="removeData()" class="example-icon" aria-label="Example icon-button with share icon">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+            </mat-toolbar>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
 <br>
+<div class="demo-button-container">
+    <button mat-raised-button (click)="addData()" class="demo-button">
+    Add production board
+  </button>
+</div>
