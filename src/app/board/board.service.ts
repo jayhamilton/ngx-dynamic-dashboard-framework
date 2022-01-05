@@ -4,6 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class BoardService {
+
+  constructor(){
+  }
   public read() {
     return localStorage.getItem('plmBoard');
   }

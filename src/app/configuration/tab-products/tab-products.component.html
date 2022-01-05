@@ -1,5 +1,4 @@
-<p> Use this tab to add product definitions</p>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
     <!-- Position Column -->
     <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef>No.</th>
@@ -44,8 +43,34 @@
 </table>
 
 <br>
-<div class="demo-button-container">
-    <button mat-raised-button (click)="addData()" class="demo-button">
-    Add product
-  </button>
-</div>
+<br>
+<h3>Define a new product</h3>
+<div class="example-container">
+    <form [formGroup]="options">
+
+        <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
+            <mat-label>Enter a name</mat-label>
+            <input matInput placeholder="Enter a name" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+            <mat-label>Enter a description</mat-label>
+            <input matInput placeholder="Enter description">
+        </mat-form-field>
+
+        &nbsp;&nbsp;
+        <button mat-mini-fab color="primary" (click)="addData()" class="tab-button">
+          <mat-icon>add</mat-icon>
+        </button>
+
+        <!--
+        <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
+            <mat-select required>
+                <mat-option>-- None --</mat-option>
+                <mat-option value="option">Option</mat-option>
+            </mat-select>
+            <mat-label>
+                <mat-icon>favorite</mat-icon> <b> Fancy</b> <i> label</i></mat-label>
+        </mat-form-field>
+      -->
+    </form>

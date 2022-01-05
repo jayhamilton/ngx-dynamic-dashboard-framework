@@ -1,16 +1,18 @@
 import { DataSource } from '@angular/cdk/table';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { EventService } from 'src/app/eventservice/event.service';
 
 export interface BoardItem {
   name: string;
   description: string;
+  product: string;
 
 }
 
 const ELEMENT_DATA: BoardItem[] = [
-  { name: 'Production line 1', description: 'Main production line next to the warehouse exit'},
+  { name: 'Production line 1', description: 'Main production line next to the warehouse exit', product: 'Armani'},
 ];
 @Component({
   selector: 'app-tab-boards',
@@ -18,12 +20,21 @@ const ELEMENT_DATA: BoardItem[] = [
   styleUrls: ['./tab-boards.component.css'],
 })
 export class TabBoardsComponent implements OnInit {
+  options: FormGroup;
+  hideRequiredControl = new FormControl(false);
+  floatLabelControl = new FormControl('auto');
 
-  constructor(private eventService: EventService) {}
+
+  constructor(private eventService: EventService, fb: FormBuilder) {
+    this.options = fb.group({
+      hideRequired: this.hideRequiredControl,
+      floatLabel: this.floatLabelControl,
+    });
+  }
 
   ngOnInit(): void {}
 
-  displayedColumns: string[] = ['name',  'description', 'tools'];
+  displayedColumns: string[] = ['name',  'product', 'description', 'tools'];
   dataToDisplay = [...ELEMENT_DATA];
 
   dataSource = new ExampleDataSource(this.dataToDisplay);

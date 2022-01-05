@@ -1,6 +1,4 @@
-<p> Use this tab to define a production line and associate it with a product.</p>
-
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
     <!-- Position Column -->
 
 
@@ -10,12 +8,19 @@
         <td mat-cell *matCellDef="let element">{{element.name}}</td>
     </ng-container>
 
+    <!-- Name Column -->
+    <ng-container matColumnDef="product">
+        <th mat-header-cell *matHeaderCellDef>Product</th>
+        <td mat-cell *matCellDef="let element">{{element.product}}</td>
+    </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef>Description</th>
         <td mat-cell *matCellDef="let element">{{element.description}}</td>
     </ng-container>
+
+
 
     <!-- Tools Column -->
     <ng-container matColumnDef="tools">
@@ -37,8 +42,36 @@
 </table>
 
 <br>
-<div class="demo-button-container">
-    <button mat-raised-button (click)="addData()" class="demo-button">
-    Add production board
-  </button>
+<h3>Define new production line board</h3>
+<div class="example-container">
+    <form [formGroup]="options">
+
+        <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
+            <mat-label>Enter a name</mat-label>
+            <input matInput placeholder="Enter a name" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+            <mat-label>Enter a description</mat-label>
+            <input matInput placeholder="Enter description">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
+            <mat-select required>
+                <mat-option>-- None --</mat-option>
+                <mat-option value="option">Option</mat-option>
+            </mat-select>
+            <mat-label>
+                <mat-icon>inventory_2</mat-icon> <b> Select a product</b></mat-label>
+        </mat-form-field>
+
+        &nbsp;&nbsp;
+        <button mat-mini-fab color="primary" (click)="addData()" class="tab-button">
+          <mat-icon>add</mat-icon>
+        </button>
+
+
+
+
+    </form>
 </div>
