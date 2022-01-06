@@ -1,8 +1,12 @@
-<div class="grid" cdkDropListGroup>
+<mat-card class="card">
 
-    <div class="example-container" *ngFor="let columnData of gadgetData; let columnIndex = index;">
-        <div cdkDropList [id]=getColumnIndexAsString(columnIndex) [cdkDropListData]="columnData.gadgetNames" class="example-list" (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of columnData.gadgetNames;let gadgetIndex= index" cdkDrag>{{item}}<img src='assets/images/{{item}}.png' width="400px" height="350px"></div>
+    <div class="grid" cdkDropListGroup>
+
+        <div class="example-container" *ngFor="let columnData of gadgetData; let columnIndex = index;">
+            <div cdkDropList [id]=getColumnIndexAsString(columnIndex) [cdkDropListData]="columnData.gadgetNames" class="example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of columnData.gadgetNames;let gadgetIndex= index" cdkDrag>{{item}}<img src='assets/images/{{item}}.png' width="400px" height="350px"></div>
+            </div>
         </div>
     </div>
-</div>
+
+</mat-card>

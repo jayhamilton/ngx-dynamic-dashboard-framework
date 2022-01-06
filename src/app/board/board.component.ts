@@ -9,6 +9,8 @@ import {
 import { BoardService } from './board.service';
 import { ImageComponent } from '../gadgets/image/image.component';
 import { BoardGridDirective } from './boardgrid.directive';
+import { ProductComponent } from '../gadgets/product/product.component';
+
 
 @Component({
   selector: 'app-board',
@@ -54,7 +56,9 @@ export class BoardComponent implements OnInit{
     gridHost.clear();
 
     //todo create a gadget based on the incoming data
+    gridHost.createComponent(ProductComponent);
     gridHost.createComponent(ImageComponent);
+
 
     //set instance config
 
