@@ -13,7 +13,8 @@ export interface ComponentItem {
 }
 
 const ELEMENT_DATA: ComponentItem[] = [
-  { id: 28462800, measure: 1.00, description: 'Main production line next to the warehouse exit', product: 'Armani'},
+  { id: 28462800, measure: 1.00, description: 'Rouge D\'Armani Beige 103', product: 'Armani'},
+  { id: 61490200, measure: 1.00, description: 'Rouge D\'Armani Rouge 400', product: 'Armani'},
 ];
 @Component({
   selector: 'app-product',
