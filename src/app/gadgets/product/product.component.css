@@ -1,3 +1,7 @@
+mat-card-content {
+    margin-top: 25px;
+}
+
 .card {
     margin-bottom: 8px;
 }
@@ -20,4 +24,9 @@
 
 .example-container form>* {
     margin: 5px 0;
+}
+
+.example-header-image {
+    background-image: url('../../../assets/images/product.png');
+    background-size: cover;
 }

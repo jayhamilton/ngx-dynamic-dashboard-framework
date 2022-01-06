@@ -1,77 +1,85 @@
 <mat-card class="card">
 
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Product Component List</mat-card-title>
+        <mat-card-subtitle>Items</mat-card-subtitle>
+    </mat-card-header>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
-        <!-- Position Column -->
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>Id</th>
-            <td mat-cell *matCellDef="let element">{{element.id}}</td>
-        </ng-container>
+    <mat-card-content>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Id</th>
+                <td mat-cell *matCellDef="let element">{{element.id}}</td>
+            </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="measure">
-            <th mat-header-cell *matHeaderCellDef>Measure</th>
-            <td mat-cell *matCellDef="let element">{{element.measure}}</td>
-        </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="measure">
+                <th mat-header-cell *matHeaderCellDef>Measure</th>
+                <td mat-cell *matCellDef="let element">{{element.measure}}</td>
+            </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef>Description</th>
-            <td mat-cell *matCellDef="let element">{{element.description}}</td>
-        </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let element">{{element.description}}</td>
+            </ng-container>
 
-        <!-- Tools Column -->
-        <ng-container matColumnDef="tools">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let element">
-                <mat-toolbar>
-                    <button mat-icon-button (click)="addData()" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+            <!-- Tools Column -->
+            <ng-container matColumnDef="tools">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-toolbar>
+                        <button mat-icon-button (click)="addData()" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         <mat-icon>mode_edit</mat-icon>
       </button>
-                    <button mat-icon-button (click)="removeData()" class="example-icon" aria-label="Example icon-button with share icon">
+                        <button mat-icon-button (click)="removeData()" class="example-icon" aria-label="Example icon-button with share icon">
         <mat-icon>delete_forever</mat-icon>
       </button>
-                </mat-toolbar>
-            </td>
-        </ng-container>
+                    </mat-toolbar>
+                </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
 
-    <h3>Add component</h3>
-    <div class="example-container">
-        <form [formGroup]="options">
+        <br>
+        <h3>Add component</h3>
+        <div class="example-container">
+            <form [formGroup]="options">
 
-            <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
-                <mat-label>Enter id</mat-label>
-                <input matInput placeholder="Enter an id number" required>
-            </mat-form-field>
+                <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
+                    <mat-label>Enter id</mat-label>
+                    <input matInput placeholder="Enter an id number" required>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
-                <mat-label>Enter a measure</mat-label>
-                <input matInput placeholder="Enter a measure" required>
-            </mat-form-field>
+                <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
+                    <mat-label>Enter a measure</mat-label>
+                    <input matInput placeholder="Enter a measure" required>
+                </mat-form-field>
 
-            <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
-                <mat-label>Enter a description</mat-label>
-                <input matInput placeholder="Enter a description">
-            </mat-form-field>
+                <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+                    <mat-label>Enter a description</mat-label>
+                    <input matInput placeholder="Enter a description">
+                </mat-form-field>
 
-            <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
-                <mat-select required>
-                    <mat-option>-- None --</mat-option>
-                    <mat-option value="option">Option</mat-option>
-                </mat-select>
-                <mat-label>
-                    <mat-icon>inventory_2</mat-icon> <b> Select a product</b></mat-label>
-            </mat-form-field>
+                <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
+                    <mat-select required>
+                        <mat-option>-- None --</mat-option>
+                        <mat-option value="option">Option</mat-option>
+                    </mat-select>
+                    <mat-label>
+                        <mat-icon>inventory_2</mat-icon> <b> Select a product</b></mat-label>
+                </mat-form-field>
 
-            &nbsp;&nbsp;
-            <button mat-mini-fab color="primary" (click)="addData()" class="tab-button">
+                &nbsp;&nbsp;
+                <button mat-mini-fab color="primary" (click)="addData()" class="tab-button">
           <mat-icon>add</mat-icon>
         </button>
 
-        </form>
-    </div>
+            </form>
+        </div>
+    </mat-card-content>
 </mat-card>

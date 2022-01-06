@@ -1,3 +1,12 @@
+mat-card-content {
+    margin-top: 25px;
+}
+
+.example-header-image {
+    background-image: url('../../../assets/images/imageGallery.png');
+    background-size: cover;
+}
+
 .card {
     margin-bottom: 8px;
 }
@@ -23,6 +32,7 @@
     border-radius: 4px;
     overflow: hidden;
     display: block;
+    margin-bottom: 10px;
 }
 
 .example-box {
@@ -31,6 +41,7 @@
     min-height: 200px;
     cursor: move;
     font-size: 14px;
+    margin-bottom: 25px;
 }
 
 .cdk-drag-preview {
