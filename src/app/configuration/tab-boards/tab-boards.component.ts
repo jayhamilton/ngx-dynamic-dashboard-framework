@@ -12,7 +12,7 @@ export interface BoardItem {
 }
 
 const ELEMENT_DATA: BoardItem[] = [
-  { name: 'Production line 1', description: 'Main production line next to the warehouse exit', product: 'Armani'},
+  { name: 'Packaging line 1', description: 'Main packaging line next to the warehouse exit', product: 'Armani'},
 ];
 @Component({
   selector: 'app-tab-boards',

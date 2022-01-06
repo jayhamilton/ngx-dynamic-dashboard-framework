@@ -6,6 +6,8 @@ import { BoardService } from './board.service';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { GadgetsModule } from '../gadgets/gadgets.module';
 import { BoardGridDirective,  } from './boardgrid.directive';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 @NgModule({
   declarations: [
     BoardComponent,
@@ -15,7 +17,9 @@ import { BoardGridDirective,  } from './boardgrid.directive';
     CommonModule,
     DragDropModule,
     MatGridListModule,
-    GadgetsModule
+    GadgetsModule,
+    MatDividerModule,
+    MatCardModule
   ],
   exports:[
     BoardComponent
