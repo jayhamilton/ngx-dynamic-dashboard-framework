@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-interface IEvent {
+export interface IEvent {
   name: string;
   data: any;
 }

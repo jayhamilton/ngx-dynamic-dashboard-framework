@@ -1,4 +1,4 @@
-<mat-card class="board-header">
+<mat-card *ngIf="isEmpty == false" class="board-header">
     <mat-card-title>Packaging Line 1</mat-card-title>
     <mat-card-subtitle>Product:Armani</mat-card-subtitle>
     <mat-card-content>
@@ -6,7 +6,26 @@
     </mat-card-content>
 </mat-card>
 
+<!--the template will only present data if there is data available-->
 <div class="grid">
     <ng-template appGrid> </ng-template>
+</div>
+
+
+<div *ngIf="isEmpty == true" class="grid-instruction">
+
+    <mat-card class="board-instruction">
+        <mat-card-title>Step 1</mat-card-title>
+        <mat-card-content>
+            <p>Create a board instance which will represent a packaging line. </p>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="board-instruction">
+        <mat-card-title>Step 2</mat-card-title>
+        <mat-card-content>
+            <p>Populate the board with the product image gallery tool and the product component list tool.</p>
+        </mat-card-content>
+    </mat-card>
 
 </div>

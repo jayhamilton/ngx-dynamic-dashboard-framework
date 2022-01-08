@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   CdkDragDrop,
   CdkDropList,
@@ -6,29 +6,57 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 
-import { BoardService } from './board.service';
 import { ImageComponent } from '../gadgets/image/image.component';
 import { BoardGridDirective } from './boardgrid.directive';
 import { ProductComponent } from '../gadgets/product/product.component';
-
+import { EventService } from '../eventservice/event.service';
+import { IEvent } from '../menu/menu.event.model';
+import { IBoardManager, BoardManager } from './boardmanager';
+import { BoardService, IBoard } from './board.service';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
 })
-export class BoardComponent implements OnInit{
-
-  @ViewChild(BoardGridDirective, {static: true}) gadgetGridHost!: BoardGridDirective;
+export class BoardComponent implements OnInit {
+  @ViewChild(BoardGridDirective, { static: true })
+  gadgetGridHost!: BoardGridDirective;
 
   boardData: any;
+  isEmpty: boolean;
+  boardManager: IBoardManager;
 
-  constructor(private boardService: BoardService, private componentFactoryResolver: ComponentFactoryResolver) {
-    this.boardData = this.boardService.getDefaultData();
+  constructor(
+    private eventService: EventService,
+    private boardService: BoardService
+  ) {
+    this.isEmpty = false;
+    this.boardManager = new BoardManager(this.boardService);
   }
 
   ngOnInit(): void {
-    this.createGadgetInstance();
+    this.displayBoard();
+  }
+
+  setupConfigurationTabsBoardEventListener() {
+    this.eventService
+      .listenForConfigurationEvents()
+      .subscribe((event: IEvent) => {
+        const edata = event['data'];
+
+        switch (event['name']) {
+          case 'boardCreateEvent':
+            this.boardManager.create(edata);
+            break;
+          case 'boardEditEvent':
+            this.boardManager.edit(edata);
+            break;
+          case 'boardDeleteEvent':
+            this.boardManager.delete(edata);
+            break;
+        }
+      });
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -50,18 +78,34 @@ export class BoardComponent implements OnInit{
     this.updateDataModel(event.container, event.previousContainer);
   }
 
-  createGadgetInstance(){
+  displayBoard() {
+    let me = this;
 
+    //getBoardData
+    this.boardManager.loadBoardData().subscribe((_boardData: IBoard) => {
+      me.prepareBoardDataForDisplay(_boardData);
+    });
+  }
+
+  prepareBoardDataForDisplay(data: IBoard) {
+    console.log(data);
+    this.createGadgetInstances(data);
+  }
+
+  createGadgetInstances(data: IBoard) {
     const gridHost = this.gadgetGridHost.viewContainerRef;
     gridHost.clear();
 
-    //todo create a gadget based on the incoming data
-    gridHost.createComponent(ProductComponent);
-    gridHost.createComponent(ImageComponent);
+    //use the data from the board to set the flag
+    this.isEmpty = false;
 
+    if (!this.isEmpty) {
+      //todo create a gadget based on the incoming data
+      gridHost.createComponent(ProductComponent);
+      gridHost.createComponent(ImageComponent);
+    }
 
     //set instance config
-
   }
 
   getColumnIndexAsString(idx: number) {
@@ -80,6 +124,6 @@ export class BoardComponent implements OnInit{
     this.boardData[cIdx].gadgetNames = container.data;
 
     //persist the change
-    this.boardService.write(this.boardData);
+    this.boardManager.save(this.boardData);
   }
 }

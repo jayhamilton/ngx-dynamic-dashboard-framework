@@ -15,6 +15,19 @@ mat-card-title {
     margin: 40px;
 }
 
+.grid-instruction {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    row-gap: 25px;
+    column-gap: 25px;
+    justify-content: center;
+    margin: 25px 150px 0 150px;
+}
+
+.board-instruction {
+    min-height: 400px;
+}
+
 .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;

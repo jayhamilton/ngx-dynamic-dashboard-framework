@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 
+export interface IBoard {
+  title: string;
+  structure: string;
+  id: number;
+  boardInstanceId: number;
+  rows: any;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class BoardService {
-
-  constructor(){
-  }
+  constructor() {}
   public read() {
     return localStorage.getItem('plmBoard');
   }
@@ -15,55 +21,40 @@ export class BoardService {
     localStorage.setItem('plmBoard', JSON.stringify(boardData));
   }
 
-  public getDefaultData() {
-    let data = [
-      {
-        width: 30,
-        gadgetNames: ['img1', 'img2'],
-        gadgets: [
-          {
-            name: 'img1',
-          },
-          {
-            name: 'img2',
-          },
-        ],
-      },
-      {
-        width: 30,
-        gadgetNames: ['img3', 'img4'],
-        gadgets: [
-          {
-            name: 'img3',
-          },
-          {
-            name: 'img4',
-          },
-        ],
-      },
-      {
-        width: 30,
-        gadgetNames: ['img5', 'img6'],
-        gadgets: [
-          {
-            name: 'img5',
-          },
-          {
-            name: 'img6',
-          },
-        ],
-      },
-    ];
-
+  public getBoardData<IBoard>() {
     if (this.read() == null) {
-      this.write(data);
+      return this.getDefaultBoardData();
+    } else {
+      let _data = this.read();
+      if (_data == null) {
+        _data = '';
+      }
+      return JSON.parse(_data);
     }
+  }
 
-    let _data = this.read();
-    if (_data == null) {
-      _data = '';
-    }
-
-    return JSON.parse(_data);
+  getDefaultBoardData() {
+    return {
+      title: 'Board',
+      structure: '1-1',
+      id: 5,
+      boardInstanceId: 0,
+      rows: [
+        {
+          columns: [
+            {
+              styleClass: '1fr',
+              gadgets: [],
+              gadgetNames: [],
+            },
+            {
+              styleClass: '1fr',
+              gadgets: [],
+              gadgetNames: [],
+            },
+          ],
+        },
+      ],
+    };
   }
 }
