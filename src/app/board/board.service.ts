@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export interface IBoard {
   title: string;
   structure: string;
+  lastSelected: boolean;
   id: number;
   boardInstanceId: number;
   rows: any;
@@ -12,16 +13,17 @@ export interface IBoard {
   providedIn: 'root',
 })
 export class BoardService {
+  BOARD:string = "board"
   constructor() {}
   public read() {
-    return localStorage.getItem('plmBoard');
+    return localStorage.getItem(this.BOARD);
   }
   public write(boardData: any) {
-    localStorage.removeItem('plmBoard');
-    localStorage.setItem('plmBoard', JSON.stringify(boardData));
+    localStorage.removeItem(this.BOARD);
+    localStorage.setItem(this.BOARD, JSON.stringify(boardData));
   }
 
-  public getBoardData<IBoard>() {
+  public getBoardData():IBoard[] {
     if (this.read() == null) {
       return this.getDefaultBoardData();
     } else {
@@ -33,11 +35,12 @@ export class BoardService {
     }
   }
 
-  getDefaultBoardData() {
-    return {
+  getDefaultBoardData():IBoard[] {
+    return [{
       title: 'Board',
       structure: '1-1',
-      id: 5,
+      lastSelected: true,
+      id: -1,
       boardInstanceId: 0,
       rows: [
         {
@@ -55,6 +58,6 @@ export class BoardService {
           ],
         },
       ],
-    };
+    }];
   }
 }

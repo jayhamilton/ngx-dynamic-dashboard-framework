@@ -18,21 +18,38 @@ export class EventService {
   constructor() {
   }
 
-  raiseConfigurationEvent(event: IEvent) {
+  raiseConfigurationRequestEvent(event: IEvent) {
+
+    console.log("Tab Board Configuration Event Raised");
+    console.log(event);
       this.configurationSubject.next(event);
   }
+  raiseConfigurationCompletedEvent(event: IEvent) {
+    this.configurationSubject.next(event);
+}
 
-  listenForConfigurationEvents(): Observable<IEvent> {
+  listenForConfigurationRequestEvents(): Observable<IEvent> {
       return this.configurationSubject.asObservable();
   }
 
-  raiseLibraryEvent(event: IEvent) {
+  listenForConfigurationCompletedEvents(): Observable<IEvent> {
+    return this.configurationSubject.asObservable();
+}
+
+  raiseLibraryRequestEvent(event: IEvent) {
       this.librarySubject.next(event);
   }
+  raiseLibraryCompletedEvent(event: IEvent) {
+    this.librarySubject.next(event);
+}
 
-  listenForLibraryEvents(): Observable<IEvent> {
+  listenForLibraryRequestEvents(): Observable<IEvent> {
       return this.librarySubject.asObservable();
   }
+
+  listenForLibraryCompletedEvents(): Observable<IEvent> {
+    return this.librarySubject.asObservable();
+}
 
   addSubscriber(subscriber:any){
       this.subscribers.push(subscriber);

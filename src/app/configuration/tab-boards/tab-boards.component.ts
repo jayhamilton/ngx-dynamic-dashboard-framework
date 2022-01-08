@@ -4,14 +4,14 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { EventService } from 'src/app/eventservice/event.service';
 
-export interface BoardItem {
+export interface IBoardItem {
   name: string;
   description: string;
   product: string;
 
 }
 
-const ELEMENT_DATA: BoardItem[] = [
+const ELEMENT_DATA: IBoardItem[] = [
   { name: 'Packaging line 1', description: 'Main packaging line next to the warehouse exit', product: 'Armani'},
 ];
 @Component({
@@ -20,7 +20,10 @@ const ELEMENT_DATA: BoardItem[] = [
   styleUrls: ['./tab-boards.component.css'],
 })
 export class TabBoardsComponent implements OnInit {
+
   options: FormGroup;
+  boardName = new FormControl();
+  boardDescription = new FormControl();
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
 
@@ -29,6 +32,8 @@ export class TabBoardsComponent implements OnInit {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,
+      boardName: this.boardName,
+      boardDescription: this.boardDescription
     });
   }
 
@@ -40,11 +45,12 @@ export class TabBoardsComponent implements OnInit {
   dataSource = new ExampleDataSource(this.dataToDisplay);
 
   addData() {
-    const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
-    this.dataToDisplay = [...this.dataToDisplay, ELEMENT_DATA[randomElementIndex]];
+
+    let boardData:IBoardItem = { name: this.boardName.value, description: this.boardDescription.value, product: 'Armani'};
+    this.dataToDisplay = [...this.dataToDisplay, boardData];
     this.dataSource.setData(this.dataToDisplay);
 
-    this.create("test");
+    this.create(boardData);
   }
 
   removeData() {
@@ -52,13 +58,10 @@ export class TabBoardsComponent implements OnInit {
     this.dataSource.setData(this.dataToDisplay);
   }
 
-  create(name: string) {
-    if (name !== '') {
-      this.eventService.raiseConfigurationEvent({name:'create', data: {}});
-    }
-    console.log(
-      'Creating new board event from configuration component: ' + name
-    );
+  create(boardData: IBoardItem) {
+
+    this.eventService.raiseConfigurationRequestEvent({name:'boardCreateRequestEvent', data: boardData});
+
   }
 
   edit(name: string) {
@@ -70,21 +73,21 @@ export class TabBoardsComponent implements OnInit {
   }
 }
 
-class ExampleDataSource extends DataSource<BoardItem> {
-  private _dataStream = new ReplaySubject<BoardItem[]>();
+class ExampleDataSource extends DataSource<IBoardItem> {
+  private _dataStream = new ReplaySubject<IBoardItem[]>();
 
-  constructor(initialData: BoardItem[]) {
+  constructor(initialData: IBoardItem[]) {
     super();
     this.setData(initialData);
   }
 
-  connect(): Observable<BoardItem[]> {
+  connect(): Observable<IBoardItem[]> {
     return this._dataStream;
   }
 
   disconnect() {}
 
-  setData(data: BoardItem[]) {
+  setData(data: IBoardItem[]) {
     this._dataStream.next(data);
   }
 }

@@ -32,33 +32,92 @@ export class BoardComponent implements OnInit {
     private boardService: BoardService
   ) {
     this.isEmpty = false;
-    this.boardManager = new BoardManager(this.boardService);
+    this.boardManager = new BoardManager(this.boardService, this.eventService);
+    this.setupConfigurationTabsBoardCompletionEventListener();
+    //this.setupBoardNavigationCompletionEventListner();
   }
 
   ngOnInit(): void {
     this.displayBoard();
   }
 
-  setupConfigurationTabsBoardEventListener() {
+  /**
+   * Event Listners
+   */
+  setupConfigurationTabsBoardCompletionEventListener() {
     this.eventService
-      .listenForConfigurationEvents()
+      .listenForConfigurationCompletedEvents()
       .subscribe((event: IEvent) => {
         const edata = event['data'];
 
         switch (event['name']) {
-          case 'boardCreateEvent':
-            this.boardManager.create(edata);
-            break;
-          case 'boardEditEvent':
-            this.boardManager.edit(edata);
-            break;
-          case 'boardDeleteEvent':
-            this.boardManager.delete(edata);
+          case 'boardCreateCompletedEvent':
+          case 'boardEditCompletedEvent':
+          case 'boardDeleteCompletedEvent':
+            this.displayBoard();
             break;
         }
       });
   }
 
+  /*
+  setupBoardNavigationCompletionEventListener() {
+    this.eventService
+      .listenForBoardNavigationCompletionEvents()
+      .subscribe((event: IEvent) => {
+        const edata = event['data'];
+
+        switch (event['name']) {
+          case 'boardSelectCompleted':
+            this.displayBoard();
+            break;
+        }
+      });
+  }
+*/
+  /**
+   * Board Display Section
+   */
+  displayBoard() {
+    let me = this;
+
+    //getBoardData
+    this.boardManager.loadBoardData().subscribe((_boardData: IBoard[]) => {
+      me.prepareBoardDataForDisplay(_boardData);
+    });
+  }
+
+  prepareBoardDataForDisplay(data: IBoard[]) {
+    //TODO - display the board where the last selected flag is set
+    this.createAndDisplayGadgetInstances(data);
+  }
+
+  createAndDisplayGadgetInstances(data: IBoard[]) {
+    const gridHost = this.gadgetGridHost.viewContainerRef;
+    gridHost.clear();
+
+    //use the data from the board to set the flag
+    console.log(data);
+    this.isEmpty = false;
+
+    if (!this.isEmpty) {
+      //todo create a gadget based on the incoming data
+      gridHost.createComponent(ProductComponent);
+      gridHost.createComponent(ImageComponent);
+    }
+
+    //set instance config
+  }
+
+  getColumnIndexAsString(idx: number) {
+    return '' + idx;
+  }
+
+
+  /**
+   *
+   * Drag and Drop support
+   */
   drop(event: CdkDragDrop<string[]>) {
     //console.log(event);
     if (event.previousContainer === event.container) {
@@ -77,41 +136,6 @@ export class BoardComponent implements OnInit {
     }
     this.updateDataModel(event.container, event.previousContainer);
   }
-
-  displayBoard() {
-    let me = this;
-
-    //getBoardData
-    this.boardManager.loadBoardData().subscribe((_boardData: IBoard) => {
-      me.prepareBoardDataForDisplay(_boardData);
-    });
-  }
-
-  prepareBoardDataForDisplay(data: IBoard) {
-    console.log(data);
-    this.createGadgetInstances(data);
-  }
-
-  createGadgetInstances(data: IBoard) {
-    const gridHost = this.gadgetGridHost.viewContainerRef;
-    gridHost.clear();
-
-    //use the data from the board to set the flag
-    this.isEmpty = false;
-
-    if (!this.isEmpty) {
-      //todo create a gadget based on the incoming data
-      gridHost.createComponent(ProductComponent);
-      gridHost.createComponent(ImageComponent);
-    }
-
-    //set instance config
-  }
-
-  getColumnIndexAsString(idx: number) {
-    return '' + idx;
-  }
-
   updateDataModel(container: CdkDropList, previousContainer: CdkDropList) {
     let cIdx = parseInt(container.id);
     let pIdx = parseInt(previousContainer.id);
@@ -126,4 +150,5 @@ export class BoardComponent implements OnInit {
     //persist the change
     this.boardManager.save(this.boardData);
   }
+
 }
