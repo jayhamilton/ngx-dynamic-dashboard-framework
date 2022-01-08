@@ -27,10 +27,10 @@
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let element">
             <mat-toolbar>
-                <button mat-icon-button (click)="addData()" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                <button mat-icon-button (click)="edit(element)" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
           <mat-icon>mode_edit</mat-icon>
         </button>
-                <button mat-icon-button (click)="removeData()" class="example-icon" aria-label="Example icon-button with share icon">
+                <button mat-icon-button (click)="delete(element)" class="example-icon" aria-label="Example icon-button with share icon">
           <mat-icon>delete_forever</mat-icon>
         </button>
             </mat-toolbar>
@@ -66,7 +66,7 @@
         </mat-form-field>
 
         &nbsp;&nbsp;
-        <button mat-mini-fab color="primary" (click)="addData()" class="tab-button">
+        <button mat-mini-fab color="primary" (click)="create()" class="tab-button">
           <mat-icon>add</mat-icon>
         </button>
 

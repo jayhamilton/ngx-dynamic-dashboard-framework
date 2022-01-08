@@ -70,6 +70,11 @@ export class BoardManager implements IBoardManager {
 
     /**
      * TODO do the work using the board service and then
+     * 1) retreive the current board data
+     * 2) update the data with the new entry
+     * 2a) clear last selected and set last selected on the new entry
+     * 3) persist back to storage
+     * 4) raise completion event or error event
      * raise a completed event or error event on the event service when done.
      * */
     throw new Error('Method not implemented.');

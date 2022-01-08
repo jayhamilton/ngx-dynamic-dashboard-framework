@@ -27,7 +27,6 @@ export class TabBoardsComponent implements OnInit {
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
 
-
   constructor(private eventService: EventService, fb: FormBuilder) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
@@ -44,32 +43,34 @@ export class TabBoardsComponent implements OnInit {
 
   dataSource = new ExampleDataSource(this.dataToDisplay);
 
-  addData() {
+  create() {
 
     let boardData:IBoardItem = { name: this.boardName.value, description: this.boardDescription.value, product: 'Armani'};
     this.dataToDisplay = [...this.dataToDisplay, boardData];
     this.dataSource.setData(this.dataToDisplay);
-
-    this.create(boardData);
-  }
-
-  removeData() {
-    this.dataToDisplay = this.dataToDisplay.slice(0, -1);
-    this.dataSource.setData(this.dataToDisplay);
-  }
-
-  create(boardData: IBoardItem) {
-
     this.eventService.raiseConfigurationRequestEvent({name:'boardCreateRequestEvent', data: boardData});
 
+    //TODO - start progress indicator
+
+    this.eventService.listenForConfigurationCompletedEvents().subscribe(event  =>{
+
+      if(event.name === 'boardCreateCompletedEvent'){
+
+        //TODO - stop progress indicator and close dialog
+      }
+
+      //TODO - listen for error events
+
+    });
   }
 
-  edit(name: string) {
-    "";
+  edit(item: any) {
   }
 
-  delete(name: string) {
-    "";
+  delete(item: any) {
+    //get index by name and remove
+    this.dataToDisplay = this.dataToDisplay.slice(0, -1);
+    this.dataSource.setData(this.dataToDisplay);
   }
 }
 
