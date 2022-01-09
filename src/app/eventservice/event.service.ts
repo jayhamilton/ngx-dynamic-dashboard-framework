@@ -11,6 +11,9 @@ export interface IEvent {
 export class EventService {
   private boardCreateRequestSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardCreatedCompleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardDeleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardDeletedCompleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
+
   private librarySubject: Subject<IEvent> = new Subject<IEvent>();
   private subscribers: Array<Subject<string>> = [];
 
@@ -31,6 +34,20 @@ export class EventService {
     return this.boardCreatedCompleteRequestSubject.asObservable();
   }
 
+  emitBoardDeleteRequestEvent(event: IEvent) {
+    this.boardDeleteRequestSubject.next(event);
+  }
+
+  emitBoardDeletedCompleteEvent(event: IEvent) {
+    this.boardDeletedCompleteRequestSubject.next(event);
+  }
+
+  listenForBoardDeleteRequestEvent(): Observable<IEvent> {
+    return this.boardDeleteRequestSubject.asObservable();
+  }
+  listenForBoardDeletedCompleteEvent(): Observable<IEvent> {
+    return this.boardDeletedCompleteRequestSubject.asObservable();
+  }
 
   raiseLibraryRequestEvent(event: IEvent) {
     this.librarySubject.next(event);

@@ -23,7 +23,7 @@ export class ImageComponent  {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    //console.log(event);
+
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,

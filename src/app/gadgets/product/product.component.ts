@@ -58,11 +58,7 @@ export class ProductComponent implements OnInit {
 
   create(name: string) {
     if (name !== '') {
-      //this.eventService.raiseConfigurationEvent({name:'create', data: {}});
     }
-    console.log(
-      'Creating new board event from configuration component: ' + name
-    );
   }
 
   edit(name: string) {

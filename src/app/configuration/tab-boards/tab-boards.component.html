@@ -1,11 +1,10 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
     <!-- Position Column -->
 
-
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>title</th>
+        <td mat-cell *matCellDef="let element">{{element.title}}</td>
     </ng-container>
 
     <!-- Name Column -->
@@ -47,8 +46,8 @@
     <form [formGroup]="options">
 
         <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
-            <mat-label>Enter a name</mat-label>
-            <input [formControl]="boardName" matInput placeholder="Enter a name" required>
+            <mat-label>Enter a title</mat-label>
+            <input [formControl]="boardTitle" matInput placeholder="Enter a title" required>
         </mat-form-field>
 
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
