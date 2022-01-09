@@ -2,67 +2,60 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 export interface IEvent {
-  name: string;
   data: any;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventService {
-
-  private configurationSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardCreateRequestSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardCreatedCompleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
   private librarySubject: Subject<IEvent> = new Subject<IEvent>();
-  private subscribers: Array<Subject<string>> =[];
+  private subscribers: Array<Subject<string>> = [];
 
-  constructor() {
+  constructor() {}
+
+  emitBoardCreateRequestEvent(event: IEvent) {
+    this.boardCreateRequestSubject.next(event);
   }
 
-  raiseConfigurationRequestEvent(event: IEvent) {
-
-    console.log("Tab Board Configuration Event Raised");
-    console.log(event);
-      this.configurationSubject.next(event);
-  }
-  raiseConfigurationCompletedEvent(event: IEvent) {
-    this.configurationSubject.next(event);
-}
-
-  listenForConfigurationRequestEvents(): Observable<IEvent> {
-      return this.configurationSubject.asObservable();
+  emitBoardCreatedCompleteEvent(event: IEvent) {
+    this.boardCreatedCompleteRequestSubject.next(event);
   }
 
-  listenForConfigurationCompletedEvents(): Observable<IEvent> {
-    return this.configurationSubject.asObservable();
-}
+  listenForBoardCreateRequestEvent(): Observable<IEvent> {
+    return this.boardCreateRequestSubject.asObservable();
+  }
+  listenForBoardCreatedCompleteEvent(): Observable<IEvent> {
+    return this.boardCreatedCompleteRequestSubject.asObservable();
+  }
+
 
   raiseLibraryRequestEvent(event: IEvent) {
-      this.librarySubject.next(event);
+    this.librarySubject.next(event);
   }
   raiseLibraryCompletedEvent(event: IEvent) {
     this.librarySubject.next(event);
-}
+  }
 
   listenForLibraryRequestEvents(): Observable<IEvent> {
-      return this.librarySubject.asObservable();
+    return this.librarySubject.asObservable();
   }
 
   listenForLibraryCompletedEvents(): Observable<IEvent> {
     return this.librarySubject.asObservable();
-}
-
-  addSubscriber(subscriber:any){
-      this.subscribers.push(subscriber);
   }
 
-  unSubscribeAll(){
+  addSubscriber(subscriber: any) {
+    this.subscribers.push(subscriber);
+  }
 
-    this.subscribers.forEach(subscription=>{
-        subscription.unsubscribe();
+  unSubscribeAll() {
+    this.subscribers.forEach((subscription) => {
+      subscription.unsubscribe();
     });
 
     this.subscribers.length = 0;
-
-}
-
+  }
 }

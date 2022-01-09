@@ -5,8 +5,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule}from '@angular/material/icon';
-import {MenuEventService} from './menu.service';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import { ConfigurationModule } from '../configuration/configuration.module';
 import { LibraryModule } from '../library/library.module';
 @NgModule({
@@ -27,8 +26,6 @@ import { LibraryModule } from '../library/library.module';
   exports:[
     MenuComponent
   ],
-  providers: [
-    MenuEventService
-  ]
+  providers: []
 })
 export class MenuModule { }

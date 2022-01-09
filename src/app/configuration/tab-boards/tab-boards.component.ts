@@ -48,18 +48,21 @@ export class TabBoardsComponent implements OnInit {
     let boardData:IBoardItem = { name: this.boardName.value, description: this.boardDescription.value, product: 'Armani'};
     this.dataToDisplay = [...this.dataToDisplay, boardData];
     this.dataSource.setData(this.dataToDisplay);
-    this.eventService.raiseConfigurationRequestEvent({name:'boardCreateRequestEvent', data: boardData});
+    this.eventService.emitBoardCreateRequestEvent({data: boardData});
 
     //TODO - start progress indicator
 
-    this.eventService.listenForConfigurationCompletedEvents().subscribe(event  =>{
+    this.eventService.listenForBoardCreatedCompleteEvent().subscribe(event  =>{
 
-      if(event.name === 'boardCreateCompletedEvent'){
 
-        //TODO - stop progress indicator and close dialog
-      }
+      console.log("NEW BOARD REQUEST COMPLETED");
+
+      //TODO - stop progress indicator and close dialog
 
       //TODO - listen for error events
+
+      //TODO - reload table
+
 
     });
   }

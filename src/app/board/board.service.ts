@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 export interface IBoard {
   title: string;
+  description: string;
   structure: string;
   lastSelected: boolean;
   id: number;
@@ -18,7 +19,7 @@ export class BoardService {
   public read() {
     return localStorage.getItem(this.BOARD);
   }
-  public write(boardData: any) {
+  public save(boardData: any) {
     localStorage.removeItem(this.BOARD);
     localStorage.setItem(this.BOARD, JSON.stringify(boardData));
   }
@@ -38,6 +39,7 @@ export class BoardService {
   getDefaultBoardData():IBoard[] {
     return [{
       title: 'Board',
+      description: '',
       structure: '1-1',
       lastSelected: true,
       id: -1,

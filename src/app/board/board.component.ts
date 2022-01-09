@@ -9,8 +9,7 @@ import {
 import { ImageComponent } from '../gadgets/image/image.component';
 import { BoardGridDirective } from './boardgrid.directive';
 import { ProductComponent } from '../gadgets/product/product.component';
-import { EventService } from '../eventservice/event.service';
-import { IEvent } from '../menu/menu.event.model';
+import { IEvent, EventService } from '../eventservice/event.service';
 import { IBoardManager, BoardManager } from './boardmanager';
 import { BoardService, IBoard } from './board.service';
 
@@ -34,7 +33,6 @@ export class BoardComponent implements OnInit {
     this.isEmpty = false;
     this.boardManager = new BoardManager(this.boardService, this.eventService);
     this.setupConfigurationTabsBoardCompletionEventListener();
-    //this.setupBoardNavigationCompletionEventListner();
   }
 
   ngOnInit(): void {
@@ -46,17 +44,9 @@ export class BoardComponent implements OnInit {
    */
   setupConfigurationTabsBoardCompletionEventListener() {
     this.eventService
-      .listenForConfigurationCompletedEvents()
+      .listenForBoardCreatedCompleteEvent()
       .subscribe((event: IEvent) => {
-        const edata = event['data'];
-
-        switch (event['name']) {
-          case 'boardCreateCompletedEvent':
-          case 'boardEditCompletedEvent':
-          case 'boardDeleteCompletedEvent':
-            this.displayBoard();
-            break;
-        }
+        this.displayBoard();
       });
   }
 
@@ -93,11 +83,10 @@ export class BoardComponent implements OnInit {
   }
 
   createAndDisplayGadgetInstances(data: IBoard[]) {
+    console.log('CREATE AND DISPLAY BOARD');
     const gridHost = this.gadgetGridHost.viewContainerRef;
     gridHost.clear();
 
-    //use the data from the board to set the flag
-    console.log(data);
     this.isEmpty = false;
 
     if (!this.isEmpty) {
@@ -112,7 +101,6 @@ export class BoardComponent implements OnInit {
   getColumnIndexAsString(idx: number) {
     return '' + idx;
   }
-
 
   /**
    *
@@ -150,5 +138,4 @@ export class BoardComponent implements OnInit {
     //persist the change
     this.boardManager.save(this.boardData);
   }
-
 }
