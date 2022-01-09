@@ -74,13 +74,12 @@ export class BoardComponent implements OnInit {
       this.boardData = boardData;
 
     });
-
-
   }
 
   show(data: IBoard) {
     const gridHost = this.gadgetGridHost.viewContainerRef;
     this.clearDisplay();
+
     //todo create a gadget based on the incoming data
     gridHost.createComponent(ProductComponent);
     gridHost.createComponent(ImageComponent);

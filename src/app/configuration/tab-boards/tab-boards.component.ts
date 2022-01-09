@@ -64,6 +64,8 @@ export class TabBoardsComponent implements OnInit {
       .listenForBoardDeletedCompleteEvent()
       .subscribe((event) => {
 
+        //TODO - stop progress indicator and close dialog
+
         this.loadData();
       });
   }
@@ -71,7 +73,7 @@ export class TabBoardsComponent implements OnInit {
   loadData() {
     this.boardService.getBoards().subscribe((boards) => {
       if (boards.length == 0) {
-        //TODO do nothing ... no boards created condition - FIXME
+        //ensure the table is cleared out
         this.dataSource.setData([]);
         this.dataToDisplay = [...[]];
       } else {
@@ -94,6 +96,7 @@ export class TabBoardsComponent implements OnInit {
     //TODO - start progress indicator
   }
 
+  //TODO - edit
   edit(item: any) {}
 
   delete(item: any) {
