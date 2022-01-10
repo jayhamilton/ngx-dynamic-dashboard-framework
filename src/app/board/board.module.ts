@@ -8,6 +8,7 @@ import { GadgetsModule } from '../gadgets/gadgets.module';
 import { BoardGridDirective,  } from './boardgrid.directive';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     BoardComponent,
@@ -19,7 +20,8 @@ import { MatCardModule } from '@angular/material/card';
     MatGridListModule,
     GadgetsModule,
     MatDividerModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule
   ],
   exports:[
     BoardComponent

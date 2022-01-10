@@ -1,4 +1,4 @@
-<mat-card *ngIf="noBoardsHaveBeenCreated == false" class="board-header">
+<mat-card *ngIf="boardExists" class="board-header">
     <mat-card-title>{{boardData.title}}</mat-card-title>
     <mat-card-subtitle></mat-card-subtitle>
     <mat-card-content>
@@ -12,7 +12,7 @@
 </div>
 
 
-<div *ngIf="noBoardsHaveBeenCreated == true" class="grid-instruction">
+<div *ngIf="!boardExists" class="grid-instruction">
 
     <mat-card class="board-instruction">
         <mat-card-title>Step 1</mat-card-title>
@@ -27,5 +27,17 @@
             <p>Populate the board with the product image gallery tool and the product component list tool.</p>
         </mat-card-content>
     </mat-card>
+
+</div>
+
+<div *ngIf="boardExists && !boardHasGadgets" class="grid-instruction">
+
+    <div class="grid-dropzone">
+        <button mat-raised-button color="primary">Add Gadget</button>
+    </div>
+
+    <div class="grid-dropzone">
+        <button mat-raised-button color="primary">Add Gadget</button>
+    </div>
 
 </div>

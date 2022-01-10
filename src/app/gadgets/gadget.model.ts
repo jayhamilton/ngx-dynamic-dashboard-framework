@@ -1,0 +1,35 @@
+export interface IGadget {
+    "componentType": string,
+    "name": string,
+    "description": string,
+    "icon": string,
+    "instanceId": number,
+    "tags": ITag[],
+    "propertyPages": IPropertyPage[],
+    "actions": IAction[]
+  }
+
+export interface ITag {
+  "facet": string,
+  "name": string
+}
+
+export interface IPropertyPage {
+  "displayName": string,
+  "groupId": string,
+  "position": number,
+  "properties":IProperty[]
+}
+
+export interface IProperty {
+  "value": string,
+  "key": string,
+  "label": string,
+  "required": boolean,
+  "order": number,
+  "controlType": string
+}
+
+export interface IAction {
+  "name": string;
+}

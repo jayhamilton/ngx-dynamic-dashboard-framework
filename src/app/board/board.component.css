@@ -15,12 +15,32 @@ mat-card-title {
     margin: 40px;
 }
 
+.grid-dropzone {
+    border-style: dashed;
+    border-color: lightgray;
+    border-width: 4px;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 100%;
+    justify-content: center;
+    min-height: 400px;
+    padding-left: 300px;
+    padding-right: 300px;
+}
+
+button {
+    height: 100px;
+    font-size: larger;
+}
+
 .grid-instruction {
     display: grid;
     grid-template-columns: 50% 50%;
     row-gap: 25px;
     column-gap: 25px;
     justify-content: center;
+    align-items: center;
     margin: 25px 150px 0 150px;
 }
 

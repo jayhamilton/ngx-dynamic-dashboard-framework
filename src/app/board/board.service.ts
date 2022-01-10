@@ -13,6 +13,10 @@ export interface IBoard {
   rows: any;
 }
 
+export interface IGadget{
+
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -209,5 +213,15 @@ export class BoardService {
     this.eventService.emitBoardDeletedCompleteEvent({ data: event });
 
     console.log('DELETE BOARD REQUEST PROCESS COMPLETE');
+  }
+
+  addGadgetToBoard(board:IBoard, gadget:IGadget){
+
+  }
+
+
+  deleteGadgetFromBoard(board:IBoard, gadget:IGadget){
+
+
   }
 }
