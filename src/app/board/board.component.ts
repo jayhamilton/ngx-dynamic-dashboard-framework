@@ -106,10 +106,11 @@ export class BoardComponent implements OnInit {
     this.clearDisplay();
     console.log("Displaying board: " + this.boardData.title);
 
-    if (this.boardHasGadgets) {
+    if (this.boardHasGadgets || this.boardData.title.toLowerCase() === 'demo') {
       //TODO - call add gadget
       gridHost.createComponent(ProductComponent);
       gridHost.createComponent(ImageComponent);
+      this.boardHasGadgets = true;
     }
 
     //set instance config
