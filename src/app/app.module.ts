@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuModule } from './menu/menu.module';
 import { BoardModule } from './board/board.module';
+import { SidenavModule } from './sidenav/sidenav.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { BoardModule } from './board/board.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     MenuModule,
-    BoardModule
+    BoardModule,
+    SidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

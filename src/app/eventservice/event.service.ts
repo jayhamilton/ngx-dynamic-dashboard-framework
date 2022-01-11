@@ -10,15 +10,30 @@ export interface IEvent {
 })
 export class EventService {
   private boardCreateRequestSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardSelectedSubject: Subject<IEvent> = new Subject<IEvent>();
+
   private boardCreatedCompleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardDeleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardDeletedCompleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
+  private sideNavClickEvent: Subject<IEvent> = new Subject<IEvent>();
 
   private librarySubject: Subject<IEvent> = new Subject<IEvent>();
   private subscribers: Array<Subject<string>> = [];
 
   constructor() {}
+  emitBoardMenuSideNavClickEvent() {
+    this.sideNavClickEvent.next({data:{}});
+  }
+  listenForBoardMenuSideNavClickEvent(): Observable<IEvent> {
+    return this.sideNavClickEvent.asObservable();
+  }
 
+  emitBoardSelectedEvent(event:IEvent) {
+    this.boardSelectedSubject.next(event);
+  }
+  listenForBoardSelectedEvent(): Observable<IEvent> {
+    return this.boardSelectedSubject.asObservable();
+  }
   emitBoardCreateRequestEvent(event: IEvent) {
     this.boardCreateRequestSubject.next(event);
   }

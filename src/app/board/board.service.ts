@@ -137,7 +137,40 @@ export class BoardService {
       }
     });
   }
+  public getNavSelectedBoard(_boardData:IEvent) {
+    return new Observable<IBoard>((observer) => {
+      let data = this.getBoardData();
 
+      if (data.length == 0) {
+
+        observer.next({
+          title: '',
+          description: '',
+          structure: '',
+          lastSelected: false,
+          id: -10,
+          boardInstanceId: -10,
+          rows: {},
+        });
+        return () => {};
+      } else {
+
+        //in case we cannot find the last selected return the first in the list.
+        let selectedBoard:IBoard = data[0];
+
+        data.forEach((board) => {
+          if (board.title == _boardData.data) {
+            board.lastSelected = true;
+            selectedBoard = board;
+          }else{
+            board.lastSelected = false;
+          }
+        });
+        observer.next(selectedBoard);
+        return () => {};
+      }
+    });
+  }
   private createNewBoard(event: IEvent): void {
     console.log('CREATE BOARD REQUEST PROCESS START');
     /**

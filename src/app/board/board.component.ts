@@ -33,6 +33,7 @@ export class BoardComponent implements OnInit {
     this.boardHasGadgets = false;
     this.setupCreateBoardEventListener();
     this.setupDeleteBoardEventListener();
+    this.setupBoardSelectEventListner();
   }
 
   ngOnInit(): void {
@@ -57,6 +58,12 @@ export class BoardComponent implements OnInit {
       });
   }
 
+  setupBoardSelectEventListner(){
+    this.eventService.listenForBoardSelectedEvent().subscribe((event: IEvent)=>{
+      this.displayNavSelectedBoard(event);
+    })
+  }
+
   /**
    * Board Display Section
    */
@@ -75,10 +82,29 @@ export class BoardComponent implements OnInit {
     });
   }
 
+  /**
+   * Board Display Section
+   */
+   displayNavSelectedBoard(board:IEvent) {
+    //getBoardData
+    this.boardService.getNavSelectedBoard(board).subscribe((boardData: IBoard) => {
+      this.boardData = boardData;
+      this.boardExists = this.doesABoardExist();
+
+      if (this.boardExists) {
+        this.boardHasGadgets = this.doesTheBoardHaveGadgets();
+        this.show();
+      } else {
+        this.clearDisplay();
+      }
+    });
+  }
+
   show() {
     //use this.boardData to render components
     const gridHost = this.gadgetGridHost.viewContainerRef;
     this.clearDisplay();
+    console.log("Displaying board: " + this.boardData.title);
 
     if (this.boardHasGadgets) {
       //TODO - call add gadget
