@@ -2,6 +2,12 @@ mat-card-content {
     margin-top: 25px;
 }
 
+.more-button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
 mat-card-title {
     color: #3f51b5;
 }
