@@ -11,11 +11,24 @@ import { BoardGridDirective } from './boardgrid.directive';
 import { ProductComponent } from '../gadgets/product/product.component';
 import { IEvent, EventService } from '../eventservice/event.service';
 import { BoardService, IBoard } from './board.service';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
+  animations: [
+
+    trigger('showHide', [
+        transition(':enter', [
+            style({opacity: 0}),
+            animate('500ms', style({opacity: 1}))
+        ]),
+        transition(':leave', [
+            style({opacity: 1}),
+            animate('500ms', style({opacity: 0}))
+        ])
+    ])]
 })
 export class BoardComponent implements OnInit {
   @ViewChild(BoardGridDirective, { static: true })
@@ -31,9 +44,7 @@ export class BoardComponent implements OnInit {
   ) {
     this.boardExists = false;
     this.boardHasGadgets = false;
-    this.setupCreateBoardEventListener();
-    this.setupDeleteBoardEventListener();
-    this.setupBoardSelectEventListner();
+    this.setupBoardEventListeners();
   }
 
   ngOnInit(): void {
@@ -43,25 +54,25 @@ export class BoardComponent implements OnInit {
   /**
    * Event Listners
    */
-  setupCreateBoardEventListener() {
+  setupBoardEventListeners() {
+
     this.eventService
       .listenForBoardCreatedCompleteEvent()
       .subscribe((event: IEvent) => {
         this.displayBoard();
       });
-  }
-  setupDeleteBoardEventListener() {
+
     this.eventService
       .listenForBoardDeletedCompleteEvent()
       .subscribe((event: IEvent) => {
         this.displayBoard();
       });
-  }
 
-  setupBoardSelectEventListner(){
-    this.eventService.listenForBoardSelectedEvent().subscribe((event: IEvent)=>{
-      this.displayNavSelectedBoard(event);
-    })
+    this.eventService
+      .listenForBoardSelectedEvent()
+      .subscribe((event: IEvent) => {
+        this.displayNavSelectedBoard(event);
+      });
   }
 
   /**
@@ -85,26 +96,28 @@ export class BoardComponent implements OnInit {
   /**
    * Board Display Section
    */
-   displayNavSelectedBoard(board:IEvent) {
+  displayNavSelectedBoard(board: IEvent) {
     //getBoardData
-    this.boardService.getNavSelectedBoard(board).subscribe((boardData: IBoard) => {
-      this.boardData = boardData;
-      this.boardExists = this.doesABoardExist();
+    this.boardService
+      .getNavSelectedBoard(board)
+      .subscribe((boardData: IBoard) => {
+        this.boardData = boardData;
+        this.boardExists = this.doesABoardExist();
 
-      if (this.boardExists) {
-        this.boardHasGadgets = this.doesTheBoardHaveGadgets();
-        this.show();
-      } else {
-        this.clearDisplay();
-      }
-    });
+        if (this.boardExists) {
+          this.boardHasGadgets = this.doesTheBoardHaveGadgets();
+          this.show();
+        } else {
+          this.clearDisplay();
+        }
+      });
   }
 
   show() {
     //use this.boardData to render components
     const gridHost = this.gadgetGridHost.viewContainerRef;
     this.clearDisplay();
-    console.log("Displaying board: " + this.boardData.title);
+    console.log('Displaying board: ' + this.boardData.title);
 
     if (this.boardHasGadgets || this.boardData.title.toLowerCase() === 'demo') {
       //TODO - call add gadget
@@ -128,10 +141,13 @@ export class BoardComponent implements OnInit {
   }
 
   doesABoardExist() {
-    return this.boardData.id !== -10;//TODO - not a good way to determine if a board exists. Fix This.
+    return this.boardData.id !== -10; //TODO - not a good way to determine if a board exists. Fix This.
   }
 
   doesTheBoardHaveGadgets() {
-    return this.boardData.rows[0].columns[0].gadgets.length !== 0 || this.boardData.rows[0].columns[1].gadgets.length !== 0
+    return (
+      this.boardData.rows[0].columns[0].gadgets.length !== 0 ||
+      this.boardData.rows[0].columns[1].gadgets.length !== 0
+    );
   }
 }

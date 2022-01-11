@@ -24,13 +24,14 @@ export class BoardService {
   BOARD: string = 'board';
 
   constructor(private eventService: EventService) {
-    this.setupConfigurationEventListeners();
+    this.setupEventListeners();
   }
 
   /**
    * Event Listners
    */
-  private setupConfigurationEventListeners() {
+  private setupEventListeners() {
+
     this.eventService
       .listenForBoardCreateRequestEvent()
       .subscribe((event: IEvent) => {
