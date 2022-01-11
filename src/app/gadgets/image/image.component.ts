@@ -7,18 +7,20 @@ import {
 } from '@angular/cdk/drag-drop';
 
 import { ImageService } from './image.service';
+import { GadgetBase } from '../gadget.base';
 
 @Component({
   selector: 'app-image',
   templateUrl: './image.component.html',
   styleUrls: ['./image.component.css']
 })
-export class ImageComponent  {
+export class ImageComponent  extends GadgetBase{
 
 
   gadgetData: any;
 
   constructor(private imageService: ImageService) {
+    super();
     this.gadgetData = this.imageService.getDefaultData();
   }
 

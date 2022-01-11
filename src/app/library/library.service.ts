@@ -2,6 +2,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment'
+import { IGadget } from '../gadgets/gadget.model';
 
 @Injectable()
 export class LibraryService{
@@ -20,6 +21,6 @@ export class LibraryService{
         } else {
           libraryJson = 'library.json';
         }
-        return this._http.get<LibraryModel>('/assets/api/' + libraryJson);
+        return this._http.get<IGadget[]>('/assets/api/' + libraryJson);
     }
   }

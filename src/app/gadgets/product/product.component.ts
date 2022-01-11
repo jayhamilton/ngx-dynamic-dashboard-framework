@@ -2,6 +2,7 @@ import { DataSource } from '@angular/cdk/table';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
+import { GadgetBase } from '../gadget.base';
 
 
 export interface ComponentItem {
@@ -21,7 +22,7 @@ const ELEMENT_DATA: ComponentItem[] = [
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent extends GadgetBase implements OnInit {
 
 
   options: FormGroup;
@@ -30,6 +31,7 @@ export class ProductComponent implements OnInit {
 
 
   constructor( fb: FormBuilder) {
+    super();
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,

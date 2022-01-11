@@ -1,58 +1,79 @@
-{
-    "library": [{
-            "componentType": "ImageComponent",
-            "name": "Image Gallery",
-            "description": "Image Gallery Tool",
-            "icon": "assets/images/imageGallery.png",
-            "instanceId": -1,
-            "tags": [],
-            "propertyPages": [{
-                "displayName": "Configuration",
-                "groupId": "config",
-                "position": 11,
-                "properties": [{
-                        "controlType": "filedrop",
-                        "key": "yAxisLabel",
-                        "label": "Y Axis Label",
-                        "value": "",
-                        "required": false,
-                        "order": 2
-                    }
+[{
+        "componentType": "ImageComponent",
+        "title": "Image Gallery",
+        "description": "Select this tool to add an image gallery for the production line board.",
+        "subtitle": "Image Gallery Subtitle",
+        "icon": "../../assets/images/imageGallery.png",
+        "instanceId": -1,
+        "tags": [],
+        "propertyPages": [{
+            "displayName": "Configuration",
+            "groupId": "config",
+            "position": 11,
+            "properties": [{
+                    "controlType": "filedrop",
+                    "key": "yAxisLabel",
+                    "label": "Y Axis Label",
+                    "value": "",
+                    "required": false,
+                    "order": 2
+                }
 
-                ]
-            }],
-            "actions": [{
-                    "name": "Configure"
-                },
-                { "name": "Run" }
             ]
-        },
-        {
-            "componentType": "ProductComponent",
-            "name": "Product Component Tool ",
-            "description": "Allows the definition of package components",
-            "icon": "assets/images/imageGallery.png",
-            "instanceId": -1,
-            "tags": [],
-            "propertyPages": [{
-                "displayName": "Configuration",
-                "groupId": "config",
-                "position": 10,
-                "properties": [{
-                    "controlType": "table",
-                    "key": "title",
-                    "label": "Title",
-                    "value": "Bar Chart Data",
-                    "required": true,
-                    "order": 1
-                }]
-            }],
-            "actions": [{
-                    "name": "Configure"
-                },
-                { "name": "Run" }
-            ]
-        }
+        }],
+        "actions": [{
+            "name": "add"
+        }]
+    },
+    {
+        "componentType": "ProductComponent",
+        "title": "Product Component Tool",
+        "subTitle": " Product component subtitle",
+        "description": "Select this tool to define and add a Product definition to the production line board.",
+        "icon": "../../assets/images/product.png",
+        "instanceId": -1,
+        "tags": [],
+        "propertyPages": [{
+            "displayName": "Configuration",
+            "groupId": "config",
+            "position": 10,
+            "properties": [{
+                "controlType": "table",
+                "key": "title",
+                "label": "Title",
+                "value": "Bar Chart Data",
+                "required": true,
+                "order": 1
+            }]
+        }],
+        "actions": [{
+            "name": "add"
+        }]
+    },
+    {
+        "componentType": "ProductInstructionComponent",
+        "title": "Product Instruction Tool",
+        "subtitle": "Produce instruction subtitle",
+        "description": "Select this tool to add an instruction section to the production line board.",
+        "icon": "../../assets/images/instructions.png",
+        "instanceId": -1,
+        "tags": [],
+        "propertyPages": [{
+            "displayName": "Configuration",
+            "groupId": "config",
+            "position": 10,
+            "properties": [{
+                "controlType": "table",
+                "key": "title",
+                "label": "Title",
+                "value": "Bar Chart Data",
+                "required": true,
+                "order": 1
+            }]
+        }],
+        "actions": [{
+            "name": "add"
+        }]
+    }
 
-    ]
-}
+]

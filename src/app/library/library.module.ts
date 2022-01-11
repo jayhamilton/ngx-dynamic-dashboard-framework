@@ -5,6 +5,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { LibraryService } from './library.service';
 
 
 
@@ -18,6 +19,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatCardModule,
     MatIconModule
+  ],
+  providers:[
+    LibraryService
   ]
 })
 export class LibraryModule { }

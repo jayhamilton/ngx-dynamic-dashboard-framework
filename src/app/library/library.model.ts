@@ -1,3 +1,0 @@
-interface LibraryModel {
-  library: any[];
-}
