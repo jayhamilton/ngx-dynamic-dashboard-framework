@@ -114,14 +114,13 @@ export class BoardComponent implements OnInit {
     const gridHost = this.gadgetGridHost.viewContainerRef;
     this.clearDisplay();
 
-    if (this.boardHasGadgets || this.boardData.title.toLowerCase() === 'demo') {
-      const gadgetRef = gridHost.createComponent(ProductComponent);
+    if (this.boardHasGadgets) {
 
       //walk the board structure to find gadgets to display
       this.boardData.rows.forEach((object) => {
         object.columns.forEach((object) => {
           object.gadgets.forEach((gadgetProperties) => {
-            gridHost.createComponent(
+            const gadgetRef = gridHost.createComponent(
               this.getComponentType(gadgetProperties.componentType)
             );
             gadgetRef.instance.setConfiguration(gadgetProperties);
