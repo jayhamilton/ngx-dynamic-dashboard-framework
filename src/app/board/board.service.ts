@@ -145,7 +145,7 @@ export class BoardService {
       }
     });
   }
-  public getNavSelectedBoard(_boardData:IEvent) {
+  public getBoardById(boardId:number) {
     return new Observable<IBoard>((observer) => {
       let data = this.getBoardData();
 
@@ -167,7 +167,7 @@ export class BoardService {
         let selectedBoard:IBoard = data[0];
 
         data.forEach((board) => {
-          if (board.title == _boardData.data) {
+          if (board.id == boardId) {
             board.lastSelected = true;
             selectedBoard = board;
           }else{

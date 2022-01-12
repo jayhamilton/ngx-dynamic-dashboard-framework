@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { Observable, Subject } from 'rxjs';
 
 export interface IEvent {
@@ -9,6 +10,7 @@ export interface IEvent {
   providedIn: 'root',
 })
 export class EventService {
+
   private boardCreateRequestSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardSelectedSubject: Subject<IEvent> = new Subject<IEvent>();
 
@@ -16,8 +18,8 @@ export class EventService {
   private boardDeleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardDeletedCompleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
   private sideNavClickEvent: Subject<IEvent> = new Subject<IEvent>();
+  private addGadgetSubect: Subject<IEvent> = new Subject<IEvent>();
 
-  private librarySubject: Subject<IEvent> = new Subject<IEvent>();
   private subscribers: Array<Subject<string>> = [];
 
   constructor() {}
@@ -64,19 +66,12 @@ export class EventService {
     return this.boardDeletedCompleteRequestSubject.asObservable();
   }
 
-  raiseLibraryRequestEvent(event: IEvent) {
-    this.librarySubject.next(event);
-  }
-  raiseLibraryCompletedEvent(event: IEvent) {
-    this.librarySubject.next(event);
+  emitLibraryAddGadgetEvent(event: IEvent) {
+    this.addGadgetSubect.next(event);
   }
 
-  listenForLibraryRequestEvents(): Observable<IEvent> {
-    return this.librarySubject.asObservable();
-  }
-
-  listenForLibraryCompletedEvents(): Observable<IEvent> {
-    return this.librarySubject.asObservable();
+  listenForLibraryAddGadgetEvents(): Observable<IEvent> {
+    return this.addGadgetSubect.asObservable();
   }
 
   addSubscriber(subscriber: any) {

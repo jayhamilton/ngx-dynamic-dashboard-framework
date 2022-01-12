@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventService } from '../eventservice/event.service';
 import { IGadget } from '../gadgets/gadget.model';
 import { LibraryService } from './library.service';
 
@@ -9,7 +10,7 @@ import { LibraryService } from './library.service';
 })
 export class LibraryComponent implements OnInit {
 
-  constructor(private libraryService: LibraryService) { }
+  constructor(private libraryService: LibraryService, private eventService:EventService) { }
 
   library!: IGadget[];
   ngOnInit(): void {
@@ -19,9 +20,16 @@ export class LibraryComponent implements OnInit {
 
   getLibrary(){
 
-    this.libraryService.getLibrary().subscribe((library)=>{
-      this.library = library;
+    this.libraryService.getLibrary().subscribe((libraryData)=>{
+      this.library = libraryData;
     });
+  }
+
+  addGadget(gadgetData: IGadget){
+
+    this.eventService.emitLibraryAddGadgetEvent({data:gadgetData})
+
+
   }
 
 }

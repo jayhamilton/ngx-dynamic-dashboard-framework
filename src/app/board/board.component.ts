@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentRef, OnInit, ViewChild } from '@angular/core';
 import {
   CdkDragDrop,
   CdkDropList,
@@ -12,6 +12,7 @@ import { ProductComponent } from '../gadgets/product/product.component';
 import { IEvent, EventService } from '../eventservice/event.service';
 import { BoardService, IBoard } from './board.service';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { IGadget } from '../gadgets/gadget.model';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -69,34 +70,43 @@ export class BoardComponent implements OnInit {
     this.eventService
       .listenForBoardSelectedEvent()
       .subscribe((event: IEvent) => {
-        this.displayNavSelectedBoard(event);
+        this.displayNavSelectedBoard(event.data); //boardId
+      });
+
+    this.eventService
+      .listenForLibraryAddGadgetEvents()
+      .subscribe((event: IEvent) => {
+        this.addGadget(event.data); //IGadget
       });
   }
 
   /**
-   * Board Display Section
+   * Display last selected board
+   * after the browser is launched or
+   * if a new board is created. When a new board is created
+   * that new board becomes the last selected board.
    */
-   displayLastSelectedBoard() {
+  displayLastSelectedBoard() {
     //getBoardData
-    this.boardService
-      .getLastSelectedBoard()
-      .subscribe((boardData: IBoard) => {
-        this.prepareToShow(boardData);
+    this.boardService.getLastSelectedBoard().subscribe((boardData: IBoard) => {
+      this.prepareToShow(boardData);
     });
   }
 
   /**
-   * Board Display Section
+   * Display board based on navigation menu selection event
    */
-  displayNavSelectedBoard(board: IEvent) {
+  displayNavSelectedBoard(boardId: number) {
     //getBoardData
-    this.boardService
-      .getNavSelectedBoard(board)
-      .subscribe((boardData: IBoard) => {
-        this.prepareToShow(boardData);
-      });
+    this.boardService.getBoardById(boardId).subscribe((boardData: IBoard) => {
+      this.prepareToShow(boardData);
+    });
   }
-
+  /**
+   * Rudimentary board state management. this.boardData and this.boardExists
+   * will determine what instructions/actions to display on the board.
+   * @param boardData
+   */
   prepareToShow(boardData: IBoard) {
     this.boardData = boardData;
     this.boardExists = this.doesABoardExist();
@@ -109,32 +119,62 @@ export class BoardComponent implements OnInit {
     }
   }
 
+  /**
+   *  walk the board structure to find gadgets to display
+   */
   show() {
     //use this.boardData to render components
-    const gridHost = this.gadgetGridHost.viewContainerRef;
     this.clearDisplay();
 
     if (this.boardHasGadgets) {
-
-      //walk the board structure to find gadgets to display
-      this.boardData.rows.forEach((object) => {
-        object.columns.forEach((object) => {
-          object.gadgets.forEach((gadgetProperties) => {
-            const gadgetRef = gridHost.createComponent(
-              this.getComponentType(gadgetProperties.componentType)
-            );
-            gadgetRef.instance.setConfiguration(gadgetProperties);
+      this.boardData.rows.forEach((rowData) => {
+        rowData.columns.forEach((columnData) => {
+          columnData.gadgets.forEach((gadgetData) => {
+            this.addGadget(gadgetData);
           });
         });
       });
-      this.boardHasGadgets = true;
     }
   }
 
-  public addGadget(gadget: any) {
+  public addGadget(gadgetData: IGadget) {
     console.log('ADDING GADGET');
+    const gridHost = this.gadgetGridHost.viewContainerRef;
+
+     //TODO refactor and move to seperate clases
+    switch(gadgetData.componentType){
+      case "ProductComponent":{
+        this.createProductComponent(gadgetData);
+        break;
+      }
+      case "ImageComponent":{
+        this.createImageComponent(gadgetData);
+        break;
+      }
+    }
+
+    this.boardHasGadgets = true;
     //send this.boardData along with gadget to boardservice to persist the model
     //that should raise an add gadget completed event that should cause a rerendering of the board.
+  }
+
+  //TODO refactor and move to seperate clases
+  createProductComponent(gadgetData:IGadget){
+
+      const gridHost = this.gadgetGridHost.viewContainerRef;
+      const gadgetRef = gridHost.createComponent(ProductComponent);
+      gadgetRef.instance.setConfiguration(gadgetData);
+
+  }
+
+   //TODO refactor and move to seperate clases
+  createImageComponent(gadgetData:IGadget){
+
+    const gridHost = this.gadgetGridHost.viewContainerRef;
+    const gadgetRef = gridHost.createComponent(ImageComponent);
+    gadgetRef.instance.setConfiguration(gadgetData);
+
+
   }
 
   clearDisplay() {
@@ -151,9 +191,5 @@ export class BoardComponent implements OnInit {
       this.boardData.rows[0].columns[0].gadgets.length !== 0 ||
       this.boardData.rows[0].columns[1].gadgets.length !== 0
     );
-  }
-
-  getComponentType<ComponentBase>(componentTypeString: string) {
-    return ProductComponent;
   }
 }
