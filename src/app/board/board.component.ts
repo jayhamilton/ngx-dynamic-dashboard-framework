@@ -12,23 +12,22 @@ import { ProductComponent } from '../gadgets/product/product.component';
 import { IEvent, EventService } from '../eventservice/event.service';
 import { BoardService, IBoard } from './board.service';
 import { animate, style, transition, trigger } from '@angular/animations';
-
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
   animations: [
-
     trigger('showHide', [
-        transition(':enter', [
-            style({opacity: 0}),
-            animate('500ms', style({opacity: 1}))
-        ]),
-        transition(':leave', [
-            style({opacity: 1}),
-            animate('500ms', style({opacity: 0}))
-        ])
-    ])]
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        style({ opacity: 1 }),
+        animate('500ms', style({ opacity: 0 })),
+      ]),
+    ]),
+  ],
 })
 export class BoardComponent implements OnInit {
   @ViewChild(BoardGridDirective, { static: true })
@@ -48,24 +47,23 @@ export class BoardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.displayBoard();
+    this.displayLastSelectedBoard();
   }
 
   /**
    * Event Listners
    */
   setupBoardEventListeners() {
-
     this.eventService
       .listenForBoardCreatedCompleteEvent()
       .subscribe((event: IEvent) => {
-        this.displayBoard();
+        this.displayLastSelectedBoard();
       });
 
     this.eventService
       .listenForBoardDeletedCompleteEvent()
       .subscribe((event: IEvent) => {
-        this.displayBoard();
+        this.displayLastSelectedBoard();
       });
 
     this.eventService
@@ -78,18 +76,12 @@ export class BoardComponent implements OnInit {
   /**
    * Board Display Section
    */
-  displayBoard() {
+   displayLastSelectedBoard() {
     //getBoardData
-    this.boardService.getLastSelectedBoard().subscribe((boardData: IBoard) => {
-      this.boardData = boardData;
-      this.boardExists = this.doesABoardExist();
-
-      if (this.boardExists) {
-        this.boardHasGadgets = this.doesTheBoardHaveGadgets();
-        this.show();
-      } else {
-        this.clearDisplay();
-      }
+    this.boardService
+      .getLastSelectedBoard()
+      .subscribe((boardData: IBoard) => {
+        this.prepareToShow(boardData);
     });
   }
 
@@ -101,32 +93,43 @@ export class BoardComponent implements OnInit {
     this.boardService
       .getNavSelectedBoard(board)
       .subscribe((boardData: IBoard) => {
-        this.boardData = boardData;
-        this.boardExists = this.doesABoardExist();
-
-        if (this.boardExists) {
-          this.boardHasGadgets = this.doesTheBoardHaveGadgets();
-          this.show();
-        } else {
-          this.clearDisplay();
-        }
+        this.prepareToShow(boardData);
       });
+  }
+
+  prepareToShow(boardData: IBoard) {
+    this.boardData = boardData;
+    this.boardExists = this.doesABoardExist();
+
+    if (this.boardExists) {
+      this.boardHasGadgets = this.doesTheBoardHaveGadgets();
+      this.show();
+    } else {
+      this.clearDisplay();
+    }
   }
 
   show() {
     //use this.boardData to render components
     const gridHost = this.gadgetGridHost.viewContainerRef;
     this.clearDisplay();
-    console.log('Displaying board: ' + this.boardData.title);
 
     if (this.boardHasGadgets || this.boardData.title.toLowerCase() === 'demo') {
-      //TODO - call add gadget
-      gridHost.createComponent(ProductComponent);
-      gridHost.createComponent(ImageComponent);
+      const gadgetRef = gridHost.createComponent(ProductComponent);
+
+      //walk the board structure to find gadgets to display
+      this.boardData.rows.forEach((object) => {
+        object.columns.forEach((object) => {
+          object.gadgets.forEach((gadgetProperties) => {
+            gridHost.createComponent(
+              this.getComponentType(gadgetProperties.componentType)
+            );
+            gadgetRef.instance.setConfiguration(gadgetProperties);
+          });
+        });
+      });
       this.boardHasGadgets = true;
     }
-
-    //set instance config
   }
 
   public addGadget(gadget: any) {
@@ -149,5 +152,9 @@ export class BoardComponent implements OnInit {
       this.boardData.rows[0].columns[0].gadgets.length !== 0 ||
       this.boardData.rows[0].columns[1].gadgets.length !== 0
     );
+  }
+
+  getComponentType<ComponentBase>(componentTypeString: string) {
+    return ProductComponent;
   }
 }

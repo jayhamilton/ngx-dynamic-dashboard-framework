@@ -2,6 +2,7 @@ import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IEvent, EventService } from '../eventservice/event.service';
+import { IGadget } from '../gadgets/gadget.model';
 
 export interface IBoard {
   title: string;
@@ -10,11 +11,17 @@ export interface IBoard {
   lastSelected: boolean;
   id: number;
   boardInstanceId: number;
-  rows: any;
+  rows: IRow[];
 }
 
-export interface IGadget{
+export interface IRow{
+  columns: IColumn[];
+}
 
+export interface IColumn{
+  styleClass: string;
+  gadgets: IGadget[];
+  gadgetNames: string[]
 }
 
 @Injectable({
@@ -120,7 +127,7 @@ export class BoardService {
           lastSelected: false,
           id: -10,
           boardInstanceId: -10,
-          rows: {},
+          rows: [],
         });
         return () => {};
       } else {
@@ -151,7 +158,7 @@ export class BoardService {
           lastSelected: false,
           id: -10,
           boardInstanceId: -10,
-          rows: {},
+          rows: [],
         });
         return () => {};
       } else {
