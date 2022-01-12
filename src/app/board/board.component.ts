@@ -1,4 +1,10 @@
-import { Component, ComponentRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ComponentRef,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import {
   CdkDragDrop,
   CdkDropList,
@@ -141,40 +147,27 @@ export class BoardComponent implements OnInit {
     console.log('ADDING GADGET');
     const gridHost = this.gadgetGridHost.viewContainerRef;
 
-     //TODO refactor and move to seperate clases
-    switch(gadgetData.componentType){
-      case "ProductComponent":{
-        this.createProductComponent(gadgetData);
+    let gadgetRef = null;
+
+    //TODO refactor and move to seperate clases
+    switch (gadgetData.componentType) {
+      case 'ProductComponent': {
+        gadgetRef = gridHost.createComponent(ProductComponent);
         break;
       }
-      case "ImageComponent":{
-        this.createImageComponent(gadgetData);
+      case 'ImageComponent': {
+        gadgetRef = gridHost.createComponent(ImageComponent);
         break;
       }
+    }
+
+    if (gadgetRef) {
+      gadgetRef.instance.setConfiguration(gadgetData);
     }
 
     this.boardHasGadgets = true;
     //send this.boardData along with gadget to boardservice to persist the model
     //that should raise an add gadget completed event that should cause a rerendering of the board.
-  }
-
-  //TODO refactor and move to seperate clases
-  createProductComponent(gadgetData:IGadget){
-
-      const gridHost = this.gadgetGridHost.viewContainerRef;
-      const gadgetRef = gridHost.createComponent(ProductComponent);
-      gadgetRef.instance.setConfiguration(gadgetData);
-
-  }
-
-   //TODO refactor and move to seperate clases
-  createImageComponent(gadgetData:IGadget){
-
-    const gridHost = this.gadgetGridHost.viewContainerRef;
-    const gadgetRef = gridHost.createComponent(ImageComponent);
-    gadgetRef.instance.setConfiguration(gadgetData);
-
-
   }
 
   clearDisplay() {
