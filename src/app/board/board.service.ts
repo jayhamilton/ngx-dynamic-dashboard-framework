@@ -14,14 +14,14 @@ export interface IBoard {
   rows: IRow[];
 }
 
-export interface IRow{
+export interface IRow {
   columns: IColumn[];
 }
 
-export interface IColumn{
+export interface IColumn {
   styleClass: string;
   gadgets: IGadget[];
-  gadgetNames: string[]
+  gadgetNames: string[];
 }
 
 @Injectable({
@@ -38,7 +38,6 @@ export class BoardService {
    * Event Listners
    */
   private setupEventListeners() {
-
     this.eventService
       .listenForBoardCreateRequestEvent()
       .subscribe((event: IEvent) => {
@@ -119,7 +118,6 @@ export class BoardService {
       let data = this.getBoardData();
 
       if (data.length == 0) {
-
         observer.next({
           title: '',
           description: '',
@@ -131,7 +129,6 @@ export class BoardService {
         });
         return () => {};
       } else {
-
         //in case we cannot find the last selected return the first in the list.
         let lastSelectedBoard = data[0];
 
@@ -145,12 +142,11 @@ export class BoardService {
       }
     });
   }
-  public getBoardById(boardId:number) {
+  public getBoardById(boardId: number) {
     return new Observable<IBoard>((observer) => {
       let data = this.getBoardData();
 
       if (data.length == 0) {
-
         observer.next({
           title: '',
           description: '',
@@ -162,23 +158,28 @@ export class BoardService {
         });
         return () => {};
       } else {
-
         //in case we cannot find the last selected return the first in the list.
-        let selectedBoard:IBoard = data[0];
+        let selectedBoard: IBoard = data[0];
 
         data.forEach((board) => {
           if (board.id == boardId) {
             board.lastSelected = true;
             selectedBoard = board;
-          }else{
+          } else {
             board.lastSelected = false;
           }
         });
+
+        //save the selection change
+        this.save(data);
+
+        //return to listeners
         observer.next(selectedBoard);
         return () => {};
       }
     });
   }
+
   private createNewBoard(event: IEvent): void {
     console.log('CREATE BOARD REQUEST PROCESS START');
     /**
@@ -193,7 +194,6 @@ export class BoardService {
      * */
 
     this.getBoards().subscribe((savedBoardsData: IBoard[]) => {
-
       //(1)
       let defaultBoardInstanceRequestData = this.getDefaultBoard(0); //currently only one default board type
 
@@ -240,7 +240,6 @@ export class BoardService {
      * */
 
     this.getBoards().subscribe((savedBoardsData: IBoard[]) => {
-
       let idx = savedBoardsData.findIndex(
         (board) => board.id === event.data['id']
       );
@@ -248,7 +247,6 @@ export class BoardService {
       savedBoardsData.splice(idx, 1);
 
       this.save(savedBoardsData);
-
     });
 
     this.eventService.emitBoardDeletedCompleteEvent({ data: event });
@@ -256,13 +254,57 @@ export class BoardService {
     console.log('DELETE BOARD REQUEST PROCESS COMPLETE');
   }
 
-  addGadgetToBoard(board:IBoard, gadget:IGadget){
+  saveGadgetToBoard(
+    incomingBoard: IBoard,
+    incomingGadget: IGadget,
+    rowNum: number,
+    colNum: number
+  ) {
+    //walk the board data and find array of gadgets for the board.
+    //place gadget in the left most column at the head.
 
+    let data = this.getBoardData();
+
+    data.forEach((board) => {
+      if (board.id == incomingBoard.id) {
+        let update: IGadget[] = [];
+
+        update.push(incomingGadget);
+
+        let totalColumns = board.rows.length;
+
+        board.rows[rowNum].columns[this.columnToInsert].gadgets.forEach(
+          (gadget) => {
+            update.push(gadget);
+          }
+        );
+        board.rows[rowNum].columns[this.columnToInsert].gadgets = update;
+        if (this.columnToInsert < totalColumns) {
+          this.columnToInsert++;
+        } else {
+          this.columnToInsert = 0;
+        }
+      }
+    });
+
+    this.save(data);
   }
 
+  columnToInsert: number = 0;
 
-  deleteGadgetFromBoard(board:IBoard, gadget:IGadget){
+  setLastSelectedAndSaveBoard(boardId: number) {
+    let data = this.getBoardData();
 
+    data.forEach((board) => {
+      if (board.id == boardId) {
+        board.lastSelected = true;
+      } else {
+        board.lastSelected = false;
+      }
+    });
 
+    this.save(data);
   }
+
+  deleteGadgetFromBoard(board: IBoard, gadget: IGadget) {}
 }

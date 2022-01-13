@@ -82,7 +82,14 @@ export class BoardComponent implements OnInit {
     this.eventService
       .listenForLibraryAddGadgetEvents()
       .subscribe((event: IEvent) => {
-        this.addGadget(event.data); //IGadget
+        /**
+         * TODO - use different method here. We want to
+         * save the board structure and reload it
+         * instead of adding the gadget directly to the
+         * display.
+         */
+
+        this.saveGadget(event.data); //IGadget
       });
   }
 
@@ -117,12 +124,9 @@ export class BoardComponent implements OnInit {
     this.boardData = boardData;
     this.boardExists = this.doesABoardExist();
 
-    if (this.boardExists) {
-      this.boardHasGadgets = this.doesTheBoardHaveGadgets();
-      this.show();
-    } else {
-      this.clearDisplay();
-    }
+    this.clearDisplay();
+    this.show();
+
   }
 
   /**
@@ -130,19 +134,22 @@ export class BoardComponent implements OnInit {
    */
   show() {
     //use this.boardData to render components
-    this.clearDisplay();
-
-    if (this.boardHasGadgets) {
-      this.boardData.rows.forEach((rowData) => {
-        rowData.columns.forEach((columnData) => {
-          columnData.gadgets.forEach((gadgetData) => {
-            this.addGadget(gadgetData);
-          });
+    this.boardData.rows.forEach((rowData) => {
+      rowData.columns.forEach((columnData) => {
+        columnData.gadgets.forEach((gadgetData) => {
+          this.addGadget(gadgetData);
         });
       });
-    }
+    });
   }
 
+  /**
+   * addGadget is directly called from the library add action. Otherwise
+   * its is called when the board loads persisted data.
+   * TODO - use differnet method when add gadget is requested from the library. For that event,
+   * there should just be a board save action and then a reload of the board data.
+   * @param gadgetData
+   */
   public addGadget(gadgetData: IGadget) {
     console.log('ADDING GADGET');
     const gridHost = this.gadgetGridHost.viewContainerRef;
@@ -165,9 +172,12 @@ export class BoardComponent implements OnInit {
       gadgetRef.instance.setConfiguration(gadgetData);
     }
 
-    this.boardHasGadgets = true;
-    //send this.boardData along with gadget to boardservice to persist the model
-    //that should raise an add gadget completed event that should cause a rerendering of the board.
+    this.boardHasGadgets = true; //TODO remove this once the logic is in place to only display gadgets from the stored data.
+  }
+
+  saveGadget(gadgetData: IGadget){
+    this.boardService.saveGadgetToBoard(this.boardData, gadgetData, 0,0);
+    this.displayLastSelectedBoard();
   }
 
   clearDisplay() {
@@ -180,9 +190,13 @@ export class BoardComponent implements OnInit {
   }
 
   doesTheBoardHaveGadgets() {
-    return (
-      this.boardData.rows[0].columns[0].gadgets.length !== 0 ||
-      this.boardData.rows[0].columns[1].gadgets.length !== 0
-    );
+    let gadgetCount = 0;
+    this.boardData.rows.forEach((rowData) => {
+      rowData.columns.forEach((columnData) => {
+        gadgetCount += columnData.gadgets.length;
+      });
+    });
+
+    return gadgetCount > 0;
   }
 }

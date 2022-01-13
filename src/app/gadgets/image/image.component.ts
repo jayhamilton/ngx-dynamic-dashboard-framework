@@ -8,6 +8,7 @@ import {
 
 import { ImageService } from './image.service';
 import { GadgetBase } from '../gadget.base';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-image',
