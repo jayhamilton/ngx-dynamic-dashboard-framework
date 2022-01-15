@@ -2,7 +2,7 @@ import { DataSource } from '@angular/cdk/table';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
-import { BoardService, IBoard } from 'src/app/board/board.service';
+import { BoardService, IBoard, IBoardCollection } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 
 export interface IBoardNewRequestData {
@@ -71,14 +71,14 @@ export class TabBoardsComponent implements OnInit {
   }
 
   loadData() {
-    this.boardService.getBoards().subscribe((boards) => {
-      if (boards.length == 0) {
+    this.boardService.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
+      if (boardCollection.boardList.length == 0) {
         //ensure the table is cleared out
         this.dataSource.setData([]);
         this.dataToDisplay = [...[]];
       } else {
-        this.dataSource.setData(boards);
-        this.dataToDisplay = [...boards];
+        this.dataSource.setData(boardCollection.boardList);
+        this.dataToDisplay = [...boardCollection.boardList];
       }
     });
     //use the board service to get the data needed

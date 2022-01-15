@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { BoardService, IBoard } from '../board/board.service';
+import { BoardService, IBoard, IBoardCollection } from '../board/board.service';
 import { EventService } from '../eventservice/event.service';
 
 @Component({
@@ -28,8 +28,8 @@ export class SidenavComponent implements OnInit {
   }
 
   loadBoards() {
-    this.boardService.getBoards().subscribe((boards) => {
-      this.boardData = boards;
+    this.boardService.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
+      this.boardData = boardCollection.boardList;
     });
   }
 
