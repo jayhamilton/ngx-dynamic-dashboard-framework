@@ -92,9 +92,9 @@ export class BoardComponent implements OnInit {
         this.saveNewGadget(event.data); //IGadget
       });
 
-      this.eventService.listenForGadgetDeleteEvent().subscribe((event)=>{
-        this.displayLastSelectedBoard();
-      })
+    this.eventService.listenForGadgetDeleteEvent().subscribe((event) => {
+      this.displayLastSelectedBoard();
+    });
   }
 
   /**
@@ -131,7 +131,6 @@ export class BoardComponent implements OnInit {
 
     this.clearDisplay();
     this.show();
-
   }
 
   /**
@@ -156,21 +155,20 @@ export class BoardComponent implements OnInit {
    * @param gadgetData
    */
   public addGadget(gadgetData: IGadget) {
-    console.log('ADDING GADGET');
     const gridHost = this.gadgetGridHost.viewContainerRef;
 
     let gadgetRef = null;
 
     //TODO refactor and move to seperate clases
     switch (gadgetData.componentType) {
-      case 'ProductComponent': {
+      case 'ProductComponent':
         gadgetRef = gridHost.createComponent(ProductComponent);
         break;
-      }
-      case 'ImageComponent': {
+      case 'ImageComponent':
         gadgetRef = gridHost.createComponent(ImageComponent);
         break;
-      }
+      default:
+      //do nothing
     }
 
     if (gadgetRef) {
@@ -178,8 +176,8 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  saveNewGadget(gadgetData: IGadget){
-    this.boardService.saveNewGadgetToBoard(this.boardData, gadgetData, 0,0);
+  saveNewGadget(gadgetData: IGadget) {
+    this.boardService.saveNewGadgetToBoard(this.boardData, gadgetData, 0, 0);
     this.displayLastSelectedBoard();
   }
 
