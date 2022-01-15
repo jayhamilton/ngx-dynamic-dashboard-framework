@@ -2,7 +2,7 @@ import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IEvent, EventService } from '../eventservice/event.service';
-import { IGadget } from '../gadgets/gadget.model';
+import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 
 export interface IBoardCollection {
   lastSelectedBoard: number;
@@ -182,57 +182,31 @@ export class BoardService {
   }
 
   private createNewBoard(event: IEvent): void {
-    console.log('CREATE BOARD REQUEST PROCESS START');
-    /**
-     * TODO do the work using the board service and then
-     * (0) retreive the current board data
-     * (1) retrieve a default board instance
-     * (2) update the default board data info from event/request
-     * (3) set the last selected board property on the collection
-     * (4) update the saved information with the new entry
-     * (5) persist back to storage
-     * () raise completion event or error event
-     * */
 
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
-      //(1)
+
       let defaultBoardInstanceRequestData = this.getDefaultBoard(0); //currently only one default board type
 
-      //(2)
       defaultBoardInstanceRequestData.id = Date.now();
       defaultBoardInstanceRequestData.title = event.data['title'];
       defaultBoardInstanceRequestData.description = event.data['description'];
 
-      //(3)
       boardCollection.lastSelectedBoard = defaultBoardInstanceRequestData.id;
 
-      //(4)
       boardCollection.boardList = [
         ...boardCollection.boardList,
         defaultBoardInstanceRequestData,
       ];
 
-      //(5)
       this.save(boardCollection);
 
-      //(6)
       this.eventService.emitBoardCreatedCompleteEvent({
         data: defaultBoardInstanceRequestData,
       });
-      console.log('CREATE BOARD REQUEST PROCESS COMPLETE');
     });
   }
 
   private deleteBoard(event: IEvent) {
-    console.log('DELETE BOARD REQUEST PROCESS START');
-    /**
-     * TODO do the work using the board service and then
-     * (1) retreive the current board data
-     * (2) find the board to delete
-     * (3) if board is lastSelected set the last selected to another board???
-     * (4) persist back to storage
-     * (5) raise completion event or error event
-     * */
 
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
       let idx = boardCollection.boardList.findIndex(
@@ -248,7 +222,6 @@ export class BoardService {
 
     this.eventService.emitBoardDeletedCompleteEvent({ data: event });
 
-    console.log('DELETE BOARD REQUEST PROCESS COMPLETE');
   }
 
   public saveNewGadgetToBoard(
@@ -269,8 +242,6 @@ export class BoardService {
           incomingGadget.instanceId = Date.now();
 
           update.push(incomingGadget);
-
-          console.log(incomingGadget.instanceId);
 
           let totalColumns = board.rows.length;
 

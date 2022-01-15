@@ -3,7 +3,7 @@
         "title": "Image Gallery",
         "description": "Select this tool to add an image gallery for the production line board.",
         "subtitle": "Image Gallery Subtitle",
-        "icon": "../../assets/images/imageGallery.png",
+        "icon": "../../../assets/images/imageGallery.png",
         "instanceId": -1,
         "tags": [],
         "propertyPages": [{
@@ -28,9 +28,9 @@
     {
         "componentType": "ProductComponent",
         "title": "Product Component Tool",
-        "subTitle": " Product component subtitle",
+        "subtitle": " Product component subtitle",
         "description": "Select this tool to define and add a Product definition to the production line board.",
-        "icon": "../../assets/images/product.png",
+        "icon": "../../../assets/images/product.png",
         "instanceId": -1,
         "tags": [],
         "propertyPages": [{
@@ -55,7 +55,7 @@
         "title": "Product Instruction Tool",
         "subtitle": "Produce instruction subtitle",
         "description": "Select this tool to add an instruction section to the production line board.",
-        "icon": "../../assets/images/instructions.png",
+        "icon": "../../../assets/images/instructions.png",
         "instanceId": -1,
         "tags": [],
         "propertyPages": [{

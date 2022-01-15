@@ -18,7 +18,7 @@ import { ProductComponent } from '../gadgets/product/product.component';
 import { IEvent, EventService } from '../eventservice/event.service';
 import { BoardService, IBoard } from './board.service';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { IGadget } from '../gadgets/gadget.model';
+import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -199,5 +199,27 @@ export class BoardComponent implements OnInit {
     });
 
     return gadgetCount > 0;
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+
+    return;
+
+    console.log(event);
+
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
   }
 }

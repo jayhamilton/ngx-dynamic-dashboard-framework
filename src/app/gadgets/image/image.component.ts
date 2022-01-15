@@ -7,7 +7,7 @@ import {
 } from '@angular/cdk/drag-drop';
 
 import { ImageService } from './image.service';
-import { GadgetBase } from '../gadget.base';
+import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import { EventService } from 'src/app/eventservice/event.service';
 
 @Component({
@@ -67,7 +67,7 @@ export class ImageComponent  extends GadgetBase{
     this.imageService.write(this.gadgetData);
   }
 
-  delete(){
+  remove(){
     this.eventService.emitGadgetDeleteEvent({data: this.instanceId});
     console.log("DELETE FROM COMPONENT: " + this.instanceId);
   }

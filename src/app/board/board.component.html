@@ -7,8 +7,8 @@
 </mat-card>
 
 <!--the template will only present data if there is data available-->
-<div class="grid">
-    <ng-template appGrid> </ng-template>
+<div class="grid" cdkDropListGroup>
+    <ng-template appGrid (cdkDropListDropped)="drop($event)"> </ng-template>
 </div>
 
 <div *ngIf="!boardExists" class="grid-instruction">

@@ -45,6 +45,10 @@ mat-card-title {
     margin-bottom: 10px;
 }
 
+.move-cursor {
+    cursor: move;
+}
+
 .example-box {
     display: grid;
     place-content: center;

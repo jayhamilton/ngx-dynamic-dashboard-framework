@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { EventService } from 'src/app/eventservice/event.service';
-import { GadgetBase } from '../gadget.base';
+import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 
 
 export interface ComponentItem {
@@ -69,7 +69,7 @@ export class ProductComponent extends GadgetBase implements OnInit {
     "";
   }
 
-  delete(){
+  remove(){
     this.eventService.emitGadgetDeleteEvent({data: this.instanceId});
     console.log("DELETE FROM COMPONENT: " + this.instanceId);
   }

@@ -15,6 +15,7 @@ import { ProductComponent } from './product/product.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { GadgetCommonModule } from './common/gadget-common/gadget-common.module';
 @NgModule({
   declarations: [
     ImageComponent,
@@ -33,7 +34,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatToolbarModule,
     MatCardModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    GadgetCommonModule
   ],
     exports: [
       ImageComponent,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../eventservice/event.service';
-import { IGadget } from '../gadgets/gadget.model';
+import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 import { LibraryService } from './library.service';
 
 @Component({
