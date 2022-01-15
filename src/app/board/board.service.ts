@@ -318,8 +318,6 @@ export class BoardService {
   }
 
   deleteGadgetFromBoard(eventDataGadgetInstanceId: IEvent) {
-    console.log('DELETING GADGET');
-    console.log(eventDataGadgetInstanceId.data);
     let data = this.getBoardData();
 
     //find board
@@ -329,7 +327,7 @@ export class BoardService {
           let idx = columnData.gadgets.findIndex(
             (gadget) => gadget.instanceId === eventDataGadgetInstanceId.data
           );
-          if(idx >= 0){
+          if (idx >= 0) {
             columnData.gadgets.splice(idx, 1);
             this.save(data);
           }
