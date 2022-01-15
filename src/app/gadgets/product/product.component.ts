@@ -3,6 +3,7 @@ import { DataSource } from '@angular/cdk/table';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
+import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../gadget.base';
 
 
@@ -31,7 +32,7 @@ export class ProductComponent extends GadgetBase implements OnInit {
   floatLabelControl = new FormControl('auto');
 
 
-  constructor( fb: FormBuilder) {
+  constructor( fb: FormBuilder, private eventService: EventService) {
     super();
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
@@ -68,8 +69,9 @@ export class ProductComponent extends GadgetBase implements OnInit {
     "";
   }
 
-  delete(name: string) {
-    "";
+  delete(){
+    this.eventService.emitGadgetDeleteEvent({data: this.instanceId});
+    console.log("DELETE FROM COMPONENT: " + this.instanceId);
   }
 }
 

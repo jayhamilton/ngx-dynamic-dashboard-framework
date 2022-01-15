@@ -20,6 +20,8 @@ export class EventService {
   private sideNavClickEvent: Subject<IEvent> = new Subject<IEvent>();
   private addGadgetSubect: Subject<IEvent> = new Subject<IEvent>();
 
+  private gadgetDeleteSubject: Subject<IEvent> = new Subject<IEvent>();
+
   private subscribers: Array<Subject<string>> = [];
 
   constructor() {}
@@ -72,6 +74,14 @@ export class EventService {
 
   listenForLibraryAddGadgetEvents(): Observable<IEvent> {
     return this.addGadgetSubect.asObservable();
+  }
+
+  emitGadgetDeleteEvent(event: IEvent){
+    this.gadgetDeleteSubject.next(event);
+  }
+
+  listenForGadgetDeleteEvent(): Observable<IEvent> {
+    return this.gadgetDeleteSubject.asObservable();
   }
 
   addSubscriber(subscriber: any) {

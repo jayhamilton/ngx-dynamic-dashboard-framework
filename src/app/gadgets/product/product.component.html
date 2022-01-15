@@ -9,7 +9,7 @@
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
             <button mat-menu-item>Configure</button>
-            <button mat-menu-item>Remove</button>
+            <button mat-menu-item (click)="delete()">Remove</button>
         </mat-menu>
     </mat-card-header>
 

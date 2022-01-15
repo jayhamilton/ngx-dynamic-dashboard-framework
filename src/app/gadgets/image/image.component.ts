@@ -8,7 +8,7 @@ import {
 
 import { ImageService } from './image.service';
 import { GadgetBase } from '../gadget.base';
-import { animate, style, transition, trigger } from '@angular/animations';
+import { EventService } from 'src/app/eventservice/event.service';
 
 @Component({
   selector: 'app-image',
@@ -20,7 +20,7 @@ export class ImageComponent  extends GadgetBase{
 
   gadgetData: any;
 
-  constructor(private imageService: ImageService) {
+  constructor(private imageService: ImageService, private eventService: EventService) {
     super();
     this.gadgetData = this.imageService.getDefaultData();
   }
@@ -65,6 +65,11 @@ export class ImageComponent  extends GadgetBase{
 
     //persist the change
     this.imageService.write(this.gadgetData);
+  }
+
+  delete(){
+    this.eventService.emitGadgetDeleteEvent({data: this.instanceId});
+    console.log("DELETE FROM COMPONENT: " + this.instanceId);
   }
 
 }

@@ -49,6 +49,12 @@ export class BoardService {
       .subscribe((event: IEvent) => {
         this.deleteBoard(event);
       });
+
+    this.eventService
+      .listenForGadgetDeleteEvent()
+      .subscribe((event: IEvent) => {
+        this.deleteGadgetFromBoard(event);
+      });
   }
 
   private read() {
@@ -254,7 +260,7 @@ export class BoardService {
     console.log('DELETE BOARD REQUEST PROCESS COMPLETE');
   }
 
-  saveGadgetToBoard(
+  saveNewGadgetToBoard(
     incomingBoard: IBoard,
     incomingGadget: IGadget,
     rowNum: number,
@@ -269,7 +275,12 @@ export class BoardService {
       if (board.id == incomingBoard.id) {
         let update: IGadget[] = [];
 
+        //set instanceIdValue
+        incomingGadget.instanceId = Date.now();
+
         update.push(incomingGadget);
+
+        console.log(incomingGadget.instanceId);
 
         let totalColumns = board.rows.length;
 
@@ -306,5 +317,24 @@ export class BoardService {
     this.save(data);
   }
 
-  deleteGadgetFromBoard(board: IBoard, gadget: IGadget) {}
+  deleteGadgetFromBoard(eventDataGadgetInstanceId: IEvent) {
+    console.log('DELETING GADGET');
+    console.log(eventDataGadgetInstanceId.data);
+    let data = this.getBoardData();
+
+    //find board
+    data.forEach((board) => {
+      board.rows.forEach((rowData) => {
+        rowData.columns.forEach((columnData) => {
+          let idx = columnData.gadgets.findIndex(
+            (gadget) => gadget.instanceId === eventDataGadgetInstanceId.data
+          );
+          if(idx >= 0){
+            columnData.gadgets.splice(idx, 1);
+            this.save(data);
+          }
+        });
+      });
+    });
+  }
 }

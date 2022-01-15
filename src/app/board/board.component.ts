@@ -89,8 +89,12 @@ export class BoardComponent implements OnInit {
          * display.
          */
 
-        this.saveGadget(event.data); //IGadget
+        this.saveNewGadget(event.data); //IGadget
       });
+
+      this.eventService.listenForGadgetDeleteEvent().subscribe((event)=>{
+        this.displayLastSelectedBoard();
+      })
   }
 
   /**
@@ -123,6 +127,7 @@ export class BoardComponent implements OnInit {
   prepareToShow(boardData: IBoard) {
     this.boardData = boardData;
     this.boardExists = this.doesABoardExist();
+    this.boardHasGadgets = this.doesTheBoardHaveGadgets();
 
     this.clearDisplay();
     this.show();
@@ -171,12 +176,10 @@ export class BoardComponent implements OnInit {
     if (gadgetRef) {
       gadgetRef.instance.setConfiguration(gadgetData);
     }
-
-    this.boardHasGadgets = true; //TODO remove this once the logic is in place to only display gadgets from the stored data.
   }
 
-  saveGadget(gadgetData: IGadget){
-    this.boardService.saveGadgetToBoard(this.boardData, gadgetData, 0,0);
+  saveNewGadget(gadgetData: IGadget){
+    this.boardService.saveNewGadgetToBoard(this.boardData, gadgetData, 0,0);
     this.displayLastSelectedBoard();
   }
 

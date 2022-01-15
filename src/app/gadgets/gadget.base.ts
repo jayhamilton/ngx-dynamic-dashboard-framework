@@ -26,6 +26,11 @@ export abstract class GadgetBase implements IGadget {
 
   setConfiguration(gadgetData: IGadget){
     this.title = gadgetData.title;
+    this.instanceId = gadgetData.instanceId;
+    this.actions = gadgetData.actions;
+    this.description = gadgetData.description;
+    this.propertyPages = gadgetData.propertyPages;
+    this.tags = gadgetData.tags;
   }
 
 }
