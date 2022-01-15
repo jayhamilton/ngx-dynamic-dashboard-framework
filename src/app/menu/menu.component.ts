@@ -11,11 +11,19 @@ import { LibraryComponent } from '../library/library.component';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(public dialog:MatDialog, private eventService: EventService) { }
+  constructor(public dialog:MatDialog, private eventService: EventService) {
+    this.setupEventHandlers();
+  }
 
   ngOnInit(): void {
   }
 
+  setupEventHandlers(){
+
+    this.eventService.listenForLibraryOpenMenuEvent().subscribe(()=>{
+      this.openGadgetLibraryDialog();
+    })
+  }
   openConfigDialog() {
     this.dialog.open(ConfigurationComponent,{
       width: '1000px',

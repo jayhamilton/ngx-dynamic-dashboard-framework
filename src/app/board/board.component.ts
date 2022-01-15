@@ -200,6 +200,9 @@ export class BoardComponent implements OnInit {
 
     return gadgetCount > 0;
   }
+  openLibrary(){
+    this.eventService.emitLibraryMenuOpenEvent();
+  }
 
   drop(event: CdkDragDrop<string[]>) {
 

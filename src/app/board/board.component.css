@@ -8,7 +8,7 @@ mat-card-title {
 
 .grid {
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 50% 50%;
     row-gap: 25px;
     column-gap: 25px;
     justify-content: center;

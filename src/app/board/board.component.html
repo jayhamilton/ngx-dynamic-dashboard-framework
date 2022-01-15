@@ -31,10 +31,10 @@
 
 <div *ngIf="boardExists && !boardHasGadgets" class="grid-instruction">
     <div class="grid-dropzone">
-        <button mat-raised-button color="primary">Add Gadget</button>
+        <button mat-raised-button color="primary" (click)="openLibrary()">Add Gadget</button>
     </div>
 
     <div class="grid-dropzone">
-        <button mat-raised-button color="primary">Add Gadget</button>
+        <button mat-raised-button color="primary" (click)="openLibrary()">Add Gadget</button>
     </div>
 </div>
