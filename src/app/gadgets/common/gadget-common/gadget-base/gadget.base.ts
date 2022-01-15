@@ -8,9 +8,9 @@ export abstract class GadgetBase implements IGadget {
   icon: string;
   instanceId: number;
   tags: ITag[];
-  propertyPages: IPropertyPage[];;
+  propertyPages: IPropertyPage[];
   actions: IAction[];
-
+  inConfig: boolean;
 
   constructor() {
     this.componentType = '';
@@ -22,9 +22,10 @@ export abstract class GadgetBase implements IGadget {
     this.tags = [];
     this.propertyPages = [];
     this.actions = [];
+    this.inConfig = false;
   }
 
-  setConfiguration(gadgetData: IGadget){
+  setConfiguration(gadgetData: IGadget) {
     this.title = gadgetData.title;
     this.subtitle = gadgetData.subtitle;
     this.instanceId = gadgetData.instanceId;
@@ -35,4 +36,8 @@ export abstract class GadgetBase implements IGadget {
     this.icon = gadgetData.icon;
   }
 
+  public toggleConfigMode() {
+    this.inConfig = !this.inConfig;
+    console.log(this.inConfig);
+  }
 }

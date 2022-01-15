@@ -17,7 +17,6 @@ import { EventService } from 'src/app/eventservice/event.service';
 })
 export class ImageComponent  extends GadgetBase{
 
-
   gadgetData: any;
 
   constructor(private imageService: ImageService, private eventService: EventService) {

@@ -6,7 +6,7 @@
 <mat-icon>more_vert</mat-icon>
 </button>
     <mat-menu #menu="matMenu" xPosition="before">
-        <button mat-menu-item>Configure</button>
+        <button mat-menu-item (click)="toggleConfigMode()">Configure</button>
         <button mat-menu-item (click)="remove()">Remove</button>
     </mat-menu>
 </mat-card-header>

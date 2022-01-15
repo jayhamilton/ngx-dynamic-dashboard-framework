@@ -43,6 +43,7 @@ export class ProductComponent extends GadgetBase implements OnInit {
   ngOnInit(): void {}
 
   displayedColumns: string[] = ['id',  'measure', 'description', 'tools'];
+  displayedColumns2: string[] = ['id',  'measure', 'description'];
   dataToDisplay = [...ELEMENT_DATA];
 
   dataSource = new ExampleDataSource(this.dataToDisplay);

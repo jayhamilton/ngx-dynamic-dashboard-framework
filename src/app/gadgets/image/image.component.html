@@ -1,15 +1,29 @@
 <div cdkDropList>
     <mat-card cdkDrag class="card">
-        <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()">
+        <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()" (toggleConfigModeEvent)="toggleConfigMode()">
         </app-gadget-header>
-        <mat-card-content>
+        <mat-card-content *ngIf="!inConfig">
             <div class="grid" cdkDropListGroup>
-
-                <div class="example-container" *ngFor="let columnData of gadgetData; let columnIndex = index;">
-                    <div cdkDropList [id]=getColumnIndexAsString(columnIndex) [cdkDropListData]="columnData.gadgetNames" class="example-list" (cdkDropListDropped)="drop($event)">
-                        <div class="example-box" *ngFor="let item of columnData.gadgetNames;let gadgetIndex= index" cdkDrag><img src='assets/images/{{item}}.png' width="400px" height="350px"></div>
+                <div class="example-container" *ngFor="let columnData of gadgetData; let columnIndex = index">
+                    <div cdkDropList [id]="getColumnIndexAsString(columnIndex)" [cdkDropListData]="columnData.gadgetNames" class="example-list" (cdkDropListDropped)="drop($event)">
+                        <div class="example-box" *ngFor="
+                let item of columnData.gadgetNames;
+                let gadgetIndex = index
+              " cdkDrag>
+                            <img src="assets/images/{{ item }}.png" width="400px" height="350px" />
+                        </div>
                     </div>
                 </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-content *ngIf="inConfig" class="grid">
+
+            <div></div>
+            <div>
+                <mat-icon>
+                    cloud_upload
+                </mat-icon>
             </div>
         </mat-card-content>
     </mat-card>

@@ -1,8 +1,10 @@
 <div cdkDropList>
     <mat-card class="card" cdkDrag>
-        <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()"></app-gadget-header>
+        <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()" (toggleConfigModeEvent)="toggleConfigMode()"></app-gadget-header>
 
-        <mat-card-content>
+        <mat-card-content *ngIf="inConfig">
+
+
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
                 <!-- Position Column -->
                 <ng-container matColumnDef="id">
@@ -22,6 +24,7 @@
                     <td mat-cell *matCellDef="let element">{{ element.description }}</td>
                 </ng-container>
 
+
                 <!-- Tools Column -->
                 <ng-container matColumnDef="tools">
                     <th mat-header-cell *matHeaderCellDef>Actions</th>
@@ -37,11 +40,13 @@
                     </td>
                 </ng-container>
 
+
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
 
             <br />
+
             <h3>Add component</h3>
             <div class="example-container">
                 <form [formGroup]="options">
@@ -76,6 +81,34 @@
           </button>
                 </form>
             </div>
+
+        </mat-card-content>
+
+        <mat-card-content *ngIf="!inConfig">
+
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef>Id</th>
+                    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="measure">
+                    <th mat-header-cell *matHeaderCellDef>Measure</th>
+                    <td mat-cell *matCellDef="let element">{{ element.measure }}</td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef>Description</th>
+                    <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+            </table>
         </mat-card-content>
     </mat-card>
 </div>
