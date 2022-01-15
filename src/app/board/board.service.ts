@@ -13,7 +13,6 @@ export interface IBoard {
   title: string;
   description: string;
   structure: string;
-
   id: number;
   boardInstanceId: number;
   rows: IRow[];
@@ -29,13 +28,28 @@ export interface IColumn {
   gadgetNames: string[];
 }
 
+enum BoardType {
+  LASTSELECTED,
+  ID,
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class BoardService {
-  BOARD: string = 'boardCollection';
+  BOARDCOLLECTION: string = 'boardCollection';
+  initializingBoard: IBoard;
 
   constructor(private eventService: EventService) {
+    this.initializingBoard = {
+      title: '',
+      description: '',
+      structure: '',
+      id: -10,
+      boardInstanceId: -10,
+      rows: [],
+    };
+
     this.setupEventListeners();
   }
 
@@ -63,12 +77,12 @@ export class BoardService {
   }
 
   private read() {
-    return localStorage.getItem(this.BOARD);
+    return localStorage.getItem(this.BOARDCOLLECTION);
   }
 
-  private save(boardData: IBoardCollection) {
-    localStorage.removeItem(this.BOARD);
-    localStorage.setItem(this.BOARD, JSON.stringify(boardData));
+  private save(boardCollection: IBoardCollection) {
+    localStorage.removeItem(this.BOARDCOLLECTION);
+    localStorage.setItem(this.BOARDCOLLECTION, JSON.stringify(boardCollection));
   }
 
   private getBoardData(): IBoardCollection {
@@ -124,60 +138,44 @@ export class BoardService {
   }
 
   public getLastSelectedBoard() {
-    return new Observable<IBoard>((observer) => {
-      let data = this.getBoardData();
-
-      if (data.boardList.length == 0) {
-        observer.next({
-          title: '',
-          description: '',
-          structure: '',
-          id: -10,
-          boardInstanceId: -10,
-          rows: [],
-        });
-        return () => {};
-      } else {
-        //in case we cannot find the last selected return the first in the list.
-        let lastSelectedBoard = data.boardList[0];
-
-        data.boardList.forEach((board) => {
-          if (board.id == data.lastSelectedBoard) {
-            lastSelectedBoard = board;
-          }
-        });
-        observer.next(lastSelectedBoard);
-        return () => {};
-      }
-    });
+    return this.getBoardByType(BoardType.LASTSELECTED, -1);
   }
   public getBoardById(boardId: number) {
+    return this.getBoardByType(BoardType.ID, boardId);
+  }
+
+  private getBoardByType(type: BoardType, boardId: number) {
     return new Observable<IBoard>((observer) => {
       let data = this.getBoardData();
 
       if (data.boardList.length == 0) {
-        observer.next({
-          title: '',
-          description: '',
-          structure: '',
-          id: -10,
-          boardInstanceId: -10,
-          rows: [],
-        });
+        observer.next(this.initializingBoard);
         return () => {};
       } else {
         //in case we cannot find the last selected return the first in the list.
-        let selectedBoard: IBoard = data.boardList[0];
+        let boardToReturn = data.boardList[0];
 
         data.boardList.forEach((board) => {
-          if (board.id == boardId) {
-            selectedBoard = board;
-            this.setLastSelectedAndSaveBoard(boardId);
+          switch (type) {
+            case BoardType.LASTSELECTED:
+              {
+                if (board.id == data.lastSelectedBoard) {
+                  boardToReturn = board;
+                }
+              }
+              break;
+            case BoardType.ID:
+              {
+                if (board.id == boardId) {
+                  boardToReturn = board;
+                  this.setLastSelectedAndSaveBoard(boardId);
+                }
+              }
+              break;
+            default:
           }
         });
-
-        //return to listeners
-        observer.next(selectedBoard);
+        observer.next(boardToReturn);
         return () => {};
       }
     });
@@ -209,7 +207,10 @@ export class BoardService {
       boardCollection.lastSelectedBoard = defaultBoardInstanceRequestData.id;
 
       //(4)
-      boardCollection.boardList = [...boardCollection.boardList, defaultBoardInstanceRequestData];
+      boardCollection.boardList = [
+        ...boardCollection.boardList,
+        defaultBoardInstanceRequestData,
+      ];
 
       //(5)
       this.save(boardCollection);
@@ -291,7 +292,7 @@ export class BoardService {
     });
   }
 
-  columnToInsert: number = 0;
+  columnToInsert: number = 0;//TODO - fix this during drag drop refactoring
 
   private setLastSelectedAndSaveBoard(boardId: number) {
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
