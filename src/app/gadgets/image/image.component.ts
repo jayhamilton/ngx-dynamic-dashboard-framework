@@ -68,7 +68,6 @@ export class ImageComponent  extends GadgetBase{
 
   remove(){
     this.eventService.emitGadgetDeleteEvent({data: this.instanceId});
-    console.log("DELETE FROM COMPONENT: " + this.instanceId);
   }
 
 }

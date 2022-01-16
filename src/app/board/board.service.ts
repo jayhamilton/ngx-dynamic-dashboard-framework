@@ -14,7 +14,6 @@ export interface IBoard {
   description: string;
   structure: string;
   id: number;
-  boardInstanceId: number;
   rows: IRow[];
 }
 
@@ -28,9 +27,11 @@ export interface IColumn {
   gadgetNames: string[];
 }
 
-enum BoardType {
+export enum BoardType {
   LASTSELECTED,
-  ID,
+  IDSELECTED,
+  DEFAULT,
+  EMPTYBOARDCOLLECTION,
 }
 
 @Injectable({
@@ -38,19 +39,73 @@ enum BoardType {
 })
 export class BoardService {
   BOARDCOLLECTION: string = 'boardCollection';
-  initializingBoard: IBoard;
+  emptyBoardCollectionObject: IBoard;
 
   constructor(private eventService: EventService) {
-    this.initializingBoard = {
+    this.emptyBoardCollectionObject = {
       title: '',
       description: '',
       structure: '',
-      id: -10,
-      boardInstanceId: -10,
+      id: BoardType.EMPTYBOARDCOLLECTION,
       rows: [],
     };
 
     this.setupEventListeners();
+  }
+
+  public getBoardCollection() {
+    return new Observable<IBoardCollection>((observer) => {
+      observer.next(this.getBoardCollectionFromSource());
+      return () => {};
+    });
+  }
+
+  public getLastSelectedBoard() {
+    return this.getBoardByType(BoardType.LASTSELECTED, -1);
+  }
+
+  public getBoardById(boardId: number) {
+    return this.getBoardByType(BoardType.IDSELECTED, boardId);
+  }
+
+  /**
+   *  TODO Refactor saveGadgetToBoard
+   * walk the board data and find array of gadgets for the board.
+   * Place gadget in the left most column at the head.
+   */
+
+  columnToInsert: number = 0; //TODO - refactor to have this passed in.
+
+  public saveNewGadgetToBoard(incomingBoard: IBoard, incomingGadget: IGadget) {
+    this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
+      boardCollection.boardList.forEach((board) => {
+        if (board.id == incomingBoard.id) {
+          let rowNum = 0; //TODO - refactor to have this passed in.
+          let update: IGadget[] = [];
+
+          //set instanceIdValue
+          incomingGadget.instanceId = Date.now();
+
+          update.push(incomingGadget);
+
+          let totalColumns = board.rows.length;
+
+          board.rows[rowNum].columns[this.columnToInsert].gadgets.forEach(
+            (gadget) => {
+              update.push(gadget);
+            }
+          );
+          board.rows[rowNum].columns[this.columnToInsert].gadgets = update;
+          if (this.columnToInsert < totalColumns) {
+            this.columnToInsert++;
+          } else {
+            this.columnToInsert = 0;
+          }
+        }
+      });
+
+      this.saveBoardCollectionToDestination(boardCollection);
+    });
   }
 
   /**
@@ -76,35 +131,27 @@ export class BoardService {
       });
   }
 
-  private read() {
-    return localStorage.getItem(this.BOARDCOLLECTION);
-  }
-
-  private save(boardCollection: IBoardCollection) {
+  private saveBoardCollectionToDestination(boardCollection: IBoardCollection) {
     localStorage.removeItem(this.BOARDCOLLECTION);
     localStorage.setItem(this.BOARDCOLLECTION, JSON.stringify(boardCollection));
   }
 
-  private getBoardData(): IBoardCollection {
-    if (this.read() == null) {
-      return { lastSelectedBoard: -1, boardList: [] }; //TODO this will not work if there is additional default boards added. FIXME
+  private getBoardCollectionFromSource(): IBoardCollection {
+    let _data = localStorage.getItem(this.BOARDCOLLECTION);
+    if (_data == null) {
+      return { lastSelectedBoard: -1, boardList: [] };
     } else {
-      let _data = this.read();
-      if (_data == null) {
-        _data = '';
-      }
       return JSON.parse(_data);
     }
   }
 
-  private getAllDefaultBoardData(): IBoard[] {
+  private getAllDefaultBoards(): IBoard[] {
     return [
       {
         title: 'Board',
         description: '',
         structure: '1-1',
-        id: -1,
-        boardInstanceId: -1,
+        id: BoardType.DEFAULT,
         rows: [
           {
             columns: [
@@ -126,30 +173,16 @@ export class BoardService {
   }
 
   private getDefaultBoard(type: number): IBoard {
-    let defaultBoardsArray = this.getAllDefaultBoardData();
+    let defaultBoardsArray = this.getAllDefaultBoards();
     return defaultBoardsArray[type]; //currently only one default board type which is 0 exists
-  }
-
-  public getBoardCollection() {
-    return new Observable<IBoardCollection>((observer) => {
-      observer.next(this.getBoardData());
-      return () => {};
-    });
-  }
-
-  public getLastSelectedBoard() {
-    return this.getBoardByType(BoardType.LASTSELECTED, -1);
-  }
-  public getBoardById(boardId: number) {
-    return this.getBoardByType(BoardType.ID, boardId);
   }
 
   private getBoardByType(type: BoardType, boardId: number) {
     return new Observable<IBoard>((observer) => {
-      let data = this.getBoardData();
+      let data = this.getBoardCollectionFromSource();
 
       if (data.boardList.length == 0) {
-        observer.next(this.initializingBoard);
+        observer.next(this.emptyBoardCollectionObject);
         return () => {};
       } else {
         //in case we cannot find the last selected return the first in the list.
@@ -164,7 +197,7 @@ export class BoardService {
                 }
               }
               break;
-            case BoardType.ID:
+            case BoardType.IDSELECTED:
               {
                 if (board.id == boardId) {
                   boardToReturn = board;
@@ -182,32 +215,26 @@ export class BoardService {
   }
 
   private createNewBoard(event: IEvent): void {
-
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
+      let newBoard = this.getDefaultBoard(0); //currently only one default board type
 
-      let defaultBoardInstanceRequestData = this.getDefaultBoard(0); //currently only one default board type
+      newBoard.id = Date.now();
+      newBoard.title = event.data['title'];
+      newBoard.description = event.data['description'];
 
-      defaultBoardInstanceRequestData.id = Date.now();
-      defaultBoardInstanceRequestData.title = event.data['title'];
-      defaultBoardInstanceRequestData.description = event.data['description'];
+      boardCollection.lastSelectedBoard = newBoard.id;
 
-      boardCollection.lastSelectedBoard = defaultBoardInstanceRequestData.id;
+      boardCollection.boardList = [...boardCollection.boardList, newBoard];
 
-      boardCollection.boardList = [
-        ...boardCollection.boardList,
-        defaultBoardInstanceRequestData,
-      ];
-
-      this.save(boardCollection);
+      this.saveBoardCollectionToDestination(boardCollection);
 
       this.eventService.emitBoardCreatedCompleteEvent({
-        data: defaultBoardInstanceRequestData,
+        data: newBoard,
       });
     });
   }
 
   private deleteBoard(event: IEvent) {
-
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
       let idx = boardCollection.boardList.findIndex(
         (board) => board.id === event.data['id']
@@ -215,60 +242,34 @@ export class BoardService {
 
       boardCollection.boardList.splice(idx, 1);
 
-      //todo - make a decision on what to set the lastBoardSelectionTo
+      /**
+        If the last selected board is the item being deleted
+        adjust the lastselected to the most recently created
+        TODO maintain a list of 5 most recently last selected
+      */
 
-      this.save(boardCollection);
+      if (event.data['id'] === boardCollection.lastSelectedBoard) {
+        let mostRecentlyCreated = 0;
+
+        boardCollection.boardList.forEach((board) => {
+          if (mostRecentlyCreated < board.id) {
+            mostRecentlyCreated = board.id;
+          }
+        });
+
+        boardCollection.lastSelectedBoard = mostRecentlyCreated;
+      }
+
+      this.saveBoardCollectionToDestination(boardCollection);
     });
 
     this.eventService.emitBoardDeletedCompleteEvent({ data: event });
-
   }
-
-  public saveNewGadgetToBoard(
-    incomingBoard: IBoard,
-    incomingGadget: IGadget,
-    rowNum: number,
-    colNum: number
-  ) {
-    //walk the board data and find array of gadgets for the board.
-    //place gadget in the left most column at the head.
-
-    this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
-      boardCollection.boardList.forEach((board) => {
-        if (board.id == incomingBoard.id) {
-          let update: IGadget[] = [];
-
-          //set instanceIdValue
-          incomingGadget.instanceId = Date.now();
-
-          update.push(incomingGadget);
-
-          let totalColumns = board.rows.length;
-
-          board.rows[rowNum].columns[this.columnToInsert].gadgets.forEach(
-            (gadget) => {
-              update.push(gadget);
-            }
-          );
-          board.rows[rowNum].columns[this.columnToInsert].gadgets = update;
-          if (this.columnToInsert < totalColumns) {
-            this.columnToInsert++;
-          } else {
-            this.columnToInsert = 0;
-          }
-        }
-      });
-
-      this.save(boardCollection);
-    });
-  }
-
-  columnToInsert: number = 0;//TODO - fix this during drag drop refactoring
 
   private setLastSelectedAndSaveBoard(boardId: number) {
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
       boardCollection.lastSelectedBoard = boardId;
-      this.save(boardCollection);
+      this.saveBoardCollectionToDestination(boardCollection);
     });
   }
 
@@ -283,7 +284,7 @@ export class BoardService {
             );
             if (idx >= 0) {
               columnData.gadgets.splice(idx, 1);
-              this.save(boardCollection);
+              this.saveBoardCollectionToDestination(boardCollection);
             }
           });
         });

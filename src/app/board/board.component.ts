@@ -16,7 +16,7 @@ import { ImageComponent } from '../gadgets/image/image.component';
 import { BoardGridDirective } from './boardgrid.directive';
 import { ProductComponent } from '../gadgets/product/product.component';
 import { IEvent, EventService } from '../eventservice/event.service';
-import { BoardService, IBoard } from './board.service';
+import { BoardService, BoardType, IBoard } from './board.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 @Component({
@@ -106,7 +106,7 @@ export class BoardComponent implements OnInit {
   displayLastSelectedBoard() {
     //getBoardData
     this.boardService.getLastSelectedBoard().subscribe((boardData: IBoard) => {
-      this.prepareToShow(boardData);
+      this.prepareBoardAndShow(boardData);
     });
   }
 
@@ -116,7 +116,7 @@ export class BoardComponent implements OnInit {
   displayNavSelectedBoard(boardId: number) {
     //getBoardData
     this.boardService.getBoardById(boardId).subscribe((boardData: IBoard) => {
-      this.prepareToShow(boardData);
+      this.prepareBoardAndShow(boardData);
     });
   }
   /**
@@ -124,7 +124,7 @@ export class BoardComponent implements OnInit {
    * will determine what instructions/actions to display on the board.
    * @param boardData
    */
-  prepareToShow(boardData: IBoard) {
+   prepareBoardAndShow(boardData: IBoard) {
     this.boardData = boardData;
     this.boardExists = this.doesABoardExist();
     this.boardHasGadgets = this.doesTheBoardHaveGadgets();
@@ -177,7 +177,7 @@ export class BoardComponent implements OnInit {
   }
 
   saveNewGadget(gadgetData: IGadget) {
-    this.boardService.saveNewGadgetToBoard(this.boardData, gadgetData, 0, 0);
+    this.boardService.saveNewGadgetToBoard(this.boardData, gadgetData);
     this.displayLastSelectedBoard();
   }
 
@@ -187,7 +187,7 @@ export class BoardComponent implements OnInit {
   }
 
   doesABoardExist() {
-    return this.boardData.id !== -10; //TODO - not a good way to determine if a board exists. Fix This.
+    return this.boardData.id != BoardType.EMPTYBOARDCOLLECTION; //TODO - Refactor this state. Move the state/condition from board to BoardCollection.
   }
 
   doesTheBoardHaveGadgets() {
