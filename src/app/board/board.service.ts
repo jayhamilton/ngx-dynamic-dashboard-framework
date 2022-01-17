@@ -24,7 +24,6 @@ export interface IRow {
 export interface IColumn {
   styleClass: string;
   gadgets: IGadget[];
-  gadgetIds: number[];
 }
 
 export enum BoardType {
@@ -82,7 +81,6 @@ export class BoardService {
         if (board.id == incomingBoard.id) {
           let rowNum = 0; //TODO - refactor to have this passed in.
           let updatedGadgetList: IGadget[] = [];
-          let updatedGadgetIdList: number[] = [];
 
 
           //set instanceIdValue
@@ -94,11 +92,9 @@ export class BoardService {
 
           board.rows[rowNum].columns[this.columnToInsert].gadgets.forEach((gadget) => {
             updatedGadgetList.push(gadget);
-            updatedGadgetIdList.push(incomingGadget.instanceId);
             }
           );
           board.rows[rowNum].columns[this.columnToInsert].gadgets = updatedGadgetList;
-          board.rows[rowNum].columns[this.columnToInsert].gadgetIds = updatedGadgetIdList;
           if (this.columnToInsert < totalColumns) {
             this.columnToInsert++;
           } else {
@@ -107,6 +103,19 @@ export class BoardService {
         }
       });
 
+      this.saveBoardCollectionToDestination(boardCollection);
+    });
+  }
+
+  updateBoardDueToDragAndDrop(incomingBoard: IBoard){
+
+    this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
+      boardCollection.boardList.forEach((board) => {
+        if (board.id == incomingBoard.id) {
+          board.rows =[];
+          board.rows = [...incomingBoard.rows];
+        }
+      });
       this.saveBoardCollectionToDestination(boardCollection);
     });
   }
@@ -160,13 +169,11 @@ export class BoardService {
             columns: [
               {
                 styleClass: '1fr',
-                gadgets: [],
-                gadgetIds: [],
+                gadgets: []
               },
               {
                 styleClass: '1fr',
-                gadgets: [],
-                gadgetIds: [],
+                gadgets: []
               },
             ],
           },

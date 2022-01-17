@@ -39,24 +39,13 @@ export class BoardComponent implements OnInit {
   boardData!: IBoard;
   boardExists: boolean;
   boardHasGadgets: boolean;
-  NULL_GADGET: IGadget;
 
   constructor(
     private eventService: EventService,
     private boardService: BoardService
   ) {
 
-    this.NULL_GADGET = {
-      componentType: '',
-      title: '',
-      subtitle: '',
-      description: '',
-      icon: '',
-      instanceId: -1,
-      tags: [],
-      propertyPages: [],
-      actions: [],
-    }
+
     this.boardExists = false;
     this.boardHasGadgets = false;
     this.setupBoardEventListeners();
@@ -165,32 +154,8 @@ export class BoardComponent implements OnInit {
     return '' + idx;
   }
 
-  // TODO - potentially remove this.
-  getGadgetDataById(id:any): IGadget{
-
-    let gadgetData = this.NULL_GADGET;
-
-    this.boardData.rows.forEach((row)=>{
-
-      row.columns.forEach((col)=>{
-
-        col.gadgets.forEach((gadget)=>{
-
-          if(gadget.instanceId == id){
-
-            gadgetData = gadget;
-
-          }
-        });
-      });
-    });
-
-    return gadgetData;
-  }
-
   drop(event: CdkDragDrop<IGadget[]>) {
 
-    console.log(event);
 
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -206,5 +171,10 @@ export class BoardComponent implements OnInit {
         event.currentIndex
       );
     }
+
+    this.boardService.updateBoardDueToDragAndDrop(this.boardData);
+
   }
+
+
 }
