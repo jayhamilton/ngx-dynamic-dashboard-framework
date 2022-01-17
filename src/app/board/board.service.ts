@@ -1,4 +1,3 @@
-import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IEvent, EventService } from '../eventservice/event.service';
@@ -107,7 +106,7 @@ export class BoardService {
     });
   }
 
-  updateBoardDueToDragAndDrop(incomingBoard: IBoard){
+  public updateBoardDueToDragAndDrop(incomingBoard: IBoard){
 
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
       boardCollection.boardList.forEach((board) => {

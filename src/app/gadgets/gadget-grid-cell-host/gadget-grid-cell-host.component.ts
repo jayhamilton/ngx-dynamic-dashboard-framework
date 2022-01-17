@@ -2,22 +2,21 @@ import {
   Component,
   Input,
   ViewContainerRef,
-  OnInit,
-  ComponentFactoryResolver,
+  OnInit
 } from '@angular/core';
-import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
-import { ImageComponent } from '../gadgets/image/image.component';
-import { ProductComponent } from '../gadgets/product/product.component';
+import { IGadget } from '../common/gadget-common/gadget-base/gadget.model';
+import { ImageComponent } from '../image/image.component';
+import { ProductComponent } from '../product/product.component';
 
 /*
  this class handles the dynamic creation of components
  */
 
 @Component({
-  selector: 'app-grid-cell',
+  selector: 'gadget-grid-cell-host',
   template: '',
 })
-export class CellComponent implements OnInit {
+export class GadgetGridCellHostComponent implements OnInit {
   @Input() gadgetData: IGadget;
 
   constructor(private componentHost: ViewContainerRef) {

@@ -16,10 +16,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { GadgetCommonModule } from './common/gadget-common/gadget-common.module';
+import { GadgetGridCellHostComponent } from './gadget-grid-cell-host/gadget-grid-cell-host.component';
 @NgModule({
   declarations: [
     ImageComponent,
-    ProductComponent
+    ProductComponent,
+    GadgetGridCellHostComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { GadgetCommonModule } from './common/gadget-common/gadget-common.module'
   ],
     exports: [
       ImageComponent,
-      ProductComponent
+      ProductComponent,
+      GadgetGridCellHostComponent
     ],
     providers: [
       ImageService

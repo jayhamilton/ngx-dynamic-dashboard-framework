@@ -17,9 +17,7 @@
                     <button mat-raised-button color="primary" (click)="openLibrary()">Add Gadget</button>
                 </div>
             </div>
-
-            <app-grid-cell class="example-box" *ngFor="let gadget of col.gadgets" [gadgetData]="gadget"></app-grid-cell>
-
+            <gadget-grid-cell-host class="example-box" *ngFor="let gadget of col.gadgets" [gadgetData]="gadget"></gadget-grid-cell-host>
         </div>
     </div>
 </div>

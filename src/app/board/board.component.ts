@@ -44,8 +44,6 @@ export class BoardComponent implements OnInit {
     private eventService: EventService,
     private boardService: BoardService
   ) {
-
-
     this.boardExists = false;
     this.boardHasGadgets = false;
     this.setupBoardEventListeners();
