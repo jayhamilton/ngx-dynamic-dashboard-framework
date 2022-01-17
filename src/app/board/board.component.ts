@@ -12,13 +12,11 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 
-import { ImageComponent } from '../gadgets/image/image.component';
-import { BoardGridDirective } from './boardgrid.directive';
-import { ProductComponent } from '../gadgets/product/product.component';
 import { IEvent, EventService } from '../eventservice/event.service';
 import { BoardService, BoardType, IBoard } from './board.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -37,17 +35,28 @@ import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.mode
   ],
 })
 export class BoardComponent implements OnInit {
-  @ViewChild(BoardGridDirective, { static: true })
-  gadgetGridHost!: BoardGridDirective;
 
   boardData!: IBoard;
   boardExists: boolean;
   boardHasGadgets: boolean;
+  NULL_GADGET: IGadget;
 
   constructor(
     private eventService: EventService,
     private boardService: BoardService
   ) {
+
+    this.NULL_GADGET = {
+      componentType: '',
+      title: '',
+      subtitle: '',
+      description: '',
+      icon: '',
+      instanceId: -1,
+      tags: [],
+      propertyPages: [],
+      actions: [],
+    }
     this.boardExists = false;
     this.boardHasGadgets = false;
     this.setupBoardEventListeners();
@@ -127,63 +136,11 @@ export class BoardComponent implements OnInit {
    prepareBoardAndShow(boardData: IBoard) {
     this.boardData = boardData;
     this.boardExists = this.doesABoardExist();
-    this.boardHasGadgets = this.doesTheBoardHaveGadgets();
-
-    this.clearDisplay();
-    this.show();
-  }
-
-  /**
-   *  walk the board structure to find gadgets to display
-   */
-  show() {
-    //use this.boardData to render components
-    this.boardData.rows.forEach((rowData) => {
-      rowData.columns.forEach((columnData) => {
-        columnData.gadgets.forEach((gadgetData) => {
-          this.addGadget(gadgetData);
-        });
-      });
-    });
-  }
-
-  /**
-   * addGadget is directly called from the library add action. Otherwise
-   * its is called when the board loads persisted data.
-   * TODO - use differnet method when add gadget is requested from the library. For that event,
-   * there should just be a board save action and then a reload of the board data.
-   * @param gadgetData
-   */
-  public addGadget(gadgetData: IGadget) {
-    const gridHost = this.gadgetGridHost.viewContainerRef;
-
-    let gadgetRef = null;
-
-    //TODO refactor and move to seperate clases
-    switch (gadgetData.componentType) {
-      case 'ProductComponent':
-        gadgetRef = gridHost.createComponent(ProductComponent);
-        break;
-      case 'ImageComponent':
-        gadgetRef = gridHost.createComponent(ImageComponent);
-        break;
-      default:
-      //do nothing
-    }
-
-    if (gadgetRef) {
-      gadgetRef.instance.setConfiguration(gadgetData);
-    }
   }
 
   saveNewGadget(gadgetData: IGadget) {
     this.boardService.saveNewGadgetToBoard(this.boardData, gadgetData);
     this.displayLastSelectedBoard();
-  }
-
-  clearDisplay() {
-    const gridHost = this.gadgetGridHost.viewContainerRef;
-    gridHost.clear();
   }
 
   doesABoardExist() {
@@ -204,9 +161,34 @@ export class BoardComponent implements OnInit {
     this.eventService.emitLibraryMenuOpenEvent();
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  getColumnIndexAsString(idx: number) {
+    return '' + idx;
+  }
 
-    return;
+  // TODO - potentially remove this.
+  getGadgetDataById(id:any): IGadget{
+
+    let gadgetData = this.NULL_GADGET;
+
+    this.boardData.rows.forEach((row)=>{
+
+      row.columns.forEach((col)=>{
+
+        col.gadgets.forEach((gadget)=>{
+
+          if(gadget.instanceId == id){
+
+            gadgetData = gadget;
+
+          }
+        });
+      });
+    });
+
+    return gadgetData;
+  }
+
+  drop(event: CdkDragDrop<IGadget[]>) {
 
     console.log(event);
 

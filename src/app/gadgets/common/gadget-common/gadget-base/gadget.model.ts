@@ -34,3 +34,6 @@ export interface IProperty {
 export interface IAction {
   name: string;
 }
+
+
+

@@ -24,7 +24,7 @@ export interface IRow {
 export interface IColumn {
   styleClass: string;
   gadgets: IGadget[];
-  gadgetNames: string[];
+  gadgetIds: number[];
 }
 
 export enum BoardType {
@@ -81,21 +81,24 @@ export class BoardService {
       boardCollection.boardList.forEach((board) => {
         if (board.id == incomingBoard.id) {
           let rowNum = 0; //TODO - refactor to have this passed in.
-          let update: IGadget[] = [];
+          let updatedGadgetList: IGadget[] = [];
+          let updatedGadgetIdList: number[] = [];
+
 
           //set instanceIdValue
           incomingGadget.instanceId = Date.now();
 
-          update.push(incomingGadget);
+          updatedGadgetList.push(incomingGadget);
 
           let totalColumns = board.rows.length;
 
-          board.rows[rowNum].columns[this.columnToInsert].gadgets.forEach(
-            (gadget) => {
-              update.push(gadget);
+          board.rows[rowNum].columns[this.columnToInsert].gadgets.forEach((gadget) => {
+            updatedGadgetList.push(gadget);
+            updatedGadgetIdList.push(incomingGadget.instanceId);
             }
           );
-          board.rows[rowNum].columns[this.columnToInsert].gadgets = update;
+          board.rows[rowNum].columns[this.columnToInsert].gadgets = updatedGadgetList;
+          board.rows[rowNum].columns[this.columnToInsert].gadgetIds = updatedGadgetIdList;
           if (this.columnToInsert < totalColumns) {
             this.columnToInsert++;
           } else {
@@ -158,12 +161,12 @@ export class BoardService {
               {
                 styleClass: '1fr',
                 gadgets: [],
-                gadgetNames: [],
+                gadgetIds: [],
               },
               {
                 styleClass: '1fr',
                 gadgets: [],
-                gadgetNames: [],
+                gadgetIds: [],
               },
             ],
           },
