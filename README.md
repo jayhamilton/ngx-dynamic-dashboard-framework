@@ -1,5 +1,8 @@
 # PlmUi
 
+
+PlmUI is based on the open source project https://github.com/jayhamilton/ngx-dynamic-dashboard-framework-1 I created a few years ago. This project is a purpose built rewrite of that project, leveraging the latest version of Angular. This project also removes the dependency on SemanticUI in favor of Angular Material Design. My goal is to get this purpose built version in good enough shape to then fork out to produce a next gen version of NGX-Dynamic-Dashboard-Framework, incorporating all of its gadgets. At least that is my goal :-)  
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.1.
 
 ## Development server
