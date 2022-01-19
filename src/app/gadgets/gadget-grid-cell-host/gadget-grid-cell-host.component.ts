@@ -7,6 +7,7 @@ import {
 import { IGadget } from '../common/gadget-common/gadget-base/gadget.model';
 import { ImageComponent } from '../image/image.component';
 import { ProductComponent } from '../product/product.component';
+import { ScoreCardComponent } from '../score-card/score-card.component';
 
 /*
  this class handles the dynamic creation of components
@@ -43,6 +44,9 @@ export class GadgetGridCellHostComponent implements OnInit {
         break;
       case 'ImageComponent':
         gadgetRef = this.componentHost.createComponent(ImageComponent);
+        break;
+      case 'ScoreCardComponent':
+        gadgetRef = this.componentHost.createComponent(ScoreCardComponent);
         break;
       default:
       //do nothing

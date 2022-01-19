@@ -21,7 +21,6 @@ export interface IRow {
 }
 
 export interface IColumn {
-  styleClass: string;
   gadgets: IGadget[];
 }
 
@@ -30,6 +29,11 @@ export enum BoardType {
   IDSELECTED,
   DEFAULT,
   EMPTYBOARDCOLLECTION,
+}
+
+export enum LayoutType{
+  TWO_50_50,
+  ONE__20_60_20,
 }
 
 @Injectable({
@@ -156,22 +160,33 @@ export class BoardService {
     }
   }
 
+  private updateBoardsLayout(board:IBoard, layout: LayoutType){
+
+
+
+    //adjust the  columns to reflect the new layout.
+
+
+    // either create two columns or three columns
+
+
+
+  }
+
   private getAllDefaultBoards(): IBoard[] {
     return [
       {
         title: 'Board',
         description: '',
-        structure: '1-1',
+        structure: 'A',
         id: BoardType.DEFAULT,
         rows: [
           {
             columns: [
               {
-                styleClass: '1fr',
                 gadgets: []
               },
               {
-                styleClass: '1fr',
                 gadgets: []
               },
             ],

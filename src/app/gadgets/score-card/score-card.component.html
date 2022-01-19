@@ -1,0 +1,44 @@
+<mat-card class="card" cdkDrag>
+    <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()" (toggleConfigModeEvent)="toggleConfigMode()">
+    </app-gadget-header>
+    <mat-card-content *ngIf="!inConfig">
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="hours">
+                <th mat-header-cell *matHeaderCellDef> Hours </th>
+                <td mat-cell *matCellDef="let element"> {{element.hours}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="goal">
+                <th mat-header-cell *matHeaderCellDef> Goals </th>
+                <td mat-cell *matCellDef="let element"> {{element.goal}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="actual">
+                <th mat-header-cell *matHeaderCellDef> Actual </th>
+                <td mat-cell *matCellDef="let element"> {{element.actual}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="comments">
+                <th mat-header-cell *matHeaderCellDef>Comments </th>
+                <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card-content>
+
+    <mat-card-content *ngIf="inConfig" class="grid">
+
+        <p> card configuraiton display</p>
+    </mat-card-content>
+</mat-card>

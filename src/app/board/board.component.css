@@ -6,9 +6,18 @@ mat-card-title {
     color: #3f51b5;
 }
 
-.grid {
+.grid-A {
     display: grid;
     grid-template-columns: 50% 50%;
+    row-gap: 25px;
+    column-gap: 25px;
+    justify-content: center;
+    margin: 40px;
+}
+
+.grid-B {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
     row-gap: 25px;
     column-gap: 25px;
     justify-content: center;

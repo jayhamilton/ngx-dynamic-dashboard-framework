@@ -7,3 +7,7 @@
 mat-card-title {
     color: #3f51b5;
 }
+
+.move-cursor {
+    cursor: move;
+}

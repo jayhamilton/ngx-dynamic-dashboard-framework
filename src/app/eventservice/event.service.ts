@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { Observable, Subject } from 'rxjs';
 
 export interface IEvent {

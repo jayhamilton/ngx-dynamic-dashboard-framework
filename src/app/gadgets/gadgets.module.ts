@@ -17,11 +17,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { GadgetCommonModule } from './common/gadget-common/gadget-common.module';
 import { GadgetGridCellHostComponent } from './gadget-grid-cell-host/gadget-grid-cell-host.component';
+import { ScoreCardComponent } from './score-card/score-card.component';
 @NgModule({
   declarations: [
     ImageComponent,
     ProductComponent,
-    GadgetGridCellHostComponent
+    GadgetGridCellHostComponent,
+    ScoreCardComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { GadgetGridCellHostComponent } from './gadget-grid-cell-host/gadget-grid
     exports: [
       ImageComponent,
       ProductComponent,
-      GadgetGridCellHostComponent
+      GadgetGridCellHostComponent,
+      ScoreCardComponent
     ],
     providers: [
       ImageService

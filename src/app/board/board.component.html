@@ -9,9 +9,8 @@
 
 <div *ngFor="let row of boardData.rows; let r = index">
 
-    <div cdkDropListGroup class="grid">
+    <div cdkDropListGroup class="grid-A">
         <div *ngFor="let col of row.columns; let c = index" cdkDropList [id]="getColumnIndexAsString(c)" [cdkDropListData]="col.gadgets" (cdkDropListDropped)="drop($event)">
-
             <div *ngIf="!col.gadgets || col.gadgets.length== 0">
                 <div class="grid-dropzone">
                     <button mat-raised-button color="primary" (click)="openLibrary()">Add Gadget</button>

@@ -2,12 +2,9 @@ import {
   Component,
   ComponentRef,
   OnInit,
-  ViewChild,
-  ViewContainerRef,
 } from '@angular/core';
 import {
   CdkDragDrop,
-  CdkDropList,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';

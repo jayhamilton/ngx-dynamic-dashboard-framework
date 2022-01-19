@@ -51,11 +51,11 @@
         }]
     },
     {
-        "componentType": "ProductInstructionComponent",
-        "title": "Product Instruction Tool",
-        "subtitle": "Produce instruction subtitle",
-        "description": "Select this tool to add an instruction section to the production line board.",
-        "icon": "../../assets/images/instructions.png",
+        "componentType": "ScoreCardComponent",
+        "title": "Product Score Card Tool",
+        "subtitle": "Score card subtitle",
+        "description": "Record results for the production line for the period of time indicated in the card.",
+        "icon": "../../assets/images/count.jpg",
         "instanceId": -1,
         "tags": [],
         "propertyPages": [{
