@@ -13,6 +13,7 @@ import { IEvent, EventService } from '../eventservice/event.service';
 import { BoardService, BoardType, IBoard } from './board.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-board',
@@ -45,6 +46,16 @@ export class BoardComponent implements OnInit {
     this.boardHasGadgets = false;
     this.setupBoardEventListeners();
   }
+
+  tabs = [{name:'A', id:'1642511840192'},{name:'B', id:'1642641099689'}];
+  selected = new FormControl(0);
+  tabtitle:string = '';
+
+  setSelected(val: number){
+    console.log(this.tabs[val]);
+    this.displayNavSelectedBoard(Number.parseInt(this.tabs[val].id));
+  }
+
 
   ngOnInit(): void {
     this.displayLastSelectedBoard();

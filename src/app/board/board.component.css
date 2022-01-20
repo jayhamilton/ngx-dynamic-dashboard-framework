@@ -2,6 +2,10 @@
     margin: 35px;
 }
 
+mat-tab-group {
+    margin-left: 50px;
+}
+
 mat-card-title {
     color: #3f51b5;
 }

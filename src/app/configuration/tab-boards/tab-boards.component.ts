@@ -9,6 +9,7 @@ export interface IBoardNewRequestData {
   title: string;
   description: string;
   product: string;
+  tabvalue: string;
 }
 
 const ELEMENT_DATA: IBoard[] = [];
@@ -21,9 +22,10 @@ export class TabBoardsComponent implements OnInit {
   options: FormGroup;
   boardTitle = new FormControl();
   boardDescription = new FormControl();
+  boardTabvalue = new FormControl();
   hideRequiredControl = new FormControl(false);//TODO
   floatLabelControl = new FormControl('auto');//TODO
-  displayedColumns: string[] = ['title', 'product', 'description', 'tools'];
+  displayedColumns: string[] = ['title', 'product', 'description', 'tablist', 'tools'];
   dataToDisplay = [...ELEMENT_DATA];
   dataSource = new ExampleDataSource(this.dataToDisplay);
 
@@ -37,6 +39,7 @@ export class TabBoardsComponent implements OnInit {
       floatLabel: this.floatLabelControl,
       boardTitle: this.boardTitle,
       boardDescription: this.boardDescription,
+      boardTabvalue: this.boardTabvalue
     });
 
     this.setupEventListeners();
@@ -89,7 +92,9 @@ export class TabBoardsComponent implements OnInit {
       title: this.boardTitle.value,
       description: this.boardDescription.value,
       product: 'Armani',
-    };
+      tabvalue: this.boardTabvalue.value
+    }
+
     this.eventService.emitBoardCreateRequestEvent({
       data: boardNewRequestData,
     });

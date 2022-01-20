@@ -13,6 +13,8 @@ export interface IBoard {
   description: string;
   structure: string;
   id: number;
+  relationship: Heiarchy;
+  tabs: ITab [];
   rows: IRow[];
 }
 
@@ -34,6 +36,17 @@ export enum BoardType {
 export enum LayoutType{
   TWO_50_50,
   ONE__20_60_20,
+
+}
+
+export enum Heiarchy{
+  PARENT,
+  CHILD
+}
+
+export interface ITab {
+  title: string;
+  id:number;
 }
 
 @Injectable({
@@ -49,6 +62,8 @@ export class BoardService {
       description: '',
       structure: '',
       id: BoardType.EMPTYBOARDCOLLECTION,
+      relationship: Heiarchy.PARENT,
+      tabs:[],
       rows: [],
     };
 
@@ -180,6 +195,8 @@ export class BoardService {
         description: '',
         structure: 'A',
         id: BoardType.DEFAULT,
+        tabs: [{title: 'Board',id:BoardType.DEFAULT}],
+        relationship: Heiarchy.PARENT,
         rows: [
           {
             columns: [
@@ -245,6 +262,10 @@ export class BoardService {
       newBoard.id = Date.now();
       newBoard.title = event.data['title'];
       newBoard.description = event.data['description'];
+      newBoard.relationship = Heiarchy.PARENT;
+      //TODO newBoard.tabs = eventData['tabs'];
+
+      //TODO find the board that is represented by tabs array and mark it as a child
 
       boardCollection.lastSelectedBoard = newBoard.id;
 

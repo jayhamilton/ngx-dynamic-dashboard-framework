@@ -7,19 +7,29 @@
 </mat-card>
 
 
-<div *ngFor="let row of boardData.rows; let r = index">
+<mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event); setSelected(selected.value)">
+    <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.name">
 
-    <div cdkDropListGroup class="grid-A">
-        <div *ngFor="let col of row.columns; let c = index" cdkDropList [id]="getColumnIndexAsString(c)" [cdkDropListData]="col.gadgets" (cdkDropListDropped)="drop($event)">
-            <div *ngIf="!col.gadgets || col.gadgets.length== 0">
-                <div class="grid-dropzone">
-                    <button mat-raised-button color="primary" (click)="openLibrary()">Add Gadget</button>
+        <div *ngFor="let row of boardData.rows; let r = index">
+
+            <div cdkDropListGroup class="grid-A">
+                <div *ngFor="let col of row.columns; let c = index" cdkDropList [id]="getColumnIndexAsString(c)" [cdkDropListData]="col.gadgets" (cdkDropListDropped)="drop($event)">
+                    <div *ngIf="!col.gadgets || col.gadgets.length== 0">
+                        <div class="grid-dropzone">
+                            <button mat-raised-button color="primary" (click)="openLibrary()">Add Gadget</button>
+                        </div>
+                    </div>
+                    <gadget-grid-cell-host class="example-box" *ngFor="let gadget of col.gadgets" [gadgetData]="gadget"></gadget-grid-cell-host>
                 </div>
             </div>
-            <gadget-grid-cell-host class="example-box" *ngFor="let gadget of col.gadgets" [gadgetData]="gadget"></gadget-grid-cell-host>
         </div>
-    </div>
-</div>
+
+    </mat-tab>
+</mat-tab-group>
+
+
+
+
 
 <div *ngIf="!boardExists" class="grid-instruction">
     <mat-card class="board-instruction">
