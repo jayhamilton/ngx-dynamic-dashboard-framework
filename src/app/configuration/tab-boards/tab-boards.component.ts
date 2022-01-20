@@ -26,7 +26,7 @@ export class TabBoardsComponent implements OnInit {
   hideRequiredControl = new FormControl(false);//TODO
   floatLabelControl = new FormControl('auto');//TODO
   displayedColumns: string[] = ['title', 'product', 'description', 'tablist', 'tools'];
-  dataToDisplay = [...ELEMENT_DATA];
+  dataToDisplay: IBoard[] = [...ELEMENT_DATA];
   dataSource = new ExampleDataSource(this.dataToDisplay);
 
   constructor(
@@ -95,6 +95,7 @@ export class TabBoardsComponent implements OnInit {
       tabvalue: this.boardTabvalue.value
     }
 
+    console.log(boardNewRequestData);
     this.eventService.emitBoardCreateRequestEvent({
       data: boardNewRequestData,
     });

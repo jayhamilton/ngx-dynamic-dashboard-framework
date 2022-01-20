@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { BoardService, IBoard, IBoardCollection } from '../board/board.service';
+import { BoardService, Heiarchy, IBoard, IBoardCollection } from '../board/board.service';
 import { EventService } from '../eventservice/event.service';
 
 @Component({
@@ -29,7 +29,10 @@ export class SidenavComponent implements OnInit {
 
   loadBoards() {
     this.boardService.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
-      this.boardData = boardCollection.boardList;
+      this.boardData = boardCollection.boardList.filter((obj)=>{
+
+        return obj.relationship == Heiarchy.PARENT
+      });
     });
   }
 

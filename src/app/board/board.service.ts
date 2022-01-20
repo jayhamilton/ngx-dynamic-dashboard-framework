@@ -14,7 +14,7 @@ export interface IBoard {
   structure: string;
   id: number;
   relationship: Heiarchy;
-  tabs: ITab [];
+  tabs: ITab[];
   rows: IRow[];
 }
 
@@ -33,20 +33,19 @@ export enum BoardType {
   EMPTYBOARDCOLLECTION,
 }
 
-export enum LayoutType{
+export enum LayoutType {
   TWO_50_50,
   ONE__20_60_20,
-
 }
 
-export enum Heiarchy{
+export enum Heiarchy {
   PARENT,
-  CHILD
+  CHILD,
 }
 
 export interface ITab {
   title: string;
-  id:number;
+  id: number;
 }
 
 @Injectable({
@@ -63,7 +62,7 @@ export class BoardService {
       structure: '',
       id: BoardType.EMPTYBOARDCOLLECTION,
       relationship: Heiarchy.PARENT,
-      tabs:[],
+      tabs: [],
       rows: [],
     };
 
@@ -100,7 +99,6 @@ export class BoardService {
           let rowNum = 0; //TODO - refactor to have this passed in.
           let updatedGadgetList: IGadget[] = [];
 
-
           //set instanceIdValue
           incomingGadget.instanceId = Date.now();
 
@@ -108,11 +106,13 @@ export class BoardService {
 
           let totalColumns = board.rows.length;
 
-          board.rows[rowNum].columns[this.columnToInsert].gadgets.forEach((gadget) => {
-            updatedGadgetList.push(gadget);
+          board.rows[rowNum].columns[this.columnToInsert].gadgets.forEach(
+            (gadget) => {
+              updatedGadgetList.push(gadget);
             }
           );
-          board.rows[rowNum].columns[this.columnToInsert].gadgets = updatedGadgetList;
+          board.rows[rowNum].columns[this.columnToInsert].gadgets =
+            updatedGadgetList;
           if (this.columnToInsert < totalColumns) {
             this.columnToInsert++;
           } else {
@@ -125,12 +125,11 @@ export class BoardService {
     });
   }
 
-  public updateBoardDueToDragAndDrop(incomingBoard: IBoard){
-
+  public updateBoardDueToDragAndDrop(incomingBoard: IBoard) {
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
       boardCollection.boardList.forEach((board) => {
         if (board.id == incomingBoard.id) {
-          board.rows =[];
+          board.rows = [];
           board.rows = [...incomingBoard.rows];
         }
       });
@@ -175,17 +174,9 @@ export class BoardService {
     }
   }
 
-  private updateBoardsLayout(board:IBoard, layout: LayoutType){
-
-
-
+  private updateBoardsLayout(board: IBoard, layout: LayoutType) {
     //adjust the  columns to reflect the new layout.
-
-
     // either create two columns or three columns
-
-
-
   }
 
   private getAllDefaultBoards(): IBoard[] {
@@ -195,16 +186,16 @@ export class BoardService {
         description: '',
         structure: 'A',
         id: BoardType.DEFAULT,
-        tabs: [{title: 'Board',id:BoardType.DEFAULT}],
+        tabs: [{ title: 'Board', id: BoardType.DEFAULT }],
         relationship: Heiarchy.PARENT,
         rows: [
           {
             columns: [
               {
-                gadgets: []
+                gadgets: [],
               },
               {
-                gadgets: []
+                gadgets: [],
               },
             ],
           },
@@ -263,9 +254,24 @@ export class BoardService {
       newBoard.title = event.data['title'];
       newBoard.description = event.data['description'];
       newBoard.relationship = Heiarchy.PARENT;
-      //TODO newBoard.tabs = eventData['tabs'];
 
-      //TODO find the board that is represented by tabs array and mark it as a child
+      let tabs: ITab[] = [];
+      tabs.push({ title: event.data['title'], id: newBoard.id });
+
+      if (event.data['tabvalue'] != null) {
+        let tabId = event.data['tabvalue'];
+        let idx = boardCollection.boardList.findIndex(
+          (board) => board.id == tabId
+        );
+        let childBoard = boardCollection.boardList[idx];
+
+        tabs.push({ title: childBoard.title, id: tabId });
+
+        childBoard.relationship = Heiarchy.CHILD;
+        childBoard.tabs = tabs;
+      }
+
+      newBoard.tabs = tabs;
 
       boardCollection.lastSelectedBoard = newBoard.id;
 

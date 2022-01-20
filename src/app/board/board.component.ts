@@ -1,8 +1,4 @@
-import {
-  Component,
-  ComponentRef,
-  OnInit,
-} from '@angular/core';
+import { Component, ComponentRef, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -33,7 +29,6 @@ import { FormControl } from '@angular/forms';
   ],
 })
 export class BoardComponent implements OnInit {
-
   boardData!: IBoard;
   boardExists: boolean;
   boardHasGadgets: boolean;
@@ -48,13 +43,14 @@ export class BoardComponent implements OnInit {
   }
 
   selected = new FormControl(0);
-  tabtitle:string = '';
+  tabtitle: string = '';
 
-  setSelected(val: number){
-
+  setSelected(val: number) {
+    if (val < 0) {
+      return;
+    }
     this.displayNavSelectedBoard(this.boardData.tabs[val].id);
   }
-
 
   ngOnInit(): void {
     this.displayLastSelectedBoard();
@@ -127,7 +123,7 @@ export class BoardComponent implements OnInit {
    * will determine what instructions/actions to display on the board.
    * @param boardData
    */
-   prepareBoardAndShow(boardData: IBoard) {
+  prepareBoardAndShow(boardData: IBoard) {
     this.boardData = boardData;
     this.boardExists = this.doesABoardExist();
   }
@@ -151,7 +147,7 @@ export class BoardComponent implements OnInit {
 
     return gadgetCount > 0;
   }
-  openLibrary(){
+  openLibrary() {
     this.eventService.emitLibraryMenuOpenEvent();
   }
 
@@ -160,8 +156,6 @@ export class BoardComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<IGadget[]>) {
-
-
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -178,8 +172,5 @@ export class BoardComponent implements OnInit {
     }
 
     this.boardService.updateBoardDueToDragAndDrop(this.boardData);
-
   }
-
-
 }

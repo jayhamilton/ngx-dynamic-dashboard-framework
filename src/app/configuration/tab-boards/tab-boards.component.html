@@ -25,9 +25,6 @@
         <td mat-cell *matCellDef="let element">{{element.tablist}}</td>
     </ng-container>
 
-
-
-
     <!-- Tools Column -->
     <ng-container matColumnDef="tools">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
@@ -63,9 +60,9 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
-            <mat-select required>
+            <mat-select [formControl]="boardTabvalue">
                 <mat-option>-- None --</mat-option>
-                <mat-option value="option">Option</mat-option>
+                <mat-option *ngFor="let option of this.dataToDisplay" value={{option.id}}>{{option.title}}</mat-option>
             </mat-select>
             <mat-label>
                 <mat-icon>inventory_2</mat-icon> <b> Select a board to display as tab</b></mat-label>
@@ -74,7 +71,8 @@
         <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
             <mat-select required>
                 <mat-option>-- None --</mat-option>
-                <mat-option value="option">Option</mat-option>
+
+                <mat-option *ngFor="let option of this.dataToDisplay" value={{option.id}}>{{option.title}}</mat-option>
             </mat-select>
             <mat-label>
                 <mat-icon>inventory_2</mat-icon> <b> Select a product</b></mat-label>
