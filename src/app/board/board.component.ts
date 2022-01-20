@@ -47,13 +47,12 @@ export class BoardComponent implements OnInit {
     this.setupBoardEventListeners();
   }
 
-  tabs = [{name:'A', id:'1642511840192'},{name:'B', id:'1642641099689'}];
   selected = new FormControl(0);
   tabtitle:string = '';
 
   setSelected(val: number){
-    console.log(this.tabs[val]);
-    this.displayNavSelectedBoard(Number.parseInt(this.tabs[val].id));
+
+    this.displayNavSelectedBoard(this.boardData.tabs[val].id);
   }
 
 

@@ -8,7 +8,7 @@
 
 
 <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event); setSelected(selected.value)">
-    <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.name">
+    <mat-tab *ngFor="let tab of boardData.tabs; let index = index" [label]="tab.title">
 
         <div *ngFor="let row of boardData.rows; let r = index">
 
@@ -26,10 +26,6 @@
 
     </mat-tab>
 </mat-tab-group>
-
-
-
-
 
 <div *ngIf="!boardExists" class="grid-instruction">
     <mat-card class="board-instruction">
