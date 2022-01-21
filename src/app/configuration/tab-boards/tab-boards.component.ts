@@ -1,8 +1,14 @@
 import { DataSource } from '@angular/cdk/table';
+import { localizedString } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
-import { BoardService, IBoard, IBoardCollection } from 'src/app/board/board.service';
+import {
+  BoardService,
+  Heiarchy,
+  IBoard,
+  IBoardCollection,
+} from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 
 export interface IBoardNewRequestData {
@@ -23,11 +29,11 @@ export class TabBoardsComponent implements OnInit {
   boardTitle = new FormControl();
   boardDescription = new FormControl();
   boardTabvalue = new FormControl();
-  hideRequiredControl = new FormControl(false);//TODO
-  floatLabelControl = new FormControl('auto');//TODO
-  displayedColumns: string[] = ['title', 'product', 'description', 'tablist', 'tools'];
-  dataToDisplay: IBoard[] = [...ELEMENT_DATA];
-  dataSource = new ExampleDataSource(this.dataToDisplay);
+  hideRequiredControl = new FormControl(false); //TODO
+  floatLabelControl = new FormControl('auto'); //TODO
+  displayedColumns: string[] = ['title', 'description', 'tools'];
+  dropDownListSelection: IBoard[] = [];
+  dataSource = new ExampleDataSource(ELEMENT_DATA);
 
   constructor(
     private eventService: EventService,
@@ -39,7 +45,7 @@ export class TabBoardsComponent implements OnInit {
       floatLabel: this.floatLabelControl,
       boardTitle: this.boardTitle,
       boardDescription: this.boardDescription,
-      boardTabvalue: this.boardTabvalue
+      boardTabvalue: this.boardTabvalue,
     });
 
     this.setupEventListeners();
@@ -52,7 +58,6 @@ export class TabBoardsComponent implements OnInit {
     this.eventService
       .listenForBoardCreatedCompleteEvent()
       .subscribe((event) => {
-
         //clear the input fields
         this.options.reset();
 
@@ -66,7 +71,6 @@ export class TabBoardsComponent implements OnInit {
     this.eventService
       .listenForBoardDeletedCompleteEvent()
       .subscribe((event) => {
-
         //TODO - stop progress indicator and close dialog
 
         this.loadData();
@@ -74,16 +78,57 @@ export class TabBoardsComponent implements OnInit {
   }
 
   loadData() {
-    this.boardService.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
-      if (boardCollection.boardList.length == 0) {
-        //ensure the table is cleared out
-        this.dataSource.setData([]);
-        this.dataToDisplay = [...[]];
-      } else {
-        this.dataSource.setData(boardCollection.boardList);
-        this.dataToDisplay = [...boardCollection.boardList];
-      }
-    });
+    this.boardService
+      .getBoardCollection()
+      .subscribe((boardCollection: IBoardCollection) => {
+        if (boardCollection.boardList.length == 0) {
+          //ensure the table is cleared out
+          this.dataSource.setData([]);
+          this.dropDownListSelection = [...[]];
+        } else {
+          //Pair up parent and child entries so they appear together
+
+          //TODO move this to the service
+
+          let list: IBoard[] = [];
+
+          boardCollection.boardList.forEach((board) => {
+            if (board.relationship === Heiarchy.PARENT) {
+              list.push(board);
+              board.tabs.forEach((tab) => {
+                boardCollection.boardList.forEach((_board) => {
+                  if (
+                    tab.id == _board.id &&
+                    _board.relationship == Heiarchy.CHILD
+                  ) {
+                    list.push(_board);
+                  }
+                });
+              });
+            }
+          });
+
+          this.dataSource.setData(list);
+
+          /**
+           * TODO - dataToDisplay is used for the drop down list
+           * modify this list such that board as tab candidates are only those
+           * that are parent where there is 0 or 1 id in the tab array and the id in that
+           * array matches the board id.
+           * **/
+          let dropDownList:IBoard[] = [];
+
+          list.forEach((board)=>{
+
+            if(board.relationship === Heiarchy.PARENT && board.tabs.length == 1 && board.tabs[0].id == board.id){
+              dropDownList.push(board);
+            }
+
+          });
+
+          this.dropDownListSelection = [...dropDownList];
+        }
+      });
     //use the board service to get the data needed
   }
 
@@ -92,8 +137,8 @@ export class TabBoardsComponent implements OnInit {
       title: this.boardTitle.value,
       description: this.boardDescription.value,
       product: 'Armani',
-      tabvalue: this.boardTabvalue.value
-    }
+      tabvalue: this.boardTabvalue.value,
+    };
 
     console.log(boardNewRequestData);
     this.eventService.emitBoardCreateRequestEvent({

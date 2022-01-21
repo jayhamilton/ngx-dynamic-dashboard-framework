@@ -4,13 +4,15 @@
     <!-- Name Column -->
     <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef>title</th>
-        <td mat-cell *matCellDef="let element">{{element.title}}</td>
-    </ng-container>
+        <td mat-cell *matCellDef="let element">
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="product">
-        <th mat-header-cell *matHeaderCellDef>Product</th>
-        <td mat-cell *matCellDef="let element">{{element.product}}</td>
+            <!-- realtionship value of 0 indicates parent and 1 indicates child -->
+            <mat-icon *ngIf="element.relationship == 1"><span class="material-icons">
+              subdirectory_arrow_right
+              </span></mat-icon>
+            {{element.title}}
+
+        </td>
     </ng-container>
 
     <!-- Name Column -->
@@ -19,11 +21,6 @@
         <td mat-cell *matCellDef="let element">{{element.description}}</td>
     </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="tablist">
-        <th mat-header-cell *matHeaderCellDef>Tabs</th>
-        <td mat-cell *matCellDef="let element">{{element.tablist}}</td>
-    </ng-container>
 
     <!-- Tools Column -->
     <ng-container matColumnDef="tools">
@@ -62,21 +59,12 @@
         <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
             <mat-select [formControl]="boardTabvalue">
                 <mat-option>-- None --</mat-option>
-                <mat-option *ngFor="let option of this.dataToDisplay" value={{option.id}}>{{option.title}}</mat-option>
+                <mat-option *ngFor="let option of this.dropDownListSelection" value={{option.id}}>{{option.title}}</mat-option>
             </mat-select>
             <mat-label>
-                <mat-icon>inventory_2</mat-icon> <b> Select a board to display as tab</b></mat-label>
+                <mat-icon>subdirectory_arrow_right</mat-icon> <b> Show board as tab</b></mat-label>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
-            <mat-select required>
-                <mat-option>-- None --</mat-option>
-
-                <mat-option *ngFor="let option of this.dataToDisplay" value={{option.id}}>{{option.title}}</mat-option>
-            </mat-select>
-            <mat-label>
-                <mat-icon>inventory_2</mat-icon> <b> Select a product</b></mat-label>
-        </mat-form-field>
 
         &nbsp;&nbsp;
         <button mat-mini-fab color="primary" (click)="create()" class="tab-button">

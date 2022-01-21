@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { IEvent, EventService } from '../eventservice/event.service';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 
+
+//TODO - break this up into multipe service. The file is approaching 400 lines.
 export interface IBoardCollection {
   lastSelectedBoard: number;
   boardList: IBoard[];
@@ -311,10 +313,33 @@ export class BoardService {
         boardCollection.lastSelectedBoard = mostRecentlyCreated;
       }
 
+      this.updateRelationshipForDeletedBoard(boardCollection, event.data['id']);
+
       this.saveBoardCollectionToDestination(boardCollection);
     });
 
     this.eventService.emitBoardDeletedCompleteEvent({ data: event });
+  }
+
+  /**
+   *
+   * @param parentId TODO
+   * @param childId
+   */
+  removeChildRelationshipFromParent(parentId: number, childId: number) {}
+
+  /**
+   *
+   * @param boardClollection TODO
+   * @param boardId
+   */
+  updateRelationshipForDeletedBoard(
+    boardClollection: IBoardCollection,
+    boardId: number
+  ) {
+    //look for the board where the id appears and make it a parent if not already one and remove the id from the tabs list. This should result in a single entry in the tabs list the relationship and tabs array.
+    //find parent board and adjust tabs if the deletion is of a child
+    //find child board and make it a parent if the deletion is of a parent
   }
 
   private setLastSelectedAndSaveBoard(boardId: number) {
