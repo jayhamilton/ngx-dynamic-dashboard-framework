@@ -1,4 +1,4 @@
-import { Component, ComponentRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -6,7 +6,8 @@ import {
 } from '@angular/cdk/drag-drop';
 
 import { IEvent, EventService } from '../eventservice/event.service';
-import { BoardService, BoardType, IBoard } from './board.service';
+import { BoardType, IBoard } from './board.model';
+import { BoardService } from './board.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 import { FormControl } from '@angular/forms';

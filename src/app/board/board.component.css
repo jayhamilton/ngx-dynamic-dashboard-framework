@@ -37,9 +37,8 @@ mat-card-title {
     display: grid;
     grid-template-columns: 100%;
     justify-content: center;
-    min-height: 400px;
-    padding-left: 300px;
-    padding-right: 300px;
+    height: 50vh;
+    padding: 10px;
 }
 
 .drop-list {

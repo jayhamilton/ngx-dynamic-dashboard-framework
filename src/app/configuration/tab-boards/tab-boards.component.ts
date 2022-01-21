@@ -4,11 +4,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import {
-  BoardService,
   Heiarchy,
   IBoard,
   IBoardCollection,
-} from 'src/app/board/board.service';
+} from 'src/app/board/board.model';
+import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 
 export interface IBoardNewRequestData {

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import { BoardService, Heiarchy, IBoard, IBoardCollection } from '../board/board.service';
+import { BoardService } from '../board/board.service';
+import { Heiarchy, IBoard, IBoardCollection } from '../board/board.model';
 import { EventService } from '../eventservice/event.service';
 
 @Component({
