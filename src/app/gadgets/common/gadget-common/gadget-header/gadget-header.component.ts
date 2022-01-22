@@ -11,6 +11,7 @@ export class GadgetHeaderComponent implements OnInit {
   @Input() title: string;
   @Input() subtitle: string;
   @Input() iconpath: string;
+  menuLabel = 'Configure';
   constructor() {
     this.title = '';
     this.subtitle = '';
@@ -24,7 +25,11 @@ export class GadgetHeaderComponent implements OnInit {
   }
 
   toggleConfigMode() {
+    if (this.menuLabel === 'Configure') {
+      this.menuLabel = 'Exit Configuration';
+    } else {
+      this.menuLabel = 'Configure';
+    }
     this.toggleConfigModeEvent.emit();
-    console.log("Emitting toggle event");
   }
 }

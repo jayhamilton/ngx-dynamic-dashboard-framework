@@ -70,4 +70,8 @@ export class ImageComponent  extends GadgetBase{
     this.eventService.emitGadgetDeleteEvent({data: this.instanceId});
   }
 
+  updateProperties(event:any){
+
+  }
+
 }

@@ -18,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { GadgetCommonModule } from './common/gadget-common/gadget-common.module';
 import { GadgetGridCellHostComponent } from './gadget-grid-cell-host/gadget-grid-cell-host.component';
 import { ScoreCardComponent } from './score-card/score-card.component';
+import { DynamicFormModule } from '../dynamic-form/dynamic-form-module';
 @NgModule({
   declarations: [
     ImageComponent,
@@ -39,7 +40,8 @@ import { ScoreCardComponent } from './score-card/score-card.component';
     MatCardModule,
     MatButtonModule,
     MatMenuModule,
-    GadgetCommonModule
+    GadgetCommonModule,
+    DynamicFormModule
   ],
     exports: [
       ImageComponent,

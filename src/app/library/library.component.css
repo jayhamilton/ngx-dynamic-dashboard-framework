@@ -1,5 +1,4 @@
 .example-card {
-    max-width: 400px;
     margin-bottom: 8px;
 }
 
@@ -7,4 +6,26 @@
     display: grid;
     row-gap: 15px;
     place-content: center;
+}
+
+mat-card-content {
+    margin: 20px;
+}
+
+.class_color0 {
+    border-top-style: solid;
+    border-top-color: blueviolet;
+    border-top-width: 3px;
+}
+
+.class_color1 {
+    border-top-style: solid;
+    border-top-color: rgb(198, 226, 43);
+    border-top-width: 3px;
+}
+
+.class_color2 {
+    border-top-style: solid;
+    border-top-color: rgb(49, 226, 43);
+    border-top-width: 3px;
 }

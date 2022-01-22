@@ -1,0 +1,15 @@
+<div [formGroup]="form">
+
+    <div class="field">
+        <label [attr.for]="property.key">{{property.label}}</label>
+
+        <div [ngSwitch]="property.controlType">
+
+            <input *ngSwitchCase="'textbox'" [formControlName]="property.key" [id]="property.key">
+        </div>
+    </div>
+
+    <div [@showHideAnimation] class="ui error message" *ngIf="!isValid">{{property.label}} is required</div>
+
+
+</div>
