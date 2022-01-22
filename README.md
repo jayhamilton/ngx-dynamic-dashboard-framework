@@ -8,7 +8,7 @@ https://plm.netlify.app/
 
 
 ## Creating a new Dashboard
-![New Board Creation](https://github.com/jayhamilton/plm-uidocumentation/new_board.gif)
+![New Board Creation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/new_board.gif)
 
 Framework is JSON driven. A board is a JSON object. 
 
