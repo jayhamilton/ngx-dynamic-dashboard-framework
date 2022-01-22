@@ -19,40 +19,12 @@ mat-card-title {
     margin: 40px;
 }
 
-.grid-B {
-    display: grid;
-    grid-template-columns: 20% 60% 20%;
-    row-gap: 25px;
-    column-gap: 25px;
-    justify-content: center;
-    margin: 40px;
-}
-
-.grid-dropzone {
+.empty-column-placeholder {
+    border-color: rgb(202, 153, 248);
+    border-width: 2px;
     border-style: dashed;
-    border-color: lightgray;
-    border-width: 4px;
-    justify-content: center;
-    align-items: center;
-    display: grid;
-    grid-template-columns: 100%;
-    justify-content: center;
-    height: 50vh;
-    padding: 10px;
-}
-
-.drop-list {
-    min-height: 60px;
-    background: white;
-    border-radius: 4px;
-    overflow: hidden;
-    display: block;
-    margin-bottom: 10px;
-}
-
-button {
-    height: 100px;
-    font-size: larger;
+    background-color: rgb(233, 227, 227);
+    min-height: 50vh;
 }
 
 .grid-instruction {
@@ -76,7 +48,15 @@ button {
 }
 
 .cdk-drag-placeholder {
-    opacity: 0;
+    opacity: 1;
+}
+
+.cdk-drop-list-dragging,
+.cdk-drop-list-receiving {
+    border-color: blueviolet;
+    border-width: 2px;
+    border-style: dashed;
+    background-color: rgb(201, 196, 196);
 }
 
 .cdk-drag-animating {

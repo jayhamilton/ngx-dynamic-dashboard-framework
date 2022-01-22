@@ -11,15 +11,9 @@
     <mat-tab *ngFor="let tab of boardData.tabs; let index = index" [label]="tab.title">
 
         <div *ngFor="let row of boardData.rows; let r = index">
-
             <div cdkDropListGroup class="grid-A">
-                <div *ngFor="let col of row.columns; let c = index" cdkDropList [id]="getColumnIndexAsString(c)" [cdkDropListData]="col.gadgets" (cdkDropListDropped)="drop($event)">
-                    <div *ngIf="!col.gadgets || col.gadgets.length== 0">
-                        <div class="grid-dropzone">
-                            <button mat-raised-button color="primary" (click)="openLibrary()">Add Gadget</button>
-                        </div>
-                    </div>
-                    <gadget-grid-cell-host class="example-box" *ngFor="let gadget of col.gadgets" [gadgetData]="gadget"></gadget-grid-cell-host>
+                <div *ngFor="let col of row.columns; let c = index" cdkDropList [id]="getColumnIndexAsString(c)" [cdkDropListData]="col.gadgets" (cdkDropListDropped)="drop($event)" [ngClass]="col.gadgets.length == 0?'empty-column-placeholder':''">
+                    <gadget-grid-cell-host *ngFor="let gadget of col.gadgets" [gadgetData]="gadget"></gadget-grid-cell-host>
                 </div>
             </div>
         </div>
