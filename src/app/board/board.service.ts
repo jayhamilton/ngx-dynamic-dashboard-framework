@@ -287,17 +287,28 @@ export class BoardService {
   removeChildRelationshipFromParent(parentId: number, childId: number) {}
 
   /**
-   *
-   * @param boardClollection TODO
+   * finds and updates the relationships for the deleted board
+   * @param boardClollection
    * @param boardId
    */
   updateRelationshipForDeletedBoard(
     boardClollection: IBoardCollection,
-    boardId: number
+    deletedBoardId: number
   ) {
-    //look for the board where the id appears and make it a parent if not already one and remove the id from the tabs list. This should result in a single entry in the tabs list the relationship and tabs array.
-    //find parent board and adjust tabs if the deletion is of a child
-    //find child board and make it a parent if the deletion is of a parent
+
+    boardClollection.boardList.forEach((board)=>{
+
+      let idx = 0;
+      board.tabs.forEach(tab => {
+        if(tab.id == deletedBoardId){
+
+          board.tabs.splice(idx, 1);
+          board.relationship = Heiarchy.PARENT;
+
+        }
+        idx ++;
+      });
+    });
   }
 
   private setLastSelectedAndSaveBoard(boardId: number) {

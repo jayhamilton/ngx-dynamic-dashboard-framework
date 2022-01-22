@@ -99,7 +99,7 @@ export class TabBoardsComponent implements OnInit {
                 boardCollection.boardList.forEach((_board) => {
                   if (
                     tab.id == _board.id &&
-                    _board.relationship == Heiarchy.CHILD
+                    _board.relationship === Heiarchy.CHILD
                   ) {
                     list.push(_board);
                   }
