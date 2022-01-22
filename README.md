@@ -19,16 +19,15 @@ The keys to this design is that it is purely JSON driven. This is also taking ad
 ### Dynamic navigation
 ![Dynamic Navigation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/dynamic_navigation.gif)
 
-### Dynamicaly convert boards to tabs
+### Dynamically convert boards to tabs
 ![Dynamic Tab](https://github.com/jayhamilton/plm-ui/blob/main/documentation/dynamic_tab.gif)
 
-### Dynamicaly add gadget instances to the board
+### Dynamically add gadget instances to the board
 ![Add Gadget](https://github.com/jayhamilton/plm-ui/blob/main/documentation/add_gadget.gif)
 
-### Drag and drop
-![Drag and Drop](https://github.com/jayhamilton/plm-ui/blob/main/documentation/gadget_layout.gif)
+### Multi-board configuration
+![Multi-board Configuration](https://github.com/jayhamilton/plm-ui/blob/main/documentation/gadget_layout.gif)
 
-TODO fix jerky behavior when dropped over placeholders
 
 ### Developers Guide To Framework Extension - Creating Components
 TODO
