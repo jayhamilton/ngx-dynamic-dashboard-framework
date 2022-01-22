@@ -16,6 +16,12 @@ https://plm.netlify.app/
 ### Dynamicaly convert boards to tabs
 ![Dynamic Tab](https://github.com/jayhamilton/plm-ui/blob/main/documentation/dynamic_tab.gif)
 
+### Dynamicaly add gadget instances to the board
+![Add Gadget](https://github.com/jayhamilton/plm-ui/blob/main/documentation/add_gadget.gif)
+
+### Drag and drop
+![Drag and Drop](https://github.com/jayhamilton/plm-ui/blob/main/documentation/gadget_layout.gif)
+
 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.1.
