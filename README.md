@@ -7,12 +7,14 @@ Live Demo Of Work In Progress:
 https://plm.netlify.app/
 
 
-## Creating a new Dashboard
+### Creating a new Dashboard
 ![New Board Creation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/new_board.gif)
 
-## Dynamic Navigation
+### Dynamic navigation
 ![Dynamic Navigation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/dynamic_navigation.gif)
 
+### Dynamicaly convert boards to tabs
+![Dynamic Tab](https://github.com/jayhamilton/plm-ui/blob/main/documentation/dynamic_tab.gif)
 
 
 
