@@ -271,7 +271,7 @@ export class BoardService {
         boardCollection.lastSelectedBoard = mostRecentlyCreated;
       }
 
-      this.updateRelationshipForDeletedBoard(boardCollection, event.data['id']);
+      this.updateRelationshipForBoardsImpactedByTheDeletedBoard(boardCollection, event.data['id']);
 
       this.saveBoardCollectionToDestination(boardCollection);
     });
@@ -291,7 +291,7 @@ export class BoardService {
    * @param boardClollection
    * @param boardId
    */
-  updateRelationshipForDeletedBoard(
+  updateRelationshipForBoardsImpactedByTheDeletedBoard(
     boardClollection: IBoardCollection,
     deletedBoardId: number
   ) {

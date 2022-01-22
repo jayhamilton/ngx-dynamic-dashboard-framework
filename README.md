@@ -7,6 +7,13 @@ Live Demo Of Work In Progress:
 https://plm.netlify.app/
 
 
+## Creating a new Dashboard
+![New Board Creation](https://github.com/jayhamilton/plm-uidocumentation/new_board.gif)
+
+Framework is JSON driven. A board is a JSON object. 
+
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.1.
 
 ## Development server
