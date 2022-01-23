@@ -19,9 +19,10 @@ import {
   transition,
 } from '@angular/animations';
 
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { PropertyControlService } from './property-control.service';
+import {IPropertyPage, ITag } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 
 @Component({
   /* solves error: Expression has changed after it was checked exception resolution - https://www.youtube.com/watch?v=K_BRcal-JfI*/
@@ -61,13 +62,14 @@ import { PropertyControlService } from './property-control.service';
   providers: [PropertyControlService],
 })
 export class DynamicFormComponent implements OnInit, AfterViewInit {
-  @Input() gadgetTags: any[]; //todo - use to control what endpoints are displayed
-  @Input() propertyPages: any[];
+  @Input() gadgetTags: ITag[]; //todo - use to control what endpoints are displayed
+  @Input() propertyPages: IPropertyPage[];
   @Input() instanceId: number;
   @Output() updatePropertiesEvent: EventEmitter<any> = new EventEmitter(true);
   currentTab = 'run';
   state = 'inactive';
   lastActiveTab = {};
+  selected = new FormControl(0);
 
   form: FormGroup = new FormGroup({});
   payLoad = '';
@@ -95,7 +97,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
 
-    console.debug('Saving Form!');
+    console.log('Saving Form!');
     this.updatePropertiesEvent.emit(this.payLoad);
 
     console.debug('Sending configuration to the config service!');
@@ -106,6 +108,11 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   }
 
   get isPropertyPageValid() {
+
+    console.log(this.form.valid);
     return this.form.valid;
+  }
+  setSelected(event: any) {
+
   }
 }

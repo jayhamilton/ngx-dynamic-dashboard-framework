@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { PropertyBase } from './property-base';
 
 import { style, trigger, animate, transition } from '@angular/animations';
+import {ITag } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 
 @Component({
   selector: 'app-df-property',
@@ -28,22 +29,23 @@ import { style, trigger, animate, transition } from '@angular/animations';
 export class DynamicFormPropertyComponent implements AfterViewInit {
   @Input() property: PropertyBase<any>;
   @Input() form: FormGroup;
-  @Input() gadgetTags: any[]; //todo - use to control what endpoints are displayed
+  @Input() gadgetTags: ITag[]; //todo - use to control what endpoints are displayed
   endPoints: string[] = [];
 
+
   get isValid() {
+
+    console.log(this.form.controls[this.property.key].valid);
     return this.form.controls[this.property.key].valid;
   }
 
   constructor(formBuilder: FormBuilder) {
     this.property = {
-
       key: '',
       label: '',
       required: false,
       order: -1,
-      controlType: '',
-      options: [],
+      controlType: ''
     };
     this.gadgetTags = [];
     this.form = formBuilder.group({});
@@ -56,4 +58,6 @@ export class DynamicFormPropertyComponent implements AfterViewInit {
   ngAfterViewInit() {
     //filter endpoints based on the gadgets tags
   }
+
+
 }

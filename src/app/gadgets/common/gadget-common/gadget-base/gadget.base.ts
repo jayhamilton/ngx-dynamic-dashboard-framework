@@ -31,8 +31,8 @@ export abstract class GadgetBase implements IGadget {
     this.instanceId = gadgetData.instanceId;
     this.actions = gadgetData.actions;
     this.description = gadgetData.description;
-    this.propertyPages = gadgetData.propertyPages;
-    this.tags = gadgetData.tags;
+    this.propertyPages = [...gadgetData.propertyPages];
+    this.tags = [...gadgetData.tags];
     this.icon = gadgetData.icon;
   }
 

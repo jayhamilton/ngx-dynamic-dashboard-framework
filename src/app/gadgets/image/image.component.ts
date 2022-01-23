@@ -9,23 +9,25 @@ import {
 import { ImageService } from './image.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import { EventService } from 'src/app/eventservice/event.service';
+import { IProperty } from '../common/gadget-common/gadget-base/gadget.model';
 
 @Component({
   selector: 'app-image',
   templateUrl: './image.component.html',
-  styleUrls: ['./image.component.css']
+  styleUrls: ['./image.component.css'],
 })
-export class ImageComponent  extends GadgetBase{
-
+export class ImageComponent extends GadgetBase {
   gadgetData: any;
 
-  constructor(private imageService: ImageService, private eventService: EventService) {
+  constructor(
+    private imageService: ImageService,
+    private eventService: EventService
+  ) {
     super();
     this.gadgetData = this.imageService.getDefaultData();
   }
 
   drop(event: CdkDragDrop<string[]>) {
-
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -66,12 +68,13 @@ export class ImageComponent  extends GadgetBase{
     this.imageService.write(this.gadgetData);
   }
 
-  remove(){
-    this.eventService.emitGadgetDeleteEvent({data: this.instanceId});
+  remove() {
+    this.eventService.emitGadgetDeleteEvent({ data: this.instanceId });
   }
 
-  updateProperties(event:any){
+  updateProperties(event: string) {
 
+    let property = JSON.parse(event);
+    this.title = property['title'];
   }
-
 }

@@ -1,39 +1,22 @@
-<div class="ui form" style="text-align: left !important">
+<div>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="setSelected($event)">
+            <mat-tab *ngFor="let page of propertyPages; let r = index" label={{page.displayName}}>
+                <div *ngFor="let property of page.properties" class="form-row">
+                    <app-df-property [property]="property" [form]="form" [gadgetTags]="gadgetTags"> </app-df-property>
+                    <br>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
 
-        <div class="proppages ui top attached tabular menu" #tabComponentTag>
-            <a *ngFor="let tab of propertyPages; let i = index" class="item" #tabComponentTag
-               [ngClass]="{'active': tab.groupId == currentTab }"
-               attr.data-tab="{{tab.groupId}}" (click)="setCurrentTab(tab)">{{tab.displayName}} </a>
-        </div>
-
-        <div [@contentSwitch]="page.groupId == currentTab ? 'active':'inactive'"
-             *ngFor="let page of propertyPages; let i = index" [ngClass]="{'active': page.groupId == currentTab }"
-             class="proppages ui bottom attached tab segment"
-             attr.data-tab="{{page.groupId}}">
-
-
-            <div *ngFor="let property of page.properties"
-                 class="form-row">
-                <app-df-property
-                        [property]="property"
-                        [form]="form"
-                        [gadgetTags]="gadgetTags"
-                >
-
-                </app-df-property>
-                <br>
-            </div>
-
-        </div>
         <div class="form-row field">
-            <button class="ui green submit button" type="submit" [disabled]="!form.valid || !form.dirty"> Save</button>
+            <button mat-button color="primary" type="submit" [disabled]="!form.valid || !form.dirty"> Save</button>
         </div>
     </form>
 
     <div *ngIf="showMessage" [@showHideAnimation] class="form-row">
         <br>
-        <div class="ui success message">Saved!</div>
+        <div>Saved!</div>
     </div>
 
 </div>

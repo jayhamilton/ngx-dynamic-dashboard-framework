@@ -1,15 +1,20 @@
 <div [formGroup]="form">
 
     <div class="field">
-        <label [attr.for]="property.key">{{property.label}}</label>
-
         <div [ngSwitch]="property.controlType">
-
-            <input *ngSwitchCase="'textbox'" [formControlName]="property.key" [id]="property.key">
+            <mat-form-field *ngSwitchCase="'textbox'" appearance="fill">
+                <mat-label [attr.for]='property.key'>{{property.label}}</mat-label>
+                <input [formControlName]='property.key' [type]='property.controlType' matInput value={{property.value}} required={{property.required}}>
+            </mat-form-field>
+            <div *ngSwitchCase="'upload'" appearance="fill">
+                <div class="upload-icon">
+                    <mat-icon>
+                        cloud_upload
+                    </mat-icon>
+                </div>
+                <div class="main-text">Drag Photos Here or</div>
+                <div class="sub-text">Browse Computer</div>
+            </div>
         </div>
     </div>
-
-    <div [@showHideAnimation] class="ui error message" *ngIf="!isValid">{{property.label}} is required</div>
-
-
 </div>

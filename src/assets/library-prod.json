@@ -11,11 +11,11 @@
             "groupId": "config",
             "position": 11,
             "properties": [{
-                    "controlType": "filedrop",
-                    "key": "yAxisLabel",
-                    "label": "Y Axis Label",
-                    "value": "",
-                    "required": false,
+                    "controlType": "textbox",
+                    "key": "title",
+                    "label": "Title",
+                    "value": "Image Gallery",
+                    "required": true,
                     "order": 2
                 }
 

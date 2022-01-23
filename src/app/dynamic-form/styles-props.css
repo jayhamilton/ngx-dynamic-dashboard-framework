@@ -1,32 +1,36 @@
-.field > label {
-    font-size: 1.1em !important;
-    color: #767676 !important;
-    font-weight: 300
+.upload-grid {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
-.ui.tabular.menu .active.item {
-    border-top-width: 3px !important;
-    border-top-color: #2185D0 !important;
+.img-grid {
+    object-fit: cover;
+    width: 100%;
+    max-height: 100%;
 }
 
-.ui.segment{
-    border:none;
+.main-text {
+    font-size: 24px;
+    color: gray;
+    text-align: center;
+    line-height: 35px;
 }
 
-select{
-    color: rgba(97, 97, 97, 0.68) !important;
-    height: 3em !important;
+.upload-icon {
+    text-align: center;
 }
 
-input{
+.sub-text {
+    font-size: 18px;
+    color: green;
+    text-align: center;
+}
 
-    line-height: 2em;
-    padding: 5px;
-    border-radius: 5px;
-    border-style: solid;
-    border-width: thin;
-    border-color: lightgray;
-    width:100%;
-
-
+.mat-icon {
+    font-size: 150px;
+    height: 150px;
+    width: 150px;
+    color: green;
 }

@@ -12,23 +12,8 @@
             </div>
         </div>
     </mat-card-content>
-
-    <mat-card-content *ngIf="inConfig" class="grid">
-
-        <!-- <app-dynamic-form *ngIf="inConfig" [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId" (updatePropertiesEvent)="updateProperties($event)">
-        </app-dynamic-form> -->
-
-
-        <div></div>
-
-        <div class="upload-grid">
-            <div class="upload-icon">
-                <mat-icon>
-                    cloud_upload
-                </mat-icon>
-            </div>
-            <div class="main-text">Drag Photos Here or</div>
-            <div class="sub-text">Browse Computer</div>
-        </div>
+    <mat-card-content *ngIf="inConfig" class="upload-grid">
+        <app-dynamic-form *ngIf="inConfig" [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId" (updatePropertiesEvent)="updateProperties($event)">
+        </app-dynamic-form>
     </mat-card-content>
 </mat-card>

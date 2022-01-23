@@ -2,41 +2,14 @@ mat-card-content {
     margin-top: 5px;
 }
 
-.upload-grid {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    place-content: center;
-}
-
 .img-grid {
     object-fit: cover;
     width: 100%;
     max-height: 100%;
 }
 
-.main-text {
-    font-size: 24px;
-    color: gray;
-    text-align: center;
-    line-height: 35px;
-}
-
 .upload-icon {
     text-align: center;
-}
-
-.sub-text {
-    font-size: 18px;
-    color: green;
-    text-align: center;
-}
-
-.mat-icon {
-    font-size: 150px;
-    height: 150px;
-    width: 150px;
-    color: green;
 }
 
 .more-button {

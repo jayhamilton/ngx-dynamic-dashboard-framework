@@ -1,16 +1,14 @@
 /**
  * Created by jayhamilton on 2/3/17.
  */
-import {PropertyBase} from './property-base';
+import { PropertyBase } from './property-base';
 
 export class TextboxProperty extends PropertyBase<string> {
+  override controlType = 'textbox';
+  type: string;
 
-    override controlType = 'textbox';
-    type: string;
-
-    constructor(options: {} = {}) {
-        super(options);
-        this.type = '';
-    }
-
+  constructor(options: {} = {}) {
+    super(options);
+    this.type = '';
+  }
 }
