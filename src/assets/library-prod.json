@@ -7,74 +7,90 @@
         "instanceId": -1,
         "tags": [],
         "propertyPages": [{
-            "displayName": "Configuration",
-            "groupId": "config",
-            "position": 11,
-            "properties": [{
-                    "controlType": "textbox",
-                    "key": "title",
-                    "label": "Title",
-                    "value": "Image Gallery",
-                    "required": true,
-                    "order": 2
-                }
+                "displayName": "Configuration",
+                "groupId": "config",
+                "position": 11,
+                "propertyPages": [{
+                        "displayName": "Configuration",
+                        "groupId": "config",
+                        "position": 11,
+                        "properties": [{
+                            "controlType": "textbox",
+                            "key": "title",
+                            "label": "Title",
+                            "value": "Image Gallery",
+                            "required": true,
+                            "order": 1
+                        }]
+                    },
+                    {
+                        "displayName": "Upload",
+                        "groupId": "config",
+                        "position": 11,
+                        "properties": [{
+                            "controlType": "upload",
+                            "key": "title",
+                            "label": "Title",
+                            "value": "Image Gallery",
+                            "required": true,
+                            "order": 1
+                        }]
+                    }
+                ],
+                "actions": [{
+                    "name": "add"
+                }]
+            },
+            {
+                "componentType": "ProductComponent",
+                "title": "Product Component Tool",
+                "subtitle": " Product component subtitle",
+                "description": "Select this tool to define and add a Product definition to the production line board.",
+                "icon": "../../../assets/images/product.png",
+                "instanceId": -1,
+                "tags": [],
+                "propertyPages": [{
+                    "displayName": "Configuration",
+                    "groupId": "config",
+                    "position": 10,
+                    "properties": [{
+                        "controlType": "table",
+                        "key": "title",
+                        "label": "Title",
+                        "value": "Bar Chart Data",
+                        "required": true,
+                        "order": 1
+                    }]
+                }],
+                "actions": [{
+                    "name": "add"
+                }]
+            },
+            {
+                "componentType": "ScoreCardComponent",
+                "title": "Product Score Card Tool",
+                "subtitle": "Score card subtitle",
+                "description": "Record results for the production line for the period of time indicated in the card.",
+                "icon": "../../assets/images/count.jpg",
+                "instanceId": -1,
+                "tags": [],
+                "propertyPages": [{
+                    "displayName": "Configuration",
+                    "groupId": "config",
+                    "position": 10,
+                    "properties": [{
+                        "controlType": "table",
+                        "key": "title",
+                        "label": "Title",
+                        "value": "Bar Chart Data",
+                        "required": true,
+                        "order": 1
+                    }]
+                }],
+                "actions": [{
+                    "name": "add"
+                }]
+            }
 
-            ]
-        }],
-        "actions": [{
-            "name": "add"
-        }]
-    },
-    {
-        "componentType": "ProductComponent",
-        "title": "Product Component Tool",
-        "subtitle": " Product component subtitle",
-        "description": "Select this tool to define and add a Product definition to the production line board.",
-        "icon": "../../../assets/images/product.png",
-        "instanceId": -1,
-        "tags": [],
-        "propertyPages": [{
-            "displayName": "Configuration",
-            "groupId": "config",
-            "position": 10,
-            "properties": [{
-                "controlType": "table",
-                "key": "title",
-                "label": "Title",
-                "value": "Bar Chart Data",
-                "required": true,
-                "order": 1
-            }]
-        }],
-        "actions": [{
-            "name": "add"
-        }]
-    },
-    {
-        "componentType": "ScoreCardComponent",
-        "title": "Product Score Card Tool",
-        "subtitle": "Score card subtitle",
-        "description": "Record results for the production line for the period of time indicated in the card.",
-        "icon": "../../assets/images/count.jpg",
-        "instanceId": -1,
-        "tags": [],
-        "propertyPages": [{
-            "displayName": "Configuration",
-            "groupId": "config",
-            "position": 10,
-            "properties": [{
-                "controlType": "table",
-                "key": "title",
-                "label": "Title",
-                "value": "Bar Chart Data",
-                "required": true,
-                "order": 1
-            }]
-        }],
-        "actions": [{
-            "name": "add"
-        }]
-    }
 
-
-]
+        ]
