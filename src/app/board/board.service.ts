@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IEvent, EventService } from '../eventservice/event.service';
-import { IGadget, IPropertyPage } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
+import {
+  IGadget,
+  IPropertyPage,
+} from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 import {
   BoardType,
   Heiarchy,
@@ -341,8 +344,8 @@ export class BoardService {
     });
   }
 
-  public  savePropertyPageConfigurationToDestination(
-    gadgetConfig: string,
+  public savePropertyPageConfigurationToDestination(
+    gadgetPropertiesAsJSON: string,
     instanceId: number
   ) {
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
@@ -351,7 +354,7 @@ export class BoardService {
           row.columns.forEach((column) => {
             column.gadgets.forEach((gadget) => {
               if (gadget.instanceId === instanceId) {
-                this.updateProperties(gadgetConfig, gadget, instanceId);
+                this.updateProperties(gadgetPropertiesAsJSON, gadget);
                 this.saveBoardCollectionToDestination(boardCollection);
               }
             });
@@ -361,30 +364,24 @@ export class BoardService {
     });
   }
 
-  public updateProperties(
-    updatedProperties: string,
-    gadget: IGadget,
-    instanceId: number
-  ) {
-    const updatedPropsObject = JSON.parse(updatedProperties);
+  public updateProperties(gadgetPropertiesAsJSON: string, gadget: IGadget) {
+    const updatedPropsObject = JSON.parse(gadgetPropertiesAsJSON);
 
-    if (gadget.instanceId === instanceId) {
-      gadget.propertyPages.forEach(function (propertyPage: IPropertyPage) {
-        for (let x = 0; x < propertyPage.properties.length; x++) {
-          for (const prop in updatedPropsObject) {
-            if (updatedPropsObject.hasOwnProperty(prop)) {
-              if (prop === propertyPage.properties[x].key) {
-                propertyPage.properties[x].value = updatedPropsObject[prop];
+    gadget.propertyPages.forEach(function (propertyPage: IPropertyPage) {
+      for (let x = 0; x < propertyPage.properties.length; x++) {
+        for (const prop in updatedPropsObject) {
+          if (updatedPropsObject.hasOwnProperty(prop)) {
+            if (prop === propertyPage.properties[x].key) {
+              propertyPage.properties[x].value = updatedPropsObject[prop];
 
-                //save common gadget properties like title here.
-                if(prop === 'title'){
-                  gadget.title = updatedPropsObject[prop];
-                }
+              //save common gadget properties like title here.
+              if (prop === 'title') {
+                gadget.title = updatedPropsObject[prop];
               }
             }
           }
         }
-      });
-    }
+      }
+    });
   }
 }

@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { LibraryService } from './library.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 
@@ -18,7 +19,8 @@ import { LibraryService } from './library.service';
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    ScrollingModule
   ],
   providers:[
     LibraryService

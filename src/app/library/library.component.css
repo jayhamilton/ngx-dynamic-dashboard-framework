@@ -8,6 +8,10 @@
     place-content: center;
 }
 
+.example-viewport {
+    height: 650px;
+}
+
 mat-card-content {
     margin: 20px;
 }

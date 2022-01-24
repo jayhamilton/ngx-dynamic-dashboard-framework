@@ -1,19 +1,23 @@
 <h1>Add Tool</h1>
 
-<div class="grid">
-    <mat-card class="example-card" *ngFor="let gadget of library; let idx=index" [class]="'class_color' + idx">
-        <mat-card-header>
-            <div mat-card-avatar style="background-image:url('{{gadget.icon}}') ; background-size: cover;" at-card-title-group></div>
-            <mat-card-title>{{gadget.title}}</mat-card-title>
-            <mat-card-subtitle>{{gadget.subtitle}}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            {{gadget.description}}
-        </mat-card-content>
-        <mat-card-actions align="end">
-            <button mat-mini-fab color="primary" class="tab-button" (click)="addGadget(gadget)">
-            <mat-icon>{{gadget.actions[0].name}}</mat-icon>
-          </button>
-        </mat-card-actions>
-    </mat-card>
-</div>
+<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+
+    <div class="grid">
+        <mat-card class="example-card" *cdkVirtualFor="let gadget of library; let idx=index" [class]="'class_color' + idx">
+            <mat-card-header>
+                <div mat-card-avatar style="background-image:url('{{gadget.icon}}') ; background-size: cover;" at-card-title-group></div>
+                <mat-card-title>{{gadget.title}}</mat-card-title>
+                <mat-card-subtitle>{{gadget.subtitle}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                {{gadget.description}}
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <button mat-mini-fab color="primary" class="tab-button" (click)="addGadget(gadget)">
+          <mat-icon>{{gadget.actions[0].name}}</mat-icon>
+        </button>
+            </mat-card-actions>
+        </mat-card>
+
+    </div>
+</cdk-virtual-scroll-viewport>
