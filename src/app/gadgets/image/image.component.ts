@@ -10,6 +10,7 @@ import { ImageService } from './image.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import { EventService } from 'src/app/eventservice/event.service';
 import { IProperty } from '../common/gadget-common/gadget-base/gadget.model';
+import { BoardService } from 'src/app/board/board.service';
 
 @Component({
   selector: 'app-image',
@@ -21,7 +22,8 @@ export class ImageComponent extends GadgetBase {
 
   constructor(
     private imageService: ImageService,
-    private eventService: EventService
+    private eventService: EventService,
+    private boardService: BoardService
   ) {
     super();
     this.gadgetData = this.imageService.getDefaultData();
@@ -72,9 +74,18 @@ export class ImageComponent extends GadgetBase {
     this.eventService.emitGadgetDeleteEvent({ data: this.instanceId });
   }
 
-  updateProperties(event: string) {
+  propertyChangeEvent(propertiesJSON: string) {
+    //update internal props
+    const updatedPropsObject = JSON.parse(propertiesJSON);
 
-    let property = JSON.parse(event);
-    this.title = property['title'];
+    if (updatedPropsObject.title != undefined) {
+      this.title = updatedPropsObject.title;
+    }
+
+    //persist changes
+    this.boardService.savePropertyPageConfigurationToDestination(
+      propertiesJSON,
+      this.instanceId
+    );
   }
 }

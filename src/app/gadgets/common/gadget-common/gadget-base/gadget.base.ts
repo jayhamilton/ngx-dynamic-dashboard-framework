@@ -40,4 +40,5 @@ export abstract class GadgetBase implements IGadget {
     this.inConfig = !this.inConfig;
     console.log(this.inConfig);
   }
+
 }

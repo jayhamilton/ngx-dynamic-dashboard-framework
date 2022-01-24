@@ -50,10 +50,10 @@
             "groupId": "config",
             "position": 10,
             "properties": [{
-                "controlType": "table",
+                "controlType": "textbox",
                 "key": "title",
                 "label": "Title",
-                "value": "Bar Chart Data",
+                "value": "Product Components",
                 "required": true,
                 "order": 1
             }]

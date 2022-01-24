@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IEvent, EventService } from '../eventservice/event.service';
-import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
-import { BoardType, Heiarchy, IBoard, IBoardCollection, ITab, LayoutType } from './board.model';
-
+import { IGadget, IPropertyPage } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
+import {
+  BoardType,
+  Heiarchy,
+  IBoard,
+  IBoardCollection,
+  ITab,
+  LayoutType,
+} from './board.model';
 
 //TODO - break this up into multipe service. The file is approaching 400 lines.
-
 
 @Injectable({
   providedIn: 'root',
@@ -271,7 +276,10 @@ export class BoardService {
         boardCollection.lastSelectedBoard = mostRecentlyCreated;
       }
 
-      this.updateRelationshipForBoardsImpactedByTheDeletedBoard(boardCollection, event.data['id']);
+      this.updateRelationshipForBoardsImpactedByTheDeletedBoard(
+        boardCollection,
+        event.data['id']
+      );
 
       this.saveBoardCollectionToDestination(boardCollection);
     });
@@ -295,18 +303,14 @@ export class BoardService {
     boardClollection: IBoardCollection,
     deletedBoardId: number
   ) {
-
-    boardClollection.boardList.forEach((board)=>{
-
+    boardClollection.boardList.forEach((board) => {
       let idx = 0;
-      board.tabs.forEach(tab => {
-        if(tab.id == deletedBoardId){
-
+      board.tabs.forEach((tab) => {
+        if (tab.id == deletedBoardId) {
           board.tabs.splice(idx, 1);
           board.relationship = Heiarchy.PARENT;
-
         }
-        idx ++;
+        idx++;
       });
     });
   }
@@ -335,5 +339,52 @@ export class BoardService {
         });
       });
     });
+  }
+
+  public  savePropertyPageConfigurationToDestination(
+    gadgetConfig: string,
+    instanceId: number
+  ) {
+    this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
+      boardCollection.boardList.forEach((board) => {
+        board.rows.forEach((row) => {
+          row.columns.forEach((column) => {
+            column.gadgets.forEach((gadget) => {
+              if (gadget.instanceId === instanceId) {
+                this.updateProperties(gadgetConfig, gadget, instanceId);
+                this.saveBoardCollectionToDestination(boardCollection);
+              }
+            });
+          });
+        });
+      });
+    });
+  }
+
+  public updateProperties(
+    updatedProperties: string,
+    gadget: IGadget,
+    instanceId: number
+  ) {
+    const updatedPropsObject = JSON.parse(updatedProperties);
+
+    if (gadget.instanceId === instanceId) {
+      gadget.propertyPages.forEach(function (propertyPage: IPropertyPage) {
+        for (let x = 0; x < propertyPage.properties.length; x++) {
+          for (const prop in updatedPropsObject) {
+            if (updatedPropsObject.hasOwnProperty(prop)) {
+              if (prop === propertyPage.properties[x].key) {
+                propertyPage.properties[x].value = updatedPropsObject[prop];
+
+                //save common gadget properties like title here.
+                if(prop === 'title'){
+                  gadget.title = updatedPropsObject[prop];
+                }
+              }
+            }
+          }
+        }
+      });
+    }
   }
 }

@@ -3,6 +3,9 @@
 
     <mat-card-content *ngIf="inConfig">
 
+        <app-dynamic-form *ngIf="inConfig" [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId" (updatePropertiesEvent)="propertyChangeEvent($event)">
+        </app-dynamic-form>
+
 
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
             <!-- Position Column -->
@@ -85,7 +88,10 @@
 
     <mat-card-content *ngIf="!inConfig">
 
+
+
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
+
             <!-- Position Column -->
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef>Id</th>

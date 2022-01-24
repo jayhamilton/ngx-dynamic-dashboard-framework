@@ -50,13 +50,27 @@
             "groupId": "config",
             "position": 10,
             "properties": [{
-                "controlType": "table",
-                "key": "title",
-                "label": "Title",
-                "value": "Bar Chart Data",
-                "required": true,
-                "order": 1
-            }]
+                    "controlType": "textbox",
+                    "key": "title",
+                    "label": "Title",
+                    "value": "Property Components",
+                    "required": true,
+                    "order": 1
+                },
+                {
+                    "displayName": "Components",
+                    "groupId": "config",
+                    "position": 11,
+                    "properties": [{
+                        "controlType": "table",
+                        "key": "title",
+                        "label": "Title",
+                        "value": "Table Data",
+                        "required": true,
+                        "order": 1
+                    }]
+                }
+            ]
         }],
         "actions": [{
             "name": "add"

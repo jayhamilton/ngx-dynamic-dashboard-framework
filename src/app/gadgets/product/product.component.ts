@@ -1,8 +1,8 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { DataSource } from '@angular/cdk/table';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
+import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 
@@ -32,7 +32,7 @@ export class ProductComponent extends GadgetBase implements OnInit {
   floatLabelControl = new FormControl('auto');
 
 
-  constructor( fb: FormBuilder, private eventService: EventService) {
+  constructor( fb: FormBuilder, private eventService: EventService, private boardService: BoardService) {
     super();
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
@@ -74,6 +74,20 @@ export class ProductComponent extends GadgetBase implements OnInit {
     this.eventService.emitGadgetDeleteEvent({data: this.instanceId});
     console.log("DELETE FROM COMPONENT: " + this.instanceId);
   }
+  propertyChangeEvent(propertiesJSON: string) {
+    //update internal props
+    const updatedPropsObject = JSON.parse(propertiesJSON);
+
+    if (updatedPropsObject.title != undefined) {
+      this.title = updatedPropsObject.title;
+    }
+
+    //persist changes
+    this.boardService.savePropertyPageConfigurationToDestination(
+      propertiesJSON,
+      this.instanceId
+    );
+  }
 }
 
 class ExampleDataSource extends DataSource<ComponentItem> {
@@ -93,4 +107,6 @@ class ExampleDataSource extends DataSource<ComponentItem> {
   setData(data: ComponentItem[]) {
     this._dataStream.next(data);
   }
+
+
 }
