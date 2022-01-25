@@ -18,6 +18,7 @@ export class EventService {
   private boardDeleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardDeletedCompleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
   private sideNavClickEvent: Subject<IEvent> = new Subject<IEvent>();
+  private sideLayoutSubject: Subject<IEvent> = new Subject<IEvent>();
   private addGadgetSubect: Subject<IEvent> = new Subject<IEvent>();
   private libraryMenuSubject: Subject<IEvent> = new Subject<IEvent>();
 
@@ -96,6 +97,14 @@ export class EventService {
 
   listenForGadgetDeleteEvent(): Observable<IEvent> {
     return this.gadgetDeleteSubject.asObservable();
+  }
+
+  emitBoardSideLayoutClickEvent (){
+    this.sideLayoutSubject.next(this.emptyEvent);
+  }
+
+  listenForBoardSideLayoutEvent() : Observable<IEvent> {
+    return this.sideLayoutSubject.asObservable();
   }
 
   addSubscriber(subscriber: any) {

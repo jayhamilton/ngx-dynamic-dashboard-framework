@@ -41,5 +41,10 @@ export class MenuComponent implements OnInit {
   toggleMenu(){
     this.eventService.emitBoardMenuSideNavClickEvent();
   }
+
+  toggleLayout(){
+    this.eventService.emitBoardSideLayoutClickEvent();
+
+  }
 }
 
