@@ -11,6 +11,7 @@ import { EventService } from '../eventservice/event.service';
 })
 export class SidenavComponent implements OnInit {
   @ViewChild('drawer') public drawer!: MatDrawer;
+  @ViewChild('layout') public layout!: MatDrawer;
   boardData: IBoard[] = [];
 
   showFiller = false;
@@ -26,6 +27,10 @@ export class SidenavComponent implements OnInit {
 
   toggleMenu() {
     this.drawer.toggle();
+  }
+
+  toggleLayout() {
+    this.layout.toggle();
   }
 
   loadBoards() {
@@ -51,6 +56,11 @@ export class SidenavComponent implements OnInit {
       .listenForBoardMenuSideNavClickEvent()
       .subscribe((event) => {
         this.toggleMenu();
+      });
+
+      this.eventService
+      .listenForBoardSideLayoutEvent().subscribe((event) => {
+        this.toggleLayout();
       });
 
     this.eventService
