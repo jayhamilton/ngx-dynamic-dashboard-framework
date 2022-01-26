@@ -10,11 +10,28 @@
 <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event); setSelected(selected.value)">
     <mat-tab *ngFor="let tab of boardData.tabs; let index = index" [label]="tab.title">
 
-        <div *ngFor="let row of boardData.rows; let r = index">
-            <div cdkDropListGroup class="grid-A">
-                <div *ngFor="let col of row.columns; let c = index" cdkDropList [id]="getColumnIndexAsString(c)" [cdkDropListData]="col.gadgets" (cdkDropListDropped)="drop($event)" [ngClass]="col.gadgets.length == 0?'empty-column-placeholder':''">
-                    <gadget-grid-cell-host *ngFor="let gadget of col.gadgets" [gadgetData]="gadget"></gadget-grid-cell-host>
+        <div [ngSwitch]="boardData.structure">
+
+            <div *ngSwitchCase="'A'" apearance="fill">
+
+                <div *ngFor="let row of boardData.rows; let r = index">
+                    <div cdkDropListGroup class="grid-A">
+                        <div *ngFor="let col of row.columns; let c = index" cdkDropList [id]="getColumnIndexAsString(c)" [cdkDropListData]="col.gadgets" (cdkDropListDropped)="drop($event)" [ngClass]="col.gadgets.length == 0?'empty-column-placeholder':''">
+                            <gadget-grid-cell-host *ngFor="let gadget of col.gadgets" [gadgetData]="gadget"></gadget-grid-cell-host>
+                        </div>
+                    </div>
                 </div>
+
+            </div>
+            <div *ngSwitchCase="'B'" appearance="fill">
+                <div *ngFor="let row of boardData.rows; let r = index">
+                    <div cdkDropListGroup class="grid-B">
+                        <div *ngFor="let col of row.columns; let c = index" cdkDropList [id]="getColumnIndexAsString(c)" [cdkDropListData]="col.gadgets" (cdkDropListDropped)="drop($event)" [ngClass]="col.gadgets.length == 0?'empty-column-placeholder':''">
+                            <gadget-grid-cell-host *ngFor="let gadget of col.gadgets" [gadgetData]="gadget"></gadget-grid-cell-host>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 

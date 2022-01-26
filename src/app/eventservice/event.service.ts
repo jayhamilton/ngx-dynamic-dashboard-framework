@@ -9,18 +9,19 @@ export interface IEvent {
   providedIn: 'root',
 })
 export class EventService {
-
-
   private boardCreateRequestSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardSelectedSubject: Subject<IEvent> = new Subject<IEvent>();
 
-  private boardCreatedCompleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardCreatedCompleteRequestSubject: Subject<IEvent> =
+    new Subject<IEvent>();
   private boardDeleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
-  private boardDeletedCompleteRequestSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardDeletedCompleteRequestSubject: Subject<IEvent> =
+    new Subject<IEvent>();
   private sideNavClickEvent: Subject<IEvent> = new Subject<IEvent>();
   private sideLayoutSubject: Subject<IEvent> = new Subject<IEvent>();
   private addGadgetSubect: Subject<IEvent> = new Subject<IEvent>();
   private libraryMenuSubject: Subject<IEvent> = new Subject<IEvent>();
+  private sideMenuLayoutSelectSubject: Subject<IEvent> = new Subject<IEvent>();
 
   private gadgetDeleteSubject: Subject<IEvent> = new Subject<IEvent>();
 
@@ -29,25 +30,24 @@ export class EventService {
   constructor() {}
 
   emptyEvent: IEvent = {
-    data:{}
-  }
+    data: {},
+  };
 
-  emitLibraryMenuOpenEvent(){
-
+  emitLibraryMenuOpenEvent() {
     this.libraryMenuSubject.next(this.emptyEvent);
   }
-  listenForLibraryOpenMenuEvent() : Observable<IEvent> {
+  listenForLibraryOpenMenuEvent(): Observable<IEvent> {
     return this.libraryMenuSubject.asObservable();
   }
 
   emitBoardMenuSideNavClickEvent() {
-    this.sideNavClickEvent.next({data:{}});
+    this.sideNavClickEvent.next({ data: {} });
   }
   listenForBoardMenuSideNavClickEvent(): Observable<IEvent> {
     return this.sideNavClickEvent.asObservable();
   }
 
-  emitBoardSelectedEvent(event:IEvent) {
+  emitBoardSelectedEvent(event: IEvent) {
     this.boardSelectedSubject.next(event);
   }
   listenForBoardSelectedEvent(): Observable<IEvent> {
@@ -91,7 +91,7 @@ export class EventService {
     return this.addGadgetSubect.asObservable();
   }
 
-  emitGadgetDeleteEvent(event: IEvent){
+  emitGadgetDeleteEvent(event: IEvent) {
     this.gadgetDeleteSubject.next(event);
   }
 
@@ -99,11 +99,11 @@ export class EventService {
     return this.gadgetDeleteSubject.asObservable();
   }
 
-  emitBoardSideLayoutClickEvent (){
+  emitBoardSideLayoutClickEvent() {
     this.sideLayoutSubject.next(this.emptyEvent);
   }
 
-  listenForBoardSideLayoutEvent() : Observable<IEvent> {
+  listenForBoardSideLayoutEvent(): Observable<IEvent> {
     return this.sideLayoutSubject.asObservable();
   }
 
@@ -115,7 +115,14 @@ export class EventService {
     this.subscribers.forEach((subscription) => {
       subscription.unsubscribe();
     });
-
     this.subscribers.length = 0;
+  }
+
+  emitLayoutChange(event: IEvent) {
+    this.sideMenuLayoutSelectSubject.next(event);
+  }
+
+  listenForLayoutChangeEvent(): Observable<IEvent> {
+    return this.sideMenuLayoutSelectSubject.asObservable();
   }
 }

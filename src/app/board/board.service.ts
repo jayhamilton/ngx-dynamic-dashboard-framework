@@ -93,6 +93,19 @@ export class BoardService {
     });
   }
 
+  public updateBoardDueToLayoutChange(incomingBoard: IBoard) {
+    this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
+      boardCollection.boardList.forEach((board) => {
+        if (board.id == incomingBoard.id) {
+          board.rows = [];
+          board.rows = [...incomingBoard.rows];
+          board.structure = incomingBoard.structure;
+        }
+      });
+      this.saveBoardCollectionToDestination(boardCollection);
+    });
+  }
+
   public updateBoardDueToDragAndDrop(incomingBoard: IBoard) {
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
       boardCollection.boardList.forEach((board) => {

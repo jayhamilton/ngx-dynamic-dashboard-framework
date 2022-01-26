@@ -11,6 +11,7 @@ import { BoardService } from './board.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 import { FormControl } from '@angular/forms';
+import { BoardLayoutService } from './board.layout.service';
 
 @Component({
   selector: 'app-board',
@@ -36,7 +37,8 @@ export class BoardComponent implements OnInit {
 
   constructor(
     private eventService: EventService,
-    private boardService: BoardService
+    private boardService: BoardService,
+    private layoutService: BoardLayoutService
   ) {
     this.boardExists = false;
     this.boardHasGadgets = false;
@@ -79,6 +81,13 @@ export class BoardComponent implements OnInit {
         this.displayNavSelectedBoard(event.data); //boardId
       });
 
+      this.eventService
+      .listenForLayoutChangeEvent()
+      .subscribe((event: IEvent) => {
+        this.layoutService.convertToSingleColumnLayout(this.boardData);
+        this.displayLastSelectedBoard();
+      });
+
     this.eventService
       .listenForLibraryAddGadgetEvents()
       .subscribe((event: IEvent) => {
@@ -107,6 +116,8 @@ export class BoardComponent implements OnInit {
     //getBoardData
     this.boardService.getLastSelectedBoard().subscribe((boardData: IBoard) => {
       this.prepareBoardAndShow(boardData);
+      console.log("Board structure: " + boardData.structure);
+      console.log(boardData);
     });
   }
 

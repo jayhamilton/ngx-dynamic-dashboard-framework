@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventService } from '../eventservice/event.service';
 
 @Component({
   selector: 'app-sidelayout',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidelayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
+  }
+  changeMenu(){
+    console.log("changing menu");
+    this.eventService.emitLayoutChange({data:"single"})
   }
 
 }
