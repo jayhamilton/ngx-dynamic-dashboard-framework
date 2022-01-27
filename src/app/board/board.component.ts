@@ -84,7 +84,8 @@ export class BoardComponent implements OnInit {
       this.eventService
       .listenForLayoutChangeEvent()
       .subscribe((event: IEvent) => {
-        this.layoutService.convertToSingleColumnLayout(this.boardData);
+        this.layoutService.changeLayout(event, this.boardData);
+
         this.displayLastSelectedBoard();
       });
 
@@ -116,8 +117,7 @@ export class BoardComponent implements OnInit {
     //getBoardData
     this.boardService.getLastSelectedBoard().subscribe((boardData: IBoard) => {
       this.prepareBoardAndShow(boardData);
-      console.log("Board structure: " + boardData.structure);
-      console.log(boardData);
+
     });
   }
 

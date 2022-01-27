@@ -42,9 +42,9 @@ export class SidenavComponent implements OnInit {
     });
   }
 
-  changeMenu(){
-    console.log("changing menu");
-    this.eventService.emitLayoutChange({data:"single"});
+  changeMenu(layout: string){
+
+      this.eventService.emitLayoutChange({data:layout});
   }
 
   showBoard(boardList: any) {
@@ -53,7 +53,6 @@ export class SidenavComponent implements OnInit {
 
     this.eventService.emitBoardSelectedEvent({ data: boardSelected });
 
-    console.log('Selected Board: ' + boardSelected);
   }
 
   setupEventListeners() {

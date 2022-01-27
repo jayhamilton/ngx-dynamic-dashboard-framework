@@ -97,7 +97,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
 
-    console.log('Saving Form!');
     this.updatePropertiesEvent.emit(this.payLoad);
 
     console.debug('Sending configuration to the config service!');
@@ -109,7 +108,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
   get isPropertyPageValid() {
 
-    console.log(this.form.valid);
     return this.form.valid;
   }
   setSelected(event: any) {

@@ -35,7 +35,6 @@ export class DynamicFormPropertyComponent implements AfterViewInit {
 
   get isValid() {
 
-    console.log(this.form.controls[this.property.key].valid);
     return this.form.controls[this.property.key].valid;
   }
 

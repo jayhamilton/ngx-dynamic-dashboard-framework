@@ -1,7 +1,6 @@
 .example-container {
     width: 100%;
     height: 100%;
-    ;
 }
 
 .example-sidenav-content {
@@ -13,9 +12,16 @@
 .example-sidenav {
     display: flex;
     justify-content: center;
-    ;
 }
 
 h2 {
     text-align: center;
+}
+
+.grid-layout {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    margin-left: 25px;
 }

@@ -165,7 +165,7 @@ export class BoardService {
       {
         title: 'Board',
         description: '',
-        structure: 'A',
+        structure: 'two_col_equal',
         id: BoardType.DEFAULT,
         tabs: [{ title: 'Board', id: BoardType.DEFAULT }],
         relationship: Heiarchy.PARENT,

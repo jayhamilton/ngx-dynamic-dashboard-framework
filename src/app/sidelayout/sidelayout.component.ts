@@ -13,7 +13,6 @@ export class SidelayoutComponent implements OnInit {
   ngOnInit(): void {
   }
   changeMenu(){
-    console.log("changing menu");
     this.eventService.emitLayoutChange({data:"single"})
   }
 

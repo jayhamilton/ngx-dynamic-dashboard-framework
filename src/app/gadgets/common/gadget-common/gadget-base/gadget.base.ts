@@ -38,7 +38,6 @@ export abstract class GadgetBase implements IGadget {
 
   public toggleConfigMode() {
     this.inConfig = !this.inConfig;
-    console.log(this.inConfig);
   }
 
 }

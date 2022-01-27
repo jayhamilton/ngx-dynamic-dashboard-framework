@@ -11,7 +11,7 @@ mat-card-title {
     color: #3f51b5;
 }
 
-.grid-B {
+.one_col {
     display: grid;
     grid-template-columns: 75%;
     row-gap: 25px;
@@ -22,7 +22,7 @@ mat-card-title {
     padding-right: 100px;
 }
 
-.grid-A {
+.two_col_equal {
     display: grid;
     grid-template-columns: 50% 50%;
     row-gap: 25px;

@@ -140,7 +140,6 @@ export class TabBoardsComponent implements OnInit {
       tabvalue: this.boardTabvalue.value,
     };
 
-    console.log(boardNewRequestData);
     this.eventService.emitBoardCreateRequestEvent({
       data: boardNewRequestData,
     });

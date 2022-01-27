@@ -72,7 +72,7 @@ export class ProductComponent extends GadgetBase implements OnInit {
 
   remove(){
     this.eventService.emitGadgetDeleteEvent({data: this.instanceId});
-    console.log("DELETE FROM COMPONENT: " + this.instanceId);
+
   }
   propertyChangeEvent(propertiesJSON: string) {
     //update internal props
