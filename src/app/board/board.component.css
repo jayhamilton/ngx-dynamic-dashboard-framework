@@ -49,6 +49,15 @@ mat-card-title {
     margin: 40px;
 }
 
+.three_col_equal {
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    row-gap: 25px;
+    column-gap: 25px;
+    justify-content: center;
+    margin: 40px;
+}
+
 .empty-column-placeholder {
     border-color: rgb(202, 153, 248);
     border-width: 2px;

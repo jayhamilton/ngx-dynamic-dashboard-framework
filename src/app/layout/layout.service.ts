@@ -14,54 +14,57 @@ export class LayoutService {
   changeLayout(layout: IEvent, board: IBoard) {
     switch (layout.data) {
       case LayoutType.ONE_COL:
-        this.convertToOneColumnLayout(layout.data, board);
+        this.updateLayout(layout.data, board, 1);
         break;
-      case LayoutType.TWO_COL_EVEN:
+      case LayoutType.TWO_COL_EQUAL:
       case LayoutType.TWO_COL_NARROW_WIDE:
       case LayoutType.TWO_COL_WIDE_NARROW:
-        this.convertToTwoColumnsLayout(layout.data, board);
+        this.updateLayout(layout.data, board, 2);
+        break;
+      case LayoutType.THREE_COL_EQUAL:
+        this.updateLayout(layout.data, board, 3);
         break;
       default:
-        this.convertToTwoColumnsLayout(layout.data, board);
+        this.updateLayout(layout.data, board, 2);
     }
   }
-  convertToOneColumnLayout(layoutData: LayoutType, board: IBoard) {
-    board.rows = [
-      {
-        columns: [
-          {
-            gadgets: this.getGadgetsAsASingleList(board),
-          },
-        ],
-      },
-    ];
 
-    board.structure = layoutData;
-    this.boardService.updateBoardDueToLayoutChange(board);
-  }
-
-  convertToTwoColumnsLayout(layoutData: LayoutType, board: IBoard) {
+  updateLayout(
+    layoutData: LayoutType,
+    board: IBoard,
+    totalColumnCount: number
+  ) {
     let list: IGadget[] = this.getGadgetsAsASingleList(board);
-    let list1: IGadget[] = [];
-    let list2: IGadget[] = [];
 
-    let col = 1;
+    let gadgetLists: IGadget[][] = [];
+
+    let columnStart = 0;
+    let currentColumnIndex = columnStart;
+
+    for (let x = 0; x < totalColumnCount; x++) {
+      gadgetLists.push([]);
+    }
+
     list.forEach((gadget) => {
-      if (col == 3) {
-        col = 1;
+      if (currentColumnIndex === totalColumnCount) {
+        currentColumnIndex = columnStart;
       }
+      gadgetLists[currentColumnIndex].push(gadget);
 
-      if (col == 1) {
-        list1.push(gadget);
-      }
-
-      if (col == 2) {
-        list2.push(gadget);
-      }
-      col++;
+      currentColumnIndex++;
     });
 
-    board.rows = [{ columns: [{ gadgets: list1 }, { gadgets: list2 }] }];
+    console.log(gadgetLists);
+
+    let gadgetColumnArrayList: any[] = [];
+
+    gadgetLists.forEach((list) => {
+      gadgetColumnArrayList.push({
+        gadgets: list,
+      });
+    });
+
+    board.rows = [{ columns: gadgetColumnArrayList }];
     board.structure = layoutData;
     this.boardService.updateBoardDueToLayoutChange(board);
   }
@@ -76,7 +79,5 @@ export class LayoutService {
     });
     return gadgetList;
   }
-  convertToThreeEqualColumnsLayout(board: IBoard) {}
-  convertToNarrowWideColumnLayout(board: IBoard) {}
-  convertToWideNarrowsColumnLayout(board: IBoard) {}
+
 }
