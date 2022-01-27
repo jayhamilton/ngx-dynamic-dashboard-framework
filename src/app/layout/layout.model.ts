@@ -1,4 +1,4 @@
-import { LayoutType } from './sidelayout.service';
+import { LayoutType } from './layout.service';
 
 export const layouts = [
   {

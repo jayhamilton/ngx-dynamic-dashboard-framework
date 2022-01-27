@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import {
-  Heiarchy,
+  Hiearchy,
   IBoard,
   IBoardCollection,
 } from 'src/app/board/board.model';
@@ -93,13 +93,13 @@ export class TabBoardsComponent implements OnInit {
           let list: IBoard[] = [];
 
           boardCollection.boardList.forEach((board) => {
-            if (board.relationship === Heiarchy.PARENT) {
+            if (board.relationship === Hiearchy.PARENT) {
               list.push(board);
               board.tabs.forEach((tab) => {
                 boardCollection.boardList.forEach((_board) => {
                   if (
                     tab.id == _board.id &&
-                    _board.relationship === Heiarchy.CHILD
+                    _board.relationship === Hiearchy.CHILD
                   ) {
                     list.push(_board);
                   }
@@ -120,7 +120,7 @@ export class TabBoardsComponent implements OnInit {
 
           list.forEach((board)=>{
 
-            if(board.relationship === Heiarchy.PARENT && board.tabs.length == 1 && board.tabs[0].id == board.id){
+            if(board.relationship === Hiearchy.PARENT && board.tabs.length == 1 && board.tabs[0].id == board.id){
               dropDownList.push(board);
             }
 

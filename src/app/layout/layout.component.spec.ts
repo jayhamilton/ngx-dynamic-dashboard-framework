@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SidelayoutComponent } from './sidelayout.component';
+import { SidelayoutComponent } from './layout.component';
 
 describe('SidelayoutComponent', () => {
   let component: SidelayoutComponent;

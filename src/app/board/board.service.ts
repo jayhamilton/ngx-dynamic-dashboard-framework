@@ -5,10 +5,10 @@ import {
   IGadget,
   IPropertyPage,
 } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
-import { LayoutType } from '../sidelayout/sidelayout.service';
+import { LayoutType } from '../layout/layout.service';
 import {
   BoardType,
-  Heiarchy,
+  Hiearchy,
   IBoard,
   IBoardCollection,
   ITab
@@ -29,7 +29,7 @@ export class BoardService {
       description: '',
       structure: '',
       id: BoardType.EMPTYBOARDCOLLECTION,
-      relationship: Heiarchy.PARENT,
+      relationship: Hiearchy.PARENT,
       tabs: [],
       rows: [],
     };
@@ -168,7 +168,7 @@ export class BoardService {
         structure: LayoutType.TWO_COL_EVEN,
         id: BoardType.DEFAULT,
         tabs: [{ title: 'Board', id: BoardType.DEFAULT }],
-        relationship: Heiarchy.PARENT,
+        relationship: Hiearchy.PARENT,
         rows: [
           {
             columns: [
@@ -234,7 +234,7 @@ export class BoardService {
       newBoard.id = Date.now();
       newBoard.title = event.data['title'];
       newBoard.description = event.data['description'];
-      newBoard.relationship = Heiarchy.PARENT;
+      newBoard.relationship = Hiearchy.PARENT;
 
       let tabs: ITab[] = [];
       tabs.push({ title: event.data['title'], id: newBoard.id });
@@ -248,7 +248,7 @@ export class BoardService {
 
         tabs.push({ title: childBoard.title, id: tabId });
 
-        childBoard.relationship = Heiarchy.CHILD;
+        childBoard.relationship = Hiearchy.CHILD;
         childBoard.tabs = tabs;
       }
 
@@ -324,7 +324,7 @@ export class BoardService {
       board.tabs.forEach((tab) => {
         if (tab.id == deletedBoardId) {
           board.tabs.splice(idx, 1);
-          board.relationship = Heiarchy.PARENT;
+          board.relationship = Hiearchy.PARENT;
         }
         idx++;
       });

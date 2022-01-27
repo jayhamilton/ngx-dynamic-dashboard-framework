@@ -10,7 +10,7 @@ export interface IBoard {
   description: string;
   structure: string;
   id: number;
-  relationship: Heiarchy;
+  relationship: Hiearchy;
   tabs: ITab[];
   rows: IRow[];
 }
@@ -30,7 +30,7 @@ export enum BoardType {
   EMPTYBOARDCOLLECTION,
 }
 
-export enum Heiarchy {
+export enum Hiearchy {
   PARENT,
   CHILD,
 }

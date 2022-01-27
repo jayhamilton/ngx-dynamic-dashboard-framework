@@ -11,7 +11,7 @@ import { BoardService } from './board.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 import { FormControl } from '@angular/forms';
-import { LayoutService } from '../sidelayout/sidelayout.service';
+import { LayoutService } from '../layout/layout.service';
 
 @Component({
   selector: 'app-board',

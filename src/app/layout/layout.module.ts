@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidelayoutComponent } from './sidelayout.component';
-import { LayoutService } from './sidelayout.service';
+import { SidelayoutComponent } from './layout.component';
+import { LayoutService } from './layout.service';
 
 @NgModule({
   declarations: [SidelayoutComponent],

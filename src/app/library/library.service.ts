@@ -21,6 +21,6 @@ export class LibraryService{
         } else {
           libraryJson = 'library.json';
         }
-        return this._http.get<IGadget[]>('/assets/' + libraryJson);
+        return this._http.get<IGadget[]>('/assets/api/' + libraryJson);
     }
   }
