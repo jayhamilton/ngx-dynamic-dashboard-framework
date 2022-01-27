@@ -5,13 +5,13 @@ import {
   IGadget,
   IPropertyPage,
 } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
+import { LayoutType } from '../sidelayout/sidelayout.service';
 import {
   BoardType,
   Heiarchy,
   IBoard,
   IBoardCollection,
-  ITab,
-  LayoutType,
+  ITab
 } from './board.model';
 
 //TODO - break this up into multipe service. The file is approaching 400 lines.
@@ -165,7 +165,7 @@ export class BoardService {
       {
         title: 'Board',
         description: '',
-        structure: 'two_col_equal',
+        structure: LayoutType.TWO_COL_EVEN,
         id: BoardType.DEFAULT,
         tabs: [{ title: 'Board', id: BoardType.DEFAULT }],
         relationship: Heiarchy.PARENT,

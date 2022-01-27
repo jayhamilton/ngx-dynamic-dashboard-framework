@@ -1,22 +1,30 @@
 import { Injectable } from '@angular/core';
-import { throwMatDuplicatedDrawerError } from '@angular/material/sidenav';
 import { IEvent } from '../eventservice/event.service';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
-import { IBoard } from './board.model';
-import { BoardService } from './board.service';
+import { IBoard } from '../board/board.model';
+import { BoardService } from '../board/board.service';
+
+export enum LayoutType {
+
+  ONE_COL = "one_col",
+  TWO_COL_EVEN = "two_col_equal",
+  TWO_COL_40_60 = "two_col_40_60",
+  TWO_COL_60_40 = "two_col_60_40",
+  THREE_COL_EVEN = "three_col_equal"
+}
 
 @Injectable({
   providedIn: 'root',
 })
-export class BoardLayoutService {
+export class LayoutService {
   constructor(private boardService: BoardService) {}
 
   changeLayout(event: IEvent, board: IBoard) {
     switch (event.data) {
-      case 'one_col':
+      case LayoutType.ONE_COL:
         this.convertToSingleColumnLayout(board);
         break;
-      case 'two_col_equal':
+      case LayoutType.TWO_COL_EVEN:
         this.convertToTwoEqualColumnsLayout(board);
         break;
       default:
@@ -34,7 +42,7 @@ export class BoardLayoutService {
       },
     ];
 
-    board.structure = 'one_col';
+    board.structure = LayoutType.ONE_COL;
     this.boardService.updateBoardDueToLayoutChange(board);
   }
 
@@ -61,7 +69,7 @@ export class BoardLayoutService {
     });
 
     board.rows = [{ columns: [{ gadgets: list1 }, { gadgets: list2 }] }];
-    board.structure = 'two_col_equal';
+    board.structure = LayoutType.TWO_COL_EVEN;
     this.boardService.updateBoardDueToLayoutChange(board);
 
   }

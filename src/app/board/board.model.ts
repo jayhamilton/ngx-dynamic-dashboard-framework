@@ -30,11 +30,6 @@ export enum BoardType {
   EMPTYBOARDCOLLECTION,
 }
 
-export enum LayoutType {
-  TWO_50_50,
-  ONE__20_60_20,
-}
-
 export enum Heiarchy {
   PARENT,
   CHILD,

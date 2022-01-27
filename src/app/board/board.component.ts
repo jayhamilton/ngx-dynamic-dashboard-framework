@@ -11,7 +11,7 @@ import { BoardService } from './board.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 import { FormControl } from '@angular/forms';
-import { BoardLayoutService } from './board.layout.service';
+import { LayoutService } from '../sidelayout/sidelayout.service';
 
 @Component({
   selector: 'app-board',
@@ -38,7 +38,7 @@ export class BoardComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private boardService: BoardService,
-    private layoutService: BoardLayoutService
+    private layoutService: LayoutService
   ) {
     this.boardExists = false;
     this.boardHasGadgets = false;

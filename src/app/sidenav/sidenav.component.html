@@ -8,11 +8,7 @@
     </mat-drawer>
 
     <mat-drawer #layout mode="side" position="end">
-        <div class="grid-layout">
-            <h2>Board Layouts</h2>
-            <img src="/assets/images/layout/one-narrow.png" (click)="changeMenu('one_col')">
-            <img src="/assets/images/layout/two-even.png" (click)="changeMenu('two_col_equal')">
-        </div>
+        <app-sidelayout></app-sidelayout>
     </mat-drawer>
 
     <div class="example-sidenav-content">

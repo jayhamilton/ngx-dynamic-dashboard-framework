@@ -42,10 +42,7 @@ export class SidenavComponent implements OnInit {
     });
   }
 
-  changeMenu(layout: string){
 
-      this.eventService.emitLayoutChange({data:layout});
-  }
 
   showBoard(boardList: any) {
     //raise event to show the selected board

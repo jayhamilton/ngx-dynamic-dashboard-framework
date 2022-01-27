@@ -5,10 +5,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { BoardModule } from '../board/board.module';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
+import { SidelayoutModule } from '../sidelayout/sidelayout.module';
 
 @NgModule({
   declarations: [SidenavComponent],
-  imports: [CommonModule, MatSidenavModule, BoardModule, MatListModule,MatButtonModule],
+  imports: [CommonModule, MatSidenavModule, BoardModule, MatListModule,MatButtonModule, SidelayoutModule],
   exports: [SidenavComponent],
 })
 export class SidenavModule {}
