@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../eventservice/event.service';
-import { LayoutType } from './layout.service';
-import { layouts } from './layout.model';
+import { layouts, LayoutType } from './layout.model';
 
 @Component({
   selector: 'app-sidelayout',

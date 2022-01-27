@@ -31,6 +31,24 @@ mat-card-title {
     margin: 40px;
 }
 
+.two_col_wide_narrow {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    row-gap: 25px;
+    column-gap: 25px;
+    justify-content: center;
+    margin: 40px;
+}
+
+.two_col_narrow_wide {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    row-gap: 25px;
+    column-gap: 25px;
+    justify-content: center;
+    margin: 40px;
+}
+
 .empty-column-placeholder {
     border-color: rgb(202, 153, 248);
     border-width: 2px;

@@ -5,7 +5,7 @@ import {
   IGadget,
   IPropertyPage,
 } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
-import { LayoutType } from '../layout/layout.service';
+import { LayoutType } from '../layout/layout.model';
 import {
   BoardType,
   Hiearchy,

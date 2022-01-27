@@ -3,15 +3,7 @@ import { IEvent } from '../eventservice/event.service';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 import { IBoard } from '../board/board.model';
 import { BoardService } from '../board/board.service';
-
-export enum LayoutType {
-
-  ONE_COL = "one_col",
-  TWO_COL_EVEN = "two_col_equal",
-  TWO_COL_40_60 = "two_col_40_60",
-  TWO_COL_60_40 = "two_col_60_40",
-  THREE_COL_EVEN = "three_col_equal"
-}
+import { LayoutType } from './layout.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,19 +11,21 @@ export enum LayoutType {
 export class LayoutService {
   constructor(private boardService: BoardService) {}
 
-  changeLayout(event: IEvent, board: IBoard) {
-    switch (event.data) {
+  changeLayout(layout: IEvent, board: IBoard) {
+    switch (layout.data) {
       case LayoutType.ONE_COL:
-        this.convertToSingleColumnLayout(board);
+        this.convertToOneColumnLayout(layout.data, board);
         break;
       case LayoutType.TWO_COL_EVEN:
-        this.convertToTwoEqualColumnsLayout(board);
+      case LayoutType.TWO_COL_NARROW_WIDE:
+      case LayoutType.TWO_COL_WIDE_NARROW:
+        this.convertToTwoColumnsLayout(layout.data, board);
         break;
       default:
-        this.convertToTwoEqualColumnsLayout(board);
+        this.convertToTwoColumnsLayout(layout.data, board);
     }
   }
-  convertToSingleColumnLayout(board: IBoard) {
+  convertToOneColumnLayout(layoutData: LayoutType, board: IBoard) {
     board.rows = [
       {
         columns: [
@@ -42,18 +36,17 @@ export class LayoutService {
       },
     ];
 
-    board.structure = LayoutType.ONE_COL;
+    board.structure = layoutData;
     this.boardService.updateBoardDueToLayoutChange(board);
   }
 
-  convertToTwoEqualColumnsLayout(board: IBoard) {
+  convertToTwoColumnsLayout(layoutData: LayoutType, board: IBoard) {
     let list: IGadget[] = this.getGadgetsAsASingleList(board);
     let list1: IGadget[] = [];
     let list2: IGadget[] = [];
 
     let col = 1;
     list.forEach((gadget) => {
-
       if (col == 3) {
         col = 1;
       }
@@ -69,9 +62,8 @@ export class LayoutService {
     });
 
     board.rows = [{ columns: [{ gadgets: list1 }, { gadgets: list2 }] }];
-    board.structure = LayoutType.TWO_COL_EVEN;
+    board.structure = layoutData;
     this.boardService.updateBoardDueToLayoutChange(board);
-
   }
   private getGadgetsAsASingleList(board: IBoard) {
     let gadgetList: IGadget[] = [];
