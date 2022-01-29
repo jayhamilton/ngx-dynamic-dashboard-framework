@@ -4,9 +4,9 @@
     <mat-card-content *ngIf="!inConfig">
         <div cdkDropListGroup class="grid">
             <div *ngFor="let columnData of gadgetData; let columnIndex = index">
-                <div cdkDropList [id]="getColumnIndexAsString(columnIndex)" [cdkDropListData]="columnData.gadgetNames" (cdkDropListDropped)="drop($event)">
-                    <div *ngFor="let item of columnData.gadgetNames;let gadgetIndex = index" cdkDrag>
-                        <img src="assets/images/{{ item }}.png" class="img-grid" />
+                <div cdkDropList [id]="getColumnIndexAsString(columnIndex)" [cdkDropListData]="columnData.imageNames" (cdkDropListDropped)="drop($event)">
+                    <div *ngFor="let item of columnData.imageNames;let gadgetIndex = index" cdkDrag>
+                        <img src="assets/images/{{ item }}" class="img-grid" />
                     </div>
                 </div>
             </div>

@@ -36,6 +36,17 @@ export abstract class GadgetBase implements IGadget {
     this.icon = gadgetData.icon;
   }
 
+  initializeConfiguration(gadgetData: IGadget) {
+    this.title = gadgetData.title;
+    this.subtitle = gadgetData.subtitle;
+    this.instanceId = gadgetData.instanceId;
+    this.actions = gadgetData.actions;
+    this.description = gadgetData.description;
+    this.propertyPages = gadgetData.propertyPages;
+    this.tags = [...gadgetData.tags];
+    this.icon = gadgetData.icon;
+  }
+
   public toggleConfigMode() {
     this.inConfig = !this.inConfig;
   }

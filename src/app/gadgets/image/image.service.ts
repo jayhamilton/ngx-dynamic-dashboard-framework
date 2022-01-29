@@ -5,62 +5,44 @@ import { Injectable } from '@angular/core';
 })
 export class ImageService {
   public read() {
-    return localStorage.getItem('plmBoard');
+
+    let data = localStorage.getItem('plmBoard');
+    if(data == null){
+      return [];
+    }
+
+    return JSON.parse(data);
   }
   public write(boardData: any) {
     localStorage.removeItem('plmBoard');
     localStorage.setItem('plmBoard', JSON.stringify(boardData));
   }
 
-  public getDefaultData() {
-    let data = [
-      {
-        width: 30,
-        gadgetNames: ['img1', 'img2'],
-        gadgets: [
-          {
-            name: 'img1',
-          },
-          {
-            name: 'img2',
-          },
-        ],
-      },
-      {
-        width: 30,
-        gadgetNames: ['img3', 'img4'],
-        gadgets: [
-          {
-            name: 'img3',
-          },
-          {
-            name: 'img4',
-          },
-        ],
-      },
-      {
-        width: 30,
-        gadgetNames: ['img5', 'img6'],
-        gadgets: [
-          {
-            name: 'img5',
-          },
-          {
-            name: 'img6',
-          },
-        ],
-      },
-    ];
 
-    if (this.read() == null) {
-      this.write(data);
-    }
 
-    let _data = this.read();
-    if (_data == null) {
-      _data = '';
-    }
+  getData(imageList: string) {
 
-    return JSON.parse(_data);
+    let imgListArray = imageList.split(',');
+    let columnStart = 0;
+    let totalColumns = 3;
+    let currentColumn = columnStart;
+
+    let data: any[] = [];
+
+    data.push({ imageNames: [] });
+    data.push({ imageNames: [] });
+    data.push({ imageNames: [] });
+
+    imgListArray.forEach((image) => {
+      if (currentColumn == totalColumns) {
+        currentColumn = columnStart;
+      }
+
+      data[currentColumn].imageNames.push(image.trim());
+
+      currentColumn++;
+    });
+
+    return data;
   }
 }

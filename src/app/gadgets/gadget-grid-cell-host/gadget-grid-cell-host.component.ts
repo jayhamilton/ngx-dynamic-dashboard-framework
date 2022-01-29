@@ -53,7 +53,7 @@ export class GadgetGridCellHostComponent implements OnInit {
     }
 
     if (gadgetRef) {
-      gadgetRef.instance.setConfiguration(this.gadgetData);
+      gadgetRef.instance.initializeConfiguration(this.gadgetData);
     }
   }
 }

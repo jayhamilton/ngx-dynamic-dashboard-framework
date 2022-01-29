@@ -25,9 +25,9 @@
                 "position": 11,
                 "properties": [{
                     "controlType": "upload",
-                    "key": "title",
+                    "key": "file-list",
                     "label": "Title",
-                    "value": "Image Gallery",
+                    "value": "",
                     "required": true,
                     "order": 1
                 }]

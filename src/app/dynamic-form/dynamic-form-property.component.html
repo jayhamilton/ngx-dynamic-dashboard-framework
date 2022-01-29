@@ -13,7 +13,8 @@
                     </mat-icon>
                 </div>
                 <div class="main-text">Drag Photos Here or
-                    <app-file-upload></app-file-upload>
+                    <app-file-upload (fileUploadEvent)="updateFileList($event)"></app-file-upload>
+                    <input [formControlName]='property.key' [type]='property.controlType' matInput value={{property.value}} required={{property.required}} style="font-size:10px">
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import {
   CdkDragDrop,
   CdkDropList,
@@ -17,7 +17,7 @@ import { BoardService } from 'src/app/board/board.service';
   templateUrl: './image.component.html',
   styleUrls: ['./image.component.css'],
 })
-export class ImageComponent extends GadgetBase {
+export class ImageComponent extends GadgetBase implements AfterContentChecked {
   gadgetData: any;
 
   constructor(
@@ -26,8 +26,22 @@ export class ImageComponent extends GadgetBase {
     private boardService: BoardService
   ) {
     super();
-    this.gadgetData = this.imageService.getDefaultData();
+
+    this.gadgetData = [];
+
+
   }
+  ngAfterContentChecked(): void {
+
+    let fileList = this.propertyPages[1].properties[0].value;
+
+    if(fileList.localeCompare("")==0){
+      this.gadgetData = [];
+    }else{
+      this.gadgetData = this.imageService.getData(fileList);
+    }
+  }
+
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -61,10 +75,10 @@ export class ImageComponent extends GadgetBase {
 
     //this means a component was moved from one column to another
     if (cIdx != pIdx) {
-      this.gadgetData[pIdx].gadgetNames = previousContainer.data;
+      this.gadgetData[pIdx].imageNames = previousContainer.data;
     }
 
-    this.gadgetData[cIdx].gadgetNames = container.data;
+    this.gadgetData[cIdx].imageNames = container.data;
 
     //persist the change
     this.imageService.write(this.gadgetData);
@@ -80,6 +94,17 @@ export class ImageComponent extends GadgetBase {
 
     if (updatedPropsObject.title != undefined) {
       this.title = updatedPropsObject.title;
+    }
+
+    if (updatedPropsObject['file-list'] != undefined) {
+      this.gadgetData = this.imageService.getData(
+        updatedPropsObject['file-list']
+      );
+      this.propertyPages[1].properties[0].value =
+        updatedPropsObject['file-list'];
+
+      //persist the change
+      //this.imageService.write(this.gadgetData);
     }
 
     //persist changes

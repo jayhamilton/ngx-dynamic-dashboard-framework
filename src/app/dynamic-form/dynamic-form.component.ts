@@ -98,6 +98,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.payLoad = JSON.stringify(this.form.value);
 
     this.updatePropertiesEvent.emit(this.payLoad);
+    console.log("form payload");
+    console.log(this.payLoad);
 
     console.debug('Sending configuration to the config service!');
   }

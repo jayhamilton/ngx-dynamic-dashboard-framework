@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { OutputEmitter } from '@angular/compiler/src/output/abstract_emitter';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+
 import { FileUploadService } from './file-upload.service';
 
 @Component({
@@ -7,6 +9,9 @@ import { FileUploadService } from './file-upload.service';
   styleUrls: ['./file-upload.component.css'],
 })
 export class FileUploadComponent implements OnInit {
+
+  @Output() fileUploadEvent:EventEmitter<any> = new EventEmitter();
+
   loading: boolean;
   file!: File;
   constructor(private fileUploadService: FileUploadService) {
@@ -17,9 +22,13 @@ export class FileUploadComponent implements OnInit {
   onChange(event: any) {
     console.log(event);
     this.file = event.target.files[0];
+    console.log(event.target.files);
+
+    this.fileUploadEvent.emit(event.target.files);
+
 
     this.loading = !this.loading;
-    //service logic
+
     this.fileUploadService.upload(this.file).subscribe((event) => {
       if (typeof event === 'object') {
         this.loading = false;
@@ -27,3 +36,5 @@ export class FileUploadComponent implements OnInit {
     });
   }
 }
+
+

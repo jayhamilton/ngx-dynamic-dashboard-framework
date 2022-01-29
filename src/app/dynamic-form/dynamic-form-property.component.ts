@@ -58,5 +58,23 @@ export class DynamicFormPropertyComponent implements AfterViewInit {
     //filter endpoints based on the gadgets tags
   }
 
+  updateFileList(fileList:FileList){
+
+    console.log("Updating the file list!!!!");
+    console.log(fileList);
+
+    let fileNames = "";
+    for(let x= 0; x< fileList.length; x++){
+
+      fileNames += fileList[x].name;
+      if(x < fileList.length - 1){
+        fileNames += ", ";
+      }
+    }
+    this.form.controls["file-list"].setValue(fileNames);
+    this.form.controls["file-list"].markAsDirty();
+    console.log("updating file list");
+
+  }
 
 }

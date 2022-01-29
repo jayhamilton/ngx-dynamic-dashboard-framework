@@ -391,6 +391,11 @@ export class BoardService {
               if (prop === 'title') {
                 gadget.title = updatedPropsObject[prop];
               }
+
+              //todo iterate the object to find the correct item
+              if (prop === 'file-list') {
+                gadget.propertyPages[1].properties[0].value = updatedPropsObject[prop];
+              }
             }
           }
         }
