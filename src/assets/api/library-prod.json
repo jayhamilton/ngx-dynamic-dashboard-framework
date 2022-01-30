@@ -75,13 +75,30 @@
             "groupId": "config",
             "position": 10,
             "properties": [{
-                "controlType": "textbox",
-                "key": "title",
-                "label": "Title",
-                "value": "Product Score Card Tool",
-                "required": true,
-                "order": 1
-            }]
+                    "controlType": "textbox",
+                    "key": "title",
+                    "label": "Title",
+                    "value": "Product Score Card Tool",
+                    "required": true,
+                    "order": 1
+                },
+                {
+                    "controlType": "textbox",
+                    "key": "date",
+                    "label": "Date",
+                    "value": "",
+                    "required": true,
+                    "order": 1
+                },
+                {
+                    "controlType": "textbox",
+                    "key": "team-lead",
+                    "label": "Team Lead",
+                    "value": "",
+                    "required": true,
+                    "order": 1
+                }
+            ]
         }],
         "actions": [{
             "name": "add"

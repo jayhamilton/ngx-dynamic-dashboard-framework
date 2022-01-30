@@ -11,6 +11,13 @@ mat-card-title {
     min-width: 300px;
 }
 
+.subsection {
+    margin-left: 20px;
+    line-height: 20px;
+    font-style: 'Roboto';
+    font-weight: 18px;
+}
+
 .more-button {
     position: absolute;
     top: 5px;

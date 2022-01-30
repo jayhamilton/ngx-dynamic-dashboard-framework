@@ -3,6 +3,9 @@
     </app-gadget-header>
     <mat-card-content *ngIf="!inConfig">
 
+        <div class="subsection"> Date:{{date}} Team Lead: {{teamLead}}</div>
+
+        <br>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
             <!--- Note that these columns can be defined in any order.
