@@ -12,20 +12,31 @@ export class GadgetHeaderComponent implements OnInit {
   @Input() title: string;
   @Input() subtitle: string;
   @Input() iconpath: string;
+  @Input() inConfig: boolean;
   menuLabel = 'Configure';
   constructor(private eventService:EventService) {
     this.title = '';
     this.subtitle = '';
     this.iconpath = '';
+    this.inConfig = false;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(this.inConfig){
+      this.setMenuLabel();
+    }
+  }
 
   remove() {
     this.removeEvent.emit();
   }
 
   toggleConfigMode() {
+    this.setMenuLabel();
+    this.toggleConfigModeEvent.emit();
+  }
+
+  setMenuLabel(){
     if (this.menuLabel === 'Configure') {
       this.menuLabel = 'Exit Configuration';
     } else {
@@ -33,6 +44,5 @@ export class GadgetHeaderComponent implements OnInit {
        //TODO - alert board to reload config. Generalize this so that a single event can be used for this
        this.eventService.emitBoardGadgetPropertyChangeEvent();
     }
-    this.toggleConfigModeEvent.emit();
   }
 }

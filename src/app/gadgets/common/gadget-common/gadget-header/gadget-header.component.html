@@ -2,6 +2,9 @@
     <div mat-card-avatar style="background-image:url('{{iconpath}}') ; background-size: cover;"></div>
     <mat-card-title>{{title}}</mat-card-title>
     <mat-card-subtitle>{{subtitle}}</mat-card-subtitle>
+    <mat-chip-list>
+        <mat-chip selected color="accent" *ngIf="inConfig"> You are in configuration mode</mat-chip>
+    </mat-chip-list>
     <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
 <mat-icon>more_vert</mat-icon>
 </button>

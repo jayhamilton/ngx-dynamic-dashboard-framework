@@ -28,7 +28,7 @@
                     "key": "file-list",
                     "label": "Title",
                     "value": "",
-                    "required": false,
+                    "required": true,
                     "order": 1
                 }]
             }

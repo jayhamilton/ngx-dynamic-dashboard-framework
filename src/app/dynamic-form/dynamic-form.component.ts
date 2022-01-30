@@ -70,6 +70,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   state = 'inactive';
   lastActiveTab = {};
   selected = new FormControl(0);
+  @Input() tabIndex:number;
 
   form: FormGroup = new FormGroup({});
   payLoad = '';
@@ -83,6 +84,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.gadgetTags = []; //todo - use to control what endpoints are displayed
     this.propertyPages = [];
     this.instanceId = -20;
+    this.tabIndex = this.selected.value;
+    console.log("this selected");
+    console.log(this.selected);
   }
 
   /* better solution that solves error: Expression has changed after it was checked exception resolution*/
@@ -96,16 +100,10 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
-
     this.updatePropertiesEvent.emit(this.payLoad);
-    console.log("form payload");
-    console.log(this.payLoad);
 
-    console.debug('Sending configuration to the config service!');
-  }
+    //console.log(this.payLoad);
 
-  setCurrentTab(tab: any) {
-    this.currentTab = tab.groupId;
   }
 
   get isPropertyPageValid() {
@@ -113,6 +111,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     return this.form.valid;
   }
   setSelected(event: any) {
+
+    console.log(event);
 
   }
 }

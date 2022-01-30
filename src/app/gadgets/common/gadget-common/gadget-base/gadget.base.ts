@@ -45,6 +45,24 @@ export abstract class GadgetBase implements IGadget {
     this.propertyPages = gadgetData.propertyPages;
     this.tags = [...gadgetData.tags];
     this.icon = gadgetData.icon;
+    this.inConfig = this.isMissingPropertyValue()
+  }
+
+  isMissingPropertyValue(){
+
+
+    let isMissingPropertyValue = false;
+    this.propertyPages.forEach((page)=>{
+      page.properties.forEach((property)=>{
+
+        if(property.value == "" && property.required == true){
+          isMissingPropertyValue = true
+        }
+
+      });
+    });
+
+    return isMissingPropertyValue;
   }
 
   public toggleConfigMode() {
