@@ -390,6 +390,7 @@ export class BoardService {
               //save common gadget properties like title here.
               if (prop === 'title') {
                 gadget.title = updatedPropsObject[prop];
+                gadget.propertyPages[0].properties[0].value = updatedPropsObject[prop];
               }
 
               //todo iterate the object to find the correct item

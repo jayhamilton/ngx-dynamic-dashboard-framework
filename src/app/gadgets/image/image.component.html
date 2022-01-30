@@ -6,14 +6,14 @@
             <div *ngFor="let columnData of gadgetData; let columnIndex = index">
                 <div cdkDropList [id]="getColumnIndexAsString(columnIndex)" [cdkDropListData]="columnData.imageNames" (cdkDropListDropped)="drop($event)">
                     <div *ngFor="let item of columnData.imageNames;let gadgetIndex = index" cdkDrag>
-                        <img src="assets/images/{{ item }}" class="img-grid" />
+                        <img src="assets/images/{{ item }}" class="img-grid move-cursor" />
                     </div>
                 </div>
             </div>
         </div>
     </mat-card-content>
     <mat-card-content *ngIf="inConfig" class="upload-grid">
-        <app-dynamic-form *ngIf="inConfig" [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId" (updatePropertiesEvent)="propertyChangeEvent($event)">
+        <app-dynamic-form [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId" (updatePropertiesEvent)="propertyChangeEvent($event)">
         </app-dynamic-form>
     </mat-card-content>
 </mat-card>

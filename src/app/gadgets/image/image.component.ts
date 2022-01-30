@@ -35,9 +35,7 @@ export class ImageComponent extends GadgetBase implements AfterContentChecked {
 
     let fileList = this.propertyPages[1].properties[0].value;
 
-    if(fileList.localeCompare("")==0){
-      this.gadgetData = [];
-    }else{
+    if(fileList.localeCompare("")!=0){
       this.gadgetData = this.imageService.getData(fileList);
     }
   }
@@ -61,10 +59,6 @@ export class ImageComponent extends GadgetBase implements AfterContentChecked {
     this.updateDataModel(event.container, event.previousContainer);
   }
 
-  getImage(colIdx: number, gadgetIdx: number) {
-    return '/assets/images/img' + gadgetIdx;
-  }
-
   getColumnIndexAsString(idx: number) {
     return '' + idx;
   }
@@ -80,8 +74,8 @@ export class ImageComponent extends GadgetBase implements AfterContentChecked {
 
     this.gadgetData[cIdx].imageNames = container.data;
 
-    //persist the change
-    this.imageService.write(this.gadgetData);
+    //todo update board
+
   }
 
   remove() {
@@ -102,9 +96,6 @@ export class ImageComponent extends GadgetBase implements AfterContentChecked {
       );
       this.propertyPages[1].properties[0].value =
         updatedPropsObject['file-list'];
-
-      //persist the change
-      //this.imageService.write(this.gadgetData);
     }
 
     //persist changes

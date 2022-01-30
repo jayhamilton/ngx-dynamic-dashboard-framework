@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EventService } from 'src/app/eventservice/event.service';
 
 @Component({
   selector: 'app-gadget-header',
@@ -12,7 +13,7 @@ export class GadgetHeaderComponent implements OnInit {
   @Input() subtitle: string;
   @Input() iconpath: string;
   menuLabel = 'Configure';
-  constructor() {
+  constructor(private eventService:EventService) {
     this.title = '';
     this.subtitle = '';
     this.iconpath = '';
@@ -29,6 +30,8 @@ export class GadgetHeaderComponent implements OnInit {
       this.menuLabel = 'Exit Configuration';
     } else {
       this.menuLabel = 'Configure';
+       //TODO - alert board to reload config. Generalize this so that a single event can be used for this
+       this.eventService.emitBoardGadgetPropertyChangeEvent();
     }
     this.toggleConfigModeEvent.emit();
   }

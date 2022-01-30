@@ -102,6 +102,11 @@ export class BoardComponent implements OnInit {
         this.saveNewGadget(event.data); //IGadget
       });
 
+      this.eventService.listenForGadgetPropertyChangeEvents()
+      .subscribe((event:IEvent)=>{
+        this.displayLastSelectedBoard();
+      });
+
     this.eventService.listenForGadgetDeleteEvent().subscribe((event) => {
       this.displayLastSelectedBoard();
     });

@@ -3,7 +3,7 @@
 
     <mat-card-content *ngIf="inConfig">
 
-        <app-dynamic-form *ngIf="inConfig" [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId" (updatePropertiesEvent)="propertyChangeEvent($event)">
+        <app-dynamic-form [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId" (updatePropertiesEvent)="propertyChangeEvent($event)">
         </app-dynamic-form>
 
 

@@ -4,21 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ImageService {
-  public read() {
-
-    let data = localStorage.getItem('plmBoard');
-    if(data == null){
-      return [];
-    }
-
-    return JSON.parse(data);
-  }
-  public write(boardData: any) {
-    localStorage.removeItem('plmBoard');
-    localStorage.setItem('plmBoard', JSON.stringify(boardData));
-  }
-
-
 
   getData(imageList: string) {
 
