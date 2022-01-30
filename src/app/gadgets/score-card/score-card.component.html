@@ -1,4 +1,4 @@
-<mat-card class="card" cdkDrag>
+<mat-card class="card" [cdkDragDisabled]="inConfig" cdkDrag>
     <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()" (toggleConfigModeEvent)="toggleConfigMode()">
     </app-gadget-header>
     <mat-card-content *ngIf="!inConfig">
