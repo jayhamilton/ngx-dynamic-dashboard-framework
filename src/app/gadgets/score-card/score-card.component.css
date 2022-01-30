@@ -2,10 +2,33 @@ mat-card-title {
     color: #3f51b5;
 }
 
+
+/* Structure */
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
 .more-button {
     position: absolute;
     top: 5px;
     right: 10px;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-table {
+    overflow: auto;
+    max-height: 750px;
+}
+
+.number-form-field {
+    width: 50px;
 }
 
 mat-card-content {

@@ -17,19 +17,31 @@
             <!-- Name Column -->
             <ng-container matColumnDef="goal">
                 <th mat-header-cell *matHeaderCellDef> Goals </th>
-                <td mat-cell *matCellDef="let element"> {{element.goal}} </td>
+                <td mat-cell *matCellDef="let element">
+                    <mat-form-field class="number-form-field" floatLabel="never">
+                        <input matInput type="number" placeholder="Goal" [value]="element.goal" [(ngModel)]="element.goal">
+                    </mat-form-field>
+                </td>
             </ng-container>
 
             <!-- Weight Column -->
             <ng-container matColumnDef="actual">
                 <th mat-header-cell *matHeaderCellDef> Actual </th>
-                <td mat-cell *matCellDef="let element"> {{element.actual}} </td>
+                <td mat-cell *matCellDef="let element">
+                    <mat-form-field class="number-form-field" floatLabel="never">
+                        <input matInput type="number" placeholder="Actual" [value]="element.actual" [(ngModel)]="element.actual">
+                    </mat-form-field>
+                </td>
             </ng-container>
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="comments">
                 <th mat-header-cell *matHeaderCellDef>Comments </th>
-                <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
+                <mat-cell *matCellDef="let element">
+                    <mat-form-field floatLabel="never">
+                        <input matInput placeholder="Comments" [value]="element.comments" [(ngModel)]="element.comments">
+                    </mat-form-field>
+                </mat-cell>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -3,14 +3,32 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import { EventService } from '../../eventservice/event.service'
 
 export interface PeriodicElement {
-  hours: number;
+  hours: string;
   goal: number;
   actual: number;
   comments: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {hours: 4, goal: 0, actual: 4, comments: ''},
+  {hours: '7:30', goal: 0, actual: 0, comments: ''},
+  {hours: '8:30', goal: 0, actual: 0, comments: ''},
+  {hours: '8:30', goal: 0, actual: 0, comments: ''},
+  {hours: '9:30', goal: 0, actual: 0, comments: ''},
+  {hours: '9:30', goal: 0, actual: 0, comments: ''},
+  {hours: '10:30', goal: 0, actual: 0, comments: ''},
+  {hours: '10:30', goal: 0, actual: 0, comments: ''},
+  {hours: '11:30', goal: 0, actual: 0, comments: ''},
+  {hours: '11:30', goal: 0, actual: 0, comments: ''},
+  {hours: '12:30', goal: 0, actual: 0, comments: ''},
+  {hours: '12:30', goal: 0, actual: 0, comments: ''},
+  {hours: '1:30', goal: 0, actual: 0, comments: ''},
+  {hours: '2:30', goal: 0, actual: 0, comments: ''},
+  {hours: '3:30', goal: 0, actual: 0, comments: ''},
+  {hours: '3:30', goal: 0, actual: 0, comments: ''},
+  {hours: '4:30', goal: 0, actual: 0, comments: ''},
+  {hours: '5:30', goal: 0, actual: 0, comments: ''},
+  {hours: '6:30', goal: 0, actual: 0, comments: ''},
+
 
 ];
 

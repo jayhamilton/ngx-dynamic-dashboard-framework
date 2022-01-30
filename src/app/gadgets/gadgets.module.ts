@@ -6,7 +6,7 @@ import { ImageComponent } from './image/image.component';
 import { ImageService } from './image/image.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -46,7 +46,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatMenuModule,
     GadgetCommonModule,
     DynamicFormModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
     exports: [
       ImageComponent,
