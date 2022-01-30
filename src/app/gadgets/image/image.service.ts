@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ImageService {
 
-  getData(imageList: string) {
+  getImageLists(imageList: string) {
 
     let imgListArray = imageList.split(',');
     let columnStart = 0;

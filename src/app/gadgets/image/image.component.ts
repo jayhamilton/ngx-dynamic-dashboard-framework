@@ -17,8 +17,8 @@ import { BoardService } from 'src/app/board/board.service';
   templateUrl: './image.component.html',
   styleUrls: ['./image.component.css'],
 })
-export class ImageComponent extends GadgetBase implements AfterContentChecked {
-  gadgetData: any;
+export class ImageComponent extends GadgetBase implements OnInit {
+  imageLists: any[];
 
   constructor(
     private imageService: ImageService,
@@ -27,16 +27,15 @@ export class ImageComponent extends GadgetBase implements AfterContentChecked {
   ) {
     super();
 
-    this.gadgetData = [];
-
-
+    this.imageLists = [];
   }
-  ngAfterContentChecked(): void {
 
+
+  ngOnInit(): void {
     let fileList = this.propertyPages[1].properties[0].value;
 
     if(fileList.localeCompare("")!=0){
-      this.gadgetData = this.imageService.getData(fileList);
+      this.imageLists = this.imageService.getImageLists(fileList);
     }
   }
 
@@ -59,7 +58,7 @@ export class ImageComponent extends GadgetBase implements AfterContentChecked {
     this.updateDataModel(event.container, event.previousContainer);
   }
 
-  getColumnIndexAsString(idx: number) {
+  getIndexAsString(idx: number) {
     return '' + idx;
   }
 
@@ -69,12 +68,12 @@ export class ImageComponent extends GadgetBase implements AfterContentChecked {
 
     //this means a component was moved from one column to another
     if (cIdx != pIdx) {
-      this.gadgetData[pIdx].imageNames = previousContainer.data;
+      this.imageLists[pIdx].imageNames = previousContainer.data;
     }
 
-    this.gadgetData[cIdx].imageNames = container.data;
+    this.imageLists[cIdx].imageNames = container.data;
 
-    //todo update board
+    //todo update board by getting a flat list and then saving
 
   }
 
@@ -91,7 +90,7 @@ export class ImageComponent extends GadgetBase implements AfterContentChecked {
     }
 
     if (updatedPropsObject['file-list'] != undefined) {
-      this.gadgetData = this.imageService.getData(
+      this.imageLists = this.imageService.getImageLists(
         updatedPropsObject['file-list']
       );
       this.propertyPages[1].properties[0].value =

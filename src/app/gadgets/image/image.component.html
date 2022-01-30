@@ -3,10 +3,10 @@
     </app-gadget-header>
     <mat-card-content *ngIf="!inConfig">
         <div cdkDropListGroup class="grid">
-            <div *ngFor="let columnData of gadgetData; let columnIndex = index">
-                <div cdkDropList [id]="getColumnIndexAsString(columnIndex)" [cdkDropListData]="columnData.imageNames" (cdkDropListDropped)="drop($event)">
-                    <div *ngFor="let item of columnData.imageNames;let gadgetIndex = index" cdkDrag>
-                        <img src="assets/images/{{ item }}" class="img-grid move-cursor" />
+            <div *ngFor="let list of imageLists; let listIndex = index">
+                <div cdkDropList [id]="getIndexAsString(listIndex)" [cdkDropListData]="list.imageNames" (cdkDropListDropped)="drop($event)" [ngClass]="list.imageNames.length == 0?'empty-column-placeholder':''">
+                    <div *ngFor="let item of list.imageNames" cdkDrag>
+                        <img src="assets/images/{{item}}" class="img-grid move-cursor" />
                     </div>
                 </div>
             </div>

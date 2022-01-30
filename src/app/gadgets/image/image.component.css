@@ -33,6 +33,22 @@ mat-card-title {
     grid-gap: 15px;
 }
 
+.empty-column-placeholder {
+    border-color: rgb(202, 153, 248);
+    border-width: 2px;
+    border-style: dashed;
+    background-color: rgb(233, 227, 227);
+    min-height: 300px;
+}
+
+.cdk-drop-list-dragging,
+.cdk-drop-list-receiving {
+    border-color: blueviolet;
+    border-width: 2px;
+    border-style: dashed;
+    background-color: rgb(201, 196, 196);
+}
+
 .move-cursor {
     cursor: move;
 }
