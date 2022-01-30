@@ -46,11 +46,13 @@ export class ScoreCardComponent extends GadgetBase implements OnInit{
   dataSource = ELEMENT_DATA;
   date: string;
   teamLead: string;
+  jobNumber: string;
 
   constructor(private  eventService: EventService, private boardService: BoardService ){
     super();
     this.date ="";
     this.teamLead = "";
+    this.jobNumber="";
 
 
 
@@ -58,6 +60,7 @@ export class ScoreCardComponent extends GadgetBase implements OnInit{
   ngOnInit(): void {
     this.date = this.propertyPages[0].properties[1].value;
     this.teamLead = this.propertyPages[0].properties[2].value;
+    this.jobNumber = this.propertyPages[0].properties[3].value;
 
   }
 

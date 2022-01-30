@@ -19,9 +19,8 @@ import { GadgetCommonModule } from './common/gadget-common/gadget-common.module'
 import { GadgetGridCellHostComponent } from './gadget-grid-cell-host/gadget-grid-cell-host.component';
 import { ScoreCardComponent } from './score-card/score-card.component';
 import { DynamicFormModule } from '../dynamic-form/dynamic-form-module';
-import { FileUploadComponent } from '../dynamic-form/file-upload/file-upload.component';
-import { FileUploadService } from '../dynamic-form/file-upload/file-upload.service';
 import { HttpClientModule } from '@angular/common/http';
+import {MatChipsModule} from '@angular/material/chips';
 @NgModule({
   declarations: [
     ImageComponent,
@@ -47,7 +46,8 @@ import { HttpClientModule } from '@angular/common/http';
     GadgetCommonModule,
     DynamicFormModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatChipsModule
   ],
     exports: [
       ImageComponent,

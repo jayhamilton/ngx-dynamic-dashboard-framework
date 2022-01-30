@@ -97,6 +97,14 @@
                     "value": "",
                     "required": true,
                     "order": 1
+                },
+                {
+                    "controlType": "textbox",
+                    "key": "job-number",
+                    "label": "Job Number",
+                    "value": "",
+                    "required": true,
+                    "order": 1
                 }
             ]
         }],
