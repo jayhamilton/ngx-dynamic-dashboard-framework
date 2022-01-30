@@ -51,6 +51,8 @@
 
     <mat-card-content *ngIf="inConfig" class="grid">
 
-        <p> card configuraiton display</p>
+        <app-dynamic-form [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId" (updatePropertiesEvent)="propertyChangeEvent($event)">
+        </app-dynamic-form>
+
     </mat-card-content>
 </mat-card>

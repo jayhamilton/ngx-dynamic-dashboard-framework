@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import { EventService } from '../../eventservice/event.service'
+import { BoardService } from 'src/app/board/board.service';
 
 export interface PeriodicElement {
   hours: string;
@@ -43,7 +44,7 @@ export class ScoreCardComponent extends GadgetBase{
   displayedColumns: string[] = ['hours', 'goal', 'actual', 'comments'];
   dataSource = ELEMENT_DATA;
 
-  constructor(private  eventService: EventService) {
+  constructor(private  eventService: EventService, private boardService: BoardService ){
     super();
 
   }
@@ -51,6 +52,20 @@ export class ScoreCardComponent extends GadgetBase{
 
   remove(){
     this.eventService.emitGadgetDeleteEvent({data: this.instanceId});
+  }
+  propertyChangeEvent(propertiesJSON: string) {
+    //update internal props
+    const updatedPropsObject = JSON.parse(propertiesJSON);
+
+    if (updatedPropsObject.title != undefined) {
+      this.title = updatedPropsObject.title;
+    }
+
+    //persist changes
+    this.boardService.savePropertyPageConfigurationToDestination(
+      propertiesJSON,
+      this.instanceId
+    );
   }
 
 }
