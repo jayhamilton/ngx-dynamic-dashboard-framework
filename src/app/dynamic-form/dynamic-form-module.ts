@@ -12,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FileUploadService } from './file-upload/file-upload.service';
+import {MatDatepickerModule} from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -24,14 +26,16 @@ import { FileUploadService } from './file-upload/file-upload.service';
         MatInputModule,
         MatButtonModule,
         MatIconModule,
-        HttpClientModule
+        HttpClientModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     declarations: [
         DynamicFormComponent,
         DynamicFormPropertyComponent,
         FileUploadComponent
     ],
-    providers: [PropertyControlService, FileUploadService],
+    providers: [PropertyControlService, FileUploadService, MatDatepickerModule],
     exports: [
         DynamicFormComponent,
         DynamicFormPropertyComponent

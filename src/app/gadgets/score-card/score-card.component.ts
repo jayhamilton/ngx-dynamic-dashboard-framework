@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import { EventService } from '../../eventservice/event.service'
 import { BoardService } from 'src/app/board/board.service';
-import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 
 export interface PeriodicElement {
   hours: string;
@@ -46,21 +45,21 @@ export class ScoreCardComponent extends GadgetBase implements OnInit{
   dataSource = ELEMENT_DATA;
   date: string;
   teamLead: string;
-  jobNumber: string;
+  jobNumber: number;
 
   constructor(private  eventService: EventService, private boardService: BoardService ){
     super();
     this.date ="";
     this.teamLead = "";
-    this.jobNumber="";
+    this.jobNumber=-1;
 
 
 
   }
   ngOnInit(): void {
-    this.date = this.propertyPages[0].properties[1].value;
-    this.teamLead = this.propertyPages[0].properties[2].value;
-    this.jobNumber = this.propertyPages[0].properties[3].value;
+    this.teamLead = this.propertyPages[0].properties[1].value;
+    this.jobNumber = this.propertyPages[0].properties[2].value;
+    this.date = this.propertyPages[0].properties[3].value;
 
   }
 

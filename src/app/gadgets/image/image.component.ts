@@ -9,7 +9,6 @@ import {
 import { ImageService } from './image.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import { EventService } from 'src/app/eventservice/event.service';
-import { IProperty } from '../common/gadget-common/gadget-base/gadget.model';
 import { BoardService } from 'src/app/board/board.service';
 
 @Component({

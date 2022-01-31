@@ -21,12 +21,14 @@ import { ScoreCardComponent } from './score-card/score-card.component';
 import { DynamicFormModule } from '../dynamic-form/dynamic-form-module';
 import { HttpClientModule } from '@angular/common/http';
 import {MatChipsModule} from '@angular/material/chips';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 @NgModule({
   declarations: [
     ImageComponent,
     ProductComponent,
     GadgetGridCellHostComponent,
-    ScoreCardComponent
+    ScoreCardComponent,
+    BarChartComponent
 
   ],
   imports: [

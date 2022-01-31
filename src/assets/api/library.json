@@ -98,14 +98,6 @@
                 },
                 {
                     "controlType": "textbox",
-                    "key": "date",
-                    "label": "Date",
-                    "value": "",
-                    "required": true,
-                    "order": 1
-                },
-                {
-                    "controlType": "textbox",
                     "key": "team-lead",
                     "label": "Team Lead",
                     "value": "",
@@ -113,9 +105,17 @@
                     "order": 1
                 },
                 {
-                    "controlType": "textbox",
+                    "controlType": "number",
                     "key": "job-number",
                     "label": "Job Number",
+                    "value": -1,
+                    "required": true,
+                    "order": 1
+                },
+                {
+                    "controlType": "date",
+                    "key": "date",
+                    "label": "Date",
                     "value": "",
                     "required": true,
                     "order": 1
