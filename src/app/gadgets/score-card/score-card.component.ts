@@ -54,9 +54,9 @@ export class ScoreCardComponent extends GadgetBase implements OnInit{
     this.jobNumber=-1;
   }
   ngOnInit(): void {
-    this.teamLead = this.propertyPages[0].properties[1].value;
-    this.jobNumber = this.propertyPages[0].properties[2].value;
-    this.date = this.propertyPages[0].properties[3].value;
+    this.teamLead = this.propertyPages[0].properties[2].value;
+    this.jobNumber = this.propertyPages[0].properties[3].value;
+    this.date = this.propertyPages[0].properties[4].value;
 
   }
   remove(){
