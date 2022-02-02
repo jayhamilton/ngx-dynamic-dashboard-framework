@@ -23,8 +23,8 @@ export interface IPropertyPage {
 }
 
 export interface IProperty {
-  value: any; //TODO fix this. It should be a union string|number
-  key: string;
+  value:any;
+  key: string ;
   label: string;
   required: boolean;
   order: number;

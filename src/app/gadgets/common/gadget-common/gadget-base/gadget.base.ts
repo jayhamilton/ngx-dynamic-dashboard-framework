@@ -50,7 +50,6 @@ export abstract class GadgetBase implements IGadget {
 
   isMissingPropertyValue(){
 
-
     let isMissingPropertyValue = false;
     this.propertyPages.forEach((page)=>{
       page.properties.forEach((property)=>{

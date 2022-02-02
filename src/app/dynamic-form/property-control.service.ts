@@ -13,7 +13,7 @@ export class PropertyControlService {
 
     propertyPages.forEach((propertyPage) => {
       propertyPage.properties.forEach(
-        (property: { key: string | number; required: any; value: any }) => {
+        (property: { key: string; required: boolean; value: string|number }) => {
           group[property.key] = property.required
             ? new FormControl(property.value || '', Validators.required)
             : new FormControl(property.value || '');

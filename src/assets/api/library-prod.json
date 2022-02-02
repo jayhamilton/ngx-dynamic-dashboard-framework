@@ -3,7 +3,7 @@
         "title": "Image Gallery",
         "description": "Select this tool to add an image gallery for the production line board.",
         "subtitle": "Image Gallery Subtitle",
-        "icon": "../../../assets/images/imageGallery.png",
+        "icon": "../../assets/images/imageGallery.png",
         "instanceId": -1,
         "tags": [],
         "propertyPages": [{
@@ -11,13 +11,22 @@
                 "groupId": "config",
                 "position": 11,
                 "properties": [{
-                    "controlType": "textbox",
-                    "key": "title",
-                    "label": "Title",
-                    "value": "Image Gallery",
-                    "required": true,
-                    "order": 1
-                }]
+                        "controlType": "textbox",
+                        "key": "title",
+                        "label": "Title",
+                        "value": "Image Gallery",
+                        "required": true,
+                        "order": 1
+                    },
+                    {
+                        "controlType": "textbox",
+                        "key": "subtitle",
+                        "label": "Subtitle",
+                        "value": "SImage Gallery Subtitle",
+                        "required": false,
+                        "order": 1
+                    }
+                ]
             },
             {
                 "displayName": "Upload",
@@ -29,7 +38,7 @@
                     "label": "Title",
                     "value": "",
                     "required": true,
-                    "order": 1
+                    "order": 2
                 }]
             }
         ],
@@ -40,24 +49,47 @@
     {
         "componentType": "ProductComponent",
         "title": "Product Component Tool",
-        "subtitle": " Product component subtitle",
+        "subtitle": "Product component subtitle",
         "description": "Select this tool to define and add a Product definition to the production line board.",
-        "icon": "../../../assets/images/product.png",
+        "icon": "../../assets/images/product.png",
         "instanceId": -1,
         "tags": [],
         "propertyPages": [{
-            "displayName": "Configuration",
-            "groupId": "config",
-            "position": 10,
-            "properties": [{
-                "controlType": "textbox",
-                "key": "title",
-                "label": "Title",
-                "value": "Product Components",
-                "required": true,
-                "order": 1
-            }]
-        }],
+                "displayName": "Configuration",
+                "groupId": "config",
+                "position": 10,
+                "properties": [{
+                        "controlType": "textbox",
+                        "key": "title",
+                        "label": "Title",
+                        "value": "Property Components",
+                        "required": true,
+                        "order": 1
+                    },
+                    {
+                        "controlType": "textbox",
+                        "key": "subtitle",
+                        "label": "Subtitle",
+                        "value": "Product component subtitle",
+                        "required": false,
+                        "order": 1
+                    }
+                ]
+            },
+            {
+                "displayName": "Components",
+                "groupId": "config",
+                "position": 11,
+                "properties": [{
+                    "controlType": "table",
+                    "key": "table",
+                    "label": "Title",
+                    "value": "Table Data",
+                    "required": false,
+                    "order": 1
+                }]
+            }
+        ],
         "actions": [{
             "name": "add"
         }]
@@ -84,17 +116,26 @@
                 },
                 {
                     "controlType": "textbox",
+                    "key": "subtitle",
+                    "label": "Subtitle",
+                    "value": "Score card subtitle",
+                    "required": true,
+                    "order": 1
+                },
+                {
+                    "controlType": "textbox",
                     "key": "team-lead",
                     "label": "Team Lead",
                     "value": "",
                     "required": true,
                     "order": 1
                 },
+
                 {
                     "controlType": "number",
                     "key": "job-number",
                     "label": "Job Number",
-                    "value": -1,
+                    "value": 0,
                     "required": true,
                     "order": 1
                 },

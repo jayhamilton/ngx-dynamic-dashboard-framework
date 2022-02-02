@@ -393,6 +393,12 @@ export class BoardService {
                 gadget.propertyPages[0].properties[0].value = updatedPropsObject[prop];
               }
 
+              //save common gadget properties like title here.
+              if (prop === 'subtitle') {
+                gadget.subtitle = updatedPropsObject[prop];
+                gadget.propertyPages[0].properties[1].value = updatedPropsObject[prop];
+              }
+
               //todo iterate the object to find the correct item
               if (prop === 'file-list') {
                 gadget.propertyPages[1].properties[0].value = updatedPropsObject[prop];

@@ -87,6 +87,10 @@ export class ImageComponent extends GadgetBase implements OnInit {
     if (updatedPropsObject.title != undefined) {
       this.title = updatedPropsObject.title;
     }
+    if (updatedPropsObject.subtitle != undefined) {
+      this.subtitle = updatedPropsObject.subtitle;
+      console.log.apply(this.subtitle);
+    }
 
     if (updatedPropsObject['file-list'] != undefined) {
       this.imageLists = this.imageService.getImageLists(

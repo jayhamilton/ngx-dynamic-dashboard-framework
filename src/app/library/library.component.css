@@ -1,19 +1,19 @@
 .example-card {
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .grid {
     display: grid;
-    row-gap: 15px;
+    row-gap: 5px;
     place-content: center;
 }
 
 .example-viewport {
-    height: 650px;
+    height: 670px;
 }
 
 mat-card-content {
-    margin: 20px;
+    margin: 10px;
 }
 
 .class_color0 {

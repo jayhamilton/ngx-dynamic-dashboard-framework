@@ -81,6 +81,9 @@ export class ProductComponent extends GadgetBase implements OnInit {
     if (updatedPropsObject.title != undefined) {
       this.title = updatedPropsObject.title;
     }
+    if (updatedPropsObject.subtitle != undefined) {
+      this.subtitle = updatedPropsObject.subtitle;
+    }
 
     //persist changes
     this.boardService.savePropertyPageConfigurationToDestination(

@@ -52,9 +52,6 @@ export class ScoreCardComponent extends GadgetBase implements OnInit{
     this.date ="";
     this.teamLead = "";
     this.jobNumber=-1;
-
-
-
   }
   ngOnInit(): void {
     this.teamLead = this.propertyPages[0].properties[1].value;
@@ -62,8 +59,6 @@ export class ScoreCardComponent extends GadgetBase implements OnInit{
     this.date = this.propertyPages[0].properties[3].value;
 
   }
-
-
   remove(){
     this.eventService.emitGadgetDeleteEvent({data: this.instanceId});
   }
@@ -73,6 +68,9 @@ export class ScoreCardComponent extends GadgetBase implements OnInit{
 
     if (updatedPropsObject.title != undefined) {
       this.title = updatedPropsObject.title;
+    }
+    if (updatedPropsObject.subtitle != undefined) {
+      this.subtitle = updatedPropsObject.subtitle;
     }
 
     //persist changes
