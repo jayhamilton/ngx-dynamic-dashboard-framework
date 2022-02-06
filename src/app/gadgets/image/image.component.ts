@@ -10,6 +10,7 @@ import { ImageService } from './image.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import { EventService } from 'src/app/eventservice/event.service';
 import { BoardService } from 'src/app/board/board.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-image',
@@ -18,6 +19,8 @@ import { BoardService } from 'src/app/board/board.service';
 })
 export class ImageComponent extends GadgetBase implements OnInit {
   imageLists: any[];
+  apihost = environment.apihost;
+  api = environment.api;
 
   constructor(
     private imageService: ImageService,
