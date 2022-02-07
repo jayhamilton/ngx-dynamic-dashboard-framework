@@ -9,10 +9,30 @@
     min-width: 300px;
 }
 
+mat-card-header,
 mat-card-title,
+mat-icon,
 mat-card-content {
     display: flex;
     justify-content: center;
+}
+
+mat-card {
+    min-width: 500px;
+}
+
+mat-icon {
+    font-size: 100px;
+    margin-bottom: 100px;
+    color: lightgray;
+}
+
+mat-card-title {
+    font-size: 30px;
+    line-height: 70px;
+    display: flex;
+    justify-content: center;
+    color: #3f51b5;
 }
 
 .error {

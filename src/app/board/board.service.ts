@@ -11,7 +11,7 @@ import {
   Hiearchy,
   IBoard,
   IBoardCollection,
-  ITab
+  ITab,
 } from './board.model';
 
 //TODO - break this up into multipe service. The file is approaching 400 lines.
@@ -58,13 +58,10 @@ export class BoardService {
    * Place gadget in the left most column at the head.
    */
 
-  columnToInsert: number = 0; //TODO - refactor to have this passed in.
-
   public saveNewGadgetToBoard(incomingBoard: IBoard, incomingGadget: IGadget) {
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
       boardCollection.boardList.forEach((board) => {
         if (board.id == incomingBoard.id) {
-          let rowNum = 0; //TODO - refactor to have this passed in.
           let updatedGadgetList: IGadget[] = [];
 
           //set instanceIdValue
@@ -72,19 +69,27 @@ export class BoardService {
 
           updatedGadgetList.push(incomingGadget);
 
-          let totalColumns = board.rows.length;
+          //pick an empty column to insert the gadget into
+          let gadgetAdded = false;
+          board.rows[0].columns.forEach((column) => {
+            if (column.gadgets && column.gadgets.length === 0) {
+              //add gadget here
 
-          board.rows[rowNum].columns[this.columnToInsert].gadgets.forEach(
-            (gadget) => {
-              updatedGadgetList.push(gadget);
+              if(gadgetAdded == false){
+                column.gadgets = updatedGadgetList;
+                gadgetAdded = true;
+              }
             }
-          );
-          board.rows[rowNum].columns[this.columnToInsert].gadgets =
-            updatedGadgetList;
-          if (this.columnToInsert < totalColumns) {
-            this.columnToInsert++;
-          } else {
-            this.columnToInsert = 0;
+          });
+
+          //if no empty column found then insert in the first column
+          if (gadgetAdded == false) {
+            //add the gadget to the first available column
+            board.rows[0].columns[0].gadgets.forEach((gadget) => {
+              updatedGadgetList.push(gadget);
+            });
+
+            board.rows[0].columns[0].gadgets = updatedGadgetList;
           }
         }
       });
@@ -390,18 +395,21 @@ export class BoardService {
               //save common gadget properties like title here.
               if (prop === 'title') {
                 gadget.title = updatedPropsObject[prop];
-                gadget.propertyPages[0].properties[0].value = updatedPropsObject[prop];
+                gadget.propertyPages[0].properties[0].value =
+                  updatedPropsObject[prop];
               }
 
               //save common gadget properties like title here.
               if (prop === 'subtitle') {
                 gadget.subtitle = updatedPropsObject[prop];
-                gadget.propertyPages[0].properties[1].value = updatedPropsObject[prop];
+                gadget.propertyPages[0].properties[1].value =
+                  updatedPropsObject[prop];
               }
 
               //todo iterate the object to find the correct item
               if (prop === 'file-list') {
-                gadget.propertyPages[1].properties[0].value = updatedPropsObject[prop];
+                gadget.propertyPages[1].properties[0].value =
+                  updatedPropsObject[prop];
               }
             }
           }
