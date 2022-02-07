@@ -152,5 +152,73 @@
         "actions": [{
             "name": "add"
         }]
+    },
+    {
+        "componentType": "BarChartComponent",
+        "title": "Bar Chart Component Component Tool",
+        "subtitle": "Bar chart tool subtitle",
+        "description": "Select this tool to define and add a Product definition to the production line board.",
+        "icon": "../../assets/images/bar-chart.png",
+        "instanceId": -1,
+        "tags": [],
+        "propertyPages": [{
+            "displayName": "Configuration",
+            "groupId": "config",
+            "position": 10,
+            "properties": [{
+                    "controlType": "textbox",
+                    "key": "title",
+                    "label": "Title",
+                    "value": "Property Components",
+                    "required": true,
+                    "order": 1
+                },
+                {
+                    "controlType": "textbox",
+                    "key": "subtitle",
+                    "label": "Subtitle",
+                    "value": "Product component subtitle",
+                    "required": false,
+                    "order": 1
+                }
+            ]
+        }],
+        "actions": [{
+            "name": "add"
+        }]
+    },
+    {
+        "componentType": "AreaChartComponent",
+        "title": "Area Chart Component Component Tool",
+        "subtitle": "Area chart tool subtitle",
+        "description": "Select this tool to define and add a Product definition to the production line board.",
+        "icon": "../../assets/images/trend.png",
+        "instanceId": -1,
+        "tags": [],
+        "propertyPages": [{
+            "displayName": "Configuration",
+            "groupId": "config",
+            "position": 10,
+            "properties": [{
+                    "controlType": "textbox",
+                    "key": "title",
+                    "label": "Title",
+                    "value": "Property Components",
+                    "required": true,
+                    "order": 1
+                },
+                {
+                    "controlType": "textbox",
+                    "key": "subtitle",
+                    "label": "Subtitle",
+                    "value": "Product component subtitle",
+                    "required": false,
+                    "order": 1
+                }
+            ]
+        }],
+        "actions": [{
+            "name": "add"
+        }]
     }
 ]

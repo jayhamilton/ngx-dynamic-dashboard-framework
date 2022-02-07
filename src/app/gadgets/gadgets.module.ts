@@ -22,13 +22,16 @@ import { DynamicFormModule } from '../dynamic-form/dynamic-form-module';
 import { HttpClientModule } from '@angular/common/http';
 import {MatChipsModule} from '@angular/material/chips';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { AreaChartComponent } from './area-chart/area-chart.component';
 @NgModule({
   declarations: [
     ImageComponent,
     ProductComponent,
     GadgetGridCellHostComponent,
     ScoreCardComponent,
-    BarChartComponent
+    BarChartComponent,
+    AreaChartComponent
 
   ],
   imports: [
@@ -49,13 +52,15 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     DynamicFormModule,
     HttpClientModule,
     FormsModule,
-    MatChipsModule
+    MatChipsModule,
+    NgxChartsModule
   ],
     exports: [
       ImageComponent,
       ProductComponent,
       GadgetGridCellHostComponent,
-      ScoreCardComponent
+      ScoreCardComponent,
+      BarChartComponent
     ],
     providers: [
       ImageService

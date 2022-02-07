@@ -4,8 +4,8 @@
 
     <mat-card-content *ngIf="!inConfig">
 
-        <ngx-charts-bar-vertical [results]="saleData" [xAxisLabel]="'Products'" [legendTitle]="'Product Lot Chart'" [yAxisLabel]="'Batch Qty'" [legend]="true" [showXAxisLabel]="true" [showYAxisLabel]="true" [xAxis]="true" [yAxis]="true" [gradient]="true">
-        </ngx-charts-bar-vertical>
+        <ngx-charts-area-chart [scheme]="colorScheme" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [timeline]="timeline" [results]="multi">
+        </ngx-charts-area-chart>>
     </mat-card-content>
 
     <mat-card-content *ngIf="inConfig">
