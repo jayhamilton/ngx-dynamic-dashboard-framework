@@ -1,6 +1,6 @@
 import { DataSource } from '@angular/cdk/table';
 import { localizedString } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import {
@@ -25,6 +25,10 @@ const ELEMENT_DATA: IBoard[] = [];
   styleUrls: ['./tab-boards.component.css'],
 })
 export class TabBoardsComponent implements OnInit {
+
+  @Output() boardAddEvent: EventEmitter<string> = new EventEmitter<string>();
+
+
   options: FormGroup;
   boardTitle = new FormControl();
   boardDescription = new FormControl();
@@ -144,6 +148,8 @@ export class TabBoardsComponent implements OnInit {
       data: boardNewRequestData,
     });
     //TODO - start progress indicator
+
+    this.boardAddEvent.emit("");
   }
 
   //TODO - edit

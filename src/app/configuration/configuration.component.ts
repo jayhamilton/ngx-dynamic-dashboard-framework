@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-configuration',
@@ -7,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigurationComponent {
 
+  @ViewChild('board',{read: ElementRef}) boardDialog?: ElementRef;
+
+  closeDialog(){
+
+    this.boardDialog?.nativeElement.click();
+
+  }
 
 }
 
