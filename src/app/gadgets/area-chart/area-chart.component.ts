@@ -3,6 +3,7 @@ import { ScaleType } from '@swimlane/ngx-charts';
 import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
+import { curveBasis } from 'd3-shape';
 
 
 export interface Color {
@@ -17,13 +18,15 @@ export interface Color {
   styleUrls: ['./area-chart.component.css']
 })
 export class AreaChartComponent extends GadgetBase  implements OnInit {
+
+  curveShape:any =  curveBasis;
   multi = [
     {
       "name": "Armani",
       "series": [
         {
           "name": "Monday",
-          "value": 620
+          "value": 320
         },
         {
           "name": "Wednesday",
@@ -31,7 +34,7 @@ export class AreaChartComponent extends GadgetBase  implements OnInit {
         },
         {
           "name": "Friday",
-          "value": 894
+          "value": 294
         }
       ]
     },
@@ -40,15 +43,15 @@ export class AreaChartComponent extends GadgetBase  implements OnInit {
       "series": [
         {
           "name": "Monday",
-          "value": 580
+          "value": 480
         },
         {
           "name": "Wednesday",
-          "value": 500
+          "value": 300
         },
         {
           "name": "Friday",
-          "value": 580
+          "value": 180
         }
       ]
     },
@@ -66,7 +69,7 @@ export class AreaChartComponent extends GadgetBase  implements OnInit {
         },
         {
           "name": "Friday",
-          "value": 311
+          "value": 111
         }
       ]
     },
@@ -75,7 +78,7 @@ export class AreaChartComponent extends GadgetBase  implements OnInit {
       "series": [
         {
           "name": "Monday",
-          "value": 57
+          "value": 157
         },
         {
           "name": "Wednesday",

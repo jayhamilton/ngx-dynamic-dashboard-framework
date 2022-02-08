@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
@@ -15,6 +16,13 @@ export class BarChartComponent extends GadgetBase  implements OnInit {
     { name: "Ralf Lauren", value: 150 },
     { name: "Polo", value: 150 }
   ];
+
+  colorScheme:Color = {
+    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
+    name: '',
+    selectable: false,
+    group: ScaleType.Linear
+  };
 
   constructor(private eventService: EventService, private boardService: BoardService) {
     super();

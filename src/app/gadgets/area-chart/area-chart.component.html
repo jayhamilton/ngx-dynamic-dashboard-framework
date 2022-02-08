@@ -4,7 +4,8 @@
 
     <mat-card-content *ngIf="!inConfig">
 
-        <ngx-charts-area-chart [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [timeline]="timeline" [results]="multi">
+        <ngx-charts-area-chart [scheme]="colorScheme" [curve]="curveShape" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [timeline]="timeline"
+            [results]="multi">
         </ngx-charts-area-chart>
     </mat-card-content>
 
