@@ -10,10 +10,10 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 })
 export class BarChartComponent extends GadgetBase  implements OnInit {
   saleData = [
-    { name: "Armani", value: 105000 },
-    { name: "Guuci", value: 55000 },
-    { name: "Ralf Lauren", value: 15000 },
-    { name: "Polo", value: 150000 }
+    { name: "Armani", value: 105 },
+    { name: "Guuci", value: 550 },
+    { name: "Ralf Lauren", value: 150 },
+    { name: "Polo", value: 150 }
   ];
 
   constructor(private eventService: EventService, private boardService: BoardService) {

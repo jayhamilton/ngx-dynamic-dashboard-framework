@@ -19,68 +19,71 @@ export interface Color {
 export class AreaChartComponent extends GadgetBase  implements OnInit {
   multi = [
     {
-      "name": "Germany",
+      "name": "Armani",
       "series": [
         {
-          "name": "1990",
-          "value": 62000000
+          "name": "Monday",
+          "value": 620
         },
         {
-          "name": "2010",
-          "value": 73000000
+          "name": "Wednesday",
+          "value": 730
         },
         {
-          "name": "2011",
-          "value": 89400000
+          "name": "Friday",
+          "value": 894
+        }
+      ]
+    },
+    {
+      "name": "GUUCI",
+      "series": [
+        {
+          "name": "Monday",
+          "value": 580
+        },
+        {
+          "name": "Wednesday",
+          "value": 500
+        },
+        {
+          "name": "Friday",
+          "value": 580
         }
       ]
     },
 
     {
-      "name": "USA",
+      "name": "Ralph Lauren",
       "series": [
         {
-          "name": "1990",
-          "value": 250000000
+          "name": "Monday",
+          "value": 250
         },
         {
-          "name": "2010",
-          "value": 309000000
+          "name": "Wednesday",
+          "value": 309
         },
         {
-          "name": "2011",
-          "value": 311000000
-        }
-      ]
-    },
-
-    {
-      "name": "France",
-      "series": [
-        {
-          "name": "1990",
-          "value": 58000000
-        },
-        {
-          "name": "2010",
-          "value": 50000020
-        },
-        {
-          "name": "2011",
-          "value": 58000000
+          "name": "Friday",
+          "value": 311
         }
       ]
     },
     {
-      "name": "UK",
+      "name": "Polo",
       "series": [
         {
-          "name": "1990",
-          "value": 57000000
+          "name": "Monday",
+          "value": 57
         },
         {
-          "name": "2010",
-          "value": 62000000
+          "name": "Wednesday",
+          "value": 62
+        },
+        {
+          "name": "Friday",
+          "value": 80
         }
       ]
     }
@@ -93,8 +96,8 @@ xAxis: boolean = true;
 yAxis: boolean = true;
 showYAxisLabel: boolean = true;
 showXAxisLabel: boolean = true;
-xAxisLabel: string = 'Year';
-yAxisLabel: string = 'Population';
+xAxisLabel: string = 'February Week 3 2022';
+yAxisLabel: string = 'Output';
 timeline: boolean = true;
 
 

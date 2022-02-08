@@ -12,8 +12,8 @@ mat-card-content {
     margin-top: 25px;
 }
 
-.card {
-    margin-bottom: 8px;
+mat-card {
+    margin-bottom: 10px;
 }
 
 .tab-table {
