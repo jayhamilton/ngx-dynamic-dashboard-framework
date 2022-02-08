@@ -106,10 +106,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.payLoad = JSON.stringify(this.form.value);
     this.updatePropertiesEvent.emit(this.payLoad);
 
-    this.form.reset();
-    this.form.clearValidators();
-    this.form.updateValueAndValidity();
-
     if (this.payLoad) {
       this.showMessage = true;
       let me = this;
