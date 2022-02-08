@@ -29,12 +29,11 @@ export class FileUploadComponent implements OnInit {
 
     this.imageUploadService.upload(event.target.files).subscribe({
       next: (event) => {
-
-        console.log("PRINTING IN NEXT SECTION")
-        console.log(event)
+        console.log('PRINTING IN NEXT SECTION');
+        console.log(event);
       },
       error: (error) => {
-        console.log("PRINTING ERROR CONDITION");
+        console.log('PRINTING ERROR CONDITION');
         console.log(error);
       },
     });

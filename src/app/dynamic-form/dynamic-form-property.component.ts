@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { PropertyBase } from './property-base';
 
 import { style, trigger, animate, transition } from '@angular/animations';
-import {ITag } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
+import { ITag } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 
 @Component({
   selector: 'app-df-property',
@@ -32,9 +32,7 @@ export class DynamicFormPropertyComponent implements AfterViewInit {
   @Input() gadgetTags: ITag[]; //todo - use to control what endpoints are displayed
   endPoints: string[] = [];
 
-
   get isValid() {
-
     return this.form.controls[this.property.key].valid;
   }
 
@@ -44,7 +42,7 @@ export class DynamicFormPropertyComponent implements AfterViewInit {
       label: '',
       required: false,
       order: -1,
-      controlType: ''
+      controlType: '',
     };
     this.gadgetTags = [];
     this.form = formBuilder.group({});
@@ -58,23 +56,19 @@ export class DynamicFormPropertyComponent implements AfterViewInit {
     //filter endpoints based on the gadgets tags
   }
 
-  updateFileList(fileList:FileList){
-
-    console.log("Updating the file list!!!!");
+  updateFileList(fileList: FileList) {
+    console.log('Updating the file list!!!!');
     console.log(fileList);
 
-    let fileNames = "";
-    for(let x= 0; x< fileList.length; x++){
-
+    let fileNames = '';
+    for (let x = 0; x < fileList.length; x++) {
       fileNames += fileList[x].name;
-      if(x < fileList.length - 1){
-        fileNames += ", ";
+      if (x < fileList.length - 1) {
+        fileNames += ', ';
       }
     }
-    this.form.controls["file-list"].setValue(fileNames);
-    this.form.controls["file-list"].markAsDirty();
-    console.log("updating file list");
-
+    this.form.controls['file-list'].setValue(fileNames);
+    this.form.controls['file-list'].markAsDirty();
+    console.log('updating file list');
   }
-
 }

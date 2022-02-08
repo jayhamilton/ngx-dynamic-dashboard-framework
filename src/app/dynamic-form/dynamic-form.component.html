@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="form">
+<form [formGroup]="form">
   <mat-tab-group
     [selectedIndex]="tabIndex"
     (selectedIndexChange)="setSelected($event)"
@@ -20,7 +20,7 @@
   <button
     mat-raised-button
     color="primary"
-    type="submit"
+    (click)="saveForm()"
     [disabled]="!form.valid || !form.dirty"
   >
     Save

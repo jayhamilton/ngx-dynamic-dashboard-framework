@@ -102,7 +102,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.form = this.pcs.toFormGroupFromPP(this.propertyPages);
   }
 
-  onSubmit() {
+  saveForm() {
     this.payLoad = JSON.stringify(this.form.value);
     this.updatePropertiesEvent.emit(this.payLoad);
 
