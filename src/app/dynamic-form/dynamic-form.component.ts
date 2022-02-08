@@ -22,7 +22,10 @@ import {
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { PropertyControlService } from './property-control.service';
-import {IPropertyPage, ITag } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
+import {
+  IPropertyPage,
+  ITag,
+} from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 
 @Component({
   /* solves error: Expression has changed after it was checked exception resolution - https://www.youtube.com/watch?v=K_BRcal-JfI*/
@@ -66,15 +69,16 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   @Input() propertyPages: IPropertyPage[];
   @Input() instanceId: number;
   @Output() updatePropertiesEvent: EventEmitter<any> = new EventEmitter(true);
+
   currentTab = 'run';
   state = 'inactive';
   lastActiveTab = {};
   selected = new FormControl(0);
-  @Input() tabIndex:number;
+  @Input() tabIndex: number;
 
   form: FormGroup = new FormGroup({});
   payLoad = '';
-  showMessage = false;
+  showMessage: boolean = false;
 
   constructor(
     private pcs: PropertyControlService,
@@ -85,7 +89,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.propertyPages = [];
     this.instanceId = -20;
     this.tabIndex = this.selected.value;
-    console.log("this selected");
+    console.log('this selected');
     console.log(this.selected);
   }
 
@@ -102,17 +106,29 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.payLoad = JSON.stringify(this.form.value);
     this.updatePropertiesEvent.emit(this.payLoad);
 
-    //console.log(this.payLoad);
+    this.form.reset();
+    this.form.clearValidators();
+    this.form.updateValueAndValidity();
 
+    if (this.payLoad) {
+      this.showMessage = true;
+      let me = this;
+
+      setTimeout(
+        function () {
+          me.showMessage = false;
+        }.bind(this),
+        2000
+      );
+    }
+
+    //console.log(this.payLoad);
   }
 
   get isPropertyPageValid() {
-
     return this.form.valid;
   }
   setSelected(event: any) {
-
     console.log(event);
-
   }
 }
