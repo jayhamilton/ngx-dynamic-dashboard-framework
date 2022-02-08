@@ -1,8 +1,21 @@
 <div class="text-center">
-    <!-- <input type="button" id="loadFileXml" value="loadXml" onclick="document.getElementById('file').click();" />-->
+  <!-- <input type="button" id="loadFileXml" value="loadXml" onclick="document.getElementById('file').click();" />-->
 
-    <button class="file-upload" onclick="document.getElementById('file').click();">Browse Computer </button>
-    <input class="input-upload" id="file" type="file" style="display:none" accept=".jpg,.jpeg,.png,.gif" multiple (change)="onChange($event)">
+  <button
+    class="file-upload"
+    onclick="document.getElementById('file').click();"
+  >
+    Browse Computer
+  </button>
+  <input
+    class="input-upload"
+    id="file"
+    type="file"
+    style="display: none"
+    accept=".jpg,.jpeg,.png,.gif"
+    multiple
+    (change)="onChange($event)"
+  />
 </div>
 
 <!--Flag variable is used here

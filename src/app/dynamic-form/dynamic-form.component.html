@@ -1,14 +1,32 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="form">
-    <mat-tab-group [selectedIndex]="tabIndex" (selectedIndexChange)="setSelected($event)">
-        <mat-tab *ngFor="let page of propertyPages; let r = index" label={{page.displayName}}>
-            <div *ngFor="let property of page.properties" class="form-row">
-                <app-df-property [property]="property" [form]="form" [gadgetTags]="gadgetTags"> </app-df-property>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid || !form.dirty"> Save</button>
+  <mat-tab-group
+    [selectedIndex]="tabIndex"
+    (selectedIndexChange)="setSelected($event)"
+  >
+    <mat-tab
+      *ngFor="let page of propertyPages; let r = index"
+      label="{{ page.displayName }}"
+    >
+      <div *ngFor="let property of page.properties" class="form-row">
+        <app-df-property
+          [property]="property"
+          [form]="form"
+          [gadgetTags]="gadgetTags"
+        >
+        </app-df-property>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="!form.valid || !form.dirty"
+  >
+    Save
+  </button>
 </form>
-<br><br>
+<br /><br />
 
 <!--<div *ngIf="showMessage" [@showHideAnimation] class="form-row">
     <div>Saved!</div>

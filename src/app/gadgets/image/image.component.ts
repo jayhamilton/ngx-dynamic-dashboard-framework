@@ -1,4 +1,10 @@
-import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  OnInit,
+} from '@angular/core';
 import {
   CdkDragDrop,
   CdkDropList,
@@ -32,15 +38,13 @@ export class ImageComponent extends GadgetBase implements OnInit {
     this.imageLists = [];
   }
 
-
   ngOnInit(): void {
     let fileList = this.propertyPages[1].properties[0].value;
 
-    if(fileList.localeCompare("")!=0){
+    if (fileList.localeCompare('') != 0) {
       this.imageLists = this.imageService.getImageLists(fileList);
     }
   }
-
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -76,7 +80,6 @@ export class ImageComponent extends GadgetBase implements OnInit {
     this.imageLists[cIdx].imageNames = container.data;
 
     //todo update board by getting a flat list and then saving
-
   }
 
   remove() {

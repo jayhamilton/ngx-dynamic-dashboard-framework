@@ -1,75 +1,104 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
-    <!-- Position Column -->
+  <!-- Position Column -->
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>title</th>
-        <td mat-cell *matCellDef="let element">
+  <!-- Name Column -->
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>title</th>
+    <td mat-cell *matCellDef="let element">
+      <!-- realtionship value of 0 indicates parent and 1 indicates child -->
+      <mat-icon *ngIf="element.relationship == 1"
+        ><span class="material-icons">
+          subdirectory_arrow_right
+        </span></mat-icon
+      >
+      {{ element.title }}
+    </td>
+  </ng-container>
 
-            <!-- realtionship value of 0 indicates parent and 1 indicates child -->
-            <mat-icon *ngIf="element.relationship == 1"><span class="material-icons">
-              subdirectory_arrow_right
-              </span></mat-icon>
-            {{element.title}}
+  <!-- Name Column -->
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef>Description</th>
+    <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+  </ng-container>
 
-        </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef>Description</th>
-        <td mat-cell *matCellDef="let element">{{element.description}}</td>
-    </ng-container>
-
-
-    <!-- Tools Column -->
-    <ng-container matColumnDef="tools">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let element">
-            <mat-toolbar>
-                <button mat-icon-button (click)="edit(element)" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+  <!-- Tools Column -->
+  <ng-container matColumnDef="tools">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-toolbar>
+        <button
+          mat-icon-button
+          (click)="edit(element)"
+          class="example-icon favorite-icon"
+          aria-label="Example icon-button with heart icon"
+        >
           <mat-icon>mode_edit</mat-icon>
         </button>
-                <button mat-icon-button (click)="delete(element)" class="example-icon" aria-label="Example icon-button with share icon">
+        <button
+          mat-icon-button
+          (click)="delete(element)"
+          class="example-icon"
+          aria-label="Example icon-button with share icon"
+        >
           <mat-icon>delete_forever</mat-icon>
         </button>
-            </mat-toolbar>
-        </td>
-    </ng-container>
+      </mat-toolbar>
+    </td>
+  </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
 
-<br>
+<br />
 <h3>Define new packaging line board</h3>
 <div class="example-container">
-    <form [formGroup]="options">
+  <form [formGroup]="options">
+    <mat-form-field
+      appearance="fill"
+      [hideRequiredMarker]="hideRequiredControl.value"
+      [floatLabel]="floatLabelControl.value"
+    >
+      <mat-label>Enter a title</mat-label>
+      <input
+        [formControl]="boardTitle"
+        matInput
+        placeholder="Enter a title"
+        required
+      />
+    </mat-form-field>
 
-        <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
-            <mat-label>Enter a title</mat-label>
-            <input [formControl]="boardTitle" matInput placeholder="Enter a title" required>
-        </mat-form-field>
+    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+      <mat-label>Enter a description</mat-label>
+      <input
+        [formControl]="boardDescription"
+        matInput
+        placeholder="Enter description"
+      />
+    </mat-form-field>
 
-        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
-            <mat-label>Enter a description</mat-label>
-            <input [formControl]="boardDescription" matInput placeholder="Enter description">
-        </mat-form-field>
+    <mat-form-field
+      appearance="fill"
+      [hideRequiredMarker]="hideRequiredControl.value"
+      [floatLabel]="floatLabelControl.value"
+    >
+      <mat-select [formControl]="boardTabvalue">
+        <mat-option>-- None --</mat-option>
+        <mat-option
+          *ngFor="let option of this.dropDownListSelection"
+          value="{{ option.id }}"
+          >{{ option.title }}</mat-option
+        >
+      </mat-select>
+      <mat-label>
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+        <b> Show board as tab</b></mat-label
+      >
+    </mat-form-field>
 
-        <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
-            <mat-select [formControl]="boardTabvalue">
-                <mat-option>-- None --</mat-option>
-                <mat-option *ngFor="let option of this.dropDownListSelection" value={{option.id}}>{{option.title}}</mat-option>
-            </mat-select>
-            <mat-label>
-                <mat-icon>subdirectory_arrow_right</mat-icon> <b> Show board as tab</b></mat-label>
-        </mat-form-field>
-
-
-        &nbsp;&nbsp;
-        <button mat-mini-fab color="primary" (click)="create()" class="tab-button">
-          <mat-icon>add</mat-icon>
-        </button>
-
-    </form>
+    &nbsp;&nbsp;
+    <button mat-mini-fab color="primary" (click)="create()" class="tab-button">
+      <mat-icon>add</mat-icon>
+    </button>
+  </form>
 </div>

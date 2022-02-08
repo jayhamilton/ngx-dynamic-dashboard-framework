@@ -1,73 +1,106 @@
 <mat-card [cdkDragDisabled]="inConfig" cdkDrag>
-    <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()" [inConfig]="inConfig" (toggleConfigModeEvent)="toggleConfigMode()"></app-gadget-header>
+  <app-gadget-header
+    [title]="title"
+    [subtitle]="subtitle"
+    [iconpath]="icon"
+    (removeEvent)="remove()"
+    [inConfig]="inConfig"
+    (toggleConfigModeEvent)="toggleConfigMode()"
+  ></app-gadget-header>
 
-    <mat-card-content *ngIf="inConfig">
+  <mat-card-content *ngIf="inConfig">
+    <app-dynamic-form
+      [gadgetTags]="tags"
+      [propertyPages]="propertyPages"
+      [instanceId]="instanceId"
+      (updatePropertiesEvent)="propertyChangeEvent($event)"
+    >
+    </app-dynamic-form>
 
-        <app-dynamic-form [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId" (updatePropertiesEvent)="propertyChangeEvent($event)">
-        </app-dynamic-form>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 tab-table"
+    >
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Id</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
 
+      <!-- Name Column -->
+      <ng-container matColumnDef="measure">
+        <th mat-header-cell *matHeaderCellDef>Measure</th>
+        <td mat-cell *matCellDef="let element">{{ element.measure }}</td>
+      </ng-container>
 
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
-            <!-- Position Column -->
-            <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>Id</th>
-                <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-            </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+      </ng-container>
 
-            <!-- Name Column -->
-            <ng-container matColumnDef="measure">
-                <th mat-header-cell *matHeaderCellDef>Measure</th>
-                <td mat-cell *matCellDef="let element">{{ element.measure }}</td>
-            </ng-container>
+      <!-- Tools Column -->
+      <ng-container matColumnDef="tools">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-toolbar>
+            <button
+              mat-icon-button
+              (click)="addData()"
+              class="example-icon favorite-icon"
+              aria-label="Example icon-button with heart icon"
+            >
+              <mat-icon>mode_edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              (click)="removeData()"
+              class="example-icon"
+              aria-label="Example icon-button with share icon"
+            >
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </mat-toolbar>
+        </td>
+      </ng-container>
 
-            <!-- Name Column -->
-            <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef>Description</th>
-                <td mat-cell *matCellDef="let element">{{ element.description }}</td>
-            </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
 
+    <br />
 
-            <!-- Tools Column -->
-            <ng-container matColumnDef="tools">
-                <th mat-header-cell *matHeaderCellDef>Actions</th>
-                <td mat-cell *matCellDef="let element">
-                    <mat-toolbar>
-                        <button mat-icon-button (click)="addData()" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-                <mat-icon>mode_edit</mat-icon>
-              </button>
-                        <button mat-icon-button (click)="removeData()" class="example-icon" aria-label="Example icon-button with share icon">
-                <mat-icon>delete_forever</mat-icon>
-              </button>
-                    </mat-toolbar>
-                </td>
-            </ng-container>
+    <h3>Add component</h3>
+    <div class="example-container">
+      <form [formGroup]="options">
+        <mat-form-field
+          appearance="fill"
+          [hideRequiredMarker]="hideRequiredControl.value"
+          [floatLabel]="floatLabelControl.value"
+        >
+          <mat-label>Enter id</mat-label>
+          <input matInput placeholder="Enter an id number" required />
+        </mat-form-field>
 
+        <mat-form-field
+          appearance="fill"
+          [hideRequiredMarker]="hideRequiredControl.value"
+          [floatLabel]="floatLabelControl.value"
+        >
+          <mat-label>Enter a measure</mat-label>
+          <input matInput placeholder="Enter a measure" required />
+        </mat-form-field>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
+        <mat-form-field
+          appearance="fill"
+          [floatLabel]="floatLabelControl.value"
+        >
+          <mat-label>Enter a description</mat-label>
+          <input matInput placeholder="Enter a description" />
+        </mat-form-field>
 
-        <br />
-
-        <h3>Add component</h3>
-        <div class="example-container">
-            <form [formGroup]="options">
-                <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
-                    <mat-label>Enter id</mat-label>
-                    <input matInput placeholder="Enter an id number" required />
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
-                    <mat-label>Enter a measure</mat-label>
-                    <input matInput placeholder="Enter a measure" required />
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
-                    <mat-label>Enter a description</mat-label>
-                    <input matInput placeholder="Enter a description" />
-                </mat-form-field>
-
-                <!--
+        <!--
                 <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value" [floatLabel]="floatLabelControl.value">
                     <mat-select required>
                         <mat-option>-- None --</mat-option>
@@ -79,42 +112,45 @@
                 </mat-form-field>
                 -->
 
-                &nbsp;&nbsp;
-                <button mat-mini-fab color="primary" (click)="addData()" class="tab-button">
-            <mat-icon>add</mat-icon>
-          </button>
-            </form>
-        </div>
+        &nbsp;&nbsp;
+        <button
+          mat-mini-fab
+          color="primary"
+          (click)="addData()"
+          class="tab-button"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </form>
+    </div>
+  </mat-card-content>
 
-    </mat-card-content>
+  <mat-card-content *ngIf="!inConfig">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 tab-table"
+    >
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Id</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
 
-    <mat-card-content *ngIf="!inConfig">
+      <!-- Name Column -->
+      <ng-container matColumnDef="measure">
+        <th mat-header-cell *matHeaderCellDef>Measure</th>
+        <td mat-cell *matCellDef="let element">{{ element.measure }}</td>
+      </ng-container>
 
+      <!-- Name Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+      </ng-container>
 
-
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
-
-            <!-- Position Column -->
-            <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>Id</th>
-                <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="measure">
-                <th mat-header-cell *matHeaderCellDef>Measure</th>
-                <td mat-cell *matCellDef="let element">{{ element.measure }}</td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef>Description</th>
-                <td mat-cell *matCellDef="let element">{{ element.description }}</td>
-            </ng-container>
-
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
-        </table>
-    </mat-card-content>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns2"></tr>
+    </table>
+  </mat-card-content>
 </mat-card>

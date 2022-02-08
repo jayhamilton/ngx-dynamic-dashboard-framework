@@ -1,17 +1,40 @@
 <mat-card [cdkDragDisabled]="inConfig" cdkDrag>
-    <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()" [inConfig]="inConfig" (toggleConfigModeEvent)="toggleConfigMode()">
-    </app-gadget-header>
+  <app-gadget-header
+    [title]="title"
+    [subtitle]="subtitle"
+    [iconpath]="icon"
+    (removeEvent)="remove()"
+    [inConfig]="inConfig"
+    (toggleConfigModeEvent)="toggleConfigMode()"
+  >
+  </app-gadget-header>
 
-    <mat-card-content *ngIf="!inConfig">
+  <mat-card-content *ngIf="!inConfig">
+    <ngx-charts-bar-vertical
+      [roundEdges]="false"
+      [scheme]="colorScheme"
+      [results]="saleData"
+      [xAxisLabel]="'February Week 3 2022'"
+      [legendTitle]="'Product Lot Chart'"
+      [yAxisLabel]="'Batch Qty'"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [gradient]="true"
+    >
+    </ngx-charts-bar-vertical>
+  </mat-card-content>
 
-        <ngx-charts-bar-vertical [roundEdges]="false" [scheme]="colorScheme" [results]="saleData" [xAxisLabel]="'February Week 3 2022'" [legendTitle]="'Product Lot Chart'" [yAxisLabel]="'Batch Qty'" [legend]="true" [showXAxisLabel]="true" [showYAxisLabel]="true"
-            [xAxis]="true" [yAxis]="true" [gradient]="true">
-        </ngx-charts-bar-vertical>
-    </mat-card-content>
-
-    <mat-card-content *ngIf="inConfig">
-        <app-dynamic-form [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId" [tabIndex]="isMissingPropertyValue()?1:0" (updatePropertiesEvent)="propertyChangeEvent($event)">
-        </app-dynamic-form>
-    </mat-card-content>
-
+  <mat-card-content *ngIf="inConfig">
+    <app-dynamic-form
+      [gadgetTags]="tags"
+      [propertyPages]="propertyPages"
+      [instanceId]="instanceId"
+      [tabIndex]="isMissingPropertyValue() ? 1 : 0"
+      (updatePropertiesEvent)="propertyChangeEvent($event)"
+    >
+    </app-dynamic-form>
+  </mat-card-content>
 </mat-card>
