@@ -1,111 +1,122 @@
 .board-header {
-    margin: 35px;
+  margin: 35px;
 }
 
 mat-tab-group {
-    margin-left: 50px;
-    margin-right: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 mat-card-title {
-    color: #3f51b5;
+  color: #3f51b5;
+}
+.mat-card-content-grid-container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+p {
+  font-style: "Roboto";
+  size: 10px;
+  color: #3f51b5;
 }
 
 .one_col {
-    display: grid;
-    grid-template-columns: 75%;
-    row-gap: 25px;
-    column-gap: 25px;
-    justify-content: center;
-    margin: 40px;
-    padding-left: 100px;
-    padding-right: 100px;
+  display: grid;
+  grid-template-columns: 75%;
+  row-gap: 25px;
+  column-gap: 25px;
+  justify-content: center;
+  margin: 40px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .two_col_equal {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    row-gap: 25px;
-    column-gap: 25px;
-    justify-content: center;
-    margin: 40px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  row-gap: 25px;
+  column-gap: 25px;
+  justify-content: center;
+  margin: 40px;
 }
 
 .two_col_wide_narrow {
-    display: grid;
-    grid-template-columns: 70% 30%;
-    row-gap: 25px;
-    column-gap: 25px;
-    justify-content: center;
-    margin: 40px;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  row-gap: 25px;
+  column-gap: 25px;
+  justify-content: center;
+  margin: 40px;
 }
 
 .two_col_narrow_wide {
-    display: grid;
-    grid-template-columns: 30% 70%;
-    row-gap: 25px;
-    column-gap: 25px;
-    justify-content: center;
-    margin: 40px;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  row-gap: 25px;
+  column-gap: 25px;
+  justify-content: center;
+  margin: 40px;
 }
 
 .three_col_equal {
-    display: grid;
-    grid-template-columns: 30% 30% 30%;
-    row-gap: 25px;
-    column-gap: 25px;
-    justify-content: center;
-    margin: 40px;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  row-gap: 25px;
+  column-gap: 25px;
+  justify-content: center;
+  margin: 40px;
 }
 
 .empty-column-placeholder {
-    border-color: rgb(202, 153, 248);
-    border-width: 2px;
-    border-style: dashed;
-    background-color: rgb(233, 227, 227);
-    min-height: 50vh;
+  border-color: rgb(202, 153, 248);
+  border-width: 2px;
+  border-style: dashed;
+  background-color: rgb(233, 227, 227);
+  min-height: 50vh;
 }
 
 .grid-instruction {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    row-gap: 25px;
-    column-gap: 25px;
-    justify-content: center;
-    align-items: center;
-    margin: 25px 150px 0 150px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  row-gap: 25px;
+  column-gap: 25px;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 150px 0 150px;
 }
 
 .board-instruction {
-    min-height: 400px;
+  min-height: 400px;
 }
 
 .cdk-drag-preview {
-    box-sizing: border-box;
-    border-radius: 4px;
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {
-    opacity: 1;
+  opacity: 1;
 }
 
 .cdk-drop-list-dragging,
 .cdk-drop-list-receiving {
-    border-color: blueviolet;
-    border-width: 2px;
-    border-style: dashed;
-    background-color: rgb(201, 196, 196);
+  border-color: blueviolet;
+  border-width: 2px;
+  border-style: dashed;
+  background-color: rgb(201, 196, 196);
 }
 
 .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .example-box:last-child {
-    border: none;
+  border: none;
 }
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

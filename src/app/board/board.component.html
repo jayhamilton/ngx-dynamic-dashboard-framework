@@ -1,40 +1,60 @@
 <mat-card *ngIf="boardExists" class="board-header">
-    <mat-card-title>{{ boardData.title }}</mat-card-title>
-    <mat-card-subtitle></mat-card-subtitle>
-    <mat-card-content>
-        <p>{{ boardData.description }}</p>
-    </mat-card-content>
+  <mat-card-title>{{ boardData.title }}</mat-card-title>
+  <mat-card-subtitle></mat-card-subtitle>
+  <mat-card-content>
+    <p>{{ boardData.description }}</p>
+  </mat-card-content>
 </mat-card>
 
-
-<mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event); setSelected(selected.value)">
-    <mat-tab *ngFor="let tab of boardData.tabs; let index = index" [label]="tab.title">
-
-        <div *ngFor="let row of boardData.rows; let r = index">
-            <div cdkDropListGroup [ngClass]="boardData.structure">
-                <div *ngFor="let col of row.columns; let c = index" cdkDropList [id]="getColumnIndexAsString(c)" [cdkDropListData]="col.gadgets" (cdkDropListDropped)="drop($event)" [ngClass]="col.gadgets.length == 0?'empty-column-placeholder':''">
-                    <gadget-grid-cell-host *ngFor="let gadget of col.gadgets" [gadgetData]="gadget"></gadget-grid-cell-host>
-                </div>
-            </div>
+<mat-tab-group
+  [selectedIndex]="selected.value"
+  (selectedIndexChange)="selected.setValue($event); setSelected(selected.value)"
+>
+  <mat-tab
+    *ngFor="let tab of boardData.tabs; let index = index"
+    [label]="tab.title"
+  >
+    <div *ngFor="let row of boardData.rows; let r = index">
+      <div cdkDropListGroup [ngClass]="boardData.structure">
+        <div
+          *ngFor="let col of row.columns; let c = index"
+          cdkDropList
+          [id]="getColumnIndexAsString(c)"
+          [cdkDropListData]="col.gadgets"
+          (cdkDropListDropped)="drop($event)"
+          [ngClass]="col.gadgets.length == 0 ? 'empty-column-placeholder' : ''"
+        >
+          <gadget-grid-cell-host
+            *ngFor="let gadget of col.gadgets"
+            [gadgetData]="gadget"
+          ></gadget-grid-cell-host>
         </div>
-
-    </mat-tab>
+      </div>
+    </div>
+  </mat-tab>
 </mat-tab-group>
 
 <div *ngIf="!boardExists" class="grid-instruction">
-    <mat-card class="board-instruction">
-        <mat-card-title>Step 1</mat-card-title>
-        <mat-card-content>
-            <p>Create a board instance which will represent a packaging line.</p>
-        </mat-card-content>
-    </mat-card>
+  <mat-card class="board-instruction">
+    <mat-card-title>Step 1</mat-card-title>
+    <mat-card-content>
+      <div class="mat-card-content-grid-container">
+        <p>Create a board instance which will represent a packaging line.</p>
+        <img width="1000px" src="../../assets/help/new_board.gif" />
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-    <mat-card class="board-instruction">
-        <mat-card-title>Step 2</mat-card-title>
-        <mat-card-content>
-            <p>
-                Populate the board with the product image gallery tool and the product component list tool.
-            </p>
-        </mat-card-content>
-    </mat-card>
+  <mat-card class="board-instruction">
+    <mat-card-title>Step 2</mat-card-title>
+    <mat-card-content>
+      <div class="mat-card-content-grid-container">
+        <p>
+          Populate the board with the product image gallery tool and the product
+          component list tool.
+        </p>
+        <img width="1000px" src="../../assets/help/add_gadget.gif" />
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
