@@ -13,7 +13,6 @@ mat-card-title {
 .mat-card-content-grid-container {
   display: grid;
   align-items: center;
-  justify-content: center;
 }
 p {
   font-style: "Roboto";
