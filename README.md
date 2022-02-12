@@ -1,37 +1,38 @@
 # PlmUi
 
+PlmUI is based on the open source project https://github.com/catalogicsoftware/ngx-dynamic-dashboard-framework I created a few years ago.
 
-PlmUI is based on the open source project https://github.com/catalogicsoftware/ngx-dynamic-dashboard-framework I created a few years ago. 
+This project is a purpose built rewrite of that project, leveraging the latest version of Angular. This project also removes the dependency on Semantic UI in favor of Angular Material Design.
 
-This project is a purpose built rewrite of that project, leveraging the latest version of Angular. This project also removes the dependency on SemanticUI in favor of Angular Material Design. 
-
-My goal is to get this purpose built version in good enough shape to then fork out to produce a next gen version of NGX-Dynamic-Dashboard-Framework, incorporating all of its gadgets. At least that is my goal :-). The goal of this effort is to produce a simple dashboard framework that can be used for a very specific purpose regarding manufacturing packaging lines. 
+My goal is to get this purpose built version in good enough shape to then fork out to produce a next gen version of NGX-Dynamic-Dashboard-Framework, incorporating all of its gadgets. At least that is my goal :-). The goal of this effort is to produce a simple dashboard framework that can be used for a very specific purpose regarding manufacturing packaging lines.
 
 Live [Demo](https://plm.netlify.app/) Of Work In Progress:
 
-
-The keys to this design is that it is purely JSON driven. This is also taking advantage of Angular's [dynamic component](https://angular.io/guide/dynamic-component-loader) functionality that enables the creation of component instances at runtime. 
-
+The keys to this design is that it is purely JSON driven. This is also taking advantage of Angular's [dynamic component](https://angular.io/guide/dynamic-component-loader) functionality that enables the creation of component instances at runtime.
 
 ### Creating a new Dashboard
+
 ![New Board Creation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/new_board.gif)
 
 ### Dynamic navigation
+
 ![Dynamic Navigation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/dynamic_navigation.gif)
 
 ### Dynamically convert boards to tabs
+
 ![Dynamic Tab](https://github.com/jayhamilton/plm-ui/blob/main/documentation/dynamic_tab.gif)
 
 ### Dynamically add gadget instances to the board
+
 ![Add Gadget](https://github.com/jayhamilton/plm-ui/blob/main/documentation/add_gadget.gif)
 
 ### Multi-board configuration
+
 ![Multi-board Configuration](https://github.com/jayhamilton/plm-ui/blob/main/documentation/gadget_layout.gif)
 
-
 ### Developers Guide To Framework Extension - Creating Components
-TODO
 
+TODO
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.1.
 
