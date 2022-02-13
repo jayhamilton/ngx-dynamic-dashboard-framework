@@ -16,7 +16,7 @@ import { LayoutService } from '../layout/layout.service';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css'],
+  styleUrls: ['./board.component.scss'],
   animations: [
     trigger('showHide', [
       transition(':enter', [

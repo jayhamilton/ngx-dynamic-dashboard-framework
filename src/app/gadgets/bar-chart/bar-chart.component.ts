@@ -7,7 +7,7 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.css']
+  styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent extends GadgetBase  implements OnInit {
   saleData = [

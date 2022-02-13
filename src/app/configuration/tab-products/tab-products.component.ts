@@ -16,7 +16,7 @@ const ELEMENT_DATA: ProductItem[] = [
 @Component({
   selector: 'app-tab-products',
   templateUrl: './tab-products.component.html',
-  styleUrls: ['./tab-products.component.css']
+  styleUrls: ['./tab-products.component.scss']
 })
 export class TabProductsComponent  {
 

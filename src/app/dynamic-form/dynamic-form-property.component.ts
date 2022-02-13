@@ -11,7 +11,7 @@ import { ITag } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 @Component({
   selector: 'app-df-property',
   templateUrl: './dynamic-form-property.component.html',
-  styleUrls: ['./styles-props.css'],
+  styleUrls: ['./styles-props.scss'],
   animations: [
     trigger('showHideAnimation', [
       transition(':enter', [

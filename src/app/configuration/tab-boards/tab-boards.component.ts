@@ -22,7 +22,7 @@ const ELEMENT_DATA: IBoard[] = [];
 @Component({
   selector: 'app-tab-boards',
   templateUrl: './tab-boards.component.html',
-  styleUrls: ['./tab-boards.component.css'],
+  styleUrls: ['./tab-boards.component.scss'],
 })
 export class TabBoardsComponent implements OnInit {
 

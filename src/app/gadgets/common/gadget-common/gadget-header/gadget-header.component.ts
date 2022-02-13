@@ -4,7 +4,7 @@ import { EventService } from 'src/app/eventservice/event.service';
 @Component({
   selector: 'app-gadget-header',
   templateUrl: './gadget-header.component.html',
-  styleUrls: ['./gadget-header.component.css'],
+  styleUrls: ['./gadget-header.component.scss'],
 })
 export class GadgetHeaderComponent implements OnInit {
   @Output() removeEvent: EventEmitter<any> = new EventEmitter();

@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-image',
   templateUrl: './image.component.html',
-  styleUrls: ['./image.component.css'],
+  styleUrls: ['./image.component.scss'],
 })
 export class ImageComponent extends GadgetBase implements OnInit {
   imageLists: any[];

@@ -5,7 +5,7 @@ import { layouts, LayoutType } from './layout.model';
 @Component({
   selector: 'app-sidelayout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css'],
+  styleUrls: ['./layout.component.scss'],
 })
 export class SidelayoutComponent implements OnInit {
   _layouts = layouts;

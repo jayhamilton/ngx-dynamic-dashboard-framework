@@ -32,7 +32,7 @@ import {
   // changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./styles-props.css'],
+  styleUrls: ['./styles-props.scss'],
   animations: [
     trigger('contentSwitch', [
       state(

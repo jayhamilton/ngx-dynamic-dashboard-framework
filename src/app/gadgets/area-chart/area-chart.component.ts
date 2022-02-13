@@ -15,7 +15,7 @@ export interface Color {
 @Component({
   selector: 'app-area-chart',
   templateUrl: './area-chart.component.html',
-  styleUrls: ['./area-chart.component.css']
+  styleUrls: ['./area-chart.component.scss']
 })
 export class AreaChartComponent extends GadgetBase  implements OnInit {
 
