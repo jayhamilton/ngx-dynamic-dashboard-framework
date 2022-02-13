@@ -135,7 +135,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/cdk@^13.1.0":
+"@angular/cdk@^13.2.2":
   version "13.2.2"
   resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-13.2.2.tgz#4d41b1da6e92e3bc80d28aabe2049fa7ca40f5b1"
   integrity sha512-cT5DIaz+NI9IGb3X61Wh26+L6zdRcOXT1BP37iRbK2Qa2qM8/0VNeK6hrBBIblyoHKR/WUmRlS8XYf6mmArpZw==
@@ -213,7 +213,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/material@^13.1.0":
+"@angular/material@^13.2.2":
   version "13.2.2"
   resolved "https://registry.yarnpkg.com/@angular/material/-/material-13.2.2.tgz#d673f68b0c9357ada2ee82ffeaf11f10f5d49b27"
   integrity sha512-YAjPp2+/wuEOPfkAxdRVdbWHiK4P3DgMZa9qP/NizN2lTXNrftEfD09ZlPIFMZRnnExezJ2LnO7eyELpc1VSKg==

@@ -1,4 +1,3 @@
-import { OutputEmitter } from '@angular/compiler/src/output/abstract_emitter';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { ImageUploadService } from './file-upload.service';
