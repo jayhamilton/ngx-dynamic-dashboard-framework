@@ -1,31 +1,53 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  @Input() error: string | null;
-
-  @Output() submitEM = new EventEmitter();
   form: FormGroup = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
   });
-  constructor() {
-    this.error="";
-   }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  submit() {
+  authenticate() {
     if (this.form.valid) {
-      this.submitEM.emit(this.form.value);
+      let user = {
+        userName: this.form.get('username')?.value,
+        password: this.form.get('password')?.value,
+      };
+
+      console.log(user);
+
+      this.authenticationService.authenticate(user).subscribe((answer: any) => {
+        console.log(answer);
+
+        if (answer['status'] === 'OK') {
+          sessionStorage.setItem(
+            environment.sessionToken,
+            'Basic ' + btoa(user.userName + ':' + user.password)
+          );
+          this.routeTo('/home');
+        } else {
+          sessionStorage.setItem('session', '');
+          //show error
+        }
+      });
     }
   }
 
-
+  routeTo(path: string) {
+    this.router.navigateByUrl(path);
+  }
 }

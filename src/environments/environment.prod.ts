@@ -1,5 +1,7 @@
 export const environment = {
   production: true,
-  apihost:"",
-  api:"assets/images/"
+  apihost: '',
+  imageAPI: 'assets/images',
+  loginAPI: '/login',
+  sessionToken: 'API_KEY',
 };

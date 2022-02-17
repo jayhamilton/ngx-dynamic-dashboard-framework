@@ -24,14 +24,17 @@
   >
     <mat-icon>settings</mat-icon>
   </button>
+  <span class="menu-text"> (1) Create board</span>
+
   <button
     mat-icon-button
     (click)="openGadgetLibraryDialog()"
-    class="example-icon favorite-icon"
     aria-label="Example icon-button with heart icon"
   >
     <mat-icon>playlist_add</mat-icon>
   </button>
+  <span class="menu-text">(2) Add tool</span>
+
   <button
     mat-icon-button
     (click)="toggleLayout()"
@@ -40,4 +43,17 @@
   >
     <mat-icon>dashboard</mat-icon>
   </button>
+  <span class="menu-text"> (3) Change layout</span>
+
+  <button
+    mat-icon-button
+    (click)="logout()"
+    class="example-icon favorite-icon"
+    aria-label="Example icon-button with heart icon"
+  >
+    <mat-icon>logout</mat-icon>
+  </button>
+  <span class="menu-text"> Log Out</span>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </mat-toolbar>

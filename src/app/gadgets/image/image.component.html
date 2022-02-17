@@ -22,7 +22,7 @@
         >
           <div *ngFor="let item of list.imageNames" cdkDrag>
             <img
-              src="{{ apihost }}{{ api }}{{ item }}"
+              src="{{ apihost }}{{ api }}/{{ item }}"
               class="img-grid move-cursor"
             />
           </div>

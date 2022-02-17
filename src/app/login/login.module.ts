@@ -7,13 +7,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
-
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -21,7 +18,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
-  ]
+    MatIconModule,
+  ],
+  providers: [AuthenticationService],
 })
-export class LoginModule { }
+export class LoginModule {}

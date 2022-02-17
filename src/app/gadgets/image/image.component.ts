@@ -26,7 +26,7 @@ import { environment } from 'src/environments/environment';
 export class ImageComponent extends GadgetBase implements OnInit {
   imageLists: any[];
   apihost = environment.apihost;
-  api = environment.api;
+  api = environment.imageAPI;
 
   constructor(
     private imageService: ImageService,

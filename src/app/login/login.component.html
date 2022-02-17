@@ -5,7 +5,7 @@
   </mat-card-title>
 
   <mat-card-content>
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form [formGroup]="form">
       <p>
         <mat-form-field>
           <input
@@ -27,13 +27,14 @@
           />
         </mat-form-field>
       </p>
-
-      <p *ngIf="error" class="error">
-        {{ error }}
-      </p>
-
       <div class="button">
-        <button type="submit" color="primary" selected mat-raised-button>
+        <button
+          type="submit"
+          color="primary"
+          (click)="authenticate()"
+          selected
+          mat-raised-button
+        >
           Login
         </button>
       </div>
