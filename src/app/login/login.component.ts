@@ -28,11 +28,7 @@ export class LoginComponent implements OnInit {
         password: this.form.get('password')?.value,
       };
 
-      console.log(user);
-
       this.authenticationService.authenticate(user).subscribe((answer: any) => {
-        console.log(answer);
-
         if (answer['status'] === 'OK') {
           sessionStorage.setItem(
             environment.sessionToken,
