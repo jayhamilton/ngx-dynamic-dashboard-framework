@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: '',
-    redirectTo: environment.production == false ? 'login' : 'home',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
 ];

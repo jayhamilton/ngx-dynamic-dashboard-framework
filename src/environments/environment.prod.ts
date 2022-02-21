@@ -4,4 +4,5 @@ export const environment = {
   imageAPI: 'assets/images',
   loginAPI: '/login',
   sessionToken: 'API_KEY',
+  demo: true,
 };

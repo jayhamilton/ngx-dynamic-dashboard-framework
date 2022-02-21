@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AuthenticationService } from '../authentication/authentication.service';
+import { AuthenticationService } from '../_authentication/authentication.service';
 
 @NgModule({
   declarations: [LoginComponent],

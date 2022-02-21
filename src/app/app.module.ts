@@ -18,6 +18,7 @@ import { TokenInterceptor } from './app.interceptor';
     HomeModule,
     LoginModule,
   ],
+  exports: [],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],

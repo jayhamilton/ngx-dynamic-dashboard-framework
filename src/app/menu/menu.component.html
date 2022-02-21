@@ -7,43 +7,53 @@
 -->
 
 <mat-toolbar color="primary">
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-  >
-    <mat-icon (click)="toggleMenu()">menu</mat-icon>
-  </button>
+  <span *checkPermissions>
+    <button
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon (click)="toggleMenu()">menu</mat-icon>
+    </button>
+  </span>
+
   <span>Packaging Line Manager</span>
   <span class="example-spacer"></span>
-  <button
-    mat-icon-button
-    (click)="openConfigDialog()"
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
-  >
-    <mat-icon>settings</mat-icon>
-  </button>
-  <span class="menu-text"> (1) Create board</span>
 
-  <button
-    mat-icon-button
-    (click)="openGadgetLibraryDialog()"
-    aria-label="Example icon-button with heart icon"
-  >
-    <mat-icon>playlist_add</mat-icon>
-  </button>
-  <span class="menu-text">(2) Add tool</span>
+  <span *checkPermissions>
+    <button
+      mat-icon-button
+      (click)="openConfigDialog()"
+      class="example-icon"
+      aria-label="Example icon-button with share icon"
+    >
+      <mat-icon>settings</mat-icon>
+    </button>
+    <span class="menu-text"> (1) Create board</span>
+  </span>
 
-  <button
-    mat-icon-button
-    (click)="toggleLayout()"
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
-  >
-    <mat-icon>dashboard</mat-icon>
-  </button>
-  <span class="menu-text"> (3) Change layout</span>
+  <span *checkPermissions>
+    <button
+      mat-icon-button
+      (click)="openGadgetLibraryDialog()"
+      aria-label="Example icon-button with heart icon"
+    >
+      <mat-icon>playlist_add</mat-icon>
+    </button>
+    <span class="menu-text">(2) Add tool</span>
+  </span>
+
+  <span *checkPermissions>
+    <button
+      mat-icon-button
+      (click)="toggleLayout()"
+      class="example-icon favorite-icon"
+      aria-label="Example icon-button with heart icon"
+    >
+      <mat-icon>dashboard</mat-icon>
+    </button>
+    <span class="menu-text"> (3) Change layout</span>
+  </span>
 
   <button
     mat-icon-button

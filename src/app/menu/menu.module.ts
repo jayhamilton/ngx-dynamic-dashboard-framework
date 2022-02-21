@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from './menu.component';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule}from '@angular/material/icon';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ConfigurationModule } from '../configuration/configuration.module';
 import { LibraryModule } from '../library/library.module';
+import { RbacDirective } from '../_authorization/rbac.directive';
 @NgModule({
-  declarations: [
-    MenuComponent
-  ],
+  declarations: [MenuComponent, RbacDirective],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -21,11 +20,9 @@ import { LibraryModule } from '../library/library.module';
     MatDialogModule,
     ConfigurationModule,
     MatDialogModule,
-    LibraryModule
+    LibraryModule,
   ],
-  exports:[
-    MenuComponent
-  ],
-  providers: []
+  exports: [MenuComponent],
+  providers: [],
 })
-export class MenuModule { }
+export class MenuModule {}

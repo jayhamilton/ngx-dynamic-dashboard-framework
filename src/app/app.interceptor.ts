@@ -8,7 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthenticationService } from './authentication/authentication.service';
+import { AuthenticationService } from './_authentication/authentication.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {

@@ -12,6 +12,7 @@ import { LibraryComponent } from '../library/library.component';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
+  visible = true;
   constructor(
     public dialog: MatDialog,
     private eventService: EventService,
