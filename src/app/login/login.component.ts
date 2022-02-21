@@ -63,6 +63,8 @@ export class LoginComponent implements OnInit {
       environment.sessionToken,
       'Basic ' + btoa(name + ':' + password)
     );
+
+    this.routeTo('/home');
   }
 
   routeTo(path: string) {
