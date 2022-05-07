@@ -1,39 +1,32 @@
 <mat-card [cdkDragDisabled]="inConfig" cdkDrag>
-  <app-gadget-header
-    [title]="title"
-    [subtitle]="subtitle"
-    [iconpath]="icon"
-    (removeEvent)="remove()"
-    [inConfig]="inConfig"
-    (toggleConfigModeEvent)="toggleConfigMode()"
-  >
+  <app-gadget-header 
+  [title]="title" 
+  [subtitle]="subtitle" 
+  [iconpath]="icon" (removeEvent)="remove()"
+  [inConfig]="inConfig" (toggleConfigModeEvent)="toggleConfigMode()">
   </app-gadget-header>
 
   <mat-card-content *ngIf="!inConfig">
-    <ngx-charts-area-chart
-      [scheme]="colorScheme"
-      [curve]="curveShape"
-      [legend]="legend"
-      [showXAxisLabel]="showXAxisLabel"
-      [showYAxisLabel]="showYAxisLabel"
-      [xAxis]="xAxis"
-      [yAxis]="yAxis"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
-      [timeline]="timeline"
-      [results]="multi"
-    >
+    <ngx-charts-area-chart 
+    [scheme]="colorScheme" 
+    [curve]="curveShape" 
+    [legend]="legend"
+    [showXAxisLabel]="showXAxisLabel" 
+    [showYAxisLabel]="showYAxisLabel" 
+    [xAxis]="xAxis" [yAxis]="yAxis"
+    [xAxisLabel]="xAxisLabel" 
+    [yAxisLabel]="yAxisLabel" 
+    [timeline]="timeline" 
+    [results]="multi">
     </ngx-charts-area-chart>
   </mat-card-content>
 
   <mat-card-content *ngIf="inConfig">
-    <app-dynamic-form
-      [gadgetTags]="tags"
-      [propertyPages]="propertyPages"
-      [instanceId]="instanceId"
-      [tabIndex]="isMissingPropertyValue() ? 1 : 0"
-      (updatePropertiesEvent)="propertyChangeEvent($event)"
-    >
+    <app-dynamic-form 
+    [gadgetTags]="tags" 
+    [propertyPages]="propertyPages" 
+    [instanceId]="instanceId"
+    [tabIndex]="isMissingPropertyValue() ? 1 : 0" (updatePropertiesEvent)="propertyChangeEvent($event)">
     </app-dynamic-form>
   </mat-card-content>
 </mat-card>

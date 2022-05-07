@@ -1,27 +1,13 @@
 <mat-card [cdkDragDisabled]="inConfig" cdkDrag>
-  <app-gadget-header
-    [title]="title"
-    [subtitle]="subtitle"
-    [iconpath]="icon"
-    (removeEvent)="remove()"
-    [inConfig]="inConfig"
-    (toggleConfigModeEvent)="toggleConfigMode()"
-  ></app-gadget-header>
+  <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()"
+    [inConfig]="inConfig" (toggleConfigModeEvent)="toggleConfigMode()"></app-gadget-header>
 
   <mat-card-content *ngIf="inConfig">
-    <app-dynamic-form
-      [gadgetTags]="tags"
-      [propertyPages]="propertyPages"
-      [instanceId]="instanceId"
-      (updatePropertiesEvent)="propertyChangeEvent($event)"
-    >
+    <app-dynamic-form [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId"
+      (updatePropertiesEvent)="propertyChangeEvent($event)">
     </app-dynamic-form>
 
-    <table
-      mat-table
-      [dataSource]="dataSource"
-      class="mat-elevation-z8 tab-table"
-    >
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
       <!-- Position Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -45,20 +31,12 @@
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let element">
           <mat-toolbar>
-            <button
-              mat-icon-button
-              (click)="addData()"
-              class="example-icon favorite-icon"
-              aria-label="Example icon-button with heart icon"
-            >
+            <button mat-icon-button (click)="addData()" class="example-icon favorite-icon"
+              aria-label="Example icon-button with heart icon">
               <mat-icon>mode_edit</mat-icon>
             </button>
-            <button
-              mat-icon-button
-              (click)="removeData()"
-              class="example-icon"
-              aria-label="Example icon-button with share icon"
-            >
+            <button mat-icon-button (click)="removeData()" class="example-icon"
+              aria-label="Example icon-button with share icon">
               <mat-icon>delete_forever</mat-icon>
             </button>
           </mat-toolbar>
@@ -74,28 +52,19 @@
     <h3>Add component</h3>
     <div class="example-container">
       <form [formGroup]="options">
-        <mat-form-field
-          appearance="fill"
-          [hideRequiredMarker]="hideRequiredControl.value"
-          [floatLabel]="floatLabelControl.value"
-        >
+        <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value"
+          [floatLabel]="floatLabelControl.value">
           <mat-label>Enter id</mat-label>
           <input matInput placeholder="Enter an id number" required />
         </mat-form-field>
 
-        <mat-form-field
-          appearance="fill"
-          [hideRequiredMarker]="hideRequiredControl.value"
-          [floatLabel]="floatLabelControl.value"
-        >
+        <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value"
+          [floatLabel]="floatLabelControl.value">
           <mat-label>Enter a measure</mat-label>
           <input matInput placeholder="Enter a measure" required />
         </mat-form-field>
 
-        <mat-form-field
-          appearance="fill"
-          [floatLabel]="floatLabelControl.value"
-        >
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
           <mat-label>Enter a description</mat-label>
           <input matInput placeholder="Enter a description" />
         </mat-form-field>
@@ -113,12 +82,7 @@
                 -->
 
         &nbsp;&nbsp;
-        <button
-          mat-mini-fab
-          color="primary"
-          (click)="addData()"
-          class="tab-button"
-        >
+        <button mat-mini-fab color="primary" (click)="addData()" class="tab-button">
           <mat-icon>add</mat-icon>
         </button>
       </form>
@@ -126,11 +90,7 @@
   </mat-card-content>
 
   <mat-card-content *ngIf="!inConfig">
-    <table
-      mat-table
-      [dataSource]="dataSource"
-      class="mat-elevation-z8 tab-table"
-    >
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
       <!-- Position Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Id</th>

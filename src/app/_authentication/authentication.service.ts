@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 export class AuthenticationService {
   apiEndPoint = environment.apihost + environment.loginAPI;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   authenticate(user: { userName: string; password: string }) {
     let headers = new HttpHeaders({
