@@ -2,7 +2,7 @@
  * Created by jayhamilton on 2/5/17.
  */
 import { AfterViewInit, Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { PropertyBase } from './property-base';
 
 import { style, trigger, animate, transition } from '@angular/animations';
@@ -28,7 +28,7 @@ import { ITag } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 })
 export class DynamicFormPropertyComponent implements AfterViewInit {
   @Input() property: PropertyBase<any>;
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   @Input() gadgetTags: ITag[]; //todo - use to control what endpoints are displayed
   endPoints: string[] = [];
 
@@ -36,7 +36,7 @@ export class DynamicFormPropertyComponent implements AfterViewInit {
     return this.form.controls[this.property.key].valid;
   }
 
-  constructor(formBuilder: FormBuilder) {
+  constructor(formBuilder: UntypedFormBuilder) {
     this.property = {
       key: '',
       label: '',

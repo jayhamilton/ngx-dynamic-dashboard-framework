@@ -19,7 +19,7 @@ import {
   transition,
 } from '@angular/animations';
 
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { PropertyControlService } from './property-control.service';
 import {
@@ -73,10 +73,10 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   currentTab = 'run';
   state = 'inactive';
   lastActiveTab = {};
-  selected = new FormControl(0);
+  selected = new UntypedFormControl(0);
   @Input() tabIndex: number;
 
-  form: FormGroup = new FormGroup({});
+  form: UntypedFormGroup = new UntypedFormGroup({});
   payLoad = '';
   showMessage: boolean = false;
 

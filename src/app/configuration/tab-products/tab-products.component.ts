@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DataSource} from '@angular/cdk/collections';
 import {Observable, ReplaySubject} from 'rxjs';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 export interface ProductItem {
   name: string;
@@ -25,11 +25,11 @@ export class TabProductsComponent  {
 
   dataSource = new ExampleDataSource(this.dataToDisplay);
 
-  options: FormGroup;
-  hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto');
+  options: UntypedFormGroup;
+  hideRequiredControl = new UntypedFormControl(false);
+  floatLabelControl = new UntypedFormControl('auto');
 
-  constructor(fb: FormBuilder){
+  constructor(fb: UntypedFormBuilder){
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,

@@ -1,7 +1,6 @@
 import { DataSource } from '@angular/cdk/table';
-import { localizedString } from '@angular/compiler/src/output/output_ast';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import {
   Hiearchy,
@@ -29,12 +28,12 @@ export class TabBoardsComponent implements OnInit {
   @Output() boardAddEvent: EventEmitter<string> = new EventEmitter<string>();
 
 
-  options: FormGroup;
-  boardTitle = new FormControl();
-  boardDescription = new FormControl();
-  boardTabvalue = new FormControl();
-  hideRequiredControl = new FormControl(false); //TODO
-  floatLabelControl = new FormControl('auto'); //TODO
+  options: UntypedFormGroup;
+  boardTitle = new UntypedFormControl();
+  boardDescription = new UntypedFormControl();
+  boardTabvalue = new UntypedFormControl();
+  hideRequiredControl = new UntypedFormControl(false); //TODO
+  floatLabelControl = new UntypedFormControl('auto'); //TODO
   displayedColumns: string[] = ['title', 'description', 'tools'];
   dropDownListSelection: IBoard[] = [];
   dataSource = new ExampleDataSource(ELEMENT_DATA);
@@ -42,7 +41,7 @@ export class TabBoardsComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private boardService: BoardService,
-    fb: FormBuilder
+    fb: UntypedFormBuilder
   ) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,

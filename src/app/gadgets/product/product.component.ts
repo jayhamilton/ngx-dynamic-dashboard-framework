@@ -1,6 +1,6 @@
 import { DataSource } from '@angular/cdk/table';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
@@ -27,12 +27,12 @@ const ELEMENT_DATA: ComponentItem[] = [
 export class ProductComponent extends GadgetBase implements OnInit {
 
 
-  options: FormGroup;
-  hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto');
+  options: UntypedFormGroup;
+  hideRequiredControl = new UntypedFormControl(false);
+  floatLabelControl = new UntypedFormControl('auto');
 
 
-  constructor( fb: FormBuilder, private eventService: EventService, private boardService: BoardService) {
+  constructor( fb: UntypedFormBuilder, private eventService: EventService, private boardService: BoardService) {
     super();
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,

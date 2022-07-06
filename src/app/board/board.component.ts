@@ -10,7 +10,7 @@ import { BoardType, IBoard } from './board.model';
 import { BoardService } from './board.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { LayoutService } from '../layout/layout.service';
 
 @Component({
@@ -45,7 +45,7 @@ export class BoardComponent implements OnInit {
     this.setupBoardEventListeners();
   }
 
-  selected = new FormControl(0);
+  selected = new UntypedFormControl(0);
   tabtitle: string = '';
 
   setSelected(val: number) {

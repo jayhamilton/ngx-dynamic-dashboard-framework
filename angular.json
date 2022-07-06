@@ -106,6 +106,8 @@
 				}
 			}
 		}
-	},
-	"defaultProject": "plm-ui"
+  },
+  "cli": {
+    "analytics": false
+  }
 }
