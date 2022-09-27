@@ -1,0 +1,69 @@
+<mat-card [cdkDragDisabled]="inConfig" cdkDrag>
+  <app-gadget-header
+    [title]="title"
+    [subtitle]="subtitle"
+    [iconpath]="icon"
+    (removeEvent)="remove()"
+    [inConfig]="inConfig"
+    (toggleConfigModeEvent)="toggleConfigMode()"
+  >
+  </app-gadget-header>
+
+  <mat-card-content  *ngIf="!inConfig">
+  
+
+    <h4>Line Lead</h4>
+    <mat-form-field appearance="fill">
+      <mat-label>Leader</mat-label>
+      <select matNativeControl required>
+        <option value="Carolina">Carolina</option>
+        <option value="Soccorro">Soccorro</option>
+        <option value="Dora">Dora</option>
+        <option value="Sandra">Sandra</option>
+        <option value="Aturo">Aturo</option>
+        <option value="Laura">Laura</option>
+      </select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Number Value 1</mat-label>
+      <input matInput placeholder="M Value" value="Sushi">
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Number Value 2</mat-label>
+      <input matInput placeholder="Value" value="Sushi">
+    </mat-form-field>
+    
+    
+    <h4>Break</h4>
+    <mat-form-field appearance="fill">   
+    <mat-label>Break</mat-label>
+    <select matNativeControl required>
+      <option value="Break 1">Break 1</option>
+      <option value="Break 2">Break 2</option>
+      <option value="Break 3">Break 3</option>
+    </select>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>Person On Break</mat-label>
+    <select matNativeControl required>
+      <option value="Augustin">Augustin</option>
+      <option value="Germain">Germain</option>
+      <option value="J Manuel">J Manuel</option>
+    </select>
+  </mat-form-field>
+
+  </mat-card-content>
+
+  <mat-card-content *ngIf="inConfig">
+    <app-dynamic-form
+      [gadgetTags]="tags"
+      [propertyPages]="propertyPages"
+      [instanceId]="instanceId"
+      [tabIndex]="isMissingPropertyValue() ? 1 : 0"
+      (updatePropertiesEvent)="propertyChangeEvent($event)"
+    >
+    </app-dynamic-form>
+  </mat-card-content>
+</mat-card>

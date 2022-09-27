@@ -8,6 +8,7 @@ import { AreaChartComponent } from '../area-chart/area-chart.component';
 import { BarChartComponent } from '../bar-chart/bar-chart.component';
 import { IGadget } from '../common/gadget-common/gadget-base/gadget.model';
 import { ImageComponent } from '../image/image.component';
+import { PckLineComponent } from '../packaging-line/pck-line.component';
 import { ProductComponent } from '../product/product.component';
 import { ScoreCardComponent } from '../score-card/score-card.component';
 
@@ -53,9 +54,12 @@ export class GadgetGridCellHostComponent implements OnInit {
       case 'BarChartComponent':
           gadgetRef = this.componentHost.createComponent(BarChartComponent);
           break;
-          case 'AreaChartComponent':
-            gadgetRef = this.componentHost.createComponent(AreaChartComponent);
-            break;
+      case 'AreaChartComponent':
+        gadgetRef = this.componentHost.createComponent(AreaChartComponent);
+        break;
+      case 'PckLineComponent':
+        gadgetRef = this.componentHost.createComponent(PckLineComponent);
+        break;
       default:
       //do nothing
     }

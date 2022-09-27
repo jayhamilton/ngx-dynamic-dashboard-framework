@@ -24,6 +24,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AreaChartComponent } from './area-chart/area-chart.component';
+import { PckLineComponent } from './packaging-line/pck-line.component';
 @NgModule({
   declarations: [
     ImageComponent,
@@ -31,7 +32,8 @@ import { AreaChartComponent } from './area-chart/area-chart.component';
     GadgetGridCellHostComponent,
     ScoreCardComponent,
     BarChartComponent,
-    AreaChartComponent
+    AreaChartComponent,
+    PckLineComponent
 
   ],
   imports: [
