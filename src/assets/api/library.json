@@ -18,7 +18,7 @@
             "controlType": "textbox",
             "key": "title",
             "label": "Title",
-            "value": "Property Components",
+            "value": "Virtual Line #",
             "required": true,
             "order": 1
           },

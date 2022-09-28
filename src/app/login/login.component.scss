@@ -22,11 +22,14 @@ mat-card {
 }
 
 mat-icon {
-    font-size: 100px;
-    margin-bottom: 100px;
     color: lightgray;
+    font-size:60px !important;
+    width: 100%;
+    min-width: 300px;
+    padding-bottom: 50px;
 }
 
+mat-icon,
 mat-card-title {
     font-size: 30px;
     line-height: 70px;
