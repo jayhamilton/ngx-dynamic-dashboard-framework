@@ -38,6 +38,9 @@ export class LibraryComponent implements OnInit, AfterViewInit {
   }
 
   addGadget(gadgetData: IGadget) {
+
+    console.log("---> adding gadget");
+    console.log(gadgetData);
     this.eventService.emitLibraryAddGadgetEvent({ data: gadgetData });
     this.libraryDialogCloseButton?.nativeElement.click();
   }
