@@ -2,8 +2,8 @@
   
   {
     "componentType": "PckLineComponent",
-    "title": "Virtual Line",
-    "subtitle": "Virtual line plan",
+    "title": "Line",
+    "subtitle": "Product line description",
     "description": "Select this tool to display a virtual package/assembly line. Define the line leader and other info.",
     "icon": "../../assets/images/belt.png",
     "instanceId": -1,
@@ -18,7 +18,7 @@
             "controlType": "textbox",
             "key": "title",
             "label": "Title",
-            "value": "Virtual Line #",
+            "value": "Line #",
             "required": true,
             "order": 1
           },
@@ -26,7 +26,7 @@
             "controlType": "textbox",
             "key": "subtitle",
             "label": "Subtitle",
-            "value": "Product component subtitle",
+            "value": "Product line description",
             "required": false,
             "order": 1
           }

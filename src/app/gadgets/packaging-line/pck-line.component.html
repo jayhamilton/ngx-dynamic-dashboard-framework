@@ -12,9 +12,8 @@
   <mat-card-content  *ngIf="!inConfig">
   
 
-    <h4>Line Lead</h4>
     <mat-form-field appearance="fill">
-      <mat-label>Select a Line Lead</mat-label>
+      <mat-label>Line Lead</mat-label>
       <mat-select>
         <mat-option value="Carolina">Carolina</mat-option>
         <mat-option value="Soccorro">Soccorro</mat-option>
@@ -24,19 +23,26 @@
         <mat-option value="Laura">Laura</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Enter Text</mat-label>
-      <input matInput placeholder="M Value" value="">
+    <mat-form-field appearance="fill">
+      <mat-label>Fork Lift Driver</mat-label>
+      <mat-select>
+        <mat-option value="Augustin">Augustin</mat-option>
+        <mat-option value="Germain">Germain</mat-option>
+        <mat-option value="J Manuel">J Manuel</mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Enter Text</mat-label>
-      <input matInput placeholder="Value" value="">
+      <mat-label>Qty Material Handlers</mat-label>
+      <input matInput type=number placeholder="#Material Handlers" value="">
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Qty Personell</mat-label>
+      <input matInput type=number placeholder="# Line Personell" value="">
     </mat-form-field>
     
-    
-    <h4>Break</h4>
+
     <mat-form-field appearance="fill">   
-    <mat-label>Select a Break</mat-label>
+    <mat-label>Break</mat-label>
     <mat-select>
       <mat-option value="Break 1">Break 1</mat-option>
       <mat-option value="Break 2">Break 2</mat-option>
@@ -44,16 +50,12 @@
     </mat-select>
   </mat-form-field>
 
-
-  <mat-form-field appearance="fill">
-    <mat-label>Select A Person On Break</mat-label>
-    <mat-select>
-      <mat-option value="Augustin">Augustin</mat-option>
-      <mat-option value="Germain">Germain</mat-option>
-      <mat-option value="J Manuel">J Manuel</mat-option>
-    </mat-select>
+  <!--
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Note</mat-label>
+    <input matInput t placeholder="Note" value="">
   </mat-form-field>
-
+-->
   </mat-card-content>
 
   <mat-card-content *ngIf="inConfig">
