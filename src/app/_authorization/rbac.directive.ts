@@ -34,16 +34,26 @@ export class RbacDirective implements OnInit, OnDestroy {
    * also check to see which permissions he has, read, write and or delete.
    */
   checkIfUserInRole() {
+    
+   
     let permissionInfo = sessionStorage.getItem('PRINCIPAL');
 
     console.log(permissionInfo);
+    
 
     if (permissionInfo != null) {
       let permissionData: {
         message: string;
         status: string;
-        user: { name: string; roles: Array<{ authority: string }> };
+        user: { username: string; roles: Array<{ authority: string }> };
       } = JSON.parse(permissionInfo);
+
+      this.userHasRole = true;
+      return;
+      
+      /**
+       * FIX ME
+       * */
 
       if (permissionData['user'] && permissionData['user']['roles']) {
         let authorities = permissionData['user']['roles'];
