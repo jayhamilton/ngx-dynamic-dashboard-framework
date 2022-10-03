@@ -1,3 +1,39 @@
+
+
+<h3>Define new packaging line board</h3>
+<div class="example-container">
+  <form [formGroup]="options">
+    <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value"
+      [floatLabel]="floatLabelControl.value">
+      <mat-label>Enter a title</mat-label>
+      <input [formControl]="boardTitle" matInput placeholder="Enter a title" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+      <mat-label>Enter a description</mat-label>
+      <input [formControl]="boardDescription" matInput placeholder="Enter description" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value"
+      [floatLabel]="floatLabelControl.value">
+      <mat-select [formControl]="boardTabvalue">
+        <mat-option>-- None --</mat-option>
+        <mat-option *ngFor="let option of this.dropDownListSelection" value="{{ option.id }}">{{ option.title }}
+        </mat-option>
+      </mat-select>
+      <mat-label>
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+        <b> Show board as tab</b>
+      </mat-label>
+    </mat-form-field>
+
+    &nbsp;&nbsp;
+    <button mat-mini-fab color="primary" (click)="create()" class="tab-button">
+      <mat-icon>add</mat-icon>
+    </button>
+  </form>
+</div>
+<br>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
   <!-- Position Column -->
 
@@ -39,38 +75,3 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
-
-<br />
-<h3>Define new packaging line board</h3>
-<div class="example-container">
-  <form [formGroup]="options">
-    <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value"
-      [floatLabel]="floatLabelControl.value">
-      <mat-label>Enter a title</mat-label>
-      <input [formControl]="boardTitle" matInput placeholder="Enter a title" required />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
-      <mat-label>Enter a description</mat-label>
-      <input [formControl]="boardDescription" matInput placeholder="Enter description" />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value"
-      [floatLabel]="floatLabelControl.value">
-      <mat-select [formControl]="boardTabvalue">
-        <mat-option>-- None --</mat-option>
-        <mat-option *ngFor="let option of this.dropDownListSelection" value="{{ option.id }}">{{ option.title }}
-        </mat-option>
-      </mat-select>
-      <mat-label>
-        <mat-icon>subdirectory_arrow_right</mat-icon>
-        <b> Show board as tab</b>
-      </mat-label>
-    </mat-form-field>
-
-    &nbsp;&nbsp;
-    <button mat-mini-fab color="primary" (click)="create()" class="tab-button">
-      <mat-icon>add</mat-icon>
-    </button>
-  </form>
-</div>
