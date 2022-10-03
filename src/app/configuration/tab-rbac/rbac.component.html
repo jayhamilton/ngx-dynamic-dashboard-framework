@@ -1,8 +1,8 @@
-<p>rbac works!</p>
+<h3>Add users and roles</h3>
 <form class="example-form">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>User</mat-label>
-      <input matInput placeholder="Ex. Connie" value="Connie">
+      <input matInput placeholder="Ex. Connie" value="">
     </mat-form-field>
   
     <mat-form-field appearance="fill">
@@ -17,3 +17,46 @@
       <mat-icon>add</mat-icon>
     </button>
   </form>
+
+  <br>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
+  <!-- Position Column -->
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="User Name">
+    <th mat-header-cell *matHeaderCellDef>User Name</th>
+    <td mat-cell *matCellDef="let element">
+      <!-- realtionship value of 0 indicates parent and 1 indicates child -->
+      <mat-icon *ngIf="element.relationship == 1"><span class="material-icons">
+          subdirectory_arrow_right
+        </span></mat-icon>
+      {{ element.username }}
+    </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="Roles">
+    <th mat-header-cell *matHeaderCellDef>Roles</th>
+    <td mat-cell *matCellDef="let element">{{ element.roles }}</td>
+  </ng-container>
+
+  <!-- Tools Column -->
+  <ng-container matColumnDef="Tools">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-toolbar>
+        <button mat-icon-button (click)="edit(element)" class="example-icon favorite-icon"
+          aria-label="Example icon-button with heart icon">
+          <mat-icon>mode_edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="delete(element)" class="example-icon"
+          aria-label="Example icon-button with share icon">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+      </mat-toolbar>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
