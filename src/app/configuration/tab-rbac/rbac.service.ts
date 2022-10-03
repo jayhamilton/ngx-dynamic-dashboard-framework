@@ -1,9 +1,32 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class RbacService {
+export interface IUser {
+  id: number;
+  username: string;
+  roles: string;
+}
+@Injectable()
+export class RBACUserService {
+  apiEndPoint = environment.apihost + environment.userAPI;
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
+
+  getUsers() {
+    
+    let sessionKey = sessionStorage.getItem(environment.sessionToken);
+    
+    let headers = new HttpHeaders({
+      Authorization: '' + sessionKey,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+
+    const body = { title: 'Angular Get Request Example' };
+
+    return this.httpClient.get<IUser[]>(this.apiEndPoint, {
+      headers,
+    });
+  }
 }

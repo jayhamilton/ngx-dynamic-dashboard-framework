@@ -2,11 +2,9 @@ import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
+import { RBACUserService, IUser } from './rbac.service';
 
-export interface IUser {
-  username: string;
-  roles: string;
-}
+
 const ELEMENT_DATA: IUser[] = [];
 @Component({
   selector: 'app-rbac',
@@ -17,12 +15,31 @@ export class TabRbacComponent implements OnInit {
 
   displayedColumns: string[] = ['User Name', 'Roles', 'Tools'];
   dataSource = new UserDataSource(ELEMENT_DATA);
-  constructor() { }
+  constructor(private rbacUserService: RBACUserService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+    this.get();
+
+   }
   roles = new FormControl('');
   roleList: string[] = ['Driver', 'Lead', 'Quality Control', 'Administrator'];
 
+  
+  get(){
+
+    this.rbacUserService.getUsers().subscribe((userList:IUser[])=>{
+      this.dataSource.setData(userList);
+    })
+
+  }
+  
+  
+  create(item:any){
+
+  }
+  
+  
   edit(item: any) {
 
   }

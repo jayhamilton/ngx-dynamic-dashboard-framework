@@ -7,6 +7,7 @@ export const environment = {
   apihost: 'http://localhost:8080',
   imageAPI: '/image',
   loginAPI: '/login',
+  userAPI: '/user',
   sessionToken: 'API_KEY',
   demo: false,
 };

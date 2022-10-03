@@ -3,6 +3,7 @@ export const environment = {
   apihost: '',
   imageAPI: 'assets/images',
   loginAPI: '/login',
+  userAPI: '/user',
   sessionToken: 'API_KEY',
   demo: true,
 };

@@ -14,6 +14,7 @@ import {MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { TabRbacComponent } from './tab-rbac/rbac.component';
+import { RBACUserService } from './tab-rbac/rbac.service';
 
 
 
@@ -39,6 +40,7 @@ import { TabRbacComponent } from './tab-rbac/rbac.component';
     MatSelectModule,
     FormsModule
   ],
+  providers: [RBACUserService],
   exports:[
     ConfigurationComponent
   ]
