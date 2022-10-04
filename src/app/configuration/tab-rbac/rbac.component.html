@@ -1,19 +1,19 @@
 <h3>Add users and roles</h3>
-<form class="example-form">
+<form [formGroup]="formControls"  class ="example-form">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>User</mat-label>
-      <input matInput placeholder="Ex. Connie" value="">
+      <input [formControl]="username" matInput placeholder="Ex. Connie" value="">
     </mat-form-field>
   
     <mat-form-field appearance="fill">
         <mat-label>Roles</mat-label>
-        <mat-select [formControl]="roles" multiple>
+        <mat-select [formControl]="roles">
           <mat-option *ngFor="let role of roleList" [value]="role">{{role}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       &nbsp;&nbsp;
-    <button mat-mini-fab color="primary"  class="tab-button">
+    <button mat-mini-fab color="primary"  class="tab-button" (click)="create()">
       <mat-icon>add</mat-icon>
     </button>
   </form>

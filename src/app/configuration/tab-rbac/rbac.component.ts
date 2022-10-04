@@ -1,6 +1,6 @@
 import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { RBACUserService, IUser } from './rbac.service';
 
@@ -13,17 +13,37 @@ const ELEMENT_DATA: IUser[] = [];
 })
 export class TabRbacComponent implements OnInit {
 
+  roles = new UntypedFormControl();
+  username = new UntypedFormControl();
+  formControls :UntypedFormGroup;
+  hideRequiredControl = new UntypedFormControl(false); //TODO
+  floatLabelControl = new UntypedFormControl('auto'); //TODO
+
+
+  roleList: string[] = ['Driver', 'Lead', 'Quality Control', 'Administrator'];
+
   displayedColumns: string[] = ['User Name', 'Roles', 'Tools'];
   dataSource = new UserDataSource(ELEMENT_DATA);
-  constructor(private rbacUserService: RBACUserService) { }
+  constructor(private rbacUserService: RBACUserService, formBuilder: UntypedFormBuilder) {
+    
+    this.formControls = formBuilder.group({
+
+      roles: this.roles,
+      username: this.username,
+      floatLabelControl: this.floatLabelControl,
+      hideRequiredControl: this.hideRequiredControl 
+
+
+    });
+
+   }
 
   ngOnInit(): void {
 
     this.get();
 
    }
-  roles = new FormControl('');
-  roleList: string[] = ['Driver', 'Lead', 'Quality Control', 'Administrator'];
+  
 
   
   get(){
@@ -35,8 +55,13 @@ export class TabRbacComponent implements OnInit {
   }
   
   
-  create(item:any){
+  create(){
 
+    this.rbacUserService.createUser(this.username.value,this.roles.value).subscribe((user:any)=>{
+
+      this.get();
+    
+    })
     
   }
   

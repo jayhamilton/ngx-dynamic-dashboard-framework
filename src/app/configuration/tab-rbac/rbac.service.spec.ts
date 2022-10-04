@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RbacService } from './rbac.service';
+import { RBACUserService } from './rbac.service';
 
 describe('RbacService', () => {
-  let service: RbacService;
+  let service: RBACUserService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RbacService);
+    service = TestBed.inject(RBACUserService);
   });
 
   it('should be created', () => {
