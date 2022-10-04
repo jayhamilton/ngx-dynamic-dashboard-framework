@@ -29,4 +29,21 @@ export class RBACUserService {
       headers,
     });
   }
+
+  createUser(name: string, roles: string) {
+    
+    let sessionKey = sessionStorage.getItem(environment.sessionToken);
+    
+    let headers = new HttpHeaders({
+      Authorization: '' + sessionKey,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+
+    const body = { 'username': name, 'roles': roles};
+
+    return this.httpClient.post<string>(this.apiEndPoint, body, {
+      headers,
+    });
+  }
 }
