@@ -22,7 +22,7 @@ export class TabRbacComponent implements OnInit {
 
   roleList: string[] = ['Driver', 'Lead', 'Quality Control', 'Administrator'];
 
-  displayedColumns: string[] = ['User Name', 'Roles', 'Tools'];
+  displayedColumns: string[] = ['Id','User Name', 'Roles', 'Tools'];
   dataSource = new UserDataSource(ELEMENT_DATA);
   constructor(private rbacUserService: RBACUserService, formBuilder: UntypedFormBuilder) {
     
@@ -47,30 +47,36 @@ export class TabRbacComponent implements OnInit {
 
   
   get(){
-
     this.rbacUserService.getUsers().subscribe((userList:IUser[])=>{
       this.dataSource.setData(userList);
     })
-
   }
   
   
   create(){
-
     this.rbacUserService.createUser(this.username.value,this.roles.value).subscribe((user:any)=>{
-
       this.get();
-    
     })
-    
   }
   
   
   edit(item: any) {
 
+    this.username.setValue(item.username);
+    this.roles.setValue(item.roles);
+    //change button icon to updated
+  }
+
+  compare(c1:any, c2: any) {
+    console.log(c1 + "  " + c2);
+    return c1 && c2 && c1 === c2;
   }
 
   delete(item: any) {
+
+    this.rbacUserService.deleteUser(item.id).subscribe((user:any)=>{
+      this.get();
+    })
 
   }
 }

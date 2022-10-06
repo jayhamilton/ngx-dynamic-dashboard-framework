@@ -46,4 +46,21 @@ export class RBACUserService {
       headers,
     });
   }
+
+
+  deleteUser(id: number) {
+    
+    let sessionKey = sessionStorage.getItem(environment.sessionToken);
+    
+    let headers = new HttpHeaders({
+      Authorization: '' + sessionKey,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+
+
+    return this.httpClient.delete<string>(this.apiEndPoint + '/' + id, {
+      headers,
+    });
+  }
 }
