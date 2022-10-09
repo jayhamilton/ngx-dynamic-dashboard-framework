@@ -2,6 +2,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
+import { UserDataService } from 'src/app/dataservice/user.data.service';
 import { RBACUserService, IUser } from './rbac.service';
 
 
@@ -24,7 +25,7 @@ export class TabRbacComponent implements OnInit {
 
   displayedColumns: string[] = ['Id','User Name', 'Roles', 'Tools'];
   dataSource = new UserDataSource(ELEMENT_DATA);
-  constructor(private rbacUserService: RBACUserService, formBuilder: UntypedFormBuilder) {
+  constructor(private rbacUserService: RBACUserService, private userDataService: UserDataService, formBuilder: UntypedFormBuilder) {
     
     this.formControls = formBuilder.group({
 
@@ -49,6 +50,8 @@ export class TabRbacComponent implements OnInit {
   get(){
     this.rbacUserService.getUsers().subscribe((userList:IUser[])=>{
       this.dataSource.setData(userList);
+      this.userDataService.setUsers(userList);
+
     })
   }
   

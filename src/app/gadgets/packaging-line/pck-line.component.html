@@ -10,18 +10,11 @@
   </app-gadget-header>
 
   <mat-card-content  *ngIf="!inConfig">
-  
-
     <mat-form-field appearance="fill">
-      <mat-label>Line Lead</mat-label>
-      <mat-select>
-        <mat-option value="Carolina">Carolina</mat-option>
-        <mat-option value="Soccorro">Soccorro</mat-option>
-        <mat-option value="Dora">Dora</mat-option>
-        <mat-option value="Sandra">Sandra</mat-option>
-        <mat-option value="Aturo">Aturo</mat-option>
-        <mat-option value="Laura">Laura</mat-option>
-      </mat-select>
+      <mat-label>Line Lead</mat-label> 
+        <mat-select [formControl]="leads">
+          <mat-option *ngFor="let lead of leadList" [value]="lead">{{lead}}</mat-option>
+        </mat-select>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Fork Lift Driver</mat-label>

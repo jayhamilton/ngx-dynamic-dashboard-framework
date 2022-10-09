@@ -3,7 +3,10 @@ import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { UserDataService } from 'src/app/dataservice/user.data.service';
+import { UntypedFormControl } from '@angular/forms';
+import { IUser } from 'src/app/configuration/tab-rbac/rbac.service';
 interface Food {
   value: string;
   viewValue: string;
@@ -13,36 +16,47 @@ interface Food {
   templateUrl: './pck-line.component.html',
   styleUrls: ['./pck-line.component.scss']
 })
-export class PckLineComponent extends GadgetBase  implements OnInit {
-  saleData = [
-    { name: "Armani", value: 105 },
-    { name: "Guuci", value: 550 },
-    { name: "Ralf Lauren", value: 150 },
-    { name: "Polo", value: 150 }
-  ];
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
+export class PckLineComponent extends GadgetBase implements OnInit {
+  leads = new UntypedFormControl();
+  leadList: Array<string> = [];
 
-  colorScheme:Color = {
-    domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
-    name: '',
-    selectable: false,
-    group: ScaleType.Linear
-  };
-
-  constructor(private eventService: EventService, private boardService: BoardService) {
+  constructor(private userDataService: UserDataService, private eventService: EventService, private boardService: BoardService) {
     super();
+
+    this.setupEventHandlers();
+
   }
 
+
   ngOnInit(): void {
+    this.getLeadsList();
+  }
+
+  setupEventHandlers(){
+
+    this.eventService.listenForUserDataChangedEvent().subscribe(() => {
+      this.getLeadsList();
+    });
   }
 
   remove() {
     this.eventService.emitGadgetDeleteEvent({ data: this.instanceId });
   }
+
+  getLeadsList() {
+    this.leadList.length = 0;
+
+    this.userDataService.getUsers().forEach(record => {
+
+        if (record.roles.toLocaleLowerCase().localeCompare('lead') === 0) {
+
+          this.leadList.push(record.username);
+
+        }
+
+      });
+  }
+
   propertyChangeEvent(propertiesJSON: string) {
     //update internal props
     const updatedPropsObject = JSON.parse(propertiesJSON);
@@ -61,11 +75,6 @@ export class PckLineComponent extends GadgetBase  implements OnInit {
       this.instanceId
     );
   }
-
-
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {

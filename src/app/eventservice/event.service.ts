@@ -23,8 +23,8 @@ export class EventService {
   private libraryMenuSubject: Subject<IEvent> = new Subject<IEvent>();
   private sideMenuLayoutSelectSubject: Subject<IEvent> = new Subject<IEvent>();
   private gadgetPropertyChangeSubject: Subject<IEvent> = new Subject<IEvent>();
-
   private gadgetDeleteSubject: Subject<IEvent> = new Subject<IEvent>();
+  private userDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
 
   private subscribers: Array<Subject<string>> = [];
 
@@ -133,5 +133,14 @@ export class EventService {
 
   listenForLayoutChangeEvent(): Observable<IEvent> {
     return this.sideMenuLayoutSelectSubject.asObservable();
+  }
+
+
+  emitUserDataChanged() {
+    this.userDataChangedSubject.next(this.emptyEvent);
+  }
+
+  listenForUserDataChangedEvent(): Observable<IEvent> {
+    return this.userDataChangedSubject.asObservable();
   }
 }
