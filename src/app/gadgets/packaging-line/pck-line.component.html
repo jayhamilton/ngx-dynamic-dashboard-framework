@@ -1,49 +1,45 @@
 <mat-card [cdkDragDisabled]="inConfig" cdkDrag>
-  <app-gadget-header
-    [title]="title"
-    [subtitle]="subtitle"
-    [iconpath]="icon"
-    (removeEvent)="remove()"
-    [inConfig]="inConfig"
-    (toggleConfigModeEvent)="toggleConfigMode()"
-  >
+  <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()"
+    [inConfig]="inConfig" (toggleConfigModeEvent)="toggleConfigMode()">
   </app-gadget-header>
 
-  <mat-card-content  *ngIf="!inConfig">
+  <mat-card-content *ngIf="!inConfig">
+
     <mat-form-field appearance="fill">
-      <mat-label>Line Lead</mat-label> 
-        <mat-select [formControl]="leads">
-          <mat-option *ngFor="let lead of leadList" [value]="lead">{{lead}}</mat-option>
-        </mat-select>
+      <mat-label>Line Lead(s)</mat-label>
+      <mat-chip-list>
+        <mat-chip *ngFor="let lead of getLineLeads()">{{lead}}</mat-chip>
+      </mat-chip-list>
     </mat-form-field>
+
     <mat-form-field appearance="fill">
-      <mat-label>Fork Lift Driver</mat-label>
-      <mat-select>
-        <mat-option value="Augustin">Augustin</mat-option>
-        <mat-option value="Germain">Germain</mat-option>
-        <mat-option value="J Manuel">J Manuel</mat-option>
-      </mat-select>
+      <mat-label>Driver</mat-label>
+      <mat-chip-list>
+        <mat-chip>{{driver}}</mat-chip>
+      </mat-chip-list>
     </mat-form-field>
+
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Qty Material Handlers</mat-label>
       <input matInput type=number placeholder="#Material Handlers" value="">
     </mat-form-field>
+
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Qty Personell</mat-label>
       <input matInput type=number placeholder="# Line Personell" value="">
     </mat-form-field>
-    
 
-    <mat-form-field appearance="fill">   
-    <mat-label>Break</mat-label>
-    <mat-select>
-      <mat-option value="Break 1">Break 1</mat-option>
-      <mat-option value="Break 2">Break 2</mat-option>
-      <mat-option value="Break 3">Break 3</mat-option>
-    </mat-select>
-  </mat-form-field>
 
-  <!--
+    <mat-form-field appearance="fill">
+      <mat-label>Break</mat-label>
+      <mat-select>
+        <mat-option value="Break 1">Break 1</mat-option>
+        <mat-option value="Break 2">Break 2</mat-option>
+        <mat-option value="Break 3">Break 3</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Note</mat-label>
     <input matInput t placeholder="Note" value="">
@@ -52,13 +48,8 @@
   </mat-card-content>
 
   <mat-card-content *ngIf="inConfig">
-    <app-dynamic-form
-      [gadgetTags]="tags"
-      [propertyPages]="propertyPages"
-      [instanceId]="instanceId"
-      [tabIndex]="isMissingPropertyValue() ? 1 : 0"
-      (updatePropertiesEvent)="propertyChangeEvent($event)"
-    >
+    <app-dynamic-form [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId"
+      [tabIndex]="isMissingPropertyValue() ? 1 : 0" (updatePropertiesEvent)="propertyChangeEvent($event)">
     </app-dynamic-form>
   </mat-card-content>
 </mat-card>
