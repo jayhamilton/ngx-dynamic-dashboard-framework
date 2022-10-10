@@ -33,7 +33,7 @@ import { PckLineComponent } from './packaging-line/pck-line.component';
     ScoreCardComponent,
     BarChartComponent,
     AreaChartComponent,
-    PckLineComponent
+    PckLineComponent,
 
   ],
   imports: [
