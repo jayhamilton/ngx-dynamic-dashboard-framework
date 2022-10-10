@@ -65,7 +65,7 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
 
   setDropDownOptions(dropDownType: string) {
 
-    let _options = [{ key: '', value: '' }];
+    let _options: { key:string, value:string }[] = [] ;
 
     /**
      * TODO: Make this more generic. For the moment, we have gadgets
