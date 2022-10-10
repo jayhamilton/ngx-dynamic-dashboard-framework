@@ -15,6 +15,12 @@ export class UserDataService {
         return this.users;
     }
 
+    getUsersByRole(role: string){
+        return this.users.filter((user)=>{
+            return user.roles.toLowerCase() === (role.toLowerCase());
+        })
+    }
+
     setUsers(userList: Array<IUser>){
         this.users.length = 0;
         this.users = userList;

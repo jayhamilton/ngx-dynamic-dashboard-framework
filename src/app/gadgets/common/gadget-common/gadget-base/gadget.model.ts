@@ -29,6 +29,7 @@ export interface IProperty {
   required: boolean;
   order: number;
   controlType: string;
+  options:[]
 }
 
 export interface IAction {

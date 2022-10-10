@@ -7,7 +7,8 @@ export class PropertyBase<T> {
   required: boolean;
   order: number;
   controlType: string;
-  value?: T;
+  value?: T|undefined;
+  options: {key: string, value: string}[];
 
 
   constructor(
@@ -18,6 +19,7 @@ export class PropertyBase<T> {
       required?: boolean;
       order?: number;
       controlType?: string;
+      options?: {key: string, value: string}[];
     } = {}
   ) {
     this.key = props.key || '';
@@ -26,5 +28,6 @@ export class PropertyBase<T> {
     this.order = props.order === undefined ? 1 : props.order;
     this.controlType = props.controlType || '';
     this.value = props.value;
+    this.options = props.options || [];
   }
 }

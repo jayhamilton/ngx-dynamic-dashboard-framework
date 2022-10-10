@@ -28,6 +28,13 @@
             "value": "Product line description",
             "required": false,
             "order": 1
+          },
+          {
+            "controlType": "dropdown",
+            "key": "lead",
+            "label": "Lead",
+            "order": 1,
+            "options": []
           }
         ]
       }

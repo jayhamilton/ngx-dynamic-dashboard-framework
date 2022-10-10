@@ -11,6 +11,19 @@
         <input [formControlName]="property.key" [type]="property.controlType" matInput value="{{ property.value }}"
           required="{{ property.required }}" />
       </mat-form-field>
+      <mat-form-field *ngSwitchCase="'dropdown'" appearance="fill">
+        <mat-label [attr.for]="property.key">{{ property.label }}</mat-label>
+        <select [id]="property.key" [formControlName]="property.key" matNativeControl>
+          <option *ngFor="let opt of property.options" [value]="opt.key">{{opt.value}}</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field *ngSwitchCase="'dropdown-ms'" appearance="fill">
+        <mat-label [attr.for]="property.key">{{ property.label }}</mat-label>
+        <mat-select [id]="property.key" [formControlName]="property.key" matNativeControl multiple>
+          <mat-option *ngFor="let opt of property.options" [value]="opt.key">{{opt.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <div *ngSwitchCase="'upload'" appearance="fill">
         <div class="upload-icon">
           <mat-icon> cloud_upload </mat-icon>
@@ -22,6 +35,7 @@
             required="{{ property.required }}" style="font-size: 10px" />
         </div>
       </div>
+
       <div *ngSwitchCase="'date'" apperance="fill">
         <mat-form-field appearance="fill">
           <mat-label>Choose a date</mat-label>

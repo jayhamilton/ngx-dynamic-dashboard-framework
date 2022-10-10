@@ -29,7 +29,29 @@
             "value": "Product line description",
             "required": false,
             "order": 1
+          },
+          {
+            "controlType": "dropdown-ms",
+            "key": "lead",
+            "label": "Lead",
+            "order": 1,
+            "options": []
+          },
+          {
+            "controlType": "dropdown",
+            "key": "driver",
+            "label": "Driver",
+            "order": 1,
+            "options": []
+          },
+          {
+            "controlType": "dropdown",
+            "key": "quality control",
+            "label": "Quality Control",
+            "order": 1,
+            "options": []
           }
+
         ]
       }
     ],
