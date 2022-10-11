@@ -45,3 +45,12 @@
   font: 20px;
   color: rgb(68, 66, 66);
 }
+
+.gridContainer{
+  padding:10px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr
+
+
+}

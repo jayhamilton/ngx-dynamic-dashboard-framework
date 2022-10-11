@@ -4,6 +4,7 @@ export const environment = {
   imageAPI: 'assets/images',
   loginAPI: '/login',
   userAPI: '/user',
+  eventAPI: '/event',
   sessionToken: 'API_KEY',
   demo: true,
 };

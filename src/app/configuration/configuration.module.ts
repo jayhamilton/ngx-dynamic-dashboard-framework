@@ -15,6 +15,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { TabRbacComponent } from './tab-rbac/rbac.component';
 import { RBACUserService } from './tab-rbac/rbac.service';
+import { TabScheduleComponent } from './tab-schedule/schedule.component';
+import { ScheduleService } from './tab-schedule/schedule.service';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
+import { EventDataService } from './tab-schedule/schedule.data.service';
 
 
 
@@ -23,7 +31,8 @@ import { RBACUserService } from './tab-rbac/rbac.service';
     ConfigurationComponent,
     TabProductsComponent,
     TabBoardsComponent,
-    TabRbacComponent
+    TabRbacComponent,
+    TabScheduleComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +49,7 @@ import { RBACUserService } from './tab-rbac/rbac.service';
     MatSelectModule,
     FormsModule
   ],
-  providers: [RBACUserService],
+  providers: [RBACUserService, ScheduleService, EventDataService],
   exports:[
     ConfigurationComponent
   ]

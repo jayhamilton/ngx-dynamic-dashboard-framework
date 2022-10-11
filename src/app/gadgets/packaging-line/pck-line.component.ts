@@ -13,17 +13,18 @@ import { UntypedFormControl } from '@angular/forms';
 export class PckLineComponent extends GadgetBase implements OnInit {
 
   driver?: string;
+  mcount?: number;
+  pcount?: number;
+  lunch?: string;
 
   constructor(private eventService: EventService, private boardService: BoardService) {
     super();
-
-
   }
 
   ngOnInit(): void {
-
-    this.getDriver();
-
+    this.setDriver();
+    this.setMCount();
+    this.setPCount();
   }
 
   remove() {
@@ -44,17 +45,43 @@ export class PckLineComponent extends GadgetBase implements OnInit {
 
   }
 
-  getDriver() {
+  setLunch() {
+
+    this.propertyPages[0].properties.forEach((property) => {
+
+      if (property.key == "lunch") {
+        this.lunch = property.value;
+      }
+    })
+  }
+
+  setDriver() {
 
     this.propertyPages[0].properties.forEach((property) => {
 
       if (property.key == "driver") {
         this.driver = property.value;
       }
-
     })
   }
 
+  setMCount(){
+    this.propertyPages[0].properties.forEach((property) => {
+
+      if (property.key == "mcount") {
+        this.mcount = property.value;
+      }
+    })
+  }
+
+  setPCount(){
+    this.propertyPages[0].properties.forEach((property) => {
+
+      if (property.key == "pcount") {
+        this.pcount = property.value;
+      }
+    })
+  }
 
   propertyChangeEvent(propertiesJSON: string) {
     //update internal props
@@ -70,10 +97,22 @@ export class PckLineComponent extends GadgetBase implements OnInit {
     }
 
     if (updatedPropsObject.driver != undefined) {
-
-      this.getDriver();
-
+      this.setDriver();
     }
+
+    if (updatedPropsObject.mcount != undefined) {
+      this.setMCount();
+    }
+
+    if (updatedPropsObject.pcount != undefined) {
+      this.setPCount();
+    }
+
+    if (updatedPropsObject.lunch != undefined) {
+      this.setLunch();
+    }
+
+
 
     //persist changes
     this.boardService.savePropertyPageConfigurationToDestination(

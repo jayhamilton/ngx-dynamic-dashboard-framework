@@ -8,6 +8,7 @@ export const environment = {
   imageAPI: '/image',
   loginAPI: '/login',
   userAPI: '/user',
+  eventAPI: '/event',
   sessionToken: 'API_KEY',
   demo: false,
 };

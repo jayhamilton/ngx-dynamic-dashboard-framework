@@ -48,6 +48,10 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
     };
     this.gadgetTags = [];
     this.form = formBuilder.group({});
+
+    /**
+     * TODO - setup event listener to listen for changes to the user data service
+     */
   }
 
   ngAfterContentInit() {

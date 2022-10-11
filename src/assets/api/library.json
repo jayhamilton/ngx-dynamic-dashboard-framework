@@ -46,8 +46,29 @@
           },
           {
             "controlType": "dropdown",
-            "key": "quality control",
+            "key": "qc",
             "label": "Quality Control",
+            "order": 1,
+            "options": []
+          },
+          {
+            "controlType": "number",
+            "key": "mcount",
+            "label": "Material Handler Count",
+            "order": 1,
+            "value": 0
+          },
+          {
+            "controlType": "number",
+            "key": "pcount",
+            "label": "Personell Count",
+            "order": 1,
+            "value": 0
+          },
+          {
+            "controlType": "dropdown",
+            "key": "lunch",
+            "label": "Lunch",
             "order": 1,
             "options": []
           }
