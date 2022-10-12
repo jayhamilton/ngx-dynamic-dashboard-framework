@@ -16,6 +16,8 @@ export class PckLineComponent extends GadgetBase implements OnInit {
   mcount?: number;
   pcount?: number;
   lunch?: string;
+  lineleads?:[];
+ 
 
   constructor(private eventService: EventService, private boardService: BoardService) {
     super();
@@ -26,24 +28,22 @@ export class PckLineComponent extends GadgetBase implements OnInit {
     this.setMCount();
     this.setPCount();
     this.setLunch();
+    this.setLineLeads();
   }
 
   remove() {
     this.eventService.emitGadgetDeleteEvent({ data: this.instanceId });
   }
 
-  getLineLeads() {
-    let lineLeads: string[] = [];
+  setLineLeads() {
 
     this.propertyPages[0].properties.forEach((property) => {
 
       if (property.key == "lead") {
-        lineLeads = property.value;
+        this.lineleads = property.value;
       }
 
     })
-    return lineLeads;
-
   }
 
   setLunch() {
@@ -111,6 +111,10 @@ export class PckLineComponent extends GadgetBase implements OnInit {
 
     if (updatedPropsObject.lunch != undefined) {
       this.setLunch();
+    }
+
+    if (updatedPropsObject.lead != undefined) {
+      this.setLineLeads();
     }
 
 
