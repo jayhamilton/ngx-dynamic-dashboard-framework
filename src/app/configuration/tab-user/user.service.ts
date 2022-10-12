@@ -8,7 +8,7 @@ export interface IUser {
   roles: string;
 }
 @Injectable()
-export class RBACUserService {
+export class UserService {
   apiEndPoint = environment.apihost + environment.userAPI;
 
   constructor(private httpClient: HttpClient) { }

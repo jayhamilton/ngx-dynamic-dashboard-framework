@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { IUser } from '../configuration/tab-rbac/rbac.service';
-import { EventService } from '../eventservice/event.service';
+import { IUser } from './user.service';
+import { EventService } from '../../eventservice/event.service';
 
 
 @Injectable()
-export class UserDataService {
+export class UserDataStoreService {
     users: Array<IUser> = [];
    
     constructor(private httpClient: HttpClient, private eventService: EventService) { }

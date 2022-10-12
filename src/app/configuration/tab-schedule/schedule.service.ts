@@ -2,10 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-export interface IEvent {
+export interface IScheduledEvent {
   id: number;
   description: string;
-  time: string;
+  datetime: string;
 }
 @Injectable()
 export class ScheduleService {
@@ -23,14 +23,12 @@ export class ScheduleService {
       Accept: 'application/json',
     });
 
-    const body = { title: 'Angular Get Request Example' };
-
-    return this.httpClient.get<IEvent[]>(this.apiEndPoint, {
+    return this.httpClient.get<IScheduledEvent[]>(this.apiEndPoint, {
       headers,
     });
   }
 
-  createEvent(name: string, roles: string) {
+  createEvent(description: string, datetime: string) {
     
     let sessionKey = sessionStorage.getItem(environment.sessionToken);
     
@@ -40,7 +38,7 @@ export class ScheduleService {
       Accept: 'application/json',
     });
 
-    const body = { 'username': name, 'roles': roles};
+    const body = { 'description': description, 'datetime': datetime};
 
     return this.httpClient.post<string>(this.apiEndPoint, body, {
       headers,

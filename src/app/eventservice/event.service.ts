@@ -25,6 +25,8 @@ export class EventService {
   private gadgetPropertyChangeSubject: Subject<IEvent> = new Subject<IEvent>();
   private gadgetDeleteSubject: Subject<IEvent> = new Subject<IEvent>();
   private userDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
+  private scheduleEventDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
+
 
   private subscribers: Array<Subject<string>> = [];
 
@@ -143,4 +145,13 @@ export class EventService {
   listenForUserDataChangedEvent(): Observable<IEvent> {
     return this.userDataChangedSubject.asObservable();
   }
+
+  emitScheduleEventDataChanged() {
+    this.scheduleEventDataChangedSubject.next(this.emptyEvent);
+  }
+
+  listenForScheduleEventDataChangedEvent(): Observable<IEvent> {
+    return this.scheduleEventDataChangedSubject.asObservable();
+  }
 }
+//emitScheduledEventDataChanged

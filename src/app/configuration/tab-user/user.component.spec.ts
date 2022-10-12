@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TabRbacComponent } from './rbac.component';
+import { TabUserComponent } from './user.component';
 
 describe('RbacComponent', () => {
-  let component: TabRbacComponent;
-  let fixture: ComponentFixture<TabRbacComponent>;
+  let component: TabUserComponent;
+  let fixture: ComponentFixture<TabUserComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TabRbacComponent],
+      declarations: [TabUserComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TabRbacComponent);
+    fixture = TestBed.createComponent(TabUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

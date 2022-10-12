@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserDataService } from '../dataservice/user.data.service';
+import { ScheduleDataStoreService } from '../configuration/tab-schedule/schedule.datastore.service';
+import { UserDataStoreService } from '../configuration/tab-user/user.datastore.service';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,11 @@ import { UserDataService } from '../dataservice/user.data.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private  _userDataService: UserDataService){
+  constructor(private  userDataStoreService: UserDataStoreService, private scheduleDataStoreService: ScheduleDataStoreService){
 
     //load data stores
-    this._userDataService.loadUsers();
+    this.userDataStoreService.loadUsers();
+    this.scheduleDataStoreService.loadScheduledEvents();
 
   }
 

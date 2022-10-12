@@ -2,67 +2,63 @@ import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
-import { UserDataService } from 'src/app/dataservice/user.data.service';
-import { RBACUserService, IUser } from './rbac.service';
+import { UserDataStoreService } from './user.datastore.service';
+import { UserService, IUser } from './user.service';
 
 
 const ELEMENT_DATA: IUser[] = [];
 @Component({
   selector: 'app-rbac',
-  templateUrl: './rbac.component.html',
-  styleUrls: ['./rbac.component.scss'],
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss'],
 })
-export class TabRbacComponent implements OnInit {
+export class TabUserComponent implements OnInit {
 
   roles = new UntypedFormControl();
   username = new UntypedFormControl();
-  formControls :UntypedFormGroup;
+  formControls: UntypedFormGroup;
   hideRequiredControl = new UntypedFormControl(false); //TODO
   floatLabelControl = new UntypedFormControl('auto'); //TODO
 
 
   roleList: string[] = ['Driver', 'Lead', 'Quality Control', 'Administrator'];
 
-  displayedColumns: string[] = ['Id','User Name', 'Roles', 'Tools'];
+  displayedColumns: string[] = ['Id', 'User Name', 'Roles', 'Tools'];
   dataSource = new UserDataSource(ELEMENT_DATA);
-  constructor(private rbacUserService: RBACUserService, private userDataService: UserDataService, formBuilder: UntypedFormBuilder) {
-    
+  constructor(private userService: UserService, private userDataStoreService: UserDataStoreService, formBuilder: UntypedFormBuilder) {
+
     this.formControls = formBuilder.group({
 
       roles: this.roles,
       username: this.username,
       floatLabelControl: this.floatLabelControl,
-      hideRequiredControl: this.hideRequiredControl 
-
+      hideRequiredControl: this.hideRequiredControl
 
     });
 
-   }
+  }
 
   ngOnInit(): void {
 
     this.get();
 
-   }
-  
+  }
 
-  
-  get(){
-    this.rbacUserService.getUsers().subscribe((userList:IUser[])=>{
+  get() {
+    this.userService.getUsers().subscribe((userList: IUser[]) => {
       this.dataSource.setData(userList);
-      this.userDataService.setUsers(userList);
+      this.userDataStoreService.setUsers(userList);
 
     })
   }
-  
-  
-  create(){
-    this.rbacUserService.createUser(this.username.value,this.roles.value).subscribe((user:any)=>{
+
+  create() {
+    this.userService.createUser(this.username.value, this.roles.value).subscribe((user: any) => {
       this.get();
     })
   }
-  
-  
+
+
   edit(item: any) {
 
     this.username.setValue(item.username);
@@ -70,14 +66,14 @@ export class TabRbacComponent implements OnInit {
     //change button icon to updated
   }
 
-  compare(c1:any, c2: any) {
+  compare(c1: any, c2: any) {
     console.log(c1 + "  " + c2);
     return c1 && c2 && c1 === c2;
   }
 
   delete(item: any) {
 
-    this.rbacUserService.deleteUser(item.id).subscribe((user:any)=>{
+    this.userService.deleteUser(item.id).subscribe((user: any) => {
       this.get();
     })
 

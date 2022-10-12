@@ -2,13 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EventService } from 'src/app/eventservice/event.service';
 import { environment } from 'src/environments/environment';
-import { IEvent } from './schedule.service';
-
-
+import { IScheduledEvent } from './schedule.service';
 
 @Injectable()
-export class EventDataService {
-    events: Array<IEvent> = [];
+export class ScheduleDataStoreService {
+    events: Array<IScheduledEvent> = [];
    
     constructor(private httpClient: HttpClient, private eventService: EventService) { }
 
@@ -16,15 +14,15 @@ export class EventDataService {
         return this.events;
     }
 
-    setEvents(eventList: Array<IEvent>){
+    setEvents(eventList: Array<IScheduledEvent>){
         this.events.length = 0;
         this.events = eventList;
 
-        this.eventService.emitUserDataChanged();
+        this.eventService.emitScheduleEventDataChanged();
 
     }
 
-    loadEvents(){
+    loadScheduledEvents(){
 
         this.callUsersAPI().subscribe(_events=>{
 
@@ -52,7 +50,7 @@ export class EventDataService {
 
             const body = { title: 'Angular Get Request Example' };
 
-            return this.httpClient.get<IEvent[]>(apiEndPoint, {
+            return this.httpClient.get<IScheduledEvent[]>(apiEndPoint, {
                 headers,
             })
     }

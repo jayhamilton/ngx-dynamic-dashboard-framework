@@ -25,6 +25,7 @@ export class PckLineComponent extends GadgetBase implements OnInit {
     this.setDriver();
     this.setMCount();
     this.setPCount();
+    this.setLunch();
   }
 
   remove() {

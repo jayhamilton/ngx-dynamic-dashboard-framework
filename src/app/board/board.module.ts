@@ -9,7 +9,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
-import { UserDataService } from '../dataservice/user.data.service';
 @NgModule({
   declarations: [
     BoardComponent
@@ -28,8 +27,7 @@ import { UserDataService } from '../dataservice/user.data.service';
     BoardComponent
   ],
   providers:[
-    BoardService,
-    UserDataService
+    BoardService
   ]
 })
 export class BoardModule { }

@@ -7,7 +7,10 @@ import { PropertyBase } from './property-base';
 
 import { style, trigger, animate, transition } from '@angular/animations';
 import { ITag } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
-import { UserDataService } from '../dataservice/user.data.service';
+import { UserDataStoreService } from '../configuration/tab-user/user.datastore.service';
+import { defaultIfEmpty } from 'rxjs';
+import { ScheduleDataStoreService } from '../configuration/tab-schedule/schedule.datastore.service';
+import { EventService } from '../eventservice/event.service';
 
 @Component({
   selector: 'app-df-property',
@@ -33,11 +36,19 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
   @Input() gadgetTags: ITag[]; //todo - use to control what endpoints are displayed
   endPoints: string[] = [];
 
+  USERCHANGEEVENT: string = "driver";
+  SCHEDULECHANGEEVENT= "lunch";
+
   get isValid() {
     return this.form.controls[this.property.key].valid;
   }
 
-  constructor(formBuilder: UntypedFormBuilder, private dataServices: UserDataService) {
+  constructor(formBuilder: UntypedFormBuilder, 
+    private userDataStoreService: UserDataStoreService, 
+    private scheduleDataStoreService: ScheduleDataStoreService,
+    private eventService: EventService
+    
+    ) {
     this.property = {
       key: '',
       label: '',
@@ -49,9 +60,23 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
     this.gadgetTags = [];
     this.form = formBuilder.group({});
 
-    /**
-     * TODO - setup event listener to listen for changes to the user data service
-     */
+    this.setupEventListeners();
+  }
+
+
+  setupEventListeners(){
+
+    this.eventService.listenForUserDataChangedEvent().subscribe(event=>{
+
+      this.setDropDownOptions(this.USERCHANGEEVENT); 
+
+    });
+
+    this.eventService.listenForScheduleEventDataChangedEvent().subscribe(event=>{
+
+      this.setDropDownOptions(this.SCHEDULECHANGEEVENT);
+      
+    });
   }
 
   ngAfterContentInit() {
@@ -69,17 +94,38 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
 
   setDropDownOptions(dropDownType: string) {
 
-    let _options: { key:string, value:string }[] = [] ;
-
     /**
      * TODO: Make this more generic. For the moment, we have gadgets
      * that have user/role based dropdowns and therefore will rely
      * on the user service to populate the options. Options could be needed
      * for a number of different dropdown types. 
      */
-    this.dataServices.getUsersByRole(dropDownType).forEach(user => {
-      _options.push({ key: user.username, value: user.username, })
-    })
+
+
+    let _options: { key: string, value: string }[] = [];
+
+
+    switch (dropDownType) {
+
+      case "driver":
+      case "qc":
+      case "lead": {
+        this.userDataStoreService.getUsersByRole(dropDownType).forEach(user => {
+          _options.push({ key: user.username, value: user.username, })
+        });
+      }
+        break;
+      case "lunch": {
+        this.scheduleDataStoreService.getEvents().forEach(event => {
+          _options.push({ key: event.description + " " + event.datetime, value: event.description + " " + event.datetime })
+        });
+      }
+        break;
+      default:
+        { }
+    }
+
+
     this.property.options = _options;
 
   }

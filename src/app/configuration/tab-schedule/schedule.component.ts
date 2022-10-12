@@ -3,17 +3,11 @@ import { formatNumber } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
-import { EventDataService } from './schedule.data.service';
-import { ScheduleService } from './schedule.service';
+import { ScheduleDataStoreService } from './schedule.datastore.service';
+import { IScheduledEvent, ScheduleService } from './schedule.service';
 
-export interface ISchedule {
 
-  id: number;
-  description: string;
-  time: string;
-}
-
-const ELEMENT_DATA: ISchedule[] = [];
+const ELEMENT_DATA: IScheduledEvent[] = [];
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
@@ -32,7 +26,7 @@ export class TabScheduleComponent implements OnInit {
 
   displayedColumns: string[] = ['Id', 'Event Description', 'Time', 'Tools'];
   dataSource = new EventDataSource(ELEMENT_DATA);
-  constructor(private scheduleService: ScheduleService, private eventDataService: EventDataService, formBuilder: UntypedFormBuilder) {
+  constructor(private scheduleService: ScheduleService, private scheduleDataStoreService: ScheduleDataStoreService, formBuilder: UntypedFormBuilder) {
 
     this.formControls = formBuilder.group({
 
@@ -52,19 +46,24 @@ export class TabScheduleComponent implements OnInit {
 
   get() {
 
+    this.scheduleService.getEvents().subscribe((eventList: IScheduledEvent[]) => {
+
+      console.log(eventList)
+      this.dataSource.setData(eventList);
+      this.scheduleDataStoreService.setEvents(eventList);
+
+    })
   }
 
 
   create() {
 
     let _hours = formatNumber(this.hours.value, 'en-US', "2.0-0");
-    let _minutes = formatNumber(this .minutes.value, 'en-US', "2.0-0");
+    let _minutes = formatNumber(this.minutes.value, 'en-US', "2.0-0");
 
-    ELEMENT_DATA.push({ id: ELEMENT_DATA.length + 1, description: this.description.value, time: _hours + ":" + _minutes });
-    this.dataSource.setData(ELEMENT_DATA);
-    this.eventDataService.setEvents(ELEMENT_DATA);
-    
-  
+    this.scheduleService.createEvent(this.description.value, _hours + ":" + _minutes).subscribe((event: any) => {
+      this.get();
+    })
   }
 
 
@@ -87,21 +86,21 @@ export class TabScheduleComponent implements OnInit {
 }
 
 
-class EventDataSource extends DataSource<ISchedule> {
-  private _dataStream = new ReplaySubject<ISchedule[]>();
+class EventDataSource extends DataSource<IScheduledEvent> {
+  private _dataStream = new ReplaySubject<IScheduledEvent[]>();
 
-  constructor(initialData: ISchedule[]) {
+  constructor(initialData: IScheduledEvent[]) {
     super();
     this.setData(initialData);
   }
 
-  connect(): Observable<ISchedule[]> {
+  connect(): Observable<IScheduledEvent[]> {
     return this._dataStream;
   }
 
   disconnect() { }
 
-  setData(data: ISchedule[]) {
+  setData(data: IScheduledEvent[]) {
     this._dataStream.next(data);
   }
 }

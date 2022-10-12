@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RBACUserService } from './rbac.service';
+import { RBACUserService } from './user.service';
 
 describe('RbacService', () => {
   let service: RBACUserService;
