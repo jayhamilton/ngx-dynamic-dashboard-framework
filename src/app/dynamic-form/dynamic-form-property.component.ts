@@ -8,7 +8,6 @@ import { PropertyBase } from './property-base';
 import { style, trigger, animate, transition } from '@angular/animations';
 import { ITag } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 import { UserDataStoreService } from '../configuration/tab-user/user.datastore.service';
-import { defaultIfEmpty } from 'rxjs';
 import { ScheduleDataStoreService } from '../configuration/tab-schedule/schedule.datastore.service';
 import { EventService } from '../eventservice/event.service';
 
@@ -37,18 +36,18 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
   endPoints: string[] = [];
 
   USERCHANGEEVENT: string = "driver";
-  SCHEDULECHANGEEVENT= "lunch";
+  SCHEDULECHANGEEVENT = "lunch";
 
   get isValid() {
     return this.form.controls[this.property.key].valid;
   }
 
-  constructor(formBuilder: UntypedFormBuilder, 
-    private userDataStoreService: UserDataStoreService, 
+  constructor(formBuilder: UntypedFormBuilder,
+    private userDataStoreService: UserDataStoreService,
     private scheduleDataStoreService: ScheduleDataStoreService,
     private eventService: EventService
-    
-    ) {
+
+  ) {
     this.property = {
       key: '',
       label: '',
@@ -64,18 +63,18 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
   }
 
 
-  setupEventListeners(){
+  setupEventListeners() {
 
-    this.eventService.listenForUserDataChangedEvent().subscribe(event=>{
+    this.eventService.listenForUserDataChangedEvent().subscribe(event => {
 
-      this.setDropDownOptions(this.USERCHANGEEVENT); 
+      this.setDropDownOptions(this.USERCHANGEEVENT);
 
     });
 
-    this.eventService.listenForScheduleEventDataChangedEvent().subscribe(event=>{
+    this.eventService.listenForScheduleEventDataChangedEvent().subscribe(event => {
 
       this.setDropDownOptions(this.SCHEDULECHANGEEVENT);
-      
+
     });
   }
 
@@ -92,7 +91,12 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
     }
   }
 
-  setDropDownOptions(dropDownType: string) {
+  setDropDownOptions(configurationTabDataChangeListType: string) {
+
+    //only update the options that are impacted by the change in the board configuration. If the update is a result of the User tab vs the Schedule tab.
+    if(this.property.key !== configurationTabDataChangeListType){
+      return;
+    }
 
     /**
      * TODO: Make this more generic. For the moment, we have gadgets
@@ -105,21 +109,15 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
     let _options: { key: string, value: string }[] = [];
 
 
-    switch (dropDownType) {
+    switch (configurationTabDataChangeListType) {
 
       case "driver":
       case "qc":
-      case "lead": {
-        this.userDataStoreService.getUsersByRole(dropDownType).forEach(user => {
-          _options.push({ key: user.username, value: user.username, })
-        });
-      }
+      case "lead":
+        this.userDataStoreService.getUsersByRole(configurationTabDataChangeListType).forEach(user => { _options.push({ key: user.username, value: user.username, }) });
         break;
-      case "lunch": {
-        this.scheduleDataStoreService.getEvents().forEach(event => {
-          _options.push({ key: event.description + " " + event.datetime, value: event.description + " " + event.datetime })
-        });
-      }
+      case "lunch":
+        this.scheduleDataStoreService.getEvents().forEach(event => { _options.push({ key: event.description + " " + event.datetime, value: event.description + " " + event.datetime }) });
         break;
       default:
         { }

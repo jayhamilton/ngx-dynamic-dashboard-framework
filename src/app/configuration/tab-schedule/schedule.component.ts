@@ -41,16 +41,18 @@ export class TabScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.get();
+    this.get(false);
   }
 
-  get() {
+  get(updateCache: boolean) {
 
     this.scheduleService.getEvents().subscribe((eventList: IScheduledEvent[]) => {
 
       console.log(eventList)
       this.dataSource.setData(eventList);
-      this.scheduleDataStoreService.setEvents(eventList);
+
+      if(updateCache)
+        this.scheduleDataStoreService.setEvents(eventList);
 
     })
   }
@@ -62,7 +64,7 @@ export class TabScheduleComponent implements OnInit {
     let _minutes = formatNumber(this.minutes.value, 'en-US', "2.0-0");
 
     this.scheduleService.createEvent(this.description.value, _hours + ":" + _minutes).subscribe((event: any) => {
-      this.get();
+      this.get(true);
     })
   }
 
@@ -79,7 +81,7 @@ export class TabScheduleComponent implements OnInit {
   delete(item: any) {
 
     this.scheduleService.deleteEvent(item.id).subscribe((event: any) => {
-      this.get();
+      this.get(true);
     })
 
   }

@@ -40,21 +40,24 @@ export class TabUserComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.get();
+    this.get(false);
 
   }
 
-  get() {
+  get(updateCache:boolean) {
     this.userService.getUsers().subscribe((userList: IUser[]) => {
       this.dataSource.setData(userList);
-      this.userDataStoreService.setUsers(userList);
+      
+      if(updateCache){
+        this.userDataStoreService.setUsers(userList);
+      }
 
     })
   }
 
   create() {
     this.userService.createUser(this.username.value, this.roles.value).subscribe((user: any) => {
-      this.get();
+      this.get(true);
     })
   }
 
@@ -74,7 +77,7 @@ export class TabUserComponent implements OnInit {
   delete(item: any) {
 
     this.userService.deleteUser(item.id).subscribe((user: any) => {
-      this.get();
+      this.get(true);
     })
 
   }
