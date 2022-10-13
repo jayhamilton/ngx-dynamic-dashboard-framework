@@ -46,6 +46,14 @@
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </div>
+
+      <div *ngSwitchCase="'textarea'" apperance="fill">
+        <mat-form-field class="full_width" appearance="fill">
+          <mat-label>Notifications</mat-label>
+          <textarea rows="10"  [formControlName]="property.key" required="{{ property.required }}" matInput
+             value="{{property.value}}"></textarea>
+        </mat-form-field>
+      </div>
     </div>
   </div>
 </div>

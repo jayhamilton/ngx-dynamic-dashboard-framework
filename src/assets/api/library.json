@@ -131,6 +131,52 @@
     ]
   },
   {
+    "componentType": "NotificationComponent",
+    "title": "Notifications",
+    "subtitle": "",
+    "description": "Select this tool to add general notifications",
+    "icon": "../../assets/images/notification.png",
+    "instanceId": -1,
+    "tags": [],
+    "propertyPages": [
+      {
+        "displayName": "Configuration",
+        "groupId": "config",
+        "position": 10,
+        "properties": [
+          {
+            "controlType": "textbox",
+            "key": "title",
+            "label": "Production Notifications",
+            "value": "Production Notifications",
+            "required": true,
+            "order": 1
+          },
+          {
+            "controlType": "textbox",
+            "key": "subtitle",
+            "label": "Subtitle",
+            "value": "Production Notifications",
+            "required": false,
+            "order": 1
+          },{
+            "controlType": "textarea",
+            "key": "notification",
+            "label": "Notification",
+            "value": "<span style=\"color: red;font weight:bold; font-size:40px\">Text 1</span><br><br><span style=\"color: blue;font weight:bold; font-size:20px\">Text 2</span>",
+            "required": false,
+            "order": 1
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
+  },
+  {
     "componentType": "ImageComponent",
     "title": "Image Gallery",
     "description": "Select this tool to add an image gallery for the production line board.",

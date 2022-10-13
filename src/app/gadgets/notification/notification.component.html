@@ -1,0 +1,23 @@
+<mat-card [cdkDragDisabled]="inConfig" cdkDrag>
+  <app-gadget-header 
+  [title]="title" 
+  [subtitle]="subtitle" 
+  [iconpath]="icon" (removeEvent)="remove()"
+  [inConfig]="inConfig" (toggleConfigModeEvent)="toggleConfigMode()">
+  </app-gadget-header>
+
+  <mat-card-content class="display" *ngIf="!inConfig">
+
+    <div class="notification"[innerHtml]="notification"></div> 
+      
+  </mat-card-content>
+
+  <mat-card-content *ngIf="inConfig">
+    <app-dynamic-form 
+    [gadgetTags]="tags" 
+    [propertyPages]="propertyPages" 
+    [instanceId]="instanceId"
+    [tabIndex]="isMissingPropertyValue() ? 1 : 0" (updatePropertiesEvent)="propertyChangeEvent($event)">
+    </app-dynamic-form>
+  </mat-card-content>
+</mat-card> 

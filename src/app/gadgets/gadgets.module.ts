@@ -26,6 +26,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AreaChartComponent } from './area-chart/area-chart.component';
 import { PckLineComponent } from './packaging-line/pck-line.component';
 import { DateComponent } from './date/date.component';
+import { NotificationComponent } from './notification/notification.component';
 @NgModule({
   declarations: [
     ImageComponent,
@@ -35,7 +36,8 @@ import { DateComponent } from './date/date.component';
     BarChartComponent,
     AreaChartComponent,
     PckLineComponent,
-    DateComponent
+    DateComponent,
+    NotificationComponent
 
   ],
   imports: [
@@ -65,7 +67,8 @@ import { DateComponent } from './date/date.component';
       GadgetGridCellHostComponent,
       ScoreCardComponent,
       BarChartComponent,
-      DateComponent
+      DateComponent,
+      NotificationComponent
     ],
     providers: [
       ImageService

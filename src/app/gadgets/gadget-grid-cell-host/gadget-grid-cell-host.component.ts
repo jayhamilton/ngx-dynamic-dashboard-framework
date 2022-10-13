@@ -12,6 +12,7 @@ import { PckLineComponent } from '../packaging-line/pck-line.component';
 import { ProductComponent } from '../product/product.component';
 import { ScoreCardComponent } from '../score-card/score-card.component';
 import { DateComponent } from '../date/date.component';
+import { NotificationComponent } from '../notification/notification.component';
 
 /*
  this class handles the dynamic creation of components
@@ -63,6 +64,9 @@ export class GadgetGridCellHostComponent implements OnInit {
         break;
       case 'DateComponent':
         gadgetRef = this.componentHost.createComponent(DateComponent);
+        break;
+      case 'NotificationComponent':
+        gadgetRef = this.componentHost.createComponent(NotificationComponent);
         break;
       default:
       //do nothing

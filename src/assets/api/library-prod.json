@@ -1,4 +1,5 @@
 [
+
   {
     "componentType": "PckLineComponent",
     "title": "Line",
@@ -29,14 +30,6 @@
             "required": false,
             "order": 1
           },
-          {
-            "controlType": "dropdown",
-            "key": "lead",
-            "label": "Lead",
-            "order": 1,
-            "options": []
-          },
-
           {
             "controlType": "dropdown-ms",
             "key": "lead",
@@ -71,8 +64,109 @@
             "label": "Personell Count",
             "order": 1,
             "value": 0
+          },
+          {
+            "controlType": "dropdown",
+            "key": "lunch",
+            "label": "Lunch",
+            "order": 1,
+            "options": []
           }
 
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
+  },
+
+  {
+    "componentType": "DateComponent",
+    "title": "Production Date Tool",
+    "subtitle": "Production Date",
+    "description": "Select this tool to add a Date",
+    "icon": "../../assets/images/calendar_month.png",
+    "instanceId": -1,
+    "tags": [],
+    "propertyPages": [
+      {
+        "displayName": "Configuration",
+        "groupId": "config",
+        "position": 10,
+        "properties": [
+          {
+            "controlType": "textbox",
+            "key": "title",
+            "label": "Production Date",
+            "value": "Production Date",
+            "required": true,
+            "order": 1
+          },
+          {
+            "controlType": "textbox",
+            "key": "subtitle",
+            "label": "Subtitle",
+            "value": "Production Date",
+            "required": false,
+            "order": 1
+          },
+          {
+            "controlType": "date",
+            "key": "productiondate",
+            "label": "productiondate",
+            "value": "",
+            "required": false,
+            "order": 1
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
+  },
+  {
+    "componentType": "NotificationComponent",
+    "title": "Notifications",
+    "subtitle": "",
+    "description": "Select this tool to add notifications",
+    "icon": "../../assets/images/notification.png",
+    "instanceId": -1,
+    "tags": [],
+    "propertyPages": [
+      {
+        "displayName": "Configuration",
+        "groupId": "config",
+        "position": 10,
+        "properties": [
+          {
+            "controlType": "textbox",
+            "key": "title",
+            "label": "Production Notifications",
+            "value": "Production Notifications",
+            "required": true,
+            "order": 1
+          },
+          {
+            "controlType": "textbox",
+            "key": "subtitle",
+            "label": "Subtitle",
+            "value": "Production Notifications",
+            "required": false,
+            "order": 1
+          },{
+            "controlType": "textarea",
+            "key": "notification",
+            "label": "Notification",
+            "value": "<span style=\"color: red;font weight:bold; font-size:40px\">Text 1</span><br><br><span style=\"color: blue;font weight:bold; font-size:20px\">Text 2</span>",
+            "required": false,
+            "order": 1
+          }
         ]
       }
     ],
