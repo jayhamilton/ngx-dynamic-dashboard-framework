@@ -17,7 +17,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Drivers</mat-label>
       <mat-chip-list>
-        <mat-chip color="warn" selected *ngFor="let user of getUsersByRole('lead')">{{user.username}}</mat-chip>
+        <mat-chip color="warn" selected *ngFor="let user of getUsersByRole('driver')">{{user.username}}</mat-chip>
       </mat-chip-list>
     </mat-form-field>
 
