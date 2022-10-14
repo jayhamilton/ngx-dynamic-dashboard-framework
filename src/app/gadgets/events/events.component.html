@@ -1,0 +1,26 @@
+<mat-card [cdkDragDisabled]="inConfig" cdkDrag>
+  <app-gadget-header 
+  [title]="title" 
+  [subtitle]="subtitle" 
+  [iconpath]="icon" (removeEvent)="remove()"
+  [inConfig]="inConfig" (toggleConfigModeEvent)="toggleConfigMode()">
+  </app-gadget-header>
+
+  <mat-card-content *ngIf="!inConfig">
+    <mat-form-field appearance="fill">
+      <mat-label>Events</mat-label>
+      <mat-chip-list>
+        <mat-chip color="warn" selected *ngFor="let event of getEvents()">{{event.description}} &nbsp;&nbsp; {{event.datetime}}</mat-chip>
+      </mat-chip-list>
+    </mat-form-field>
+  </mat-card-content>
+
+  <mat-card-content *ngIf="inConfig">
+    <app-dynamic-form 
+    [gadgetTags]="tags" 
+    [propertyPages]="propertyPages" 
+    [instanceId]="instanceId"
+    [tabIndex]="isMissingPropertyValue() ? 1 : 0" (updatePropertiesEvent)="propertyChangeEvent($event)">
+    </app-dynamic-form>
+  </mat-card-content>
+</mat-card>

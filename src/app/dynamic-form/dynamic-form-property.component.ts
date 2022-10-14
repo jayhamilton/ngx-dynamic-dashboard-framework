@@ -35,8 +35,6 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
   @Input() gadgetTags: ITag[]; //todo - use to control what endpoints are displayed
   endPoints: string[] = [];
 
-  USERCHANGEEVENT: string = "driver";
-  SCHEDULECHANGEEVENT = "lunch";
 
   get isValid() {
     return this.form.controls[this.property.key].valid;
@@ -62,18 +60,38 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
     this.setupEventListeners();
   }
 
+  /**
+   * Remember - This class is present on all gadgets that have property pages. Therefore, any operation here needs to 
+   * determine, via the properties, what context or speciic property we are dealing with. The this.property.key is used 
+   * to help with the context. 
+   */
 
   setupEventListeners() {
 
     this.eventService.listenForUserDataChangedEvent().subscribe(event => {
 
-      this.setDropDownOptions(this.USERCHANGEEVENT);
-
+      /**TODO
+       * set the role or property key in the event to avoid updating all user related dropdowns. 
+       */
+      switch(this.property.key){
+        case "driver":
+        case "qc":
+        case "lead":
+          this.setDropDownOptions(this.property.key);
+          break;
+          default:{}
+      }
+      
     });
 
     this.eventService.listenForScheduleEventDataChangedEvent().subscribe(event => {
 
-      this.setDropDownOptions(this.SCHEDULECHANGEEVENT);
+      switch(this.property.key){
+        case "lunch":
+          this.setDropDownOptions(this.property.key);
+          break;
+          default:{}
+      }
 
     });
   }
@@ -91,30 +109,16 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
     }
   }
 
-  setDropDownOptions(configurationTabDataChangeListType: string) {
-
-    //only update the options that are impacted by the change in the board configuration. If the update is a result of the User tab vs the Schedule tab.
-    if(this.property.key !== configurationTabDataChangeListType){
-      return;
-    }
-
-    /**
-     * TODO: Make this more generic. For the moment, we have gadgets
-     * that have user/role based dropdowns and therefore will rely
-     * on the user service to populate the options. Options could be needed
-     * for a number of different dropdown types. 
-     */
-
-
+  setDropDownOptions(dropDownType: string) {
+  
     let _options: { key: string, value: string }[] = [];
 
-
-    switch (configurationTabDataChangeListType) {
+    switch (dropDownType) {
 
       case "driver":
       case "qc":
       case "lead":
-        this.userDataStoreService.getUsersByRole(configurationTabDataChangeListType).forEach(user => { _options.push({ key: user.username, value: user.username, }) });
+        this.userDataStoreService.getUsersByRole(dropDownType).forEach(user => { _options.push({ key: user.username, value: user.username, }) }); 
         break;
       case "lunch":
         this.scheduleDataStoreService.getEvents().forEach(event => { _options.push({ key: event.description + " " + event.datetime, value: event.description + " " + event.datetime }) });
@@ -123,9 +127,7 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
         { }
     }
 
-
     this.property.options = _options;
-
   }
 
   updateFileList(fileList: FileList) {

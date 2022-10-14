@@ -13,6 +13,8 @@ import { ProductComponent } from '../product/product.component';
 import { ScoreCardComponent } from '../score-card/score-card.component';
 import { DateComponent } from '../date/date.component';
 import { NotificationComponent } from '../notification/notification.component';
+import { UsergroupComponent } from '../usergroup/usergroup.component';
+import { EventsComponent } from '../events/events.component';
 
 /*
  this class handles the dynamic creation of components
@@ -68,6 +70,12 @@ export class GadgetGridCellHostComponent implements OnInit {
       case 'NotificationComponent':
         gadgetRef = this.componentHost.createComponent(NotificationComponent);
         break;
+      case 'UsergroupComponent':
+        gadgetRef = this.componentHost.createComponent(UsergroupComponent);
+        break;
+      case 'EventsComponent':
+          gadgetRef = this.componentHost.createComponent(EventsComponent);
+          break;
       default:
       //do nothing
     }

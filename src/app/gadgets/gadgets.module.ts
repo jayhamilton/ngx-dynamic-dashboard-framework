@@ -27,6 +27,8 @@ import { AreaChartComponent } from './area-chart/area-chart.component';
 import { PckLineComponent } from './packaging-line/pck-line.component';
 import { DateComponent } from './date/date.component';
 import { NotificationComponent } from './notification/notification.component';
+import { UsergroupComponent } from './usergroup/usergroup.component';
+import { EventsComponent } from './events/events.component';
 @NgModule({
   declarations: [
     ImageComponent,
@@ -37,7 +39,9 @@ import { NotificationComponent } from './notification/notification.component';
     AreaChartComponent,
     PckLineComponent,
     DateComponent,
-    NotificationComponent
+    NotificationComponent,
+    UsergroupComponent,
+    EventsComponent
 
   ],
   imports: [
@@ -68,7 +72,9 @@ import { NotificationComponent } from './notification/notification.component';
       ScoreCardComponent,
       BarChartComponent,
       DateComponent,
-      NotificationComponent
+      NotificationComponent,
+      UsergroupComponent,
+      EventsComponent
     ],
     providers: [
       ImageService

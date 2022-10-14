@@ -1,5 +1,4 @@
 [
-  
   {
     "componentType": "PckLineComponent",
     "title": "Line",
@@ -34,6 +33,7 @@
             "controlType": "dropdown-ms",
             "key": "lead",
             "label": "Lead",
+            "required": true,
             "order": 1,
             "options": []
           },
@@ -41,6 +41,7 @@
             "controlType": "dropdown",
             "key": "driver",
             "label": "Driver",
+            "required": true,
             "order": 1,
             "options": []
           },
@@ -55,6 +56,7 @@
             "controlType": "number",
             "key": "mcount",
             "label": "Material Handler Count",
+            "required": true,
             "order": 1,
             "value": 0
           },
@@ -62,6 +64,7 @@
             "controlType": "number",
             "key": "pcount",
             "label": "Personell Count",
+            "required": true,
             "order": 1,
             "value": 0
           },
@@ -69,10 +72,10 @@
             "controlType": "dropdown",
             "key": "lunch",
             "label": "Lunch",
+            "required": true,
             "order": 1,
             "options": []
           }
-
         ]
       }
     ],
@@ -82,7 +85,6 @@
       }
     ]
   },
-
   {
     "componentType": "DateComponent",
     "title": "Production Date Tool",
@@ -118,7 +120,7 @@
             "key": "productiondate",
             "label": "productiondate",
             "value": "",
-            "required": false,
+            "required": true,
             "order": 1
           }
         ]
@@ -159,11 +161,90 @@
             "value": "Production Notifications",
             "required": false,
             "order": 1
-          },{
+          },
+          {
             "controlType": "textarea",
             "key": "notification",
             "label": "Notification",
             "value": "<span style=\"color: red;font weight:bold; font-size:40px\">Text 1</span><br><br><span style=\"color: blue;font weight:bold; font-size:20px\">Text 2</span>",
+            "required": true,
+            "order": 1
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
+  },
+  {
+    "componentType": "UsergroupComponent",
+    "title": "User Groups",
+    "subtitle": "",
+    "description": "Select this tool to display users",
+    "icon": "../../assets/images/usergroup.png",
+    "instanceId": -1,
+    "tags": [],
+    "propertyPages": [
+      {
+        "displayName": "Configuration",
+        "groupId": "config",
+        "position": 10,
+        "properties": [
+          {
+            "controlType": "textbox",
+            "key": "title",
+            "label": "Title",
+            "value": "User Group",
+            "required": true,
+            "order": 1
+          },
+          {
+            "controlType": "textbox",
+            "key": "subtitle",
+            "label": "Subtitle",
+            "value": "",
+            "required": false,
+            "order": 1
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
+  },
+  {
+    "componentType": "EventsComponent",
+    "title": "Events",
+    "subtitle": "",
+    "description": "Select this tool to display events",
+    "icon": "../../assets/images/lunch.png",
+    "instanceId": -1,
+    "tags": [],
+    "propertyPages": [
+      {
+        "displayName": "Configuration",
+        "groupId": "config",
+        "position": 10,
+        "properties": [
+          {
+            "controlType": "textbox",
+            "key": "title",
+            "label": "Title",
+            "value": "Events",
+            "required": true,
+            "order": 1
+          },
+          {
+            "controlType": "textbox",
+            "key": "subtitle",
+            "label": "Subtitle",
+            "value": "",
             "required": false,
             "order": 1
           }
@@ -322,7 +403,6 @@
             "required": true,
             "order": 1
           },
-
           {
             "controlType": "number",
             "key": "job-number",
@@ -426,5 +506,4 @@
       }
     ]
   }
-  
 ]
