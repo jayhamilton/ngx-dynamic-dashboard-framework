@@ -39,7 +39,7 @@ p {
   row-gap: 25px;
   column-gap: 25px;
   justify-content: center;
-  margin: 40px;
+  margin: 10px;
 }
 
 .two_col_wide_narrow {
@@ -48,7 +48,7 @@ p {
   row-gap: 25px;
   column-gap: 25px;
   justify-content: center;
-  margin: 40px;
+  margin: 10px;
 }
 
 .two_col_narrow_wide {
@@ -57,16 +57,16 @@ p {
   row-gap: 25px;
   column-gap: 25px;
   justify-content: center;
-  margin: 40px;
+  margin: 10px;
 }
 
 .three_col_equal {
   display: grid;
-  grid-template-columns: 30% 30% 30%;
+  grid-template-columns: 33% 33% 33%;
   row-gap: 25px;
   column-gap: 25px;
   justify-content: center;
-  margin: 40px;
+  margin: 10px;
 }
 
 .empty-column-placeholder {
