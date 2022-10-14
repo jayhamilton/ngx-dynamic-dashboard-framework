@@ -47,9 +47,8 @@ export class TabScheduleComponent implements OnInit {
   get(updateCache: boolean) {
 
     this.scheduleService.getEvents().subscribe((eventList: IScheduledEvent[]) => {
-
-      console.log(eventList)
       this.dataSource.setData(eventList);
+      this.resetForm();
 
       if (updateCache)
         this.scheduleDataStoreService.setEvents(eventList);
@@ -63,9 +62,10 @@ export class TabScheduleComponent implements OnInit {
   resetForm() {
 
     this.form.reset();
-    this.form.markAsUntouched();
-
-
+    this.hours.setErrors(null);
+    this.minutes.setErrors(null);
+    this.description.setErrors(null);
+    
   }
 
 
@@ -93,12 +93,9 @@ export class TabScheduleComponent implements OnInit {
   edit(item: any) {
 
     this.description.setValue(item.description);
-
     this.hours.setValue(this.getHours(item.datetime));
     this.minutes.setValue(this.getMinutes(item.datetime));
-
     this.selectedId = item.id;
-    console.log("selected Id: " + item.id);
     this.editMode = true;
     this.form.markAsDirty();
 
@@ -128,7 +125,6 @@ export class TabScheduleComponent implements OnInit {
 
     this.scheduleService.updateEvent(this.selectedId, this.description.value, this.getDateTimeVal()).subscribe((user: any) => {
       this.get(true);
-      this.resetForm();
       this.editMode = false;
     });
   }

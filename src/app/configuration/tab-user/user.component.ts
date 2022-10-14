@@ -63,16 +63,12 @@ export class TabUserComponent implements OnInit {
     if (this.editMode) {
       this.update();
     } else {
-
-
       this.userService.createUser(this.username.value, this.roles.value).subscribe((user: any) => {
         this.get(true);
-        this.resetForm();
-      })
-
+      });
     }
   }
-  resetEditMode(){
+  resetEditMode() {
     this.editMode = false;
     this.resetForm();
   }
@@ -82,7 +78,6 @@ export class TabUserComponent implements OnInit {
     this.username.setValue(item.username);
     this.roles.setValue(item.roles);
     this.selectedId = item.id;
-    console.log ("selected Id: " + item.id);
     this.editMode = true;
     this.form.markAsDirty();
 
@@ -93,7 +88,7 @@ export class TabUserComponent implements OnInit {
     this.userService.updateUser(this.selectedId, this.username.value, this.roles.value).subscribe((user: any) => {
       this.get(true);
       this.editMode = false;
-    
+
     })
   }
 
@@ -111,6 +106,8 @@ export class TabUserComponent implements OnInit {
   resetForm() {
 
     this.form.reset();
+    this.username.setErrors(null);
+    this.roles.setErrors(null);
 
   }
 }
