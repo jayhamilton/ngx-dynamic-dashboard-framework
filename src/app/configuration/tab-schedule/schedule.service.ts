@@ -14,9 +14,9 @@ export class ScheduleService {
   constructor(private httpClient: HttpClient) { }
 
   getEvents() {
-    
+
     let sessionKey = sessionStorage.getItem(environment.sessionToken);
-    
+
     let headers = new HttpHeaders({
       Authorization: '' + sessionKey,
       'Content-Type': 'application/json',
@@ -29,16 +29,16 @@ export class ScheduleService {
   }
 
   createEvent(description: string, datetime: string) {
-    
+
     let sessionKey = sessionStorage.getItem(environment.sessionToken);
-    
+
     let headers = new HttpHeaders({
       Authorization: '' + sessionKey,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     });
 
-    const body = { 'description': description, 'datetime': datetime};
+    const body = { 'description': description, 'datetime': datetime };
 
     return this.httpClient.post<string>(this.apiEndPoint, body, {
       headers,
@@ -47,9 +47,9 @@ export class ScheduleService {
 
 
   deleteEvent(id: number) {
-    
+
     let sessionKey = sessionStorage.getItem(environment.sessionToken);
-    
+
     let headers = new HttpHeaders({
       Authorization: '' + sessionKey,
       'Content-Type': 'application/json',
@@ -61,4 +61,25 @@ export class ScheduleService {
       headers,
     });
   }
+
+
+  updateEvent(id: number, description: string, datetime: string) {
+
+    let sessionKey = sessionStorage.getItem(environment.sessionToken);
+
+    let headers = new HttpHeaders({
+      Authorization: '' + sessionKey,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+
+    const body = { 'description': description, 'datetime': datetime };
+
+    return this.httpClient.put<string>(this.apiEndPoint + '/' + id, body, {
+      headers,
+    });
+  }
+
+
+
 }

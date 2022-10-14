@@ -14,9 +14,12 @@ const ELEMENT_DATA: IUser[] = [];
 })
 export class TabUserComponent implements OnInit {
 
+  editMode = false;
+
+  selectedId: number;
   roles = new UntypedFormControl();
   username = new UntypedFormControl();
-  formControls: UntypedFormGroup;
+  form: UntypedFormGroup;
   hideRequiredControl = new UntypedFormControl(false); //TODO
   floatLabelControl = new UntypedFormControl('auto'); //TODO
 
@@ -27,7 +30,8 @@ export class TabUserComponent implements OnInit {
   dataSource = new UserDataSource(ELEMENT_DATA);
   constructor(private userService: UserService, private userDataStoreService: UserDataStoreService, formBuilder: UntypedFormBuilder) {
 
-    this.formControls = formBuilder.group({
+    this.selectedId = -1;
+    this.form = formBuilder.group({
 
       roles: this.roles,
       username: this.username,
@@ -44,29 +48,53 @@ export class TabUserComponent implements OnInit {
 
   }
 
-  get(updateCache:boolean) {
+  get(updateCache: boolean) {
     this.userService.getUsers().subscribe((userList: IUser[]) => {
       this.dataSource.setData(userList);
-      
-      if(updateCache){
+      this.resetForm();
+      if (updateCache) {
         this.userDataStoreService.setUsers(userList);
       }
-
-    })
+    });
   }
 
   create() {
-    this.userService.createUser(this.username.value, this.roles.value).subscribe((user: any) => {
-      this.get(true);
-    })
-  }
 
+    if (this.editMode) {
+      this.update();
+    } else {
+
+
+      this.userService.createUser(this.username.value, this.roles.value).subscribe((user: any) => {
+        this.get(true);
+        this.resetForm();
+      })
+
+    }
+  }
+  resetEditMode(){
+    this.editMode = false;
+    this.resetForm();
+  }
 
   edit(item: any) {
 
     this.username.setValue(item.username);
     this.roles.setValue(item.roles);
-    //change button icon to updated
+    this.selectedId = item.id;
+    console.log ("selected Id: " + item.id);
+    this.editMode = true;
+    this.form.markAsDirty();
+
+  }
+
+  update() {
+
+    this.userService.updateUser(this.selectedId, this.username.value, this.roles.value).subscribe((user: any) => {
+      this.get(true);
+      this.editMode = false;
+    
+    })
   }
 
   compare(c1: any, c2: any) {
@@ -79,10 +107,13 @@ export class TabUserComponent implements OnInit {
     this.userService.deleteUser(item.id).subscribe((user: any) => {
       this.get(true);
     })
+  }
+  resetForm() {
+
+    this.form.reset();
 
   }
 }
-
 
 class UserDataSource extends DataSource<IUser> {
   private _dataStream = new ReplaySubject<IUser[]>();

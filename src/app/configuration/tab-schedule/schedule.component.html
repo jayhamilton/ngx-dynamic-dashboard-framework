@@ -4,30 +4,39 @@
 <div class="content">
 
   <div>
+    <form [formGroup]="form">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Event Description</mat-label>
-      <input [formControl]="description" matInput placeholder="Ex. 1st" value="">
+      <input [formControl]="description" required matInput placeholder="Ex. 1st" value="">
     </mat-form-field>
     <br>
 
     <mat-form-field>
       <mat-label>Hours</mat-label>
 
-      <input [formControl]="hours" matInput type="number" placeholder="Hours" [value]=11>
+      <input [formControl]="hours" required matInput type="number" placeholder="Hours" [value]=11>
 
     </mat-form-field>:
     <mat-form-field>
       <mat-label>Minutes</mat-label>
 
-      <input [formControl]="minutes" matInput type="number" placeholder="Minutes" [value]=0>
+      <input [formControl]="minutes" required matInput type="number" placeholder="Minutes" [value]=0>
 
     </mat-form-field>
 
     <br>
-    <button mat-mini-fab color="primary" class="tab-button" (click)="create()">
-      <mat-icon>add</mat-icon>
+    <button mat-mini-fab color="primary" class="tab-button" (click)="create()" [disabled]="!form.valid || !form.dirty">
+      <mat-icon *ngIf="!editMode">add</mat-icon>
+      <mat-icon *ngIf="editMode">change_circle</mat-icon>
     </button>
+    &nbsp;&nbsp;<button mat-button color="primary" *ngIf="editMode"  class="tab-button" (click)="resetEditMode()">
+      clear
+    </button>
+
+  </form>
   </div>
+  
+  
   <div>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
       <!-- Position Column -->

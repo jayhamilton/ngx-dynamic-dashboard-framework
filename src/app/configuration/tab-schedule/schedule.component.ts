@@ -15,20 +15,20 @@ const ELEMENT_DATA: IScheduledEvent[] = [];
 })
 export class TabScheduleComponent implements OnInit {
 
+  editMode = false;
   hours = new UntypedFormControl();
   minutes = new UntypedFormControl();
   description = new UntypedFormControl();
-  formControls: UntypedFormGroup;
+  form: UntypedFormGroup;
   hideRequiredControl = new UntypedFormControl(false); //TODO
   floatLabelControl = new UntypedFormControl('auto'); //TODO
 
-
-
   displayedColumns: string[] = ['Id', 'Event Description', 'Time', 'Tools'];
   dataSource = new EventDataSource(ELEMENT_DATA);
+  selectedId: number;
   constructor(private scheduleService: ScheduleService, private scheduleDataStoreService: ScheduleDataStoreService, formBuilder: UntypedFormBuilder) {
-
-    this.formControls = formBuilder.group({
+    this.selectedId = -1;
+    this.form = formBuilder.group({
 
       hours: this.hours,
       minutes: this.minutes,
@@ -51,26 +51,86 @@ export class TabScheduleComponent implements OnInit {
       console.log(eventList)
       this.dataSource.setData(eventList);
 
-      if(updateCache)
+      if (updateCache)
         this.scheduleDataStoreService.setEvents(eventList);
 
+      this.resetForm()
+
+
     })
+  }
+
+  resetForm() {
+
+    this.form.reset();
+    this.form.markAsUntouched();
+
+
   }
 
 
   create() {
 
+    if (this.editMode) {
+      this.update();
+    } else {
+
+      this.scheduleService.createEvent(this.description.value, this.getDateTimeVal()).subscribe((event: any) => {
+        this.get(true);
+      })
+    }
+  }
+
+  getDateTimeVal() {
+
     let _hours = formatNumber(this.hours.value, 'en-US', "2.0-0");
     let _minutes = formatNumber(this.minutes.value, 'en-US', "2.0-0");
+    return _hours + ":" + _minutes;
 
-    this.scheduleService.createEvent(this.description.value, _hours + ":" + _minutes).subscribe((event: any) => {
-      this.get(true);
-    })
   }
 
 
   edit(item: any) {
 
+    this.description.setValue(item.description);
+
+    this.hours.setValue(this.getHours(item.datetime));
+    this.minutes.setValue(this.getMinutes(item.datetime));
+
+    this.selectedId = item.id;
+    console.log("selected Id: " + item.id);
+    this.editMode = true;
+    this.form.markAsDirty();
+
+  }
+
+  getHours(datetime: string) {
+
+    //parse string on : and bring back number of first value
+    let hours = datetime.split(':');
+    return formatNumber(Number(hours[0]), 'en-US', "2.0-0");
+  }
+
+  getMinutes(datetime: string) {
+
+   //parse string on : and bring back number of first value
+   let minutes = datetime.split(':');
+   return formatNumber(Number(minutes[1]), 'en-US', "2.0-0");
+  }
+
+
+  resetEditMode(){
+    this.editMode = false;
+    this.resetForm();
+  }
+
+  update() {
+
+    this.scheduleService.updateEvent(this.selectedId, this.description.value, this.getDateTimeVal()).subscribe((user: any) => {
+      this.get(true);
+      this.resetForm();
+      this.editMode = false;
+    });
   }
 
   compare(c1: any, c2: any) {
@@ -82,7 +142,7 @@ export class TabScheduleComponent implements OnInit {
 
     this.scheduleService.deleteEvent(item.id).subscribe((event: any) => {
       this.get(true);
-    })
+    });
 
   }
 }

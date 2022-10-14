@@ -47,6 +47,23 @@ export class UserService {
     });
   }
 
+  updateUser(id: number, name: string, roles: string) {
+    
+    let sessionKey = sessionStorage.getItem(environment.sessionToken);
+    
+    let headers = new HttpHeaders({
+      Authorization: '' + sessionKey,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+
+    const body = {'username': name, 'roles': roles};
+
+    return this.httpClient.put<string>(this.apiEndPoint + '/' + id, body, {
+      headers,
+    });
+  }
+
 
   deleteUser(id: number) {
     
