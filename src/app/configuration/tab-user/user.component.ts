@@ -1,6 +1,7 @@
 import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable, ReplaySubject } from 'rxjs';
 import { UserDataStoreService } from './user.datastore.service';
 import { UserService, IUser } from './user.service';
@@ -28,7 +29,7 @@ export class TabUserComponent implements OnInit {
 
   displayedColumns: string[] = ['Id', 'User Name', 'Roles', 'Tools'];
   dataSource = new UserDataSource(ELEMENT_DATA);
-  constructor(private userService: UserService, private userDataStoreService: UserDataStoreService, formBuilder: UntypedFormBuilder) {
+  constructor(private userService: UserService, private userDataStoreService: UserDataStoreService, formBuilder: UntypedFormBuilder, private dialog: MatDialog) {
 
     this.selectedId = -1;
     this.form = formBuilder.group({
@@ -110,7 +111,23 @@ export class TabUserComponent implements OnInit {
     this.roles.setErrors(null);
 
   }
+
+  /*
+  openDialog() {
+    const dialogRef = this.dialog.open(ConfirmationDialog,{
+      data:{
+        message: 'Are you sure want to delete?',
+        buttonText: {
+          ok: 'Save',
+          cancel: 'No'
+        }
+      }
+    });
+  }
+  */
+  
 }
+
 
 class UserDataSource extends DataSource<IUser> {
   private _dataStream = new ReplaySubject<IUser[]>();
