@@ -46,13 +46,6 @@
             "options": []
           },
           {
-            "controlType": "dropdown",
-            "key": "qc",
-            "label": "Quality Control",
-            "order": 1,
-            "options": []
-          },
-          {
             "controlType": "number",
             "key": "mcount",
             "label": "Material Handler Count",
