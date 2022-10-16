@@ -107,8 +107,7 @@ export class TabUserComponent implements OnInit {
   resetForm() {
 
     this.form.reset();
-    this.username.setErrors(null);
-    this.roles.setErrors(null);
+    
 
   }
 

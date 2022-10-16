@@ -62,9 +62,6 @@ export class TabScheduleComponent implements OnInit {
   resetForm() {
 
     this.form.reset();
-    this.hours.setErrors(null);
-    this.minutes.setErrors(null);
-    this.description.setErrors(null);
     
   }
 

@@ -17,7 +17,7 @@
   <span class="example-spacer"></span>
 
   <span *checkPermissions>
-    <span class="menu-text"> (1) Create board</span>
+    <span class="menu-text"> Configure board</span>
     <button mat-icon-button (click)="openConfigDialog()" class="example-icon"
       aria-label="Example icon-button with share icon">
       <mat-icon>settings</mat-icon>
@@ -25,14 +25,14 @@
   </span>
 
   <span *checkPermissions>
-    <span class="menu-text">(2) Add tool</span>
+    <span class="menu-text">Add tool</span>
     <button mat-icon-button (click)="openGadgetLibraryDialog()" aria-label="Example icon-button with heart icon">
       <mat-icon>playlist_add</mat-icon>
     </button>
   </span>
 
   <span *checkPermissions>
-    <span class="menu-text"> (3) Change layout</span>
+    <span class="menu-text">Change layout</span>
     <button mat-icon-button (click)="toggleLayout()" class="example-icon favorite-icon"
       aria-label="Example icon-button with heart icon">
       <mat-icon>dashboard</mat-icon>
