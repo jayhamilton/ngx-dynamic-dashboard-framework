@@ -7,5 +7,5 @@ export const environment = {
   eventAPI: '/event',
   sessionToken: 'API_KEY',
   useDBForBoardStorage: false,
-  demo: true,
+  demo: false,
 };

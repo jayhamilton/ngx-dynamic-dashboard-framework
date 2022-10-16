@@ -49,3 +49,16 @@ mat-card-title {
     display: flex;
     justify-content: flex-end;
 }
+
+.form-row-message {
+    margin:10px;
+    padding:10px;
+    display: grid;
+    width: 100%;
+    background-color: rgb(243, 224, 224);
+    align-content: left;
+    justify-content: center;
+    line-height: 40px;
+    font: 20px;
+    color: rgb(68, 66, 66);
+  }

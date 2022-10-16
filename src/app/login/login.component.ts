@@ -10,6 +10,7 @@ import { AuthenticationService } from '../_authentication/authentication.service
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  showMessage = false;
   form: UntypedFormGroup = new UntypedFormGroup({
     username: new UntypedFormControl(''),
     password: new UntypedFormControl(''),
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   authenticate() {
     if (this.form.valid) {
@@ -33,18 +34,31 @@ export class LoginComponent implements OnInit {
         return;
       }
 
-      this.authenticationService.authenticate(user).subscribe((answer: any) => {
-        if (answer['status'] === 'OK') {
-          sessionStorage.setItem(
-            environment.sessionToken,
-            'Basic ' + btoa(user.userName + ':' + user.password)
-          );
+      this.authenticationService.authenticate(user).subscribe({
+        next: (answer: any) => {
 
-          sessionStorage.setItem('PRINCIPAL', JSON.stringify(answer));
-          this.routeTo('/home');
-        } else {
+          if (answer['status'] === 'OK') {
+           
+          
+            //TODO: change this to session key
+            sessionStorage.setItem(
+              environment.sessionToken,
+              'Basic ' + btoa(user.userName + ':' + user.password)
+            );
+
+            this.showMessage = false;
+            sessionStorage.setItem('PRINCIPAL', JSON.stringify(answer));
+            this.routeTo('/home');
+          } else {
+            sessionStorage.setItem('session', '');
+            this.showMessage = true;
+          }
+        },
+        error: (er) => {
+
           sessionStorage.setItem('session', '');
-          //show error
+          this.showMessage = true;
+          console.log(er);
         }
       });
     }
