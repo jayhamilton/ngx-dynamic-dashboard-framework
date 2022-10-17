@@ -28,7 +28,7 @@ export class TabBoardsComponent implements OnInit {
   @Output() boardAddEvent: EventEmitter<string> = new EventEmitter<string>();
 
 
-  options: UntypedFormGroup;
+  form: UntypedFormGroup;
   boardTitle = new UntypedFormControl();
   boardDescription = new UntypedFormControl();
   boardTabvalue = new UntypedFormControl();
@@ -37,13 +37,15 @@ export class TabBoardsComponent implements OnInit {
   displayedColumns: string[] = ['title', 'description', 'tools'];
   dropDownListSelection: IBoard[] = [];
   dataSource = new ExampleDataSource(ELEMENT_DATA);
+  selectedId?: number;
+  editMode = false;
 
   constructor(
     private eventService: EventService,
     private boardService: BoardService,
     fb: UntypedFormBuilder
   ) {
-    this.options = fb.group({
+    this.form = fb.group({
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,
       boardTitle: this.boardTitle,
@@ -55,14 +57,14 @@ export class TabBoardsComponent implements OnInit {
     this.loadData();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   setupEventListeners() {
     this.eventService
       .listenForBoardCreatedCompleteEvent()
       .subscribe((event) => {
         //clear the input fields
-        this.options.reset();
+        this.form.reset();
 
         //TODO - stop progress indicator and close dialog
 
@@ -81,6 +83,9 @@ export class TabBoardsComponent implements OnInit {
   }
 
   loadData() {
+
+    this.resetForm();
+
     this.boardService
       .getBoardCollection()
       .subscribe((boardCollection: IBoardCollection) => {
@@ -119,11 +124,11 @@ export class TabBoardsComponent implements OnInit {
            * that are parent where there is 0 or 1 id in the tab array and the id in that
            * array matches the board id.
            * **/
-          let dropDownList:IBoard[] = [];
+          let dropDownList: IBoard[] = [];
 
-          list.forEach((board)=>{
+          list.forEach((board) => {
 
-            if(board.relationship === Hiearchy.PARENT && board.tabs.length == 1 && board.tabs[0].id == board.id){
+            if (board.relationship === Hiearchy.PARENT && board.tabs.length == 1 && board.tabs[0].id == board.id) {
               dropDownList.push(board);
             }
 
@@ -136,28 +141,69 @@ export class TabBoardsComponent implements OnInit {
   }
 
   create() {
+    
+    if (this.editMode) {
+      this.update();
+    } else {
+    
     let boardNewRequestData: IBoardNewRequestData = {
       title: this.boardTitle.value,
       description: this.boardDescription.value,
-      product: 'Armani',
+      product: '',
       tabvalue: this.boardTabvalue.value,
     };
 
     this.eventService.emitBoardCreateRequestEvent({
       data: boardNewRequestData,
     });
+    
     //TODO - start progress indicator
 
     this.boardAddEvent.emit("");
+
+  }
   }
 
   //TODO - edit
-  edit(item: any) {}
+  edit(item: any) {
+
+    this.boardTitle.setValue(item['title']);
+    this.boardDescription.setValue(item['description']);
+    this.editMode = true;
+    this.selectedId = item.id;
+    this.editMode = true;
+    this.form.markAsDirty();
+  }
+
+  update() {
+
+    this.eventService.emitBoardUpdateNameDescription(
+      {
+        data:
+        {
+          id: this.selectedId,
+          title: this.boardTitle.value,
+          description: this.boardDescription.value
+        }
+      });
+
+      this.editMode = false;
+      this.loadData();
+  }
 
   delete(item: any) {
     this.eventService.emitBoardDeleteRequestEvent({ data: item });
     //TODO - start progress indicator
   }
+  resetEditMode() {
+    this.editMode = false;
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.form.reset();
+  }
+
 }
 
 class ExampleDataSource extends DataSource<IBoard> {
@@ -172,7 +218,7 @@ class ExampleDataSource extends DataSource<IBoard> {
     return this._dataStream;
   }
 
-  disconnect() {}
+  disconnect() { }
 
   setData(data: IBoard[]) {
     this._dataStream.next(data);

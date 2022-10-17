@@ -2,7 +2,7 @@
 
 <h3>Define new packaging line board</h3>
 <div class="example-container">
-  <form [formGroup]="options">
+  <form [formGroup]="form">
     <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value"
       [floatLabel]="floatLabelControl.value">
       <mat-label>Enter a title</mat-label>
@@ -28,8 +28,13 @@
     </mat-form-field>
 
     &nbsp;&nbsp;
-    <button mat-mini-fab color="primary" (click)="create()" class="tab-button">
-      <mat-icon>add</mat-icon>
+    <button mat-mini-fab color="primary"  class="tab-button" (click)="create()" [disabled]="!form.valid || !form.dirty">
+      <mat-icon *ngIf="!editMode">add</mat-icon>
+      <mat-icon *ngIf="editMode">change_circle</mat-icon>
+    </button>
+
+    <button mat-button color="primary" *ngIf="editMode"  class="tab-button" (click)="resetEditMode()">
+      clear
     </button>
   </form>
 </div>

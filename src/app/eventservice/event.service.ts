@@ -10,6 +10,7 @@ export interface IEvent {
 })
 export class EventService {
   private boardCreateRequestSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardUpdateNameDescriptionSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardSelectedSubject: Subject<IEvent> = new Subject<IEvent>();
 
   private boardCreatedCompleteRequestSubject: Subject<IEvent> =
@@ -69,6 +70,13 @@ export class EventService {
   }
   listenForBoardCreatedCompleteEvent(): Observable<IEvent> {
     return this.boardCreatedCompleteRequestSubject.asObservable();
+  }
+
+  emitBoardUpdateNameDescription(event: IEvent){
+    this.boardUpdateNameDescriptionSubject.next(event);
+  }
+  listenForBoardUpdateNameDescriptionRequestEvent(): Observable<IEvent> {
+    return this.boardUpdateNameDescriptionSubject.asObservable();
   }
 
   emitBoardDeleteRequestEvent(event: IEvent) {

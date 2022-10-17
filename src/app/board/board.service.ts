@@ -134,6 +134,13 @@ export class BoardService {
         this.createNewBoard(event);
       });
 
+      this.eventService
+      .listenForBoardUpdateNameDescriptionRequestEvent()
+      .subscribe((event: IEvent) => {
+        this.updateBoard(event);
+      });
+  
+
     this.eventService
       .listenForBoardDeleteRequestEvent()
       .subscribe((event: IEvent) => {
@@ -290,6 +297,27 @@ export class BoardService {
     });
   }
 
+  private updateBoard(event: IEvent){
+
+
+    console.log("Logic for updating the board");
+    console.log(event);
+
+    this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
+      boardCollection.boardList.forEach((board) => {
+        if (board.id == event.data['id']) {
+
+          console.log("found board with id: " + event.data['id']);
+          board.title = event.data['title'];
+          board.description = event.data['description'];
+        }
+      });
+      this.saveBoardCollectionToDestination(boardCollection);
+    });
+
+
+
+  }
   private deleteBoard(event: IEvent) {
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
       let idx = boardCollection.boardList.findIndex(
