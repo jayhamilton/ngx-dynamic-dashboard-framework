@@ -25,7 +25,7 @@ export class TabUserComponent implements OnInit {
   floatLabelControl = new UntypedFormControl('auto'); //TODO
 
 
-  roleList: string[] = ['Driver', 'Lead', 'Quality Control', 'Administrator'];
+  roleList: string[] = ['Driver', 'Lead'];
 
   displayedColumns: string[] = ['Id', 'User Name', 'Roles', 'Tools'];
   dataSource = new UserDataSource(ELEMENT_DATA);

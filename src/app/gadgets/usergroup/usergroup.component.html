@@ -20,13 +20,6 @@
         <mat-chip color="warn" selected *ngFor="let user of getUsersByRole('driver')">{{user.username}}</mat-chip>
       </mat-chip-list>
     </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>QQ</mat-label>
-      <mat-chip-list>
-        <mat-chip color="warn" selected *ngFor="let user of getUsersByRole('quality control')">{{user.username}}</mat-chip>
-      </mat-chip-list>
-    </mat-form-field>
   </mat-card-content>
 
   <mat-card-content *ngIf="inConfig">
