@@ -110,6 +110,14 @@ export class BoardComponent implements OnInit {
     this.eventService.listenForGadgetDeleteEvent().subscribe((event) => {
       this.displayLastSelectedBoard();
     });
+
+    this.eventService.listenForBoardUpdateNameDescriptionRequestEvent().subscribe((event)=>{
+
+      if (this.boardData.id === event.data['id']){
+        this.boardData.description = event.data['description'];
+        this.boardData.title = event.data['title'];
+      }
+    });
   }
 
   /**

@@ -23,7 +23,7 @@ export class SidenavComponent implements OnInit {
     this.setupEventListeners();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   toggleMenu() {
     this.drawer.toggle();
@@ -35,14 +35,12 @@ export class SidenavComponent implements OnInit {
 
   loadBoards() {
     this.boardService.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
-      this.boardData = boardCollection.boardList.filter((obj)=>{
+      this.boardData = boardCollection.boardList.filter((obj) => {
 
         return obj.relationship == Hiearchy.PARENT
       });
     });
   }
-
-
 
   showBoard(boardList: any) {
     //raise event to show the selected board
@@ -59,7 +57,7 @@ export class SidenavComponent implements OnInit {
         this.toggleMenu();
       });
 
-      this.eventService
+    this.eventService
       .listenForBoardSideLayoutEvent().subscribe((event) => {
         this.toggleLayout();
       });
@@ -74,5 +72,10 @@ export class SidenavComponent implements OnInit {
       .subscribe((event) => {
         this.loadBoards();
       });
+    this.eventService.listenForBoardUpdateNameDescriptionRequestEvent().subscribe((event) => {
+
+     this.loadBoards();
+
+    });
   }
 }

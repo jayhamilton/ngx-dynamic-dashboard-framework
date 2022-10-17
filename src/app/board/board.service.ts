@@ -299,9 +299,7 @@ export class BoardService {
 
   private updateBoard(event: IEvent){
 
-
     console.log("Logic for updating the board");
-    console.log(event);
 
     this.getBoardCollection().subscribe((boardCollection: IBoardCollection) => {
       boardCollection.boardList.forEach((board) => {
