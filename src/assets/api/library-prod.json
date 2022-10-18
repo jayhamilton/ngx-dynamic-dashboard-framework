@@ -111,7 +111,7 @@
           {
             "controlType": "date",
             "key": "productiondate",
-            "label": "productiondate",
+            "label": "Choose a Date",
             "value": "",
             "required": true,
             "order": 1
@@ -127,7 +127,7 @@
   },
   {
     "componentType": "NotificationComponent",
-    "title": "Notifications",
+    "title": "Notification",
     "subtitle": "",
     "description": "Select this tool to add general notifications",
     "icon": "../../assets/images/notification.png",
@@ -142,8 +142,8 @@
           {
             "controlType": "textbox",
             "key": "title",
-            "label": "Production Notifications",
-            "value": "Production Notifications",
+            "label": "Notification",
+            "value": "Notification",
             "required": true,
             "order": 1
           },
@@ -151,14 +151,14 @@
             "controlType": "textbox",
             "key": "subtitle",
             "label": "Subtitle",
-            "value": "Production Notifications",
+            "value": "Notification",
             "required": false,
             "order": 1
           },
           {
             "controlType": "textarea",
             "key": "notification",
-            "label": "Notification",
+            "label": "Notification Text",
             "value": "<span style=\"color: red;font weight:bold; font-size:40px\">Text 1</span><br><br><span style=\"color: blue;font weight:bold; font-size:20px\">Text 2</span>",
             "required": true,
             "order": 1
@@ -174,7 +174,7 @@
   },
   {
     "componentType": "UsergroupComponent",
-    "title": "User Groups",
+    "title": "Team Members",
     "subtitle": "",
     "description": "Select this tool to display users",
     "icon": "../../assets/images/usergroup.png",

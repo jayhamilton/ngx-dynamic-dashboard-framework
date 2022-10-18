@@ -27,7 +27,7 @@ export class TabUserComponent implements OnInit {
 
   roleList: string[] = ['Driver', 'Lead'];
 
-  displayedColumns: string[] = ['Id', 'User Name', 'Roles', 'Tools'];
+  displayedColumns: string[] = ['Id', 'Name', 'Role', 'Tools'];
   dataSource = new UserDataSource(ELEMENT_DATA);
   constructor(private userService: UserService, private userDataStoreService: UserDataStoreService, formBuilder: UntypedFormBuilder, private dialog: MatDialog) {
 

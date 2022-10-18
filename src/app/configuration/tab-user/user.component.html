@@ -1,12 +1,12 @@
-<h3>Add users and roles</h3>
+<h3>Add name and role</h3>
 <form [formGroup]="form"  class ="example-form">
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>User</mat-label>
+      <mat-label>Name</mat-label>
       <input [formControl]="username" matInput placeholder="Ex. Connie" value="" required>
     </mat-form-field>
   
     <mat-form-field appearance="fill">
-        <mat-label>Roles</mat-label>
+        <mat-label>Role</mat-label>
         <mat-select [formControl]="roles" [compareWith]="compare" required>
           <mat-option *ngFor="let role of roleList" [value]="role">{{role}}</mat-option>
         </mat-select>
@@ -42,8 +42,8 @@
 
 
   <!-- Name Column -->
-  <ng-container matColumnDef="User Name">
-    <th mat-header-cell *matHeaderCellDef>User Name</th> 
+  <ng-container matColumnDef="Name">
+    <th mat-header-cell *matHeaderCellDef>Name</th> 
     <td mat-cell *matCellDef="let element">
       <!-- realtionship value of 0 indicates parent and 1 indicates child -->
       <mat-icon *ngIf="element.relationship == 1"><span class="material-icons">
@@ -54,8 +54,8 @@
   </ng-container>
 
   <!-- Name Column -->
-  <ng-container matColumnDef="Roles">
-    <th mat-header-cell *matHeaderCellDef>Roles</th>
+  <ng-container matColumnDef="Role">
+    <th mat-header-cell *matHeaderCellDef>Role</th>
     <td mat-cell *matCellDef="let element">{{ element.roles }}</td>
   </ng-container>
 

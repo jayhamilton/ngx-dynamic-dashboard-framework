@@ -38,7 +38,7 @@
 
       <div *ngSwitchCase="'date'" apperance="fill">
         <mat-form-field appearance="fill">
-          <mat-label>Choose a date</mat-label>
+          <mat-label [attr.for]="property.key">{{ property.label }}</mat-label>
           <input [formControlName]="property.key" required="{{ property.required }}" matInput
              value="{{property.value}}"  [matDatepicker]="picker" />
             <mat-hint>MMMM DD, YYYY</mat-hint>
@@ -49,7 +49,7 @@
 
       <div *ngSwitchCase="'textarea'" apperance="fill">
         <mat-form-field class="full_width" appearance="fill">
-          <mat-label>Notifications</mat-label>
+          <mat-label [attr.for]="property.key">{{ property.label }}</mat-label>
           <textarea rows="10"  [formControlName]="property.key" required="{{ property.required }}" matInput
              value="{{property.value}}"></textarea>
         </mat-form-field>
