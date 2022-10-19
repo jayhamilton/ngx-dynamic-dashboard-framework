@@ -23,7 +23,7 @@ export class TabScheduleComponent implements OnInit {
   hideRequiredControl = new UntypedFormControl(false); //TODO
   floatLabelControl = new UntypedFormControl('auto'); //TODO
 
-  displayedColumns: string[] = ['Id', 'Event Description', 'Time', 'Tools'];
+  displayedColumns: string[] = ['Event Description', 'Time', 'Tools'];
   dataSource = new EventDataSource(ELEMENT_DATA);
   selectedId: number;
   constructor(private scheduleService: ScheduleService, private scheduleDataStoreService: ScheduleDataStoreService, formBuilder: UntypedFormBuilder) {
