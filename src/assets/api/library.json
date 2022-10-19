@@ -30,6 +30,14 @@
             "order": 1
           },
           {
+            "controlType": "dropdown",
+            "key": "lunch",
+            "label": "Lunch",
+            "required": true,
+            "order": 1,
+            "options": []
+          },
+          {
             "controlType": "dropdown-ms",
             "key": "lead",
             "label": "Lead",
@@ -60,15 +68,8 @@
             "required": true,
             "order": 1,
             "value": 0
-          },
-          {
-            "controlType": "dropdown",
-            "key": "lunch",
-            "label": "Lunch",
-            "required": true,
-            "order": 1,
-            "options": []
           }
+          
         ]
       }
     ],

@@ -1,0 +1,48 @@
+// define 3 theme color
+// mat-palette accepts $palette-name, main, lighter and darker variants
+$md-wlprimary: (
+    50 : #f0e3e4,
+    100 : #d9b9ba,
+    200 : #c08b8d,
+    300 : #a65c5f,
+    400 : #93393c,
+    500 : #80161a,
+    600 : #781317,
+    700 : #6d1013,
+    800 : #630c0f,
+    900 : #500608,
+    A100 : #ff8486,
+    A200 : #ff5154,
+    A400 : #ff1e22,
+    A700 : #ff0409,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$my-theme-primary: mat-palette($md-wlprimary, 500, A200);
+$my-theme-accent: mat-palette($mat-indigo);
+$my-theme-warn: mat-palette($mat-pink);
+
+
+
+// create theme (use mat-dark-theme for themes with dark backgrounds)
+$my-theme: mat-light-theme(
+    $my-theme-primary,
+    $my-theme-accent,
+    $my-theme-warn,
+    
+);
