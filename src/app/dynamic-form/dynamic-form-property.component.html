@@ -6,6 +6,9 @@
         <input [formControlName]="property.key" [type]="property.controlType" matInput value="{{ property.value }}"
           required="{{ property.required }}" />
       </mat-form-field>
+      <mat-form-field *ngSwitchCase="'hidden'" appearance="fill">
+        <input [formControlName]="property.key" matInput type=hidden />
+      </mat-form-field>
       <mat-form-field *ngSwitchCase="'number'" appearance="fill">
         <mat-label [attr.for]="property.key">{{ property.label }}</mat-label>
         <input [formControlName]="property.key" [type]="property.controlType" matInput value="{{ property.value }}"

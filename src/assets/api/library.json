@@ -157,7 +157,7 @@
             "order": 1
           },
           {
-            "controlType": "textbox",
+            "controlType": "hidden",
             "key": "hidden",
             "label": "hidden",
             "value": "",
@@ -169,7 +169,7 @@
             "controlType": "number",
             "key": "fontsize1",
             "label": "Font Size",
-            "value": 20,
+            "value": 30,
             "required": true,
             "order": 1
           },
@@ -177,7 +177,7 @@
             "controlType": "dropdown",
             "key": "color1",
             "label": "Color",
-            "value": "orange",
+            "value": "blue",
             "required": false,
             "options": [],
             "order": 1
@@ -186,7 +186,7 @@
             "controlType": "textbox",
             "key": "notification1",
             "label": "Notification Text",
-            "value": "Text 1",
+            "value": "Example Notification Text",
             "required": true,
             "order": 1
           }
@@ -196,14 +196,14 @@
             "key": "fontsize2",
             "label": "Font Size",
             "value": 20,
-            "required": true,
+            "required": false,
             "order": 1
           },
           {
             "controlType": "dropdown",
             "key": "color2",
             "label": "Color",
-            "value": "blue",
+            "value": "orange",
             "required": false,
             "options": [],
             "order": 1
@@ -212,8 +212,8 @@
             "controlType": "textbox",
             "key": "notification2",
             "label": "Notification Text",
-            "value": "Text 2",
-            "required": true,
+            "value": "",
+            "required": false,
             "order": 1
           }
           ,
@@ -222,7 +222,7 @@
             "key": "fontsize3",
             "label": "Font Size",
             "value": 20,
-            "required": true,
+            "required": false,
             "order": 1
           },
           {
@@ -238,8 +238,8 @@
             "controlType": "textbox",
             "key": "notification3",
             "label": "Notification Text",
-            "value": "Text 3",
-            "required": true,
+            "value": "",
+            "required": false,
             "order": 1
           }
         ]
