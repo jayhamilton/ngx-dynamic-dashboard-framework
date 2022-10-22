@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   constructor(private  userDataStoreService: UserDataStoreService, private scheduleDataStoreService: ScheduleDataStoreService){
 
     //load data stores
-    this.userDataStoreService.loadUsers();
+    this.userDataStoreService.loadUsers("username", "asc");
     this.scheduleDataStoreService.loadScheduledEvents();
 
   }

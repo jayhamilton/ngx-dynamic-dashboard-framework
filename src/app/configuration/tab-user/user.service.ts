@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -13,10 +13,14 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getUsers() {
-    
+  getUsers(sortKey: string, sortOrder: string) {
+
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("sortKey", sortKey);
+    queryParams = queryParams.append("sortOrder", sortOrder);
+
     let sessionKey = sessionStorage.getItem(environment.sessionToken);
-    
+
     let headers = new HttpHeaders({
       Authorization: '' + sessionKey,
       'Content-Type': 'application/json',
@@ -26,21 +30,21 @@ export class UserService {
     const body = { title: 'Angular Get Request Example' };
 
     return this.httpClient.get<IUser[]>(this.apiEndPoint, {
-      headers,
+      headers: headers, params: queryParams
     });
   }
 
   createUser(name: string, roles: string) {
-    
+
     let sessionKey = sessionStorage.getItem(environment.sessionToken);
-    
+
     let headers = new HttpHeaders({
       Authorization: '' + sessionKey,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     });
 
-    const body = { 'username': name, 'roles': roles};
+    const body = { 'username': name, 'roles': roles };
 
     return this.httpClient.post<string>(this.apiEndPoint, body, {
       headers,
@@ -48,16 +52,16 @@ export class UserService {
   }
 
   updateUser(id: number, name: string, roles: string) {
-    
+
     let sessionKey = sessionStorage.getItem(environment.sessionToken);
-    
+
     let headers = new HttpHeaders({
       Authorization: '' + sessionKey,
       'Content-Type': 'application/json',
       Accept: 'application/json',
     });
 
-    const body = {'username': name, 'roles': roles};
+    const body = { 'username': name, 'roles': roles };
 
     return this.httpClient.put<string>(this.apiEndPoint + '/' + id, body, {
       headers,
@@ -66,9 +70,9 @@ export class UserService {
 
 
   deleteUser(id: number) {
-    
+
     let sessionKey = sessionStorage.getItem(environment.sessionToken);
-    
+
     let headers = new HttpHeaders({
       Authorization: '' + sessionKey,
       'Content-Type': 'application/json',

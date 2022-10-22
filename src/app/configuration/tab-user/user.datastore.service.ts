@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { IUser } from './user.service';
@@ -29,9 +29,9 @@ export class UserDataStoreService {
 
     }
 
-    loadUsers(){
+    loadUsers(sortKey: string, sortOrder: string){
 
-        this.callUsersAPI().subscribe(_users=>{
+        this.callUsersAPI(sortKey, sortOrder).subscribe(_users=>{
 
             this.users.length = 0;
             _users.forEach(user=>{
@@ -42,12 +42,15 @@ export class UserDataStoreService {
         })
     }
 
-    callUsersAPI() {
+    callUsersAPI(sortKey: string, sortOrder: string) {
 
         
             let apiEndPoint = environment.apihost + environment.userAPI;
 
             let sessionKey = sessionStorage.getItem(environment.sessionToken);
+            let queryParams = new HttpParams();
+            queryParams = queryParams.append("sortKey", sortKey);
+            queryParams = queryParams.append("sortOrder", sortOrder);
 
             let headers = new HttpHeaders({
                 Authorization: '' + sessionKey,
@@ -58,7 +61,7 @@ export class UserDataStoreService {
             const body = { title: 'Angular Get Request Example' };
 
             return this.httpClient.get<IUser[]>(apiEndPoint, {
-                headers,
+                headers: headers, params: queryParams,
             })
     }
 

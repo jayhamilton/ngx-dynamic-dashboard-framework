@@ -1,7 +1,9 @@
 import { DataSource } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { TaggedTemplateExpr } from '@angular/compiler';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 import { Observable, ReplaySubject } from 'rxjs';
 import { UserDataStoreService } from './user.datastore.service';
 import { UserService, IUser } from './user.service';
@@ -13,9 +15,13 @@ const ELEMENT_DATA: IUser[] = [];
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
 })
-export class TabUserComponent implements OnInit {
+export class TabUserComponent implements OnInit, AfterViewInit {
 
   editMode = false;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  sortKey:string = "username";
+  sortOrder:string = "asc";
 
   selectedId: number;
   roles = new UntypedFormControl();
@@ -31,6 +37,7 @@ export class TabUserComponent implements OnInit {
   dataSource = new UserDataSource(ELEMENT_DATA);
   constructor(private userService: UserService, private userDataStoreService: UserDataStoreService, formBuilder: UntypedFormBuilder, private dialog: MatDialog) {
 
+
     this.selectedId = -1;
     this.form = formBuilder.group({
 
@@ -42,6 +49,10 @@ export class TabUserComponent implements OnInit {
     });
 
   }
+  ngAfterViewInit(): void {
+    //this.sort.sortChange.subscribe(() => ());
+
+  }
 
   ngOnInit(): void {
 
@@ -49,8 +60,24 @@ export class TabUserComponent implements OnInit {
 
   }
 
+  sortData(data: any){
+
+    //console.log(data);
+    if(data['active'] === "Name"){
+      this.sortKey = "username";
+    }
+
+    if(data['active'] === "Role"){
+      this.sortKey = "roles"
+    }
+    this.sortOrder = data['direction'];
+
+    this.get(true);
+
+  }
+
   get(updateCache: boolean) {
-    this.userService.getUsers().subscribe((userList: IUser[]) => {
+    this.userService.getUsers(this.sortKey, this.sortOrder).subscribe((userList: IUser[]) => {
       this.dataSource.setData(userList);
       this.resetForm();
       if (updateCache) {
