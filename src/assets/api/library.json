@@ -212,7 +212,7 @@
             "controlType": "textbox",
             "key": "notification2",
             "label": "Notification Text",
-            "value": "Text 1",
+            "value": "Text 2",
             "required": true,
             "order": 1
           }
@@ -238,7 +238,7 @@
             "controlType": "textbox",
             "key": "notification3",
             "label": "Notification Text",
-            "value": "Text 1",
+            "value": "Text 3",
             "required": true,
             "order": 1
           }
