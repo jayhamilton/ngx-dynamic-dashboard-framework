@@ -8,7 +8,9 @@
 
   <mat-card-content class="display" *ngIf="!inConfig">
 
-    <div class="notification"[innerHtml]="notification"></div> 
+    <div class="text" [ngStyle]="{'color': color1, 'font-size':fontSize1}">{{notification1}}</div> 
+    <div class="text" [ngStyle]="{'color': color2, 'font-size':fontSize2}">{{notification2}}</div> 
+    <div class="text" [ngStyle]="{'color': color3, 'font-size':fontSize3}">{{notification3}}</div> 
       
   </mat-card-content>
 

@@ -35,6 +35,8 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
   @Input() gadgetTags: ITag[]; //todo - use to control what endpoints are displayed
   endPoints: string[] = [];
 
+  colors:string[] = ['red', 'blue', 'orange', 'black', 'green'];
+
 
   get isValid() {
     return this.form.controls[this.property.key].valid;
@@ -59,6 +61,8 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
 
     this.setupEventListeners();
   }
+
+
 
   /**
    * Remember - This class is present on all gadgets that have property pages. Therefore, any operation here needs to 
@@ -122,6 +126,15 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
         break;
       case "lunch":
         this.scheduleDataStoreService.getEvents().forEach(event => { _options.push({ key: event.description + " " + event.datetime, value: event.description + " " + event.datetime }) });
+        break;
+      case "color1":
+      case "color2":
+      case "color3":
+        {
+          this.colors.forEach(color=>{
+            _options.push({key: color, value: color});
+          })
+        }
         break;
       default:
         { }

@@ -157,10 +157,88 @@
             "order": 1
           },
           {
-            "controlType": "textarea",
-            "key": "notification",
+            "controlType": "textbox",
+            "key": "hidden",
+            "label": "hidden",
+            "value": "",
+            "hidden": true,
+            "required": false,
+            "order": 1
+          },
+          {
+            "controlType": "number",
+            "key": "fontsize1",
+            "label": "Font Size",
+            "value": 20,
+            "required": true,
+            "order": 1
+          },
+          {
+            "controlType": "dropdown",
+            "key": "color1",
+            "label": "Color",
+            "value": "orange",
+            "required": false,
+            "options": [],
+            "order": 1
+          },
+          {
+            "controlType": "textbox",
+            "key": "notification1",
             "label": "Notification Text",
-            "value": "<span style=\"color: red;font weight:bold; font-size:40px\">Text 1</span><br><br><span style=\"color: blue;font weight:bold; font-size:20px\">Text 2</span>",
+            "value": "Text 1",
+            "required": true,
+            "order": 1
+          }
+          ,
+          {
+            "controlType": "number",
+            "key": "fontsize2",
+            "label": "Font Size",
+            "value": 20,
+            "required": true,
+            "order": 1
+          },
+          {
+            "controlType": "dropdown",
+            "key": "color2",
+            "label": "Color",
+            "value": "blue",
+            "required": false,
+            "options": [],
+            "order": 1
+          },
+          {
+            "controlType": "textbox",
+            "key": "notification2",
+            "label": "Notification Text",
+            "value": "Text 1",
+            "required": true,
+            "order": 1
+          }
+          ,
+          {
+            "controlType": "number",
+            "key": "fontsize3",
+            "label": "Font Size",
+            "value": 20,
+            "required": true,
+            "order": 1
+          },
+          {
+            "controlType": "dropdown",
+            "key": "color3",
+            "label": "Color",
+            "value": "green",
+            "required": false,
+            "options": [],
+            "order": 1
+          },
+          {
+            "controlType": "textbox",
+            "key": "notification3",
+            "label": "Notification Text",
+            "value": "Text 1",
             "required": true,
             "order": 1
           }
