@@ -10,7 +10,7 @@ mat-tab-group {
 }
 
 mat-card-title {
-  color: #80161a;
+  color: $primary_color;
 }
 .mat-card-content-grid-container {
   display: grid;
@@ -19,7 +19,7 @@ mat-card-title {
 p {
   font-style: "Roboto";
   size: 10px;
-  color: #80161a;
+  color: $primary_color;
 }
 
 .one_col {
