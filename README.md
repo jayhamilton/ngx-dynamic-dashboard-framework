@@ -1,6 +1,6 @@
 # NGX Dynamic Dashboard Framework
 
-PlmUI is based on the open source project https://github.com/catalogicsoftware/ngx-dynamic-dashboard-framework I created a few years ago.
+This project is based on the open source project https://github.com/catalogicsoftware/ngx-dynamic-dashboard-framework I created a few years ago.
 
 This project is a purpose built rewrite of that project, leveraging the latest version of Angular. This project also removes the dependency on Semantic UI in favor of Angular Material Design.
 
