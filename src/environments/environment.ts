@@ -12,15 +12,9 @@ export const environment = {
   sessionToken: 'API_KEY',
   useDBForBoardStorage: false,
   demo: false,
+  applicationTitle:'NGX Dynamic Dashboard'
 };
-/*
-export const environment = {
-  production: true,
-  apihost: '',
-  imageAPI: 'assets/images',
-  loginAPI: '/login',
-  sessionToken: 'API_KEY'
-}; */
+
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -13,12 +13,14 @@ import { LibraryComponent } from '../library/library.component';
 })
 export class MenuComponent implements OnInit {
   visible = true;
+  applicationTitle:string;
   constructor(
     public dialog: MatDialog,
     private eventService: EventService,
     private router: Router
   ) {
     this.setupEventHandlers();
+    this.applicationTitle = environment.applicationTitle;
   }
 
   ngOnInit(): void {}
