@@ -11,11 +11,11 @@ The keys to this design is that it is purely JSON driven. This is also taking ad
 
 ### Creating a new Dashboard
 
-![New Board Creation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/new_board.gif)
+![New Board Creation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/new-board.gif)
 
 ### Dynamic navigation
 
-![Dynamic Navigation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/dynamic_navigation.gif)
+![Dynamic Navigation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/multi-board.gif)
 
 ### Dynamically convert boards to tabs
 
@@ -23,11 +23,11 @@ The keys to this design is that it is purely JSON driven. This is also taking ad
 
 ### Dynamically add gadget instances to the board
 
-![Add Gadget](https://github.com/jayhamilton/plm-ui/blob/main/documentation/add_gadget.gif)
+![Add Gadget](https://github.com/jayhamilton/plm-ui/blob/main/documentation/add-gadget.gif)
 
-### Multi-board configuration
+### Drag/Drop and Layout
 
-![Multi-board Configuration](https://github.com/jayhamilton/plm-ui/blob/main/documentation/gadget_layout.gif)
+![Multi-board Configuration](https://github.com/jayhamilton/plm-ui/blob/main/documentation/layout.gif)
 
 ### Developers Guide To Framework Extension - Creating Components
 

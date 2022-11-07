@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       };
 
       if (environment.demo === true) {
-        this.setDemoData(user.userName, user.password);
+        this.setDemoData('testuser', 'testpassword');
         return;
       }
 
