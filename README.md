@@ -1,18 +1,17 @@
 # NGX Dynamic Dashboard Framework
 
-This project is based on the open source project https://github.com/catalogicsoftware/ngx-dynamic-dashboard-framework I created a few years ago.
+This project is based on the open source project https://github.com/catalogicsoftware/ngx-dynamic-dashboard-framework I created a few years ago. 
 
-This project is a purpose built rewrite of that project, leveraging the latest version of Angular. This project also removes the dependency on Semantic UI in favor of Angular Material Design.
+The keys design aspects:
 
-My goal is to get this purpose built version in good enough shape to then fork out to produce a next gen version of NGX-Dynamic-Dashboard-Framework, incorporating all of its gadgets. At least that is my goal :-). The goal of this effort is to produce a simple dashboard framework that can be used for a very specific purpose regarding manufacturing packaging lines.
-
-
-The keys to this design is that it is purely JSON driven. This is also taking advantage of Angular's [dynamic component](https://angular.io/guide/dynamic-component-loader) functionality that enables the creation of component instances at runtime.
-
+* JSON Driven
+* [Angular Dynamic Components](https://angular.io/guide/dynamic-component-loader)
+* [Angular Dynamic Forms](https://angular.io/guide/dynamic-form)
+* [NGX Charts](https://swimlane.github.io/ngx-charts/#/ngx-charts/bar-vertical)
 ## Blog Post
 [Medium Blog Post](https://jaystevenhamilton.medium.com/design-of-a-dashboard-framework-c26367cfea64)
 
-### Examples
+## Examples
 #### New Board
 
 ![New Board Creation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/new-board.gif)
