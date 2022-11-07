@@ -13,21 +13,22 @@ The keys to this design is that it is purely JSON driven. This is also taking ad
 [Medium Blog Post](https://jaystevenhamilton.medium.com/design-of-a-dashboard-framework-c26367cfea64)
 
 ### Examples
-#### Creating a new Dashboard
+#### New Board
 
 ![New Board Creation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/new-board.gif)
 
-#### Dynamic navigation
-
-![Dynamic Navigation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/multiboard.gif)
-
-#### Dynamically add gadget instances to the board
+#### Add Gadget
 
 ![Add Gadget](https://github.com/jayhamilton/plm-ui/blob/main/documentation/add-gadget.gif)
 
 #### Drag/Drop and Layout
 
 ![Multi-board Configuration](https://github.com/jayhamilton/plm-ui/blob/main/documentation/layout.gif)
+
+#### Multiple Boards
+
+![Dynamic Navigation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/multiboard.gif)
+
 
 ## Developers Guide To Framework Extension - Creating A Gadget
 ### Define the Gadget Component, Service and View
