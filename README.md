@@ -9,23 +9,19 @@ My goal is to get this purpose built version in good enough shape to then fork o
 
 The keys to this design is that it is purely JSON driven. This is also taking advantage of Angular's [dynamic component](https://angular.io/guide/dynamic-component-loader) functionality that enables the creation of component instances at runtime.
 
-### Creating a new Dashboard
+#### Creating a new Dashboard
 
 ![New Board Creation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/new-board.gif)
 
-### Dynamic navigation
+#### Dynamic navigation
 
-![Dynamic Navigation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/multi-board.gif)
+![Dynamic Navigation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/multiboard.gif)
 
-### Dynamically convert boards to tabs
-
-![Dynamic Tab](https://github.com/jayhamilton/plm-ui/blob/main/documentation/dynamic_tab.gif)
-
-### Dynamically add gadget instances to the board
+#### Dynamically add gadget instances to the board
 
 ![Add Gadget](https://github.com/jayhamilton/plm-ui/blob/main/documentation/add-gadget.gif)
 
-### Drag/Drop and Layout
+#### Drag/Drop and Layout
 
 ![Multi-board Configuration](https://github.com/jayhamilton/plm-ui/blob/main/documentation/layout.gif)
 
