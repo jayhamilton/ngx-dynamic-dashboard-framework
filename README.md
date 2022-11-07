@@ -10,8 +10,9 @@ My goal is to get this purpose built version in good enough shape to then fork o
 The keys to this design is that it is purely JSON driven. This is also taking advantage of Angular's [dynamic component](https://angular.io/guide/dynamic-component-loader) functionality that enables the creation of component instances at runtime.
 
 ## Blog Post
-![Medium Blog Post](https://jaystevenhamilton.medium.com/design-of-a-dashboard-framework-c26367cfea64)
+[Medium Blog Post](https://jaystevenhamilton.medium.com/design-of-a-dashboard-framework-c26367cfea64)
 
+### Examples
 #### Creating a new Dashboard
 
 ![New Board Creation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/new-board.gif)
