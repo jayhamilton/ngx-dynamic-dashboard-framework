@@ -11,10 +11,11 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 })
 export class BarChartComponent extends GadgetBase  implements OnInit {
   saleData = [
-    { name: "Armani", value: 105 },
-    { name: "Guuci", value: 550 },
-    { name: "Ralf Lauren", value: 150 },
-    { name: "Polo", value: 150 }
+    { name: "mason", value: 105 },
+    { name: "mendez", value: 550 },
+    { name: "reily", value: 150 },
+    { name: "mickens", value: 150 },
+    { name: "jamie", value: 150}
   ];
 
   colorScheme:Color = {
