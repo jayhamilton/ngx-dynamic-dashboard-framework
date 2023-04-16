@@ -10,12 +10,17 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
   styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent extends GadgetBase  implements OnInit {
-  saleData = [
+  footballstats = [
     { name: "mason", value: 105 },
     { name: "mendez", value: 550 },
     { name: "reily", value: 150 },
-    { name: "mickens", value: 150 },
-    { name: "jamie", value: 150}
+    { name: "mickens", value: 750 },
+    { name: "jamie", value: 850},
+    { name: "ortiz", value: 105 },
+    { name: "willis", value: 550 },
+    { name: "primus", value: 250 },
+    { name: "burges", value: 350 },
+    { name: "lewis", value: 50}
   ];
 
   colorScheme:Color = {
