@@ -11,6 +11,8 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 })
 export class BarChartComponent extends GadgetBase  implements OnInit {
   // changed variables and added names and values for football stats array 
+ players= "Players";
+ yards= "Total Yards";
   footballstats = [
     { name: "mason", value: 105 },
     { name: "mendez", value: 550 },
