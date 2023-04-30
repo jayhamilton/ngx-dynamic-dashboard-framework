@@ -25,7 +25,7 @@ export class BarChartComponent extends GadgetBase  implements OnInit {
     { name: "burges", value: 350 },
     { name: "lewis", value: 50}
   ];
-
+average= (105 + 550 + 150 + 750 + 850 + 105 + 550 + 250 + 350 + 50)/ 10;
   colorScheme:Color = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
     name: '',
