@@ -10,6 +10,7 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
   styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent extends GadgetBase  implements OnInit {
+  // changed variables and added names and values for football stats array 
   footballstats = [
     { name: "mason", value: 105 },
     { name: "mendez", value: 550 },
@@ -36,6 +37,7 @@ export class BarChartComponent extends GadgetBase  implements OnInit {
 
   ngOnInit(): void {
   }
+
 
   remove() {
     this.eventService.emitGadgetDeleteEvent({ data: this.instanceId });
