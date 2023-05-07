@@ -9,24 +9,24 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss']
 })
-export class BarChartComponent extends GadgetBase  implements OnInit {
+export class BarChartComponent extends GadgetBase implements OnInit {
   // changed variables and added names and values for football stats array 
- players= "Players";
- yards= "Total Yards";
+  players = "Players";
+  yards = "Total Yards";
   footballstats = [
     { name: "mason", value: 105 },
     { name: "mendez", value: 550 },
     { name: "reily", value: 150 },
     { name: "mickens", value: 750 },
-    { name: "jamie", value: 850},
+    { name: "jamie", value: 850 },
     { name: "ortiz", value: 105 },
     { name: "willis", value: 550 },
     { name: "primus", value: 250 },
     { name: "burges", value: 350 },
-    { name: "lewis", value: 50}
+    { name: "lewis", value: 50 }
   ];
-average= (105 + 550 + 150 + 750 + 850 + 105 + 550 + 250 + 350 + 50)/ 10;
-  colorScheme:Color = {
+  average = this.getAverage();
+  colorScheme: Color = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
     name: '',
     selectable: false,
@@ -65,4 +65,17 @@ average= (105 + 550 + 150 + 750 + 850 + 105 + 550 + 250 + 350 + 50)/ 10;
     );
   }
 
+  getAverage() {
+
+    let sum = 0;
+    this.footballstats.forEach(data => {
+
+      sum = data.value + sum;
+
+    });
+    return sum / this.footballstats.length;
+
+
+    // return (105 + 550 + 150 + 750 + 850 + 105 + 550 + 250 + 350 + 50)/ 10; 
+  }
 }
