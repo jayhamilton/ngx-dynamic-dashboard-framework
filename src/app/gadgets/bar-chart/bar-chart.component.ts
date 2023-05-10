@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
+import { variance } from 'd3';
 import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
@@ -26,6 +27,8 @@ export class BarChartComponent extends GadgetBase implements OnInit {
     { name: "lewis", value: 50 }
   ];
   average = this.getAverage();
+  variance = this.getVariance();
+  standardDeviation = this.getStandardDeviation();
   colorScheme: Color = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
     name: '',
@@ -73,9 +76,37 @@ export class BarChartComponent extends GadgetBase implements OnInit {
       sum = data.value + sum;
 
     });
-    return sum / this.footballstats.length;
 
+    return sum / this.footballstats.length;
+    // return (105 + 550 + 150 + 750 + 850 + 105 + 550 + 250 + 350 + 50)/ 10; 
+  }
+  getVariance() {
+
+    let sum = 0;
+    this.footballstats.forEach(data => {
+
+      sum = data.value + sum;
+
+    });
+
+    let average = sum / this.footballstats.length;
+
+    let variance = 0;
+    this.footballstats.forEach(data => {
+
+      variance = ((data.value - average) ** 2 + variance);
+
+    });
+    let varianceTotal = variance / this.footballstats.length;
+
+    return varianceTotal;
 
     // return (105 + 550 + 150 + 750 + 850 + 105 + 550 + 250 + 350 + 50)/ 10; 
+  }
+  getStandardDeviation() {
+
+   let sd= Math.sqrt(this.variance);
+
+    return Math.round(sd);
   }
 }
