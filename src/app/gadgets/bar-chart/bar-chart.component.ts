@@ -67,7 +67,10 @@ export class BarChartComponent extends GadgetBase implements OnInit {
       this.instanceId
     );
   }
-
+/**
+ * created an average function
+ * @returns 
+ */
   getAverage() {
 
     let sum = 0;
@@ -78,8 +81,12 @@ export class BarChartComponent extends GadgetBase implements OnInit {
     });
 
     return sum / this.footballstats.length;
-    // return (105 + 550 + 150 + 750 + 850 + 105 + 550 + 250 + 350 + 50)/ 10; 
+    
   }
+  /**
+   * created a variance function
+   * @returns 
+   */
   getVariance() {
 
     let sum = 0;
@@ -91,22 +98,29 @@ export class BarChartComponent extends GadgetBase implements OnInit {
 
     let average = sum / this.footballstats.length;
 
+    // created a loop for the variance formula
     let variance = 0;
     this.footballstats.forEach(data => {
 
       variance = ((data.value - average) ** 2 + variance);
 
     });
+  
     let varianceTotal = variance / this.footballstats.length;
 
     return varianceTotal;
 
     // return (105 + 550 + 150 + 750 + 850 + 105 + 550 + 250 + 350 + 50)/ 10; 
   }
+  /**
+   * created a standard deviation function
+   * @returns 
+   */
   getStandardDeviation() {
 
    let sd= Math.sqrt(this.variance);
 
     return Math.round(sd);
   }
+  
 }
