@@ -10,9 +10,9 @@
   </app-gadget-header>
 
   <mat-card-content *ngIf="!inConfig">
-   Average yards:{{average}}<br>
-   Variance total: {{variance}}<br>
-   Standard deviation: {{standardDeviation}}
+   {{averageLabel}}{{average}}<br>
+   {{varianceLabel}} {{variance}}<br>
+   {{standardDeviationLabel}} {{standardDeviation}}<br>
     <ngx-charts-bar-vertical
       [roundEdges]="false"
       [scheme]="colorScheme"

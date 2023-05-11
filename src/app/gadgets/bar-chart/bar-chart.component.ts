@@ -12,23 +12,17 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 })
 export class BarChartComponent extends GadgetBase implements OnInit {
   // changed variables and added names and values for football stats array 
-  players = "Players";
-  yards = "Total Yards";
-  footballstats = [
-    { name: "mason", value: 105 },
-    { name: "mendez", value: 550 },
-    { name: "reily", value: 150 },
-    { name: "mickens", value: 750 },
-    { name: "jamie", value: 850 },
-    { name: "ortiz", value: 105 },
-    { name: "willis", value: 550 },
-    { name: "primus", value: 250 },
-    { name: "burges", value: 350 },
-    { name: "lewis", value: 50 }
-  ];
-  average = this.getAverage();
-  variance = this.getVariance();
-  standardDeviation = this.getStandardDeviation();
+  players;
+  yards;
+  footballstats ;
+  average;
+  variance;
+  standardDeviation;
+
+  averageLabel;
+  varianceLabel;
+  standardDeviationLabel;
+
   colorScheme: Color = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
     name: '',
@@ -38,11 +32,32 @@ export class BarChartComponent extends GadgetBase implements OnInit {
 
   constructor(private eventService: EventService, private boardService: BoardService) {
     super();
+    this.players = "Players";
+    this.yards = "Total Yards";
+    this.footballstats = [
+      { name: "mason", value: 105 },
+      { name: "mendez", value: 550 },
+      { name: "reily", value: 150 },
+      { name: "mickens", value: 750 },
+      { name: "jamie", value: 850 },
+      { name: "ortiz", value: 105 },
+      { name: "willis", value: 550 },
+      { name: "primus", value: 250 },
+      { name: "burges", value: 350 },
+      { name: "lewis", value: 50 }
+    ];
+    this.average = this.getAverage();
+    this.variance = this.getVariance();
+    this.standardDeviation = this.getStandardDeviation();
+
+    this.averageLabel = "Average:";
+    this.varianceLabel = "Variance:";
+    this.standardDeviationLabel = "Standard Deviation:";
+
   }
 
   ngOnInit(): void {
   }
-
 
   remove() {
     this.eventService.emitGadgetDeleteEvent({ data: this.instanceId });
@@ -59,15 +74,16 @@ export class BarChartComponent extends GadgetBase implements OnInit {
       console.log.apply(this.subtitle);
     }
 
-
-
     //persist changes
     this.boardService.savePropertyPageConfigurationToDestination(
       propertiesJSON,
       this.instanceId
     );
   }
-
+  /**
+   * created an average function
+   * @returns 
+   */
   getAverage() {
 
     let sum = 0;
@@ -78,35 +94,37 @@ export class BarChartComponent extends GadgetBase implements OnInit {
     });
 
     return sum / this.footballstats.length;
-    // return (105 + 550 + 150 + 750 + 850 + 105 + 550 + 250 + 350 + 50)/ 10; 
+
   }
+  /**
+   * created a variance function
+   * @returns 
+   */
   getVariance() {
 
-    let sum = 0;
-    this.footballstats.forEach(data => {
-
-      sum = data.value + sum;
-
-    });
-
-    let average = sum / this.footballstats.length;
-
+    let average = this.getAverage();
+    // created a loop for the variance formula
     let variance = 0;
     this.footballstats.forEach(data => {
 
       variance = ((data.value - average) ** 2 + variance);
 
     });
+
     let varianceTotal = variance / this.footballstats.length;
 
     return varianceTotal;
 
-    // return (105 + 550 + 150 + 750 + 850 + 105 + 550 + 250 + 350 + 50)/ 10; 
   }
+  /**
+   * created a standard deviation function
+   * @returns 
+   */
   getStandardDeviation() {
 
-   let sd= Math.sqrt(this.variance);
+    let sd = Math.sqrt(this.getVariance());
 
     return Math.round(sd);
   }
+
 }
