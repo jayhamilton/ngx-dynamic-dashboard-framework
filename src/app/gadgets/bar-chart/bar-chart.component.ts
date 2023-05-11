@@ -29,6 +29,11 @@ export class BarChartComponent extends GadgetBase implements OnInit {
   average = this.getAverage();
   variance = this.getVariance();
   standardDeviation = this.getStandardDeviation();
+  
+  averageLabel = "Average:";
+  varianceLabel = "Variance:";
+  standardDeviationLabel = "Standard Deviation:";
+
   colorScheme: Color = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
     name: '',
