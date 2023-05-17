@@ -18,7 +18,8 @@ export class BarChartComponent extends GadgetBase implements OnInit {
   average;
   variance;
   standardDeviation;
-
+  threeSigma;
+  threeSigmaLabel;
   averageLabel;
   varianceLabel;
   standardDeviationLabel;
@@ -49,11 +50,12 @@ export class BarChartComponent extends GadgetBase implements OnInit {
     this.average = this.getAverage();
     this.variance = this.getVariance();
     this.standardDeviation = this.getStandardDeviation();
+    this.threeSigma = this.getSigma();
 
     this.averageLabel = "Average:";
     this.varianceLabel = "Variance:";
     this.standardDeviationLabel = "Standard Deviation:";
-
+    this.threeSigmaLabel = "Sigma:";
   }
 
   ngOnInit(): void {
@@ -127,4 +129,11 @@ export class BarChartComponent extends GadgetBase implements OnInit {
     return Math.round(sd);
   }
 
+  getSigma() {
+
+    let sigma = this.standardDeviation * (3)
+
+    return sigma
+
+  }
 }
