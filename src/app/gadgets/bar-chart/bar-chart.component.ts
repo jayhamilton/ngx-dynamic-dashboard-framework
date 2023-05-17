@@ -17,6 +17,8 @@ export class BarChartComponent extends GadgetBase implements OnInit {
   footballstats ;
   average;
   variance;
+  averageAge;
+  averageAgeLabel;
   standardDeviation;
   threeSigma;
   threeSigmaLabel;
@@ -36,22 +38,23 @@ export class BarChartComponent extends GadgetBase implements OnInit {
     this.players = "Players";
     this.yards = "Total Yards";
     this.footballstats = [
-      { name: "mason", value: 105 },
-      { name: "mendez", value: 550 },
-      { name: "reily", value: 150 },
-      { name: "mickens", value: 750 },
-      { name: "jamie", value: 850 },
-      { name: "ortiz", value: 105 },
-      { name: "willis", value: 550 },
-      { name: "primus", value: 250 },
-      { name: "burges", value: 350 },
-      { name: "lewis", value: 50 }
+      { name: "mason", value: 105, age: 19 },
+      { name: "mendez", value: 550, age: 22 },
+      { name: "reily", value: 150, age: 21 },
+      { name: "mickens", value: 750, age: 21 },
+      { name: "jamie", value: 850, age: 20 },
+      { name: "ortiz", value: 105, age: 21 },
+      { name: "willis", value: 550, age: 22 },
+      { name: "primus", value: 250, age: 19 },
+      { name: "burges", value: 350, age: 21 },
+      { name: "lewis", value: 50, age: 22 }
     ];
     this.average = this.getAverage();
     this.variance = this.getVariance();
     this.standardDeviation = this.getStandardDeviation();
     this.threeSigma = this.getSigma();
-
+    this.averageAge= this.getaverageAge();
+    this.averageAgeLabel= "Average Age:";
     this.averageLabel = "Average:";
     this.varianceLabel = "Variance:";
     this.standardDeviationLabel = "Standard Deviation:";
@@ -134,6 +137,18 @@ export class BarChartComponent extends GadgetBase implements OnInit {
     let sigma = this.standardDeviation * (3)
 
     return sigma
+
+  }
+  getaverageAge() {
+
+    let sum = 0
+    this.footballstats.forEach(data => {
+
+      sum = data.age + sum;
+
+    });
+
+    return sum / this.footballstats.length;
 
   }
 }
