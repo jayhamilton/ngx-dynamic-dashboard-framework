@@ -11,8 +11,10 @@
 
   <mat-card-content *ngIf="!inConfig">
    {{averageLabel}}{{average}}<br>
+   {{averageAgeLabel}}{{averageAge}}<br>
    {{varianceLabel}} {{variance}}<br>
    {{standardDeviationLabel}} {{standardDeviation}}<br>
+   {{threeSigmaLabel}} {{threeSigma}} <br>
     <ngx-charts-bar-vertical
       [roundEdges]="false"
       [scheme]="colorScheme"
@@ -29,7 +31,7 @@
     >
     </ngx-charts-bar-vertical>
   </mat-card-content>
-
+  <mat-checkbox class="example-margin">Check me!</mat-checkbox>
   <mat-card-content *ngIf="inConfig">
     <app-dynamic-form
       [gadgetTags]="tags"

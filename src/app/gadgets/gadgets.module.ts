@@ -29,6 +29,8 @@ import { DateComponent } from './date/date.component';
 import { NotificationComponent } from './notification/notification.component';
 import { UsergroupComponent } from './usergroup/usergroup.component';
 import { EventsComponent } from './events/events.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 @NgModule({
   declarations: [
     ImageComponent,
@@ -63,7 +65,8 @@ import { EventsComponent } from './events/events.component';
     HttpClientModule,
     FormsModule,
     MatChipsModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatCheckboxModule
   ],
     exports: [
       ImageComponent,
