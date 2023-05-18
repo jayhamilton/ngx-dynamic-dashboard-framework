@@ -14,7 +14,7 @@ export class BarChartComponent extends GadgetBase implements OnInit {
   // changed variables and added names and values for football stats array 
   players;
   yards;
-  footballstats ;
+  footballstats;
   average;
   variance;
   averageAge;
@@ -37,24 +37,17 @@ export class BarChartComponent extends GadgetBase implements OnInit {
     super();
     this.players = "Players";
     this.yards = "Total Yards";
-    this.footballstats = [
-      { name: "mason", value: 105, age: 19 },
-      { name: "mendez", value: 550, age: 22 },
-      { name: "reily", value: 150, age: 21 },
-      { name: "mickens", value: 750, age: 21 },
-      { name: "jamie", value: 850, age: 20 },
-      { name: "ortiz", value: 105, age: 21 },
-      { name: "willis", value: 550, age: 22 },
-      { name: "primus", value: 250, age: 19 },
-      { name: "burges", value: 350, age: 21 },
-      { name: "lewis", value: 50, age: 22 }
-    ];
+    this.footballstats = this.setFootballStats();
+/**
+ * created a sort method
+ */
+    this.footballstats.sort((a, b) => b.value - a.value);
     this.average = this.getAverage();
     this.variance = this.getVariance();
     this.standardDeviation = this.getStandardDeviation();
     this.threeSigma = this.getSigma();
-    this.averageAge= this.getaverageAge();
-    this.averageAgeLabel= "Average Age:";
+    this.averageAge = this.getaverageAge();
+    this.averageAgeLabel = "Average Age:";
     this.averageLabel = "Average:";
     this.varianceLabel = "Variance:";
     this.standardDeviationLabel = "Standard Deviation:";
@@ -150,5 +143,24 @@ export class BarChartComponent extends GadgetBase implements OnInit {
 
     return sum / this.footballstats.length;
 
+  }
+/**
+ * created a function for setfootballstats
+ * @returns 
+ * 
+ */
+  setFootballStats() {
+    return [
+      { name: "mason", value: 105, age: 19 },
+      { name: "mendez", value: 550, age: 22 },
+      { name: "reily", value: 150, age: 21 },
+      { name: "mickens", value: 750, age: 21 },
+      { name: "jamie", value: 850, age: 20 },
+      { name: "ortiz", value: 105, age: 21 },
+      { name: "willis", value: 550, age: 22 },
+      { name: "primus", value: 250, age: 19 },
+      { name: "burges", value: 350, age: 21 },
+      { name: "lewis", value: 50, age: 22 }
+    ];
   }
 }
