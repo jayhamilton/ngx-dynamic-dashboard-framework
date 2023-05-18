@@ -49,6 +49,10 @@ export class BarChartComponent extends GadgetBase implements OnInit {
       { name: "burges", value: 350, age: 21 },
       { name: "lewis", value: 50, age: 22 }
     ];
+
+    this.footballstats.sort((a, b) => b.value - a.value);
+
+
     this.average = this.getAverage();
     this.variance = this.getVariance();
     this.standardDeviation = this.getStandardDeviation();
@@ -151,4 +155,6 @@ export class BarChartComponent extends GadgetBase implements OnInit {
     return sum / this.footballstats.length;
 
   }
+  
+
 }
