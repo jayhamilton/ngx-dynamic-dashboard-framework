@@ -4,6 +4,8 @@ import { variance } from 'd3';
 import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
+import * as footballstatsfromfile  from '../../../assets/api/footballstats.json'
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-bar-chart',
@@ -12,6 +14,7 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 })
 export class BarChartComponent extends GadgetBase implements OnInit {
   // changed variables and added names and values for football stats array 
+  buttonChecked;
   players;
   yards;
   footballstats;
@@ -33,11 +36,13 @@ export class BarChartComponent extends GadgetBase implements OnInit {
     group: ScaleType.Linear
   };
 
-  constructor(private eventService: EventService, private boardService: BoardService) {
+  constructor(private eventService: EventService, private boardService: BoardService, private restClient: HttpClientModule) {
     super();
     this.players = "Players";
     this.yards = "Total Yards";
     this.footballstats = this.setFootballStats();
+    this.getDataFromFile();
+    this.buttonChecked = false;
 /**
  * created a sort method
  */
@@ -163,4 +168,16 @@ export class BarChartComponent extends GadgetBase implements OnInit {
       { name: "lewis", value: 50, age: 22 }
     ];
   }
+  getDataFromFile(){
+    console.log ("testing function");
+    console.log (footballstatsfromfile);
+  }
+
+   
+ toggleStatistics() {
+  console.log ('button clicked')
+  this.buttonChecked= !this.buttonChecked;
+}
+
+
 }

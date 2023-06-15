@@ -10,11 +10,14 @@
   </app-gadget-header>
 
   <mat-card-content *ngIf="!inConfig">
-   {{averageLabel}}{{average}}<br>
-   {{averageAgeLabel}}{{averageAge}}<br>
-   {{varianceLabel}} {{variance}}<br>
-   {{standardDeviationLabel}} {{standardDeviation}}<br>
-   {{threeSigmaLabel}} {{threeSigma}} <br>
+  <div *ngIf="buttonChecked"> 
+    {{averageLabel}}{{average}}<br>
+    {{averageAgeLabel}}{{averageAge}}<br>
+    {{varianceLabel}} {{variance}}<br>
+    {{standardDeviationLabel}} {{standardDeviation}}<br>
+    {{threeSigmaLabel}} {{threeSigma}} <br>
+  </div>
+  
     <ngx-charts-bar-vertical
       [roundEdges]="false"
       [scheme]="colorScheme"
@@ -43,3 +46,12 @@
     </app-dynamic-form>
   </mat-card-content>
 </mat-card>
+
+
+  <label for="showStatistics">Show Statistics:</label>
+  <input type="checkbox" id="showStatistics" (click)="toggleStatistics()">
+
+  
+
+  
+   
