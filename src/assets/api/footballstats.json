@@ -1,0 +1,12 @@
+[
+    { "name": "mason", "value": 105, "age": 19 },
+    { "name": "mendez", "value": 550, "age": 22 },
+    { "name": "reily", "value": 150, "age": 21 },
+    { "name": "mickens", "value": 750, "age": 21 },
+    { "name": "jamie", "value": 850, "age": 20 },
+    { "name": "ortiz", "value": 105, "age": 21 },
+    { "name": "willis", "value": 550, "age": 22 },
+    { "name": "primus", "value": 250, "age": 19 },
+    { "name": "burges", "value": 350, "age": 21 },
+    { "name": "lewis", "value": 50, "age": 22 }
+  ]
