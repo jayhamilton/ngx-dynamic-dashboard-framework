@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
-import { variance } from 'd3';
 import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import * as footballstatsfromfile  from '../../../assets/api/footballstats.json'
 import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-bar-chart',
@@ -17,6 +17,7 @@ export class BarChartComponent extends GadgetBase implements OnInit {
   buttonChecked;
   players;
   yards;
+  dataFromFile;
   footballstats;
   average;
   variance;
@@ -29,6 +30,9 @@ export class BarChartComponent extends GadgetBase implements OnInit {
   varianceLabel;
   standardDeviationLabel;
 
+  data: any = footballstatsfromfile;
+// getting data from the file
+
   colorScheme: Color = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
     name: '',
@@ -38,10 +42,11 @@ export class BarChartComponent extends GadgetBase implements OnInit {
 
   constructor(private eventService: EventService, private boardService: BoardService, private restClient: HttpClientModule) {
     super();
+    
     this.players = "Players";
     this.yards = "Total Yards";
     this.footballstats = this.setFootballStats();
-    this.getDataFromFile();
+    this.dataFromFile = this.getDataFromFile();
     this.buttonChecked = false;
 /**
  * created a sort method
@@ -60,6 +65,8 @@ export class BarChartComponent extends GadgetBase implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('Data', this.data);
+    // getting data from file still showing up as a module
   }
 
   remove() {
@@ -171,6 +178,7 @@ export class BarChartComponent extends GadgetBase implements OnInit {
   getDataFromFile(){
     console.log ("testing function");
     console.log (footballstatsfromfile);
+    //still coming up as a module
   }
 
    
@@ -180,4 +188,4 @@ export class BarChartComponent extends GadgetBase implements OnInit {
 }
 
 
-}
+  }
