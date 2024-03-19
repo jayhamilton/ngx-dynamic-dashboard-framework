@@ -6,9 +6,9 @@ import { BoardService } from './board.service';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { GadgetsModule } from '../gadgets/gadgets.module';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs';
 @NgModule({
   declarations: [
     BoardComponent
