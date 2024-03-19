@@ -6,11 +6,11 @@
   <mat-card-title>{{ title }}</mat-card-title>
   <mat-card-subtitle>{{ subtitle }}</mat-card-subtitle>
   <!--<mat-card-subtitle>{{description}}</mat-card-subtitle>-->
-  <mat-chip-list>
-    <mat-chip selected color="accent" *ngIf="inConfig">
-      You are in configuration mode</mat-chip
+  <mat-chip-listbox>
+    <mat-chip-option selected color="accent" *ngIf="inConfig">
+      You are in configuration mode</mat-chip-option
     >
-  </mat-chip-list>
+  </mat-chip-listbox>
   <button
     mat-icon-button
     class="more-button"

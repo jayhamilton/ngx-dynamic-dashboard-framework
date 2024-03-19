@@ -1,7 +1,7 @@
 <h1>Add Tool</h1>
 <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
   <div class="grid">
-    <mat-card class="example-card" *cdkVirtualFor="let gadget of library; let idx = index"
+    <mat-card appearance="outlined" class="example-card" *cdkVirtualFor="let gadget of library; let idx = index"
       [class]="'class_color' + idx">
       <mat-card-header>
         <div mat-card-avatar style="background-image:

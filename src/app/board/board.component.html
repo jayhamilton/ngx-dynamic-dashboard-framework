@@ -1,4 +1,4 @@
-<mat-card *ngIf="boardExists" class="board-header">
+<mat-card appearance="outlined" *ngIf="boardExists" class="board-header">
   <mat-card-title>{{ boardData.title }}</mat-card-title>
   <mat-card-subtitle></mat-card-subtitle>
   <mat-card-content>
@@ -37,7 +37,7 @@
 </mat-tab-group>
 
 <div *ngIf="!boardExists" class="grid-instruction">
-  <mat-card class="board-instruction">
+  <mat-card appearance="outlined" class="board-instruction">
     <mat-card-title>Step 1</mat-card-title>
     <mat-card-content class="mat-card-content-grid-container">
       <p>Create a board instance.</p>
@@ -45,7 +45,7 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card class="board-instruction">
+  <mat-card appearance="outlined" class="board-instruction">
     <mat-card-title>Step 2</mat-card-title>
     <mat-card-content class="mat-card-con qtent-grid-container">
       <p>

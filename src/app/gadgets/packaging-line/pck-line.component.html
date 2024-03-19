@@ -1,4 +1,4 @@
-<mat-card [cdkDragDisabled]="inConfig" cdkDrag>
+<mat-card appearance="outlined" [cdkDragDisabled]="inConfig" cdkDrag>
   <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()"
     [inConfig]="inConfig" (toggleConfigModeEvent)="toggleConfigMode()">
   </app-gadget-header>
@@ -6,37 +6,37 @@
   <mat-card-content *ngIf="!inConfig">
         <mat-form-field appearance="fill">
           <mat-label>Line Lead(s)</mat-label>
-          <mat-chip-list>
-            <mat-chip color="accent" selected *ngFor="let lead of lineleads">{{lead}}</mat-chip>
-          </mat-chip-list>
+          <mat-chip-listbox>
+            <mat-chip-option color="accent" selected *ngFor="let lead of lineleads">{{lead}}</mat-chip-option>
+          </mat-chip-listbox>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Driver</mat-label>
-          <mat-chip-list>
-            <mat-chip  selected color="primary">{{driver}}</mat-chip>
-          </mat-chip-list>
+          <mat-chip-listbox>
+            <mat-chip-option  selected color="primary">{{driver}}</mat-chip-option>
+          </mat-chip-listbox>
         </mat-form-field>
 
         <mat-form-field class="small-control" appearance="fill">
           <mat-label>Material Handler Qty</mat-label>
-          <mat-chip-list>
-            <mat-chip>{{mcount}}</mat-chip>
-          </mat-chip-list>
+          <mat-chip-listbox>
+            <mat-chip-option>{{mcount}}</mat-chip-option>
+          </mat-chip-listbox>
         </mat-form-field>
 
         <mat-form-field class="small-control" appearance="fill">
           <mat-label>Personell Qty</mat-label>
-          <mat-chip-list>
-            <mat-chip>{{pcount}}</mat-chip>
-          </mat-chip-list>
+          <mat-chip-listbox>
+            <mat-chip-option>{{pcount}}</mat-chip-option>
+          </mat-chip-listbox>
         </mat-form-field>
         
         <mat-form-field appearance="fill">
           <mat-label>Break</mat-label>
-          <mat-chip-list>
-            <mat-chip>{{lunch}}</mat-chip>
-          </mat-chip-list>
+          <mat-chip-listbox>
+            <mat-chip-option>{{lunch}}</mat-chip-option>
+          </mat-chip-listbox>
         </mat-form-field>
       <!--
   <mat-form-field class="example-full-width" appearance="fill">

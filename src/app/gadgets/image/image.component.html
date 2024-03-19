@@ -1,4 +1,4 @@
-<mat-card class="card" [cdkDragDisabled]="inConfig" cdkDrag>
+<mat-card appearance="outlined" class="card" [cdkDragDisabled]="inConfig" cdkDrag>
   <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()"
     [inConfig]="inConfig" (toggleConfigModeEvent)="toggleConfigMode()">
   </app-gadget-header>

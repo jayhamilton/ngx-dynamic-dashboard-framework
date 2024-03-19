@@ -1,4 +1,4 @@
-<mat-card [cdkDragDisabled]="inConfig" cdkDrag>
+<mat-card appearance="outlined" [cdkDragDisabled]="inConfig" cdkDrag>
   <app-gadget-header
     [title]="title"
     [subtitle]="subtitle"
@@ -10,17 +10,17 @@
   </app-gadget-header>
   <mat-card-content *ngIf="!inConfig">
     <div class="subsection">
-      <mat-chip-list class="example-chip">
-        <mat-chip selected color="primary" class="example-box">
+      <mat-chip-listbox class="example-chip">
+        <mat-chip-option selected color="primary" class="example-box">
           Team Lead: {{ teamLead }}
-        </mat-chip>
-        <mat-chip selected color="primary" class="example-box">
+        </mat-chip-option>
+        <mat-chip-option selected color="primary" class="example-box">
           Job Number: {{ jobNumber }}
-        </mat-chip>
-        <mat-chip selected color="primary" class="example-box">
+        </mat-chip-option>
+        <mat-chip-option selected color="primary" class="example-box">
           Date: {{ date }}
-        </mat-chip>
-      </mat-chip-list>
+        </mat-chip-option>
+      </mat-chip-listbox>
     </div>
 
     <br />

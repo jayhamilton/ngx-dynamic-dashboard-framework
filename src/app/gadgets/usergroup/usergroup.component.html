@@ -1,4 +1,4 @@
-<mat-card [cdkDragDisabled]="inConfig" cdkDrag>
+<mat-card appearance="outlined" [cdkDragDisabled]="inConfig" cdkDrag>
   <app-gadget-header 
   [title]="title" 
   [subtitle]="subtitle" 
@@ -9,16 +9,16 @@
   <mat-card-content *ngIf="!inConfig">
     <mat-form-field appearance="fill">
       <mat-label>Line Lead(s)</mat-label>
-      <mat-chip-list>
-        <mat-chip color="warn" selected *ngFor="let user of getUsersByRole('lead')">{{user.username}}</mat-chip>
-      </mat-chip-list>
+      <mat-chip-listbox>
+        <mat-chip-option color="warn" selected *ngFor="let user of getUsersByRole('lead')">{{user.username}}</mat-chip-option>
+      </mat-chip-listbox>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Drivers</mat-label>
-      <mat-chip-list>
-        <mat-chip color="warn" selected *ngFor="let user of getUsersByRole('driver')">{{user.username}}</mat-chip>
-      </mat-chip-list>
+      <mat-chip-listbox>
+        <mat-chip-option color="warn" selected *ngFor="let user of getUsersByRole('driver')">{{user.username}}</mat-chip-option>
+      </mat-chip-listbox>
     </mat-form-field>
   </mat-card-content>
 

@@ -1,4 +1,4 @@
-<mat-card [cdkDragDisabled]="inConfig" cdkDrag>
+<mat-card appearance="outlined" [cdkDragDisabled]="inConfig" cdkDrag>
   <app-gadget-header 
   [title]="title" 
   [subtitle]="subtitle" 
@@ -9,9 +9,9 @@
   <mat-card-content *ngIf="!inConfig">
     <mat-form-field appearance="fill">
       <mat-label>Events</mat-label>
-      <mat-chip-list>
-        <mat-chip color="warn" selected *ngFor="let event of getEvents()">{{event.description}} &nbsp;&nbsp; {{event.datetime}}</mat-chip>
-      </mat-chip-list>
+      <mat-chip-listbox>
+        <mat-chip-option color="warn" selected *ngFor="let event of getEvents()">{{event.description}} &nbsp;&nbsp; {{event.datetime}}</mat-chip-option>
+      </mat-chip-listbox>
     </mat-form-field>
   </mat-card-content>
 
