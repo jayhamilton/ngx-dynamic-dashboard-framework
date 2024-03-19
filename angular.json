@@ -71,19 +71,19 @@
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
-						"production": {
-							"browserTarget": "plm-ui:build:production"
+            "production": {
+              "buildTarget": "plm-ui:build:production"
 						},
-						"development": {
-							"browserTarget": "plm-ui:build:development"
+            "development": {
+              "buildTarget": "plm-ui:build:development"
 						}
 					},
 					"defaultConfiguration": "development"
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "plm-ui:build"
+          "options": {
+            "buildTarget": "plm-ui:build"
 					}
 				},
 				"test": {
