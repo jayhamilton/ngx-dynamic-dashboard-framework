@@ -4,7 +4,7 @@ import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import * as footballstatsfromfile from '../../../assets/api/footballstats.json'
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 export interface footballstatsInterface {
   stats: any[];
