@@ -10,17 +10,17 @@
   </app-gadget-header>
   <mat-card-content *ngIf="!inConfig">
     <div class="subsection">
-      <mat-chip-list class="example-chip">
-        <mat-chip selected color="primary" class="example-box">
+      <mat-chip-listbox class="example-chip">
+        <mat-chip-option selected color="primary" class="example-box">
           Team Lead: {{ teamLead }}
-        </mat-chip>
-        <mat-chip selected color="primary" class="example-box">
+        </mat-chip-option>
+        <mat-chip-option selected color="primary" class="example-box">
           Job Number: {{ jobNumber }}
-        </mat-chip>
-        <mat-chip selected color="primary" class="example-box">
+        </mat-chip-option>
+        <mat-chip-option selected color="primary" class="example-box">
           Date: {{ date }}
-        </mat-chip>
-      </mat-chip-list>
+        </mat-chip-option>
+      </mat-chip-listbox>
     </div>
 
     <br />
@@ -38,7 +38,7 @@
       <ng-container matColumnDef="goal">
         <th mat-header-cell *matHeaderCellDef>Goals</th>
         <td mat-cell *matCellDef="let element">
-          <mat-form-field class="number-form-field" floatLabel="never">
+          <mat-form-field class="number-form-field">
             <input
               matInput
               type="number"
@@ -54,7 +54,7 @@
       <ng-container matColumnDef="actual">
         <th mat-header-cell *matHeaderCellDef>Actual</th>
         <td mat-cell *matCellDef="let element">
-          <mat-form-field class="number-form-field" floatLabel="never">
+          <mat-form-field class="number-form-field">
             <input
               matInput
               type="number"
@@ -70,7 +70,7 @@
       <ng-container matColumnDef="comments">
         <th mat-header-cell *matHeaderCellDef>Comments</th>
         <mat-cell *matCellDef="let element">
-          <mat-form-field floatLabel="never">
+          <mat-form-field >
             <input
               matInput
               placeholder="Comments"
