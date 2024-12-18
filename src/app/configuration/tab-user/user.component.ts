@@ -2,7 +2,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { TaggedTemplateExpr } from '@angular/compiler';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { Observable, ReplaySubject } from 'rxjs';
 import { UserDataStoreService } from './user.datastore.service';
