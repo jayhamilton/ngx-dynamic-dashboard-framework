@@ -7,9 +7,10 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 
 
 @Component({
-  selector: 'app-notification',
-  templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss']
+    selector: 'app-notification',
+    templateUrl: './notification.component.html',
+    styleUrls: ['./notification.component.scss'],
+    standalone: false
 })
 export class NotificationComponent extends GadgetBase  implements OnInit {
 

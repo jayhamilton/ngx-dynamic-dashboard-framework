@@ -21,8 +21,9 @@ import { EventsComponent } from '../events/events.component';
  */
 
 @Component({
-  selector: 'gadget-grid-cell-host',
-  template: '',
+    selector: 'gadget-grid-cell-host',
+    template: '',
+    standalone: false
 })
 export class GadgetGridCellHostComponent implements OnInit {
   @Input() gadgetData: IGadget;

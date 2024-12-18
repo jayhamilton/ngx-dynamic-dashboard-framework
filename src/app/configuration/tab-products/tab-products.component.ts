@@ -14,9 +14,10 @@ const ELEMENT_DATA: ProductItem[] = [
   {position: 1, name: 'Armoni', date: '12/10/2021', description: 'Armoni box set'},
 ];
 @Component({
-  selector: 'app-tab-products',
-  templateUrl: './tab-products.component.html',
-  styleUrls: ['./tab-products.component.scss']
+    selector: 'app-tab-products',
+    templateUrl: './tab-products.component.html',
+    styleUrls: ['./tab-products.component.scss'],
+    standalone: false
 })
 export class TabProductsComponent  {
 

@@ -20,9 +20,10 @@ const ELEMENT_DATA: ComponentItem[] = [
   { id: 61490200, measure: 1.00, description: 'Rouge D\'Armani Rouge 400', product: 'Armani'},
 ];
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+    selector: 'app-product',
+    templateUrl: './product.component.html',
+    styleUrls: ['./product.component.scss'],
+    standalone: false
 })
 export class ProductComponent extends GadgetBase implements OnInit {
 

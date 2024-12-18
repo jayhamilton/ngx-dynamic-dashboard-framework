@@ -28,41 +28,36 @@ import {
 } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 
 @Component({
-  /* solves error: Expression has changed after it was checked exception resolution - https://www.youtube.com/watch?v=K_BRcal-JfI*/
-  // changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-dynamic-form',
-  templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./styles-props.scss'],
-  animations: [
-    trigger('contentSwitch', [
-      state(
-        'inactive',
-        style({
-          opacity: 0,
-        })
-      ),
-      state(
-        'active',
-        style({
-          opacity: 1,
-        })
-      ),
-      transition('inactive => active', animate('750ms ease-in')),
-      transition('active => inactive', animate('750ms ease-out')),
-    ]),
-    trigger('showHideAnimation', [
-      transition(':enter', [
-        // :enter is alias to 'void => *'
-        style({ opacity: 0 }),
-        animate(750, style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        // :leave is alias to '* => void'
-        animate(750, style({ opacity: 0 })),
-      ]),
-    ]),
-  ],
-  providers: [PropertyControlService],
+    /* solves error: Expression has changed after it was checked exception resolution - https://www.youtube.com/watch?v=K_BRcal-JfI*/
+    // changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-dynamic-form',
+    templateUrl: './dynamic-form.component.html',
+    styleUrls: ['./styles-props.scss'],
+    animations: [
+        trigger('contentSwitch', [
+            state('inactive', style({
+                opacity: 0,
+            })),
+            state('active', style({
+                opacity: 1,
+            })),
+            transition('inactive => active', animate('750ms ease-in')),
+            transition('active => inactive', animate('750ms ease-out')),
+        ]),
+        trigger('showHideAnimation', [
+            transition(':enter', [
+                // :enter is alias to 'void => *'
+                style({ opacity: 0 }),
+                animate(750, style({ opacity: 1 })),
+            ]),
+            transition(':leave', [
+                // :leave is alias to '* => void'
+                animate(750, style({ opacity: 0 })),
+            ]),
+        ]),
+    ],
+    providers: [PropertyControlService],
+    standalone: false
 })
 export class DynamicFormComponent implements OnInit, AfterViewInit {
   @Input() gadgetTags: ITag[]; //todo - use to control what endpoints are displayed

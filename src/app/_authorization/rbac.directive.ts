@@ -8,7 +8,8 @@ import {
 import { Subject } from 'rxjs';
 
 @Directive({
-  selector: '[checkPermissions]',
+    selector: '[checkPermissions]',
+    standalone: false
 })
 export class RbacDirective implements OnInit, OnDestroy {
   userHasRole = false;

@@ -5,9 +5,10 @@ import { Hiearchy, IBoard, IBoardCollection } from '../board/board.model';
 import { EventService } from '../eventservice/event.service';
 
 @Component({
-  selector: 'app-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss'],
+    selector: 'app-sidenav',
+    templateUrl: './sidenav.component.html',
+    styleUrls: ['./sidenav.component.scss'],
+    standalone: false
 })
 export class SidenavComponent implements OnInit {
   @ViewChild('drawer') public drawer!: MatDrawer;

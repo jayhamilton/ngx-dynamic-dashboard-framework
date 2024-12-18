@@ -4,7 +4,7 @@ import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import * as footballstatsfromfile from '../../../assets/api/footballstats.json'
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 export interface footballstatsInterface {
   stats: any[];
@@ -12,9 +12,10 @@ export interface footballstatsInterface {
 
 
 @Component({
-  selector: 'app-bar-chart',
-  templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.scss']
+    selector: 'app-bar-chart',
+    templateUrl: './bar-chart.component.html',
+    styleUrls: ['./bar-chart.component.scss'],
+    standalone: false
 })
 export class BarChartComponent extends GadgetBase implements AfterViewInit {
   // changed variables and added names and values for football stats array 

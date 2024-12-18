@@ -14,21 +14,22 @@ import { UntypedFormControl } from '@angular/forms';
 import { LayoutService } from '../layout/layout.service';
 
 @Component({
-  selector: 'app-board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss'],
-  animations: [
-    trigger('showHide', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('500ms', style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        style({ opacity: 1 }),
-        animate('500ms', style({ opacity: 0 })),
-      ]),
-    ]),
-  ],
+    selector: 'app-board',
+    templateUrl: './board.component.html',
+    styleUrls: ['./board.component.scss'],
+    animations: [
+        trigger('showHide', [
+            transition(':enter', [
+                style({ opacity: 0 }),
+                animate('500ms', style({ opacity: 1 })),
+            ]),
+            transition(':leave', [
+                style({ opacity: 1 }),
+                animate('500ms', style({ opacity: 0 })),
+            ]),
+        ]),
+    ],
+    standalone: false
 })
 export class BoardComponent implements OnInit {
   boardData!: IBoard;

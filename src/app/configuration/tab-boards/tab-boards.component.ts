@@ -19,9 +19,10 @@ export interface IBoardNewRequestData {
 
 const ELEMENT_DATA: IBoard[] = [];
 @Component({
-  selector: 'app-tab-boards',
-  templateUrl: './tab-boards.component.html',
-  styleUrls: ['./tab-boards.component.scss'],
+    selector: 'app-tab-boards',
+    templateUrl: './tab-boards.component.html',
+    styleUrls: ['./tab-boards.component.scss'],
+    standalone: false
 })
 export class TabBoardsComponent implements OnInit {
 

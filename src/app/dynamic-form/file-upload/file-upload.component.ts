@@ -3,9 +3,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ImageUploadService } from './file-upload.service';
 
 @Component({
-  selector: 'app-file-upload',
-  templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.scss'],
+    selector: 'app-file-upload',
+    templateUrl: './file-upload.component.html',
+    styleUrls: ['./file-upload.component.scss'],
+    standalone: false
 })
 export class FileUploadComponent implements OnInit {
   @Output() fileUploadEvent: EventEmitter<any> = new EventEmitter();
