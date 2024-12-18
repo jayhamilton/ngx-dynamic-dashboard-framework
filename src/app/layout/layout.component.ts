@@ -4,9 +4,10 @@ import { EventService } from '../eventservice/event.service';
 import { layouts, LayoutType } from './layout.model';
 
 @Component({
-  selector: 'app-sidelayout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
+    selector: 'app-sidelayout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss'],
+    standalone: false
 })
 export class SidelayoutComponent implements OnInit {
   _layouts = layouts;

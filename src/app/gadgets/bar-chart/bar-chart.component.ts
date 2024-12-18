@@ -12,9 +12,10 @@ export interface footballstatsInterface {
 
 
 @Component({
-  selector: 'app-bar-chart',
-  templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.scss']
+    selector: 'app-bar-chart',
+    templateUrl: './bar-chart.component.html',
+    styleUrls: ['./bar-chart.component.scss'],
+    standalone: false
 })
 export class BarChartComponent extends GadgetBase implements AfterViewInit {
   // changed variables and added names and values for football stats array 

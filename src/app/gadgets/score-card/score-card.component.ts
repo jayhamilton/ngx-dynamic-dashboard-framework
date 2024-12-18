@@ -34,9 +34,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  selector: 'app-score-card',
-  templateUrl: './score-card.component.html',
-  styleUrls: ['./score-card.component.scss']
+    selector: 'app-score-card',
+    templateUrl: './score-card.component.html',
+    styleUrls: ['./score-card.component.scss'],
+    standalone: false
 })
 export class ScoreCardComponent extends GadgetBase implements OnInit{
 

@@ -6,9 +6,10 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { UntypedFormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-pck-line',
-  templateUrl: './pck-line.component.html',
-  styleUrls: ['./pck-line.component.scss']
+    selector: 'app-pck-line',
+    templateUrl: './pck-line.component.html',
+    styleUrls: ['./pck-line.component.scss'],
+    standalone: false
 })
 export class PckLineComponent extends GadgetBase implements OnInit {
 

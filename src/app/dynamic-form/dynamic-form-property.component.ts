@@ -12,22 +12,23 @@ import { ScheduleDataStoreService } from '../configuration/tab-schedule/schedule
 import { EventService } from '../eventservice/event.service';
 
 @Component({
-  selector: 'app-df-property',
-  templateUrl: './dynamic-form-property.component.html',
-  styleUrls: ['./styles-props.scss'],
-  animations: [
-    trigger('showHideAnimation', [
-      transition(':enter', [
-        // :enter is alias to 'void => *'
-        style({ opacity: 0 }),
-        animate(750, style({ opacity: 1 })),
-      ]),
-      transition(':leave', [
-        // :leave is alias to '* => void'
-        animate(750, style({ opacity: 0 })),
-      ]),
-    ]),
-  ],
+    selector: 'app-df-property',
+    templateUrl: './dynamic-form-property.component.html',
+    styleUrls: ['./styles-props.scss'],
+    animations: [
+        trigger('showHideAnimation', [
+            transition(':enter', [
+                // :enter is alias to 'void => *'
+                style({ opacity: 0 }),
+                animate(750, style({ opacity: 1 })),
+            ]),
+            transition(':leave', [
+                // :leave is alias to '* => void'
+                animate(750, style({ opacity: 0 })),
+            ]),
+        ]),
+    ],
+    standalone: false
 })
 export class DynamicFormPropertyComponent implements AfterContentInit {
   @Input() property: PropertyBase<any>;

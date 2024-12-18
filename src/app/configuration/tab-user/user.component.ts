@@ -11,9 +11,10 @@ import { UserService, IUser } from './user.service';
 
 const ELEMENT_DATA: IUser[] = [];
 @Component({
-  selector: 'app-rbac',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
+    selector: 'app-rbac',
+    templateUrl: './user.component.html',
+    styleUrls: ['./user.component.scss'],
+    standalone: false
 })
 export class TabUserComponent implements OnInit, AfterViewInit {
 

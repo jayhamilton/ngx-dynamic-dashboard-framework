@@ -10,9 +10,10 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 
 
 @Component({
-  selector: 'app-events',
-  templateUrl: './events.component.html',
-  styleUrls: ['./events.component.scss']
+    selector: 'app-events',
+    templateUrl: './events.component.html',
+    styleUrls: ['./events.component.scss'],
+    standalone: false
 })
 export class EventsComponent extends GadgetBase  implements OnInit {
 

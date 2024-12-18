@@ -8,9 +8,10 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 
 
 @Component({
-  selector: 'app-usergroup',
-  templateUrl: './usergroup.component.html',
-  styleUrls: ['./usergroup.component.scss']
+    selector: 'app-usergroup',
+    templateUrl: './usergroup.component.html',
+    styleUrls: ['./usergroup.component.scss'],
+    standalone: false
 })
 export class UsergroupComponent extends GadgetBase  implements OnInit {
 

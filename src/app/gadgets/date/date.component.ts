@@ -6,9 +6,10 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 
 
 @Component({
-  selector: 'app-date',
-  templateUrl: './date.component.html',
-  styleUrls: ['./date.component.scss']
+    selector: 'app-date',
+    templateUrl: './date.component.html',
+    styleUrls: ['./date.component.scss'],
+    standalone: false
 })
 export class DateComponent extends GadgetBase  implements OnInit {
 
