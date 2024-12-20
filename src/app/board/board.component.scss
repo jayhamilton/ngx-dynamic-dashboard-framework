@@ -1,16 +1,11 @@
+
+
 $primary_color: #3f51b5;
 
 .board-header {
-  margin: 35px;
+  padding: 25px;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
-mat-tab-group {
-  margin-left: 50px;
-  margin-right: 50px;
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-title {
   color: $primary_color;
 }
@@ -18,6 +13,14 @@ mat-card-title {
 .mat-card-content-grid-container {
   display: grid;
   align-items: center;
+}
+
+::ng-deep .mat-tab-group .mat-tab-labels {
+  justify-content: flex-start;
+}
+
+::ng-deep .mat-tab-label {
+  text-align: left;
 }
 p {
   font-style: "Roboto";

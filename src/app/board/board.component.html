@@ -10,7 +10,7 @@
   [selectedIndex]="selected.value"
   (selectedIndexChange)="selected.setValue($event); setSelected(selected.value)"
 >
-  <mat-tab
+  <mat-tab class="mat-tab-label"
     *ngFor="let tab of boardData.tabs; let index = index"
     [label]="tab.title"
   >

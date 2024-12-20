@@ -17,7 +17,6 @@
   <span class="example-spacer"></span>
 
   <span *checkPermissions>
-    <span class="menu-text"> Configure board</span>
     <button mat-icon-button (click)="openConfigDialog()" class="example-icon"
       aria-label="Example icon-button with share icon">
       <mat-icon>settings</mat-icon>
@@ -25,14 +24,12 @@
   </span>
 
   <span *checkPermissions>
-    <span class="menu-text">Add tool</span>
     <button mat-icon-button (click)="openGadgetLibraryDialog()" aria-label="Example icon-button with heart icon">
       <mat-icon>playlist_add</mat-icon>
     </button>
   </span>
 
   <span *checkPermissions>
-    <span class="menu-text">Change layout</span>
     <button mat-icon-button (click)="toggleLayout()" class="example-icon favorite-icon"
       aria-label="Example icon-button with heart icon">
       <mat-icon>dashboard</mat-icon>
@@ -40,7 +37,6 @@
   </span>
 
   <span style="margin-left: 20px;">
-    <span class="menu-text"> Log Out</span>
     <button mat-icon-button (click)="logout()" class="example-icon favorite-icon"
       aria-label="Example icon-button with heart icon">
       <mat-icon>logout</mat-icon>
