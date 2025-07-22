@@ -21,7 +21,13 @@
     "@angular/platform-browser-dynamic": "^19.0.4",
     "@angular/router": "^19.0.4",
     "@angular/upgrade": "^19.0.4",
+    "@jsonforms/angular": "^3.6.0",
+    "@jsonforms/angular-material": "^3.6.0",
+    "@jsonforms/core": "^3.6.0",
+    "@jsonforms/material-renderers": "^3.6.0",
     "@swimlane/ngx-charts": "^20.1.0",
+    "ace-builds": "^1.43.2",
+    "ace-editor-builds": "^1.2.4",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

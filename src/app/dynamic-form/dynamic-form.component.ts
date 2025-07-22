@@ -9,6 +9,7 @@ import {
   EventEmitter,
   ChangeDetectorRef,
   AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 
 import {
@@ -20,8 +21,12 @@ import {
 } from '@angular/animations';
 
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { PropertyControlService } from './property-control.service';
+import { EventService } from '../eventservice/event.service';
 import {
   IPropertyPage,
   ITag,
@@ -59,7 +64,7 @@ import {
     providers: [PropertyControlService],
     standalone: false
 })
-export class DynamicFormComponent implements OnInit, AfterViewInit {
+export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() gadgetTags: ITag[]; //todo - use to control what endpoints are displayed
   @Input() propertyPages: IPropertyPage[];
   @Input() instanceId: number;
@@ -74,10 +79,11 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   form: UntypedFormGroup = new UntypedFormGroup({});
   payLoad = '';
   showMessage: boolean = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private pcs: PropertyControlService,
-
+    private eventService: EventService,
     private changeDetectionRef: ChangeDetectorRef
   ) {
     this.gadgetTags = []; //todo - use to control what endpoints are displayed
@@ -95,6 +101,17 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.form = this.pcs.toFormGroupFromPP(this.propertyPages);
+    
+    // Subscribe to form value changes for real-time updates with debouncing
+    this.form.valueChanges.pipe(
+      debounceTime(100), // Reduced delay for more responsive updates
+      distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)),
+      takeUntil(this.destroy$)
+    ).subscribe((value) => {
+      console.log('DynamicForm: Form value changed (debounced), emitting update:', value);
+      this.payLoad = JSON.stringify(value);
+      this.updatePropertiesEvent.emit(this.payLoad);
+    });
   }
 
   saveForm() {
@@ -121,5 +138,23 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   }
   setSelected(event: any) {
     console.log(event);
+  }
+
+  onTabChange(event: any) {
+    console.log('DynamicForm: Tab changed to index:', event.index);
+    // Emit tab change event so ACE editors can refresh if needed
+    this.eventService.emitChartDataChanged({
+      data: {
+        source: 'tab-change',
+        tabIndex: event.index,
+        tabLabel: event.tab.textLabel
+      }
+    });
+  }
+
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

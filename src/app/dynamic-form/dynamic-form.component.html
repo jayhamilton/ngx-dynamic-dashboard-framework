@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-  <mat-tab-group [selectedIndex]="tabIndex" (selectedIndexChange)="setSelected($event)">
+  <mat-tab-group [selectedIndex]="tabIndex" (selectedIndexChange)="setSelected($event)" (selectedTabChange)="onTabChange($event)">
     <mat-tab *ngFor="let page of propertyPages; let r = index" label="{{ page.displayName }}">
       <div class="gridContainer">
         <div *ngFor="let property of page.properties" class="form-row">

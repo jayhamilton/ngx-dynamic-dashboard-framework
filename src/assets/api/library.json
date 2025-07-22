@@ -66,6 +66,36 @@
             "label": "Subtitle",
             "value": "Product component subtitle",
             "required": false,
+            "order": 2
+          }
+        ]
+      },
+      {
+        "displayName": "Data",
+        "groupId": "data",
+        "position": 20,
+        "properties": [
+          {
+            "controlType": "ace-editor",
+            "key": "chartData",
+            "label": "Chart Data (JSON)",
+            "value": "[\n  {\n    \"name\": \"Series 1\",\n    \"series\": [\n      {\"name\": \"Monday\", \"value\": 320},\n      {\"name\": \"Tuesday\", \"value\": 730},\n      {\"name\": \"Wednesday\", \"value\": 294}\n    ]\n  },\n  {\n    \"name\": \"Series 2\",\n    \"series\": [\n      {\"name\": \"Monday\", \"value\": 480},\n      {\"name\": \"Tuesday\", \"value\": 300},\n      {\"name\": \"Wednesday\", \"value\": 180}\n    ]\n  }\n]",
+            "required": false,
+            "order": 1
+          }
+        ]
+      },
+      {
+        "displayName": "Form Builder",
+        "groupId": "forms",
+        "position": 30,
+        "properties": [
+          {
+            "controlType": "json-forms",
+            "key": "chartData",
+            "label": "Chart Data (Form)",
+            "value": "[\n  {\n    \"name\": \"Series 1\",\n    \"series\": [\n      {\"name\": \"Monday\", \"value\": 320},\n      {\"name\": \"Tuesday\", \"value\": 730},\n      {\"name\": \"Wednesday\", \"value\": 294}\n    ]\n  },\n  {\n    \"name\": \"Series 2\",\n    \"series\": [\n      {\"name\": \"Monday\", \"value\": 480},\n      {\"name\": \"Tuesday\", \"value\": 300},\n      {\"name\": \"Wednesday\", \"value\": 180}\n    ]\n  }\n]",
+            "required": false,
             "order": 1
           }
         ]

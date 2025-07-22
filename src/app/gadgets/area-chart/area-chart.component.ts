@@ -21,77 +21,7 @@ export interface Color {
 export class AreaChartComponent extends GadgetBase  implements OnInit {
 
   curveShape:any =  curveBasis;
-  multi = [
-    {
-      "name": "Armani",
-      "series": [
-        {
-          "name": "Monday",
-          "value": 320
-        },
-        {
-          "name": "Wednesday",
-          "value": 730
-        },
-        {
-          "name": "Friday",
-          "value": 294
-        }
-      ]
-    },
-    {
-      "name": "GUUCI",
-      "series": [
-        {
-          "name": "Monday",
-          "value": 480
-        },
-        {
-          "name": "Wednesday",
-          "value": 300
-        },
-        {
-          "name": "Friday",
-          "value": 180
-        }
-      ]
-    },
-
-    {
-      "name": "Ralph Lauren",
-      "series": [
-        {
-          "name": "Monday",
-          "value": 250
-        },
-        {
-          "name": "Wednesday",
-          "value": 309
-        },
-        {
-          "name": "Friday",
-          "value": 111
-        }
-      ]
-    },
-    {
-      "name": "Polo",
-      "series": [
-        {
-          "name": "Monday",
-          "value": 157
-        },
-        {
-          "name": "Wednesday",
-          "value": 62
-        },
-        {
-          "name": "Friday",
-          "value": 80
-        }
-      ]
-    }
-  ];
+  multi: any[] = [];
 // options
 legend: boolean = true;
 showLabels: boolean = true;
@@ -120,12 +50,66 @@ colorScheme:Color = {
   view: any[] = [700, 300];
 
   ngOnInit(): void {
+    this.loadChartData();
+  }
+
+  override initializeConfiguration(gadgetData: any) {
+    super.initializeConfiguration(gadgetData);
+    this.loadChartData();
+  }
+
+  private loadChartData(): void {
+    // Look for saved chartData in propertyPages
+    let chartDataFound = false;
+    
+    if (this.propertyPages && this.propertyPages.length > 0) {
+      this.propertyPages.forEach((page) => {
+        page.properties.forEach((property) => {
+          if (property.key === "chartData" && property.value) {
+            try {
+              this.multi = JSON.parse(property.value);
+              chartDataFound = true;
+            } catch (error) {
+              console.error('Invalid JSON data for chart:', error);
+            }
+          }
+        });
+      });
+    }
+    
+    // Load default data if no saved data found
+    if (!chartDataFound) {
+      this.loadDefaultData();
+    }
+  }
+
+  private loadDefaultData(): void {
+    const defaultData = [
+      {
+        "name": "Series 1",
+        "series": [
+          {"name": "Monday", "value": 320},
+          {"name": "Tuesday", "value": 730},
+          {"name": "Wednesday", "value": 294}
+        ]
+      },
+      {
+        "name": "Series 2",
+        "series": [
+          {"name": "Monday", "value": 480},
+          {"name": "Tuesday", "value": 300},
+          {"name": "Wednesday", "value": 180}
+        ]
+      }
+    ];
+    this.multi = defaultData;
   }
 
   remove() {
     this.eventService.emitGadgetDeleteEvent({ data: this.instanceId });
   }
   propertyChangeEvent(propertiesJSON: string) {
+    console.log('AreaChart: propertyChangeEvent called with:', propertiesJSON);
     //update internal props
     const updatedPropsObject = JSON.parse(propertiesJSON);
 
@@ -136,14 +120,42 @@ colorScheme:Color = {
       this.subtitle = updatedPropsObject.subtitle;
       console.log.apply(this.subtitle);
     }
-
-
+    if (updatedPropsObject.chartData != undefined) {
+      try {
+        console.log('AreaChart: Updating chart data to:', updatedPropsObject.chartData);
+        this.multi = JSON.parse(updatedPropsObject.chartData);
+        console.log('AreaChart: Chart data updated successfully:', this.multi);
+        
+        // Update property pages to sync between tabs
+        this.updatePropertyPagesWithChartData(updatedPropsObject.chartData);
+      } catch (error) {
+        console.error('Invalid JSON data for chart:', error);
+        // Keep existing data if JSON is invalid
+      }
+    }
 
     //persist changes
     this.boardService.savePropertyPageConfigurationToDestination(
       propertiesJSON,
       this.instanceId
     );
+  }
+
+  private updatePropertyPagesWithChartData(chartData: string) {
+    console.log('AreaChart: Updating property pages with chart data');
+    
+    // Update all property pages that have chartData properties
+    this.propertyPages.forEach((page) => {
+      page.properties.forEach((property) => {
+        if (property.key === 'chartData') {
+          console.log('AreaChart: Found chartData property, updating value from:', property.value);
+          console.log('AreaChart: To:', chartData);
+          property.value = chartData;
+        }
+      });
+    });
+    
+    console.log('AreaChart: Property pages updated');
   }
 
 }

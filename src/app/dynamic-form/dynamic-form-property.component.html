@@ -57,6 +57,27 @@
              value="{{property.value}}"></textarea>
         </mat-form-field>
       </div>
+
+      <div *ngSwitchCase="'ace-editor'" class="ace-editor-container">
+        <mat-label [attr.for]="property.key">{{ property.label }}</mat-label>
+        <div style="margin: 5px 0; padding: 5px; background: #f0f0f0; font-size: 12px;">
+          Debug: Control type = {{ property.controlType }}, Key = {{ property.key }}
+        </div>
+        <custom-ace-editor
+          [formControlName]="property.key"
+          [mode]="'json'"
+          [theme]="'github'"
+          style="border: 1px solid #ccc; border-radius: 4px;">
+        </custom-ace-editor>
+      </div>
+
+      <div *ngSwitchCase="'json-forms'" class="json-forms-container">
+        <mat-label [attr.for]="property.key">{{ property.label }}</mat-label>
+        <json-forms-editor
+          [formControlName]="property.key"
+          style="border: 1px solid #ccc; border-radius: 4px; padding: 16px; display: block;">
+        </json-forms-editor>
+      </div>
     </div>
   </div>
 </div>

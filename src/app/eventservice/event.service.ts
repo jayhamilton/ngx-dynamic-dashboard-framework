@@ -27,6 +27,7 @@ export class EventService {
   private gadgetDeleteSubject: Subject<IEvent> = new Subject<IEvent>();
   private userDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
   private scheduleEventDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
+  private chartDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
 
 
   private subscribers: Array<Subject<string>> = [];
@@ -160,6 +161,15 @@ export class EventService {
 
   listenForScheduleEventDataChangedEvent(): Observable<IEvent> {
     return this.scheduleEventDataChangedSubject.asObservable();
+  }
+
+  emitChartDataChanged(event: IEvent) {
+    console.log('EventService: Emitting chart data change:', event);
+    this.chartDataChangedSubject.next(event);
+  }
+
+  listenForChartDataChangedEvent(): Observable<IEvent> {
+    return this.chartDataChangedSubject.asObservable();
   }
 }
 //emitScheduledEventDataChanged

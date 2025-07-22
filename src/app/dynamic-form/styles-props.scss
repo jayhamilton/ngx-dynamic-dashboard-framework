@@ -57,3 +57,29 @@
 .full_width{
   width:100%
 }
+
+.ace-editor-container {
+  width: 100%;
+  grid-column: 1 / -1; /* Span all columns in the grid */
+  margin: 10px 0;
+}
+
+.ace-editor-container mat-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.json-forms-container {
+  width: 100%;
+  grid-column: 1 / -1; /* Span all columns in the grid */
+  margin: 10px 0;
+}
+
+.json-forms-container mat-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+}

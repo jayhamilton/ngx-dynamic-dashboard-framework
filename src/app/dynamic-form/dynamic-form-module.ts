@@ -15,11 +15,16 @@ import { ImageUploadService } from './file-upload/file-upload.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { AceEditorComponent } from './ace-editor/ace-editor.component';
+import { JsonFormsEditorComponent } from './json-forms-editor/json-forms-editor.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({ declarations: [
         DynamicFormComponent,
         DynamicFormPropertyComponent,
         FileUploadComponent,
+        AceEditorComponent,
+        JsonFormsEditorComponent,
     ],
     exports: [DynamicFormComponent, DynamicFormPropertyComponent], imports: [CommonModule,
         FormsModule,
@@ -31,5 +36,6 @@ import { MatSelectModule } from '@angular/material/select';
         MatIconModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatSelectModule], providers: [PropertyControlService, ImageUploadService, MatDatepickerModule, provideHttpClient(withInterceptorsFromDi())] })
+        MatSelectModule,
+        MatCardModule], providers: [PropertyControlService, ImageUploadService, MatDatepickerModule, provideHttpClient(withInterceptorsFromDi())] })
 export class DynamicFormModule {}
