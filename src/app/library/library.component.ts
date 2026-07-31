@@ -48,10 +48,12 @@ export class LibraryComponent implements OnInit, AfterViewInit {
     });
   }
 
-  addGadget(gadgetData: IGadget) {
+  private lastAddTime = 0;
 
-    console.log("---> adding gadget");
-    console.log(gadgetData);
+  addGadget(gadgetData: IGadget) {
+    const now = Date.now();
+    if (now - this.lastAddTime < 1000) return;
+    this.lastAddTime = now;
     this.eventService.emitLibraryAddGadgetEvent({ data: gadgetData });
     this.libraryDialogCloseButton?.nativeElement.click();
   }

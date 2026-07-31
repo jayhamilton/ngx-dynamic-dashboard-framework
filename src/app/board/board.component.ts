@@ -12,6 +12,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 import { UntypedFormControl } from '@angular/forms';
 import { LayoutService } from '../layout/layout.service';
+import { throttleTime } from 'rxjs/operators';
 
 @Component({
     selector: 'app-board',
@@ -93,15 +94,9 @@ export class BoardComponent implements OnInit {
 
     this.eventService
       .listenForLibraryAddGadgetEvents()
+      .pipe(throttleTime(1000))
       .subscribe((event: IEvent) => {
-        /**
-         * TODO - use different method here. We want to
-         * save the board structure and reload it
-         * instead of adding the gadget directly to the
-         * display.
-         */
-
-        this.saveNewGadget(event.data); //IGadget
+        this.saveNewGadget(event.data);
       });
 
       this.eventService.listenForGadgetPropertyChangeEvents()
