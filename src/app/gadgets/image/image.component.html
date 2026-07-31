@@ -2,23 +2,31 @@
   <app-gadget-header [title]="title" [subtitle]="subtitle" [iconpath]="icon" (removeEvent)="remove()"
     [inConfig]="inConfig" (toggleConfigModeEvent)="toggleConfigMode()">
   </app-gadget-header>
-  <mat-card-content *ngIf="!inConfig">
-    <div cdkDropListGroup class="grid">
-      <div *ngFor="let list of imageLists; let listIndex = index">
-        <div cdkDropList [id]="getIndexAsString(listIndex)" [cdkDropListData]="list.imageNames"
+  @if (!inConfig) {
+    <mat-card-content>
+      <div cdkDropListGroup class="grid">
+        @for (list of imageLists; track list; let listIndex = $index) {
+          <div>
+            <div cdkDropList [id]="getIndexAsString(listIndex)" [cdkDropListData]="list.imageNames"
           (cdkDropListDropped)="drop($event)" [ngClass]="
             list.imageNames.length == 0 ? 'empty-column-placeholder' : ''
           ">
-          <div *ngFor="let item of list.imageNames" cdkDrag>
-            <img src="{{ apihost }}{{ api }}/{{ item }}" class="img-grid move-cursor" />
+              @for (item of list.imageNames; track item) {
+                <div cdkDrag>
+                  <img src="{{ apihost }}{{ api }}/{{ item }}" class="img-grid move-cursor" />
+                </div>
+              }
+            </div>
           </div>
-        </div>
+        }
       </div>
-    </div>
-  </mat-card-content>
-  <mat-card-content *ngIf="inConfig" class="upload-grid">
-    <app-dynamic-form [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId"
-      [tabIndex]="isMissingPropertyValue() ? 1 : 0" (updatePropertiesEvent)="propertyChangeEvent($event)">
-    </app-dynamic-form>
-  </mat-card-content>
+    </mat-card-content>
+  }
+  @if (inConfig) {
+    <mat-card-content class="upload-grid">
+      <app-dynamic-form [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId"
+        [tabIndex]="isMissingPropertyValue() ? 1 : 0" (updatePropertiesEvent)="propertyChangeEvent($event)">
+      </app-dynamic-form>
+    </mat-card-content>
+  }
 </mat-card>

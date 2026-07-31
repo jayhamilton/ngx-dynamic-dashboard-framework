@@ -7,20 +7,22 @@
   <mat-card-subtitle>{{ subtitle }}</mat-card-subtitle>
   <!--<mat-card-subtitle>{{description}}</mat-card-subtitle>-->
   <mat-chip-listbox>
-    <mat-chip-option selected color="accent" *ngIf="inConfig">
-      You are in configuration mode</mat-chip-option
-    >
-  </mat-chip-listbox>
-  <button
-    mat-icon-button
-    class="more-button"
-    [matMenuTriggerFor]="menu"
-    aria-label="Toggle menu"
-  >
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu" xPosition="before">
-    <button mat-menu-item (click)="toggleConfigMode()">{{ menuLabel }}</button>
-    <button mat-menu-item (click)="remove()">Remove</button>
-  </mat-menu>
-</mat-card-header>
+    @if (inConfig) {
+      <mat-chip-option selected color="accent">
+        You are in configuration mode</mat-chip-option
+        >
+      }
+    </mat-chip-listbox>
+    <button
+      mat-icon-button
+      class="more-button"
+      [matMenuTriggerFor]="menu"
+      aria-label="Toggle menu"
+      >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="toggleConfigMode()">{{ menuLabel }}</button>
+      <button mat-menu-item (click)="remove()">Remove</button>
+    </mat-menu>
+  </mat-card-header>

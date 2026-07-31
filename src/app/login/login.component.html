@@ -20,11 +20,13 @@
         </button>
       </div>
 
-      <div *ngIf="showMessage"  class="form-row-message">
-        <div>Username or password is incorrect!</div>
-      </div>
+      @if (showMessage) {
+        <div  class="form-row-message">
+          <div>Username or password is incorrect!</div>
+        </div>
+      }
     </form>
-    
+
   </mat-card-content>
 </mat-card>
 

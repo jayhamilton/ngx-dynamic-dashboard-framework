@@ -1,75 +1,83 @@
 <h3>Add name and role</h3>
 <form [formGroup]="form"  class ="example-form">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Name</mat-label>
-      <input [formControl]="username" matInput placeholder="Ex. Connie" value="" required>
-    </mat-form-field>
-  
-    <mat-form-field appearance="fill">
-        <mat-label>Role</mat-label>
-        <mat-select [formControl]="roles" [compareWith]="compare" required>
-          <mat-option *ngFor="let role of roleList" [value]="role">{{role}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input [formControl]="username" matInput placeholder="Ex. Connie" value="" required>
+  </mat-form-field>
 
-      &nbsp;&nbsp;
-    <button mat-mini-fab color="primary"  class="tab-button" (click)="create()" [disabled]="!form.valid || !form.dirty">
-      <mat-icon *ngIf="!editMode">add</mat-icon>
-      <mat-icon *ngIf="editMode">change_circle</mat-icon>
-    </button>
+  <mat-form-field appearance="fill">
+    <mat-label>Role</mat-label>
+    <mat-select [formControl]="roles" [compareWith]="compare" required>
+      @for (role of roleList; track role) {
+        <mat-option [value]="role">{{role}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
 
-    <button mat-button color="primary" *ngIf="editMode"  class="tab-button" (click)="resetEditMode()">
+  &nbsp;&nbsp;
+  <button mat-mini-fab color="primary"  class="tab-button" (click)="create()" [disabled]="!form.valid || !form.dirty">
+    @if (!editMode) {
+      <mat-icon>add</mat-icon>
+    }
+    @if (editMode) {
+      <mat-icon>change_circle</mat-icon>
+    }
+  </button>
+
+  @if (editMode) {
+    <button mat-button color="primary"  class="tab-button" (click)="resetEditMode()">
       clear
     </button>
-    
-  </form>
+  }
 
-  <br>
-<table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
-  <!-- Position Column -->
+</form>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="Id">
-    <th mat-header-cell *matHeaderCellDef>Id</th> 
-    <td mat-cell *matCellDef="let element">
-      <!-- realtionship value of 0 indicates parent and 1 indicates child -->
-      {{ element.id }}
-    </td>
-  </ng-container>
+<br>
+  <table matSort (matSortChange)="sortData($event)" mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
+    <!-- Position Column -->
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let element">
+        <!-- realtionship value of 0 indicates parent and 1 indicates child -->
+        {{ element.id }}
+      </td>
+    </ng-container>
 
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="Name">
-    <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Name</th> 
-    <td mat-cell *matCellDef="let element">
-      <!-- realtionship value of 0 indicates parent and 1 indicates child -->
-      {{ element.username }}
-    </td>
-  </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Name</th>
+      <td mat-cell *matCellDef="let element">
+        <!-- realtionship value of 0 indicates parent and 1 indicates child -->
+        {{ element.username }}
+      </td>
+    </ng-container>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="Role">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Role</th>
-    <td mat-cell *matCellDef="let element">{{ element.roles }}</td>
-  </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="Role">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Role</th>
+      <td mat-cell *matCellDef="let element">{{ element.roles }}</td>
+    </ng-container>
 
-  <!-- Tools Column -->
-  <ng-container matColumnDef="Tools">
-    <th mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let element">
-      <mat-toolbar>
-        <button mat-icon-button (click)="edit(element)" class="example-icon favorite-icon"
-          aria-label="Example icon-button with heart icon">
-          <mat-icon>mode_edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="delete(element)" class="example-icon"
-          aria-label="Example icon-button with share icon">
-          <mat-icon>delete_forever</mat-icon>
-        </button>
-      </mat-toolbar>
-    </td>
-  </ng-container>
+    <!-- Tools Column -->
+    <ng-container matColumnDef="Tools">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-toolbar>
+          <button mat-icon-button (click)="edit(element)" class="example-icon favorite-icon"
+            aria-label="Example icon-button with heart icon">
+            <mat-icon>mode_edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="delete(element)" class="example-icon"
+            aria-label="Example icon-button with share icon">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </mat-toolbar>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>

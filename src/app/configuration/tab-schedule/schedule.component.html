@@ -5,94 +5,104 @@
 
   <div>
     <form [formGroup]="form">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Event Description</mat-label>
-      <input [formControl]="description" required matInput placeholder="Ex. 1st" value="">
-    </mat-form-field>
-    <br>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Event Description</mat-label>
+        <input [formControl]="description" required matInput placeholder="Ex. 1st" value="">
+      </mat-form-field>
+      <br>
 
-    <mat-form-field>
-      <mat-label>Hours</mat-label>
+        <mat-form-field>
+          <mat-label>Hours</mat-label>
 
-      <input [formControl]="hours" required matInput type="number" placeholder="Hours" [value]=11>
+          <input [formControl]="hours" required matInput type="number" placeholder="Hours" [value]=11>
 
-    </mat-form-field>:
-    <mat-form-field>
-      <mat-label>Minutes</mat-label>
+        </mat-form-field>:
+        <mat-form-field>
+          <mat-label>Minutes</mat-label>
 
-      <input [formControl]="minutes" required matInput type="number" placeholder="Minutes" [value]=0>
+          <input [formControl]="minutes" required matInput type="number" placeholder="Minutes" [value]=0>
 
-    </mat-form-field>
+        </mat-form-field>
 
-    <br>
-    <button mat-mini-fab color="primary" class="tab-button" (click)="create()" [disabled]="!form.valid || !form.dirty">
-      <mat-icon *ngIf="!editMode">add</mat-icon>
-      <mat-icon *ngIf="editMode">change_circle</mat-icon>
-    </button>
-    <button mat-button color="primary" *ngIf="editMode"  class="tab-button" (click)="resetEditMode()">
-      clear
-    </button>
-
-  </form>
-  </div>
-  
-  
-  <div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
-      <!-- Position Column -->
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="Id">
-        <th mat-header-cell *matHeaderCellDef>Id</th>
-        <td mat-cell *matCellDef="let element">
-          <!-- realtionship value of 0 indicates parent and 1 indicates child -->
-          <mat-icon *ngIf="element.relationship == 1"><span class="material-icons">
-              subdirectory_arrow_right
-            </span></mat-icon>
-          {{ element.id }}
-        </td>
-      </ng-container>
-
-
-      <!-- Description Column -->
-      <ng-container matColumnDef="Event Description">
-        <th mat-header-cell *matHeaderCellDef>Event Description</th>
-        <td mat-cell *matCellDef="let element">
-          <!-- realtionship value of 0 indicates parent and 1 indicates child -->
-          <mat-icon *ngIf="element.relationship == 1"><span class="material-icons">
-              subdirectory_arrow_right
-            </span></mat-icon>
-          {{ element.description }}
-        </td>
-      </ng-container>
-
-      <!-- Datetime Column -->
-      <ng-container matColumnDef="Time">
-        <th mat-header-cell *matHeaderCellDef>Time</th>
-        <td mat-cell *matCellDef="let element">{{ element.datetime }}</td>
-      </ng-container>
-
-      <!-- Tools Column -->
-      <ng-container matColumnDef="Tools">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let element">
-          <mat-toolbar>
-            <button mat-icon-button (click)="edit(element)" class="example-icon favorite-icon"
-              aria-label="Example icon-button with heart icon">
-              <mat-icon>mode_edit</mat-icon>
+        <br>
+          <button mat-mini-fab color="primary" class="tab-button" (click)="create()" [disabled]="!form.valid || !form.dirty">
+            @if (!editMode) {
+              <mat-icon>add</mat-icon>
+            }
+            @if (editMode) {
+              <mat-icon>change_circle</mat-icon>
+            }
+          </button>
+          @if (editMode) {
+            <button mat-button color="primary"  class="tab-button" (click)="resetEditMode()">
+              clear
             </button>
-            <button mat-icon-button (click)="delete(element)" class="example-icon"
-              aria-label="Example icon-button with share icon">
-              <mat-icon>delete_forever</mat-icon>
-            </button>
-          </mat-toolbar>
-        </td>
-      </ng-container>
+          }
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+        </form>
+      </div>
 
-  </div>
 
-</div>
+      <div>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
+          <!-- Position Column -->
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="Id">
+            <th mat-header-cell *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let element">
+              <!-- realtionship value of 0 indicates parent and 1 indicates child -->
+              @if (element.relationship == 1) {
+                <mat-icon><span class="material-icons">
+                  subdirectory_arrow_right
+                </span></mat-icon>
+              }
+              {{ element.id }}
+            </td>
+          </ng-container>
+
+
+          <!-- Description Column -->
+          <ng-container matColumnDef="Event Description">
+            <th mat-header-cell *matHeaderCellDef>Event Description</th>
+            <td mat-cell *matCellDef="let element">
+              <!-- realtionship value of 0 indicates parent and 1 indicates child -->
+              @if (element.relationship == 1) {
+                <mat-icon><span class="material-icons">
+                  subdirectory_arrow_right
+                </span></mat-icon>
+              }
+              {{ element.description }}
+            </td>
+          </ng-container>
+
+          <!-- Datetime Column -->
+          <ng-container matColumnDef="Time">
+            <th mat-header-cell *matHeaderCellDef>Time</th>
+            <td mat-cell *matCellDef="let element">{{ element.datetime }}</td>
+          </ng-container>
+
+          <!-- Tools Column -->
+          <ng-container matColumnDef="Tools">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-toolbar>
+                <button mat-icon-button (click)="edit(element)" class="example-icon favorite-icon"
+                  aria-label="Example icon-button with heart icon">
+                  <mat-icon>mode_edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="delete(element)" class="example-icon"
+                  aria-label="Example icon-button with share icon">
+                  <mat-icon>delete_forever</mat-icon>
+                </button>
+              </mat-toolbar>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+      </div>
+
+    </div>

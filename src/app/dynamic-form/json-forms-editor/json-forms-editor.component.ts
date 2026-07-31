@@ -8,50 +8,52 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'json-forms-editor',
   template: `
     <div class="simple-forms-container">
-      <div *ngFor="let series of seriesData; let i = index" class="series-form">
-        <mat-card style="margin: 10px 0; padding: 16px;">
-          <mat-card-header>
-            <mat-card-title>Series {{ i + 1 }}</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 16px;">
-              <mat-label>Series Name</mat-label>
-              <input matInput [(ngModel)]="series.name" (ngModelChange)="onDataChange()" (input)="onDataChange()" (blur)="onTouch()">
-            </mat-form-field>
-            
-            <div *ngFor="let point of series.series; let j = index" class="data-point" style="display: flex; gap: 16px; margin-bottom: 8px;">
-              <mat-form-field appearance="fill" style="flex: 1;">
-                <mat-label>Label</mat-label>
-                <input matInput [(ngModel)]="point.name" (ngModelChange)="onDataChange()" (input)="onDataChange()" (blur)="onTouch()">
+      @for (series of seriesData; track series; let i = $index) {
+        <div class="series-form">
+          <mat-card style="margin: 10px 0; padding: 16px;">
+            <mat-card-header>
+              <mat-card-title>Series {{ i + 1 }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 16px;">
+                <mat-label>Series Name</mat-label>
+                <input matInput [(ngModel)]="series.name" (ngModelChange)="onDataChange()" (input)="onDataChange()" (blur)="onTouch()">
               </mat-form-field>
-              <mat-form-field appearance="fill" style="flex: 1;">
-                <mat-label>Value</mat-label>
-                <input matInput type="number" [(ngModel)]="point.value" (ngModelChange)="onDataChange()" (input)="onDataChange()" (blur)="onTouch()">
-              </mat-form-field>
-              <button mat-icon-button color="warn" (click)="removeDataPoint(i, j)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-            
-            <div style="margin-top: 16px;">
-              <button mat-raised-button color="primary" (click)="addDataPoint(i)">
-                <mat-icon>add</mat-icon> Add Data Point
-              </button>
-              <button mat-raised-button color="warn" (click)="removeSeries(i)" style="margin-left: 8px;">
-                <mat-icon>delete</mat-icon> Remove Series
-              </button>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
-      
+              @for (point of series.series; track point; let j = $index) {
+                <div class="data-point" style="display: flex; gap: 16px; margin-bottom: 8px;">
+                  <mat-form-field appearance="fill" style="flex: 1;">
+                    <mat-label>Label</mat-label>
+                    <input matInput [(ngModel)]="point.name" (ngModelChange)="onDataChange()" (input)="onDataChange()" (blur)="onTouch()">
+                  </mat-form-field>
+                  <mat-form-field appearance="fill" style="flex: 1;">
+                    <mat-label>Value</mat-label>
+                    <input matInput type="number" [(ngModel)]="point.value" (ngModelChange)="onDataChange()" (input)="onDataChange()" (blur)="onTouch()">
+                  </mat-form-field>
+                  <button mat-icon-button color="warn" (click)="removeDataPoint(i, j)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              }
+              <div style="margin-top: 16px;">
+                <button mat-raised-button color="primary" (click)="addDataPoint(i)">
+                  <mat-icon>add</mat-icon> Add Data Point
+                </button>
+                <button mat-raised-button color="warn" (click)="removeSeries(i)" style="margin-left: 8px;">
+                  <mat-icon>delete</mat-icon> Remove Series
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      }
+    
       <div style="margin-top: 16px;">
         <button mat-raised-button color="accent" (click)="addSeries()">
           <mat-icon>add</mat-icon> Add New Series
         </button>
       </div>
     </div>
-  `,
+    `,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

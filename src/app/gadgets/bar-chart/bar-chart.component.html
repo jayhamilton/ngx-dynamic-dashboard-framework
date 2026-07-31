@@ -6,52 +6,57 @@
     (removeEvent)="remove()"
     [inConfig]="inConfig"
     (toggleConfigModeEvent)="toggleConfigMode()"
-  >
+    >
   </app-gadget-header>
 
-  <mat-card-content *ngIf="!inConfig">
-  <div *ngIf="buttonChecked"> 
-    {{averageLabel}}{{average}}<br>
-    {{averageAgeLabel}}{{averageAge}}<br>
-    {{varianceLabel}} {{variance}}<br>
-    {{standardDeviationLabel}} {{standardDeviation}}<br>
-    {{threeSigmaLabel}} {{threeSigma}} <br>
-  </div>
-  
-    <ngx-charts-bar-vertical
-      [roundEdges]="false"
-      [scheme]="colorScheme"
-      [results]="footballstats"
-      [xAxisLabel]="'February Week 3 2022'"
-      [legendTitle]= "players"
-      [yAxisLabel]= "yards"
-      [legend]="true"
-      [showXAxisLabel]="true"
-      [showYAxisLabel]="true"
-      [xAxis]="true"
-      [yAxis]="true"
-      [gradient]="true"
-    >
-    </ngx-charts-bar-vertical>
-  </mat-card-content>
+  @if (!inConfig) {
+    <mat-card-content>
+      @if (buttonChecked) {
+        <div>
+          {{averageLabel}}{{average}}<br>
+          {{averageAgeLabel}}{{averageAge}}<br>
+          {{varianceLabel}} {{variance}}<br>
+          {{standardDeviationLabel}} {{standardDeviation}}<br>
+          {{threeSigmaLabel}} {{threeSigma}} <br>
+        </div>
+      }
+      <ngx-charts-bar-vertical
+        [roundEdges]="false"
+        [scheme]="colorScheme"
+        [results]="footballstats"
+        [xAxisLabel]="'February Week 3 2022'"
+        [legendTitle]= "players"
+        [yAxisLabel]= "yards"
+        [legend]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [gradient]="true"
+        >
+      </ngx-charts-bar-vertical>
+    </mat-card-content>
+  }
   <mat-checkbox class="example-margin">Check me!</mat-checkbox>
-  <mat-card-content *ngIf="inConfig">
-    <app-dynamic-form
-      [gadgetTags]="tags"
-      [propertyPages]="propertyPages"
-      [instanceId]="instanceId"
-      [tabIndex]="isMissingPropertyValue() ? 1 : 0"
-      (updatePropertiesEvent)="propertyChangeEvent($event)"
-    >
-    </app-dynamic-form>
-  </mat-card-content>
+  @if (inConfig) {
+    <mat-card-content>
+      <app-dynamic-form
+        [gadgetTags]="tags"
+        [propertyPages]="propertyPages"
+        [instanceId]="instanceId"
+        [tabIndex]="isMissingPropertyValue() ? 1 : 0"
+        (updatePropertiesEvent)="propertyChangeEvent($event)"
+        >
+      </app-dynamic-form>
+    </mat-card-content>
+  }
 </mat-card>
 
 
-  <label for="showStatistics">Show Statistics:</label>
-  <input type="checkbox" id="showStatistics" (click)="toggleStatistics()">
+<label for="showStatistics">Show Statistics:</label>
+<input type="checkbox" id="showStatistics" (click)="toggleStatistics()">
 
-  
 
-  
-   
+
+
+

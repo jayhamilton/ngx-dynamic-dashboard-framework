@@ -3,52 +3,54 @@
     [inConfig]="inConfig" (toggleConfigModeEvent)="toggleConfigMode()">
   </app-gadget-header>
 
-  <mat-card-content *ngIf="!inConfig">
-        <mat-form-field appearance="fill">
-          <mat-label>Line Lead(s)</mat-label>
-          <mat-chip-listbox>
-            <mat-chip-option color="accent" selected *ngFor="let lead of lineleads">{{lead}}</mat-chip-option>
-          </mat-chip-listbox>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Driver</mat-label>
-          <mat-chip-listbox>
-            <mat-chip-option  selected color="primary">{{driver}}</mat-chip-option>
-          </mat-chip-listbox>
-        </mat-form-field>
-
-        <mat-form-field class="small-control" appearance="fill">
-          <mat-label>Material Handler Qty</mat-label>
-          <mat-chip-listbox>
-            <mat-chip-option>{{mcount}}</mat-chip-option>
-          </mat-chip-listbox>
-        </mat-form-field>
-
-        <mat-form-field class="small-control" appearance="fill">
-          <mat-label>Personell Qty</mat-label>
-          <mat-chip-listbox>
-            <mat-chip-option>{{pcount}}</mat-chip-option>
-          </mat-chip-listbox>
-        </mat-form-field>
-        
-        <mat-form-field appearance="fill">
-          <mat-label>Break</mat-label>
-          <mat-chip-listbox>
-            <mat-chip-option>{{lunch}}</mat-chip-option>
-          </mat-chip-listbox>
-        </mat-form-field>
+  @if (!inConfig) {
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Line Lead(s)</mat-label>
+        <mat-chip-listbox>
+          @for (lead of lineleads; track lead) {
+            <mat-chip-option color="accent" selected>{{lead}}</mat-chip-option>
+          }
+        </mat-chip-listbox>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Driver</mat-label>
+        <mat-chip-listbox>
+          <mat-chip-option  selected color="primary">{{driver}}</mat-chip-option>
+        </mat-chip-listbox>
+      </mat-form-field>
+      <mat-form-field class="small-control" appearance="fill">
+        <mat-label>Material Handler Qty</mat-label>
+        <mat-chip-listbox>
+          <mat-chip-option>{{mcount}}</mat-chip-option>
+        </mat-chip-listbox>
+      </mat-form-field>
+      <mat-form-field class="small-control" appearance="fill">
+        <mat-label>Personell Qty</mat-label>
+        <mat-chip-listbox>
+          <mat-chip-option>{{pcount}}</mat-chip-option>
+        </mat-chip-listbox>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Break</mat-label>
+        <mat-chip-listbox>
+          <mat-chip-option>{{lunch}}</mat-chip-option>
+        </mat-chip-listbox>
+      </mat-form-field>
       <!--
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Note</mat-label>
-    <input matInput t placeholder="Note" value="">
-  </mat-form-field>
--->
-  </mat-card-content>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Note</mat-label>
+        <input matInput t placeholder="Note" value="">
+      </mat-form-field>
+      -->
+    </mat-card-content>
+  }
 
-  <mat-card-content *ngIf="inConfig">
-    <app-dynamic-form [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId"
-      [tabIndex]="isMissingPropertyValue() ? 1 : 0" (updatePropertiesEvent)="propertyChangeEvent($event)">
-    </app-dynamic-form>
-  </mat-card-content>
+  @if (inConfig) {
+    <mat-card-content>
+      <app-dynamic-form [gadgetTags]="tags" [propertyPages]="propertyPages" [instanceId]="instanceId"
+        [tabIndex]="isMissingPropertyValue() ? 1 : 0" (updatePropertiesEvent)="propertyChangeEvent($event)">
+      </app-dynamic-form>
+    </mat-card-content>
+  }
 </mat-card>

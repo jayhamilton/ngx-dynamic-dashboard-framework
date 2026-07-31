@@ -1,13 +1,17 @@
 <form [formGroup]="form">
   <mat-tab-group [selectedIndex]="tabIndex" (selectedIndexChange)="setSelected($event)" (selectedTabChange)="onTabChange($event)">
-    <mat-tab *ngFor="let page of propertyPages; let r = index" label="{{ page.displayName }}">
-      <div class="gridContainer">
-        <div *ngFor="let property of page.properties" class="form-row">
-          <app-df-property [property]="property" [form]="form" [gadgetTags]="gadgetTags">
-          </app-df-property>
+    @for (page of propertyPages; track page; let r = $index) {
+      <mat-tab label="{{ page.displayName }}">
+        <div class="gridContainer">
+          @for (property of page.properties; track property) {
+            <div class="form-row">
+              <app-df-property [property]="property" [form]="form" [gadgetTags]="gadgetTags">
+              </app-df-property>
+            </div>
+          }
         </div>
-      </div>
-    </mat-tab>
+      </mat-tab>
+    }
   </mat-tab-group>
   <button mat-raised-button color="primary" (click)="saveForm()" [disabled]="!form.valid || !form.dirty">
     Save
@@ -15,6 +19,8 @@
 </form>
 <br /><br />
 
-<div *ngIf="showMessage" [@showHideAnimation] class="form-row-message">
-  <div>Saved!</div>
-</div>
+@if (showMessage) {
+  <div [@showHideAnimation] class="form-row-message">
+    <div>Saved!</div>
+  </div>
+}

@@ -1,17 +1,19 @@
 <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-        <mat-selection-list #boardList [multiple]="false">
-            <mat-list-option *ngFor="let board of boardData" [value]="board.id" (click)="showBoard(boardList)">
-                {{ board.title }}
-            </mat-list-option>
-        </mat-selection-list>
-    </mat-drawer>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-selection-list #boardList [multiple]="false">
+      @for (board of boardData; track board) {
+        <mat-list-option [value]="board.id" (click)="showBoard(boardList)">
+          {{ board.title }}
+        </mat-list-option>
+      }
+    </mat-selection-list>
+  </mat-drawer>
 
-    <mat-drawer #layout mode="side" position="end">
-        <app-sidelayout></app-sidelayout>
-    </mat-drawer>
+  <mat-drawer #layout mode="side" position="end">
+    <app-sidelayout></app-sidelayout>
+  </mat-drawer>
 
-    <div class="example-sidenav-content">
-        <app-board></app-board>
-    </div>
+  <div class="example-sidenav-content">
+    <app-board></app-board>
+  </div>
 </mat-drawer-container>

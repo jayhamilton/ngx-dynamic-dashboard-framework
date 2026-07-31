@@ -10,11 +10,13 @@ declare const ace: any;
   selector: 'custom-ace-editor',
   template: `
     <div #editor style="height: 400px; width: 100%; min-width: 600px; border: 1px solid #ccc; border-radius: 4px;">
-      <div *ngIf="!editorReady" style="padding: 20px; text-align: center; color: #666;">
-        Loading editor...
-      </div>
+      @if (!editorReady) {
+        <div style="padding: 20px; text-align: center; color: #666;">
+          Loading editor...
+        </div>
+      }
     </div>
-  `,
+    `,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
