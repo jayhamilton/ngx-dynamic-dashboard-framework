@@ -1,3 +1,5 @@
+$primary_color: #3f51b5;
+
 .example-container {
     width: 100%;
     height: 100%;
@@ -11,9 +13,29 @@
 
 .example-sidenav {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    min-width: 160px;
 }
 
-h2 {
-    text-align: center;
+mat-nav-list {
+    padding-top: 8px;
+}
+
+mat-list-item {
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 2px 8px;
+    color: #333;
+    font-size: 0.9rem;
+
+    &:hover {
+        background-color: rgba($primary_color, 0.08);
+    }
+
+    &.active {
+        background-color: rgba($primary_color, 0.15);
+        color: $primary_color;
+        font-weight: 500;
+        border-left: 3px solid $primary_color;
+    }
 }

@@ -1,12 +1,14 @@
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <mat-selection-list #boardList [multiple]="false">
+    <mat-nav-list>
       @for (board of boardData; track board) {
-        <mat-list-option [value]="board.id" (click)="showBoard(boardList)">
+        <mat-list-item
+          [class.active]="board.id === selectedBoardId"
+          (click)="selectBoard(board.id)">
           {{ board.title }}
-        </mat-list-option>
+        </mat-list-item>
       }
-    </mat-selection-list>
+    </mat-nav-list>
   </mat-drawer>
 
   <mat-drawer #layout mode="side" position="end">
