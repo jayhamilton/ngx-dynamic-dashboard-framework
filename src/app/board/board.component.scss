@@ -2,25 +2,42 @@
 
 $primary_color: #3f51b5;
 
-.board-header {
-  padding: 25px;
-}
-
 mat-card-title {
   color: $primary_color;
 }
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
+
 .mat-card-content-grid-container {
   display: grid;
   align-items: center;
 }
 
-::ng-deep .mat-tab-group .mat-tab-labels {
-  justify-content: flex-start;
+/* Hide tab header when there is only one tab */
+::ng-deep .single-tab .mat-mdc-tab-header {
+  display: none;
 }
 
-::ng-deep .mat-tab-label {
-  text-align: left;
+/* Multi-tab strip styling */
+::ng-deep mat-tab-group:not(.single-tab) .mat-mdc-tab-header {
+  background-color: #f5f5f5;
+  border-bottom: 2px solid $primary_color;
+  padding: 0 32px;
+}
+
+::ng-deep mat-tab-group:not(.single-tab) .mat-mdc-tab .mdc-tab__text-label {
+  color: #555;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+::ng-deep mat-tab-group:not(.single-tab) .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: $primary_color;
+}
+
+::ng-deep mat-tab-group:not(.single-tab) .mdc-tab-indicator__content--underline {
+  border-color: $primary_color;
+  border-top-width: 3px;
 }
 p {
   font-style: "Roboto";
