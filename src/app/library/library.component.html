@@ -5,7 +5,7 @@
       <mat-card  class="library-card"
         *cdkVirtualFor="let gadget of library; let idx = index" [ngStyle]="{'border-top-color': colors[idx]}">
         <mat-card-header>
-          <div mat-card-avatar style="background-image:
+          <div mat-card-avatar class="library-icon" style="background-image:
           url('{{ gadget.icon }}')
         ; background-size: cover;" mat-card-title-group></div>
           <mat-card-title>{{ gadget.title }}</mat-card-title>

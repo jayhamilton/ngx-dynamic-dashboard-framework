@@ -24,3 +24,10 @@ mat-card-content {
 .library-container{
     padding: 25px !important;
 }
+
+.library-icon {
+    border-radius: 0 !important;
+    background-size: contain !important;
+    background-repeat: no-repeat;
+    background-position: center;
+}
