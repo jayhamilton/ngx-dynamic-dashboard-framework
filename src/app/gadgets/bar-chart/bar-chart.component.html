@@ -11,22 +11,13 @@
 
   @if (!inConfig) {
     <mat-card-content>
-      @if (buttonChecked) {
-        <div>
-          {{averageLabel}}{{average}}<br>
-          {{averageAgeLabel}}{{averageAge}}<br>
-          {{varianceLabel}} {{variance}}<br>
-          {{standardDeviationLabel}} {{standardDeviation}}<br>
-          {{threeSigmaLabel}} {{threeSigma}} <br>
-        </div>
-      }
       <ngx-charts-bar-vertical
         [roundEdges]="false"
         [scheme]="colorScheme"
         [results]="footballstats"
         [xAxisLabel]="'February Week 3 2022'"
-        [legendTitle]= "players"
-        [yAxisLabel]= "yards"
+        [legendTitle]="'Players'"
+        [yAxisLabel]="'Total Yards'"
         [legend]="true"
         [showXAxisLabel]="true"
         [showYAxisLabel]="true"
@@ -37,7 +28,6 @@
       </ngx-charts-bar-vertical>
     </mat-card-content>
   }
-  <mat-checkbox class="example-margin">Check me!</mat-checkbox>
   @if (inConfig) {
     <mat-card-content>
       <app-dynamic-form
@@ -51,12 +41,3 @@
     </mat-card-content>
   }
 </mat-card>
-
-
-<label for="showStatistics">Show Statistics:</label>
-<input type="checkbox" id="showStatistics" (click)="toggleStatistics()">
-
-
-
-
-
