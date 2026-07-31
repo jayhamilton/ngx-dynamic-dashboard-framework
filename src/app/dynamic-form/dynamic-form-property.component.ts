@@ -1,7 +1,7 @@
 /**
  * Created by jayhamilton on 2/5/17.
  */
-import { AfterContentInit, AfterViewInit, Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { AfterContentInit, Component, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { PropertyBase } from './property-base';
 
@@ -10,6 +10,8 @@ import { ITag } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 import { UserDataStoreService } from '../configuration/tab-user/user.datastore.service';
 import { ScheduleDataStoreService } from '../configuration/tab-schedule/schedule.datastore.service';
 import { EventService } from '../eventservice/event.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-df-property',
@@ -31,7 +33,8 @@ import { EventService } from '../eventservice/event.service';
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
-export class DynamicFormPropertyComponent implements AfterContentInit {
+export class DynamicFormPropertyComponent implements AfterContentInit, OnDestroy {
+  private destroy$ = new Subject<void>();
   @Input() property: PropertyBase<any>;
   @Input() form: UntypedFormGroup;
   @Input() gadgetTags: ITag[]; //todo - use to control what endpoints are displayed
@@ -74,7 +77,7 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
 
   setupEventListeners() {
 
-    this.eventService.listenForUserDataChangedEvent().subscribe(event => {
+    this.eventService.listenForUserDataChangedEvent().pipe(takeUntil(this.destroy$)).subscribe(event => {
 
       /**TODO
        * set the role or property key in the event to avoid updating all user related dropdowns. 
@@ -90,7 +93,7 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
       
     });
 
-    this.eventService.listenForScheduleEventDataChangedEvent().subscribe(event => {
+    this.eventService.listenForScheduleEventDataChangedEvent().pipe(takeUntil(this.destroy$)).subscribe(event => {
 
       switch(this.property.key){
         case "lunch":
@@ -158,6 +161,10 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
     }
     this.form.controls['file-list'].setValue(fileNames);
     this.form.controls['file-list'].markAsDirty();
-    console.log('updating file list');
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

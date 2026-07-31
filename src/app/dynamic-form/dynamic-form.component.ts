@@ -82,6 +82,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
   payLoad = '';
   showMessage: boolean = false;
   private destroy$ = new Subject<void>();
+  private showMessageTimer: any = null;
 
   constructor(
     private pcs: PropertyControlService,
@@ -122,14 +123,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.payLoad) {
       this.showMessage = true;
-      let me = this;
-
-      setTimeout(
-        function () {
-          me.showMessage = false;
-        }.bind(this),
-        2000
-      );
+      if (this.showMessageTimer) clearTimeout(this.showMessageTimer);
+      this.showMessageTimer = setTimeout(() => { this.showMessage = false; }, 2000);
     }
 
     //console.log(this.payLoad);
@@ -158,5 +153,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+    if (this.showMessageTimer) clearTimeout(this.showMessageTimer);
   }
 }
