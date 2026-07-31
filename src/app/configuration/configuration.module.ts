@@ -18,6 +18,7 @@ import { UserService } from './tab-user/user.service';
 import { TabScheduleComponent } from './tab-schedule/schedule.component';
 import { ScheduleService } from './tab-schedule/schedule.service';
 import { MatSortModule } from '@angular/material/sort';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatInputModule,
     MatSelectModule,
     FormsModule,
-    MatSortModule
+    MatSortModule,
+    MatTooltipModule
   ],
   providers: [UserService, ScheduleService],
   exports:[

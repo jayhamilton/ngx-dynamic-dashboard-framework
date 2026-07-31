@@ -1,92 +1,73 @@
 
-
-<h3>Define a new board</h3>
-<div class="example-container">
-  <form [formGroup]="form">
-    <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value"
-      [floatLabel]="floatLabelControl.value">
-      <mat-label>Enter a title</mat-label>
+<div class="boards-form-section">
+  <h3 class="section-label">Define a new board</h3>
+  <form [formGroup]="form" class="boards-form">
+    <mat-form-field appearance="outline" class="form-field-title">
+      <mat-label>Title</mat-label>
       <input [formControl]="boardTitle" matInput placeholder="Enter a title" required />
     </mat-form-field>
 
-    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
-      <mat-label>Enter a description</mat-label>
+    <mat-form-field appearance="outline" class="form-field-desc">
+      <mat-label>Description</mat-label>
       <input [formControl]="boardDescription" matInput placeholder="Enter description" />
     </mat-form-field>
 
-    <mat-form-field appearance="fill" [hideRequiredMarker]="hideRequiredControl.value"
-      [floatLabel]="floatLabelControl.value">
+    <mat-form-field appearance="outline" class="form-field-tab">
+      <mat-label>Show board as tab</mat-label>
       <mat-select [formControl]="boardTabvalue">
         <mat-option>-- None --</mat-option>
         @for (option of this.dropDownListSelection; track option) {
-          <mat-option value="{{ option.id }}">{{ option.title }}
-          </mat-option>
+          <mat-option value="{{ option.id }}">{{ option.title }}</mat-option>
         }
       </mat-select>
-      <mat-label>
-        <mat-icon>subdirectory_arrow_right</mat-icon>
-        <b> Show board as tab</b>
-      </mat-label>
     </mat-form-field>
 
-    &nbsp;&nbsp;
-    <button mat-mini-fab color="primary"  class="tab-button" (click)="create()" [disabled]="!form.valid || !form.dirty">
-      @if (!editMode) {
-        <mat-icon>add</mat-icon>
-      }
-      @if (editMode) {
-        <mat-icon>change_circle</mat-icon>
-      }
-    </button>
-
-    @if (editMode) {
-      <button mat-button color="primary"  class="tab-button" (click)="resetEditMode()">
-        clear
+    <div class="form-actions">
+      <button mat-flat-button color="primary" (click)="create()" [disabled]="!form.valid || !form.dirty">
+        @if (!editMode) { <mat-icon>add</mat-icon> Add }
+        @if (editMode) { <mat-icon>check</mat-icon> Update }
       </button>
-    }
+      @if (editMode) {
+        <button mat-stroked-button color="primary" (click)="resetEditMode()">Cancel</button>
+      }
+    </div>
   </form>
 </div>
-<br>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tab-table">
-    <!-- Position Column -->
 
-    <!-- Name Column -->
+<div class="boards-table-section">
+  <h3 class="section-label">Boards</h3>
+  <table mat-table [dataSource]="dataSource" class="boards-table">
+
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>Title</th>
       <td mat-cell *matCellDef="let element">
-        <!-- realtionship value of 0 indicates parent and 1 indicates child -->
         @if (element.relationship == 1) {
-          <mat-icon><span class="material-icons">
-            subdirectory_arrow_right
-          </span></mat-icon>
+          <mat-icon class="child-icon">subdirectory_arrow_right</mat-icon>
         }
-        {{ element.title }}
+        <span class="board-title-text">{{ element.title }}</span>
       </td>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef>Description</th>
       <td mat-cell *matCellDef="let element">{{ element.description }}</td>
     </ng-container>
 
-    <!-- Tools Column -->
     <ng-container matColumnDef="tools">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element">
-        <mat-toolbar>
-          <button mat-icon-button (click)="edit(element)" class="example-icon favorite-icon"
-            aria-label="Example icon-button with heart icon">
-            <mat-icon>mode_edit</mat-icon>
+        <div class="action-buttons">
+          <button mat-icon-button color="primary" (click)="edit(element)" matTooltip="Edit">
+            <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button (click)="delete(element)" class="example-icon"
-            aria-label="Example icon-button with share icon">
-            <mat-icon>delete_forever</mat-icon>
+          <button mat-icon-button color="warn" (click)="delete(element)" matTooltip="Delete">
+            <mat-icon>delete</mat-icon>
           </button>
-        </mat-toolbar>
+        </div>
       </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+</div>
