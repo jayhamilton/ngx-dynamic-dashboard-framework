@@ -11,12 +11,12 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^20.3.27",
-    "@angular/cdk": "^19.0.3",
+    "@angular/cdk": "^20.2.14",
     "@angular/common": "^20.3.27",
     "@angular/compiler": "^20.3.27",
     "@angular/core": "^20.3.27",
     "@angular/forms": "^20.3.27",
-    "@angular/material": "^19.0.3",
+    "@angular/material": "^20.2.14",
     "@angular/platform-browser": "^20.3.27",
     "@angular/platform-browser-dynamic": "^20.3.27",
     "@angular/router": "^20.3.27",
@@ -28,7 +28,7 @@
     "@swimlane/ngx-charts": "^20.1.0",
     "ace-builds": "^1.43.2",
     "ace-editor-builds": "^1.2.4",
-    "rxjs": "~7.4.0",
+    "rxjs": "^7.8.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
