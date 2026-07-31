@@ -14,8 +14,8 @@ import { AuthenticationService } from '../_authentication/authentication.service
 export class LoginComponent implements OnInit {
   showMessage = false;
   form: UntypedFormGroup = new UntypedFormGroup({
-    username: new UntypedFormControl(''),
-    password: new UntypedFormControl(''),
+    username: new UntypedFormControl('admin'),
+    password: new UntypedFormControl('admin'),
   });
   constructor(
     private authenticationService: AuthenticationService,
