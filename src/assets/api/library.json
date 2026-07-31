@@ -27,6 +27,21 @@
             "label": "Subtitle",
             "value": "Product component subtitle",
             "required": false,
+            "order": 2
+          }
+        ]
+      },
+      {
+        "displayName": "Data",
+        "groupId": "data",
+        "position": 20,
+        "properties": [
+          {
+            "controlType": "ace-editor",
+            "key": "chartData",
+            "label": "Chart Data (JSON)",
+            "value": "[\n  { \"name\": \"jamie\", \"value\": 850 },\n  { \"name\": \"mickens\", \"value\": 750 },\n  { \"name\": \"mendez\", \"value\": 550 },\n  { \"name\": \"willis\", \"value\": 550 },\n  { \"name\": \"burges\", \"value\": 350 },\n  { \"name\": \"primus\", \"value\": 250 },\n  { \"name\": \"reily\", \"value\": 150 },\n  { \"name\": \"mason\", \"value\": 105 },\n  { \"name\": \"ortiz\", \"value\": 105 },\n  { \"name\": \"lewis\", \"value\": 50 }\n]",
+            "required": false,
             "order": 1
           }
         ]

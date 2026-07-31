@@ -78,9 +78,6 @@
         @case ('ace-editor') {
           <div class="ace-editor-container">
             <mat-label [attr.for]="property.key">{{ property.label }}</mat-label>
-            <div style="margin: 5px 0; padding: 5px; background: #f0f0f0; font-size: 12px;">
-              Debug: Control type = {{ property.controlType }}, Key = {{ property.key }}
-            </div>
             <custom-ace-editor
               [formControlName]="property.key"
               [mode]="'json'"
