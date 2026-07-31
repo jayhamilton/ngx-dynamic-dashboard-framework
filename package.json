@@ -24,7 +24,7 @@
     "@jsonforms/angular": "^3.8.0",
     "@jsonforms/angular-material": "^3.8.0",
     "@jsonforms/core": "^3.8.0",
-    "@jsonforms/material-renderers": "^3.6.0",
+    "@jsonforms/material-renderers": "^3.8.0",
     "@swimlane/ngx-charts": "^25.0.0",
     "ace-builds": "^1.43.2",
     "ace-editor-builds": "^1.2.4",
