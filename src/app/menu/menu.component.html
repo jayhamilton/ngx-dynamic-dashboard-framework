@@ -14,6 +14,10 @@
   </span>
 
   <span>{{applicationTitle}}</span>
+  @if (boardTitle) {
+    <span class="board-title-divider">|</span>
+    <span class="board-title">{{boardTitle}}</span>
+  }
   <span class="example-spacer"></span>
 
   <span *checkPermissions>

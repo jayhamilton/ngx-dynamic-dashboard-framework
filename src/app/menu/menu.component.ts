@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 import { ConfigurationComponent } from '../configuration/configuration.component';
 import { EventService } from '../eventservice/event.service';
 import { LibraryComponent } from '../library/library.component';
+import { BoardService } from '../board/board.service';
+import { IBoard } from '../board/board.model';
 
 @Component({
     selector: 'app-menu',
@@ -15,21 +17,34 @@ import { LibraryComponent } from '../library/library.component';
 })
 export class MenuComponent implements OnInit {
   visible = true;
-  applicationTitle:string;
+  applicationTitle: string;
+  boardTitle: string = '';
+
   constructor(
     public dialog: MatDialog,
     private eventService: EventService,
+    private boardService: BoardService,
     private router: Router
   ) {
     this.setupEventHandlers();
     this.applicationTitle = environment.applicationTitle;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.boardService.getLastSelectedBoard().subscribe((board: IBoard) => {
+      if (board?.title) this.boardTitle = board.title;
+    });
+  }
 
   setupEventHandlers() {
     this.eventService.listenForLibraryOpenMenuEvent().subscribe(() => {
       this.openGadgetLibraryDialog();
+    });
+
+    this.eventService.listenForBoardSelectedEvent().subscribe((event) => {
+      this.boardService.getBoardById(event.data).subscribe((board: IBoard) => {
+        if (board?.title) this.boardTitle = board.title;
+      });
     });
   }
   openConfigDialog() {
