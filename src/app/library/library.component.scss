@@ -5,8 +5,29 @@
   @include mat.elevation(2);
 }
 
+.library-content {
+  position: relative;
+  padding-bottom: 0 !important;
+
+  &::after {
+    content: '';
+    position: sticky;
+    bottom: 0;
+    display: block;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.95));
+    pointer-events: none;
+  }
+}
+
 .library-viewport {
-  height: 480px;
+  height: 380px;
+}
+
+.gadget-count {
+  font-size: 0.85em;
+  font-weight: 400;
+  color: #666;
 }
 
 .library-icon {

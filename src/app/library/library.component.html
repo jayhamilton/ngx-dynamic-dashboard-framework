@@ -1,5 +1,5 @@
-<h2 mat-dialog-title>Add Tool</h2>
-<mat-dialog-content>
+<h2 mat-dialog-title>Add Tool <span class="gadget-count">({{ library?.length }})</span></h2>
+<mat-dialog-content class="library-content">
   <cdk-virtual-scroll-viewport itemSize="160" class="library-viewport">
     <mat-card class="library-card"
       *cdkVirtualFor="let gadget of library; let idx = index"
