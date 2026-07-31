@@ -7,8 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
-
-
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDialogModule
   ],
   exports: [
     GadgetHeaderComponent,

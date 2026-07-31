@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { EventService } from 'src/app/eventservice/event.service';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
     selector: 'app-gadget-header',
@@ -16,7 +18,8 @@ export class GadgetHeaderComponent implements OnInit {
   @Input() iconpath: string;
   @Input() inConfig: boolean;
   menuLabel = 'Configure';
-  constructor(private eventService:EventService) {
+
+  constructor(private eventService: EventService, private dialog: MatDialog) {
     this.title = '';
     this.subtitle = '';
     this.iconpath = '';
@@ -24,13 +27,23 @@ export class GadgetHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.inConfig){
+    if (this.inConfig) {
       this.setMenuLabel();
     }
   }
 
   remove() {
-    this.removeEvent.emit();
+    const ref = this.dialog.open(ConfirmDialogComponent, {
+      width: '380px',
+      data: {
+        title: 'Remove Gadget',
+        message: `Remove "${this.title}" from the dashboard?`,
+        confirmLabel: 'Remove',
+      }
+    });
+    ref.afterClosed().subscribe(confirmed => {
+      if (confirmed) this.removeEvent.emit();
+    });
   }
 
   toggleConfigMode() {
@@ -38,13 +51,12 @@ export class GadgetHeaderComponent implements OnInit {
     this.toggleConfigModeEvent.emit();
   }
 
-  setMenuLabel(){
+  setMenuLabel() {
     if (this.menuLabel === 'Configure') {
       this.menuLabel = 'Exit Configuration';
     } else {
       this.menuLabel = 'Configure';
-       //TODO - alert board to reload config. Generalize this so that a single event can be used for this
-       this.eventService.emitBoardGadgetPropertyChangeEvent();
+      this.eventService.emitBoardGadgetPropertyChangeEvent();
     }
   }
 }

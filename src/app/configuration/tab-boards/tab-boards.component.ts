@@ -9,6 +9,8 @@ import {
 } from 'src/app/board/board.model';
 import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 export interface IBoardNewRequestData {
   title: string;
@@ -45,6 +47,7 @@ export class TabBoardsComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private boardService: BoardService,
+    private dialog: MatDialog,
     fb: UntypedFormBuilder
   ) {
     this.form = fb.group({
@@ -194,8 +197,17 @@ export class TabBoardsComponent implements OnInit {
   }
 
   delete(item: any) {
-    this.eventService.emitBoardDeleteRequestEvent({ data: item });
-    //TODO - start progress indicator
+    const ref = this.dialog.open(ConfirmDialogComponent, {
+      width: '380px',
+      data: {
+        title: 'Delete Board',
+        message: `Delete board "${item.title}"? This cannot be undone.`,
+        confirmLabel: 'Delete',
+      }
+    });
+    ref.afterClosed().subscribe(confirmed => {
+      if (confirmed) this.eventService.emitBoardDeleteRequestEvent({ data: item });
+    });
   }
   resetEditMode() {
     this.editMode = false;
