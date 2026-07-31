@@ -6,13 +6,6 @@
   <mat-card-title>{{ title }}</mat-card-title>
   <mat-card-subtitle>{{ subtitle }}</mat-card-subtitle>
   <!--<mat-card-subtitle>{{description}}</mat-card-subtitle>-->
-  <mat-chip-listbox>
-    @if (inConfig) {
-      <mat-chip-option selected color="accent">
-        You are in configuration mode</mat-chip-option
-        >
-      }
-    </mat-chip-listbox>
     <button
       mat-icon-button
       class="more-button"
@@ -26,3 +19,6 @@
       <button mat-menu-item (click)="remove()">Remove</button>
     </mat-menu>
   </mat-card-header>
+@if (inConfig) {
+  <div class="config-mode-indicator">Configuration Mode</div>
+}

@@ -4,6 +4,21 @@
     right: 10px;
 }
 
+.config-mode-indicator {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #e8eaf6;
+    color: #3f51b5;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 5px 0;
+    pointer-events: none;
+    user-select: none;
+}
+
 /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-title {
     color: #3f51b5;

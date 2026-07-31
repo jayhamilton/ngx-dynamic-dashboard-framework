@@ -9,7 +9,7 @@ declare const ace: any;
 @Component({
   selector: 'custom-ace-editor',
   template: `
-    <div #editor style="height: 400px; width: 100%; min-width: 600px; border: 1px solid #ccc; border-radius: 4px;">
+    <div #editor style="height: 300px; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
       @if (!editorReady) {
         <div style="padding: 20px; text-align: center; color: #666;">
           Loading editor...

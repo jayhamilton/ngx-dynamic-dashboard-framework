@@ -4,7 +4,7 @@
       <mat-tab label="{{ page.displayName }}">
         <div class="gridContainer">
           @for (property of page.properties; track property) {
-            <div class="form-row">
+            <div class="form-row" [class.full-width-row]="property.controlType === 'ace-editor' || property.controlType === 'json-forms' || property.controlType === 'textarea' || property.controlType === 'upload'">
               <app-df-property [property]="property" [form]="form" [gadgetTags]="gadgetTags">
               </app-df-property>
             </div>
@@ -13,11 +13,12 @@
       </mat-tab>
     }
   </mat-tab-group>
-  <button mat-raised-button color="primary" (click)="saveForm()" [disabled]="!form.valid || !form.dirty">
-    Save
-  </button>
+  <div class="form-actions">
+    <button mat-raised-button color="primary" (click)="saveForm()" [disabled]="!form.valid || !form.dirty">
+      Save
+    </button>
+  </div>
 </form>
-<br /><br />
 
 @if (showMessage) {
   <div [@showHideAnimation] class="form-row-message">

@@ -34,6 +34,10 @@
   width: 150px;
   color: green;
 }
+.form-actions {
+  padding: 8px 8px 16px;
+}
+
 .form-row-message {
   display: grid;
   width: 100%;
@@ -46,21 +50,33 @@
   color: rgb(68, 66, 66);
 }
 
-.gridContainer{
-  padding:5px;
+.gridContainer {
+  padding: 16px 8px;
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr 1fr 1fr
-
-
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+  align-items: start;
 }
-.full_width{
-  width:100%
+.full_width {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-tab-group {
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.full-width-row {
+  grid-column: 1 / -1;
 }
 
 .ace-editor-container {
   width: 100%;
-  grid-column: 1 / -1; /* Span all columns in the grid */
   margin: 10px 0;
 }
 
@@ -73,7 +89,6 @@
 
 .json-forms-container {
   width: 100%;
-  grid-column: 1 / -1; /* Span all columns in the grid */
   margin: 10px 0;
 }
 

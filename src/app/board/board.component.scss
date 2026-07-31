@@ -11,8 +11,8 @@ mat-card-title {
   align-items: center;
 }
 
-/* Hide tab header when there is only one tab */
-::ng-deep .single-tab .mat-mdc-tab-header {
+/* Hide tab header when there is only one tab — direct child only, not nested tab groups */
+::ng-deep .single-tab > .mat-mdc-tab-header {
   display: none;
 }
 
