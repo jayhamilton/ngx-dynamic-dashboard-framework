@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef, HostListener } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EventService } from '../../eventservice/event.service';
 import { Subject } from 'rxjs';
@@ -24,6 +24,7 @@ declare const ace: any;
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class AceEditorComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {

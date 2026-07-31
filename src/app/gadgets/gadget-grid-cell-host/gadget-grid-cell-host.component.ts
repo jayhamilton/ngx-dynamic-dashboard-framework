@@ -2,7 +2,8 @@ import {
   Component,
   Input,
   ViewContainerRef,
-  OnInit
+  OnInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { AreaChartComponent } from '../area-chart/area-chart.component';
 import { BarChartComponent } from '../bar-chart/bar-chart.component';
@@ -23,6 +24,7 @@ import { EventsComponent } from '../events/events.component';
 @Component({
     selector: 'gadget-grid-cell-host',
     template: '',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GadgetGridCellHostComponent implements OnInit {

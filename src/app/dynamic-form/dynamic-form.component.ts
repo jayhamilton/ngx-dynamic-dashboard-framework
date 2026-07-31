@@ -10,6 +10,7 @@ import {
   ChangeDetectorRef,
   AfterViewInit,
   OnDestroy,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import {
@@ -62,6 +63,7 @@ import {
         ]),
     ],
     providers: [PropertyControlService],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {

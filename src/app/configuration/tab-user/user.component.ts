@@ -1,5 +1,5 @@
 import { DataSource } from '@angular/cdk/collections';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
@@ -13,6 +13,7 @@ const ELEMENT_DATA: IUser[] = [];
     selector: 'app-rbac',
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TabUserComponent implements OnInit, AfterViewInit {

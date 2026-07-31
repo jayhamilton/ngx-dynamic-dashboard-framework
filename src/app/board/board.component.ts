@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -29,6 +29,7 @@ import { LayoutService } from '../layout/layout.service';
             ]),
         ]),
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class BoardComponent implements OnInit {

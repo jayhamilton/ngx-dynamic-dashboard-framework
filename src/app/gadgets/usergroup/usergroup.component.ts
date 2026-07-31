@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BoardService } from 'src/app/board/board.service';
 import { UserDataStoreService } from 'src/app/configuration/tab-user/user.datastore.service';
 import { IUser } from 'src/app/configuration/tab-user/user.service';
@@ -11,6 +11,7 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
     selector: 'app-usergroup',
     templateUrl: './usergroup.component.html',
     styleUrls: ['./usergroup.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class UsergroupComponent extends GadgetBase  implements OnInit {

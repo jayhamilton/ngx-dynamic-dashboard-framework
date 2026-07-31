@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EventService } from '../../eventservice/event.service';
 import { Subject } from 'rxjs';
@@ -61,6 +61,7 @@ import { takeUntil } from 'rxjs/operators';
       multi: true,
     }
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class JsonFormsEditorComponent implements OnInit, OnDestroy, ControlValueAccessor {

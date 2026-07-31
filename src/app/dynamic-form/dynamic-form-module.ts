@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { ImageUploadService } from './file-upload/file-upload.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -37,5 +37,5 @@ import { MatCardModule } from '@angular/material/card';
         MatDatepickerModule,
         MatNativeDateModule,
         MatSelectModule,
-        MatCardModule], providers: [PropertyControlService, ImageUploadService, MatDatepickerModule, provideHttpClient(withInterceptorsFromDi())] })
+        MatCardModule], providers: [PropertyControlService, ImageUploadService, MatDatepickerModule, provideHttpClient(withXhr(), withInterceptorsFromDi())] })
 export class DynamicFormModule {}

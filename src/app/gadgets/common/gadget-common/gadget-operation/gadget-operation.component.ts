@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-gadget-operation',
     templateUrl: './gadget-operation.component.html',
     styleUrls: ['./gadget-operation.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GadgetOperationComponent implements OnInit {

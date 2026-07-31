@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
@@ -9,6 +9,7 @@ import { UntypedFormControl } from '@angular/forms';
     selector: 'app-pck-line',
     templateUrl: './pck-line.component.html',
     styleUrls: ['./pck-line.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PckLineComponent extends GadgetBase implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
@@ -9,6 +9,7 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
     selector: 'app-date',
     templateUrl: './date.component.html',
     styleUrls: ['./date.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DateComponent extends GadgetBase  implements OnInit {

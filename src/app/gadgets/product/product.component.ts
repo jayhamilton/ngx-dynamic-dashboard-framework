@@ -1,5 +1,5 @@
 import { DataSource } from '@angular/cdk/table';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { BoardService } from 'src/app/board/board.service';
@@ -23,6 +23,7 @@ const ELEMENT_DATA: ComponentItem[] = [
     selector: 'app-product',
     templateUrl: './product.component.html',
     styleUrls: ['./product.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ProductComponent extends GadgetBase implements OnInit {

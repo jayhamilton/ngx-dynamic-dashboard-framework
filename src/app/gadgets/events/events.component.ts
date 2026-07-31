@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BoardService } from 'src/app/board/board.service';
 import { ScheduleDataStoreService } from 'src/app/configuration/tab-schedule/schedule.datastore.service';
 import { IScheduledEvent } from 'src/app/configuration/tab-schedule/schedule.service';
@@ -13,6 +13,7 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
     selector: 'app-events',
     templateUrl: './events.component.html',
     styleUrls: ['./events.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EventsComponent extends GadgetBase  implements OnInit {

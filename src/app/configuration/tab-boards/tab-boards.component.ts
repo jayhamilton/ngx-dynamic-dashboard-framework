@@ -1,5 +1,5 @@
 import { DataSource } from '@angular/cdk/table';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import {
@@ -22,6 +22,7 @@ const ELEMENT_DATA: IBoard[] = [];
     selector: 'app-tab-boards',
     templateUrl: './tab-boards.component.html',
     styleUrls: ['./tab-boards.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TabBoardsComponent implements OnInit {

@@ -4,6 +4,7 @@ import {
   ElementRef,
   OnInit,
   ViewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { EventService } from '../eventservice/event.service';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
@@ -13,6 +14,7 @@ import { LibraryService } from './library.service';
     selector: 'app-library',
     templateUrl: './library.component.html',
     styleUrls: ['./library.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class LibraryComponent implements OnInit, AfterViewInit {

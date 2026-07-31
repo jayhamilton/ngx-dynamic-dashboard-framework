@@ -19,7 +19,7 @@ import { GadgetCommonModule } from './common/gadget-common/gadget-common.module'
 import { GadgetGridCellHostComponent } from './gadget-grid-cell-host/gadget-grid-cell-host.component';
 import { ScoreCardComponent } from './score-card/score-card.component';
 import { DynamicFormModule } from '../dynamic-form/dynamic-form-module';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { MatChipsModule} from '@angular/material/chips';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -74,6 +74,6 @@ import { MatCheckboxModule} from '@angular/material/checkbox';
         NgxChartsModule,
         MatCheckboxModule], providers: [
         ImageService,
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withXhr(), withInterceptorsFromDi())
     ] })
 export class GadgetsModule {}

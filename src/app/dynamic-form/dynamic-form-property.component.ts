@@ -1,7 +1,7 @@
 /**
  * Created by jayhamilton on 2/5/17.
  */
-import { AfterContentInit, AfterViewInit, Component, Input } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { PropertyBase } from './property-base';
 
@@ -28,6 +28,7 @@ import { EventService } from '../eventservice/event.service';
             ]),
         ]),
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DynamicFormPropertyComponent implements AfterContentInit {

@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { EventService } from 'src/app/eventservice/event.service';
 
 @Component({
     selector: 'app-gadget-header',
     templateUrl: './gadget-header.component.html',
     styleUrls: ['./gadget-header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GadgetHeaderComponent implements OnInit {

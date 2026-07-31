@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import { EventService } from '../../eventservice/event.service'
 import { BoardService } from 'src/app/board/board.service';
@@ -37,6 +37,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     selector: 'app-score-card',
     templateUrl: './score-card.component.html',
     styleUrls: ['./score-card.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ScoreCardComponent extends GadgetBase implements OnInit{

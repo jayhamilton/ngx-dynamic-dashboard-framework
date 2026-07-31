@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   Component,
   OnInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   CdkDragDrop,
@@ -22,6 +23,7 @@ import { environment } from 'src/environments/environment';
     selector: 'app-image',
     templateUrl: './image.component.html',
     styleUrls: ['./image.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ImageComponent extends GadgetBase implements OnInit {

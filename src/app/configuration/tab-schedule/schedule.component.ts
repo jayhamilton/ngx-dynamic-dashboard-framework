@@ -1,6 +1,6 @@
 import { DataSource } from '@angular/cdk/collections';
 import { formatNumber } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { ScheduleDataStoreService } from './schedule.datastore.service';
@@ -12,6 +12,7 @@ const ELEMENT_DATA: IScheduledEvent[] = [];
     selector: 'app-schedule',
     templateUrl: './schedule.component.html',
     styleUrls: ['./schedule.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TabScheduleComponent implements OnInit {
