@@ -1,0 +1,21 @@
+$primary_color: #3f51b5;
+
+[mat-dialog-title] {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: $primary_color;
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+mat-dialog-content {
+  padding-top: 16px !important;
+  min-width: 700px;
+  min-height: 300px;
+}
+
+mat-dialog-actions {
+  padding: 8px 0 4px;
+  border-top: 1px solid #e0e0e0;
+}

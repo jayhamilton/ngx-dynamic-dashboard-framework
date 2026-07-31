@@ -1,23 +1,23 @@
-<h1>Configure Boards</h1>
-<mat-tab-group mat-align-tabs="start">
-  <mat-tab label="Boards">
-    <ng-template matTabContent>
-      <app-tab-boards (boardAddEvent)="closeDialog()"></app-tab-boards>
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="Team Members">
-    <ng-template matTabContent>
-      <app-rbac></app-rbac>
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="Scheduled Events">
-    <ng-template matTabContent>
-      <app-schedule></app-schedule>
-    </ng-template>
-  </mat-tab>
-</mat-tab-group>
+<h2 mat-dialog-title>Configure Boards</h2>
+<mat-dialog-content>
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Boards">
+      <ng-template matTabContent>
+        <app-tab-boards (boardAddEvent)="closeDialog()"></app-tab-boards>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Team Members">
+      <ng-template matTabContent>
+        <app-rbac></app-rbac>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Scheduled Events">
+      <ng-template matTabContent>
+        <app-schedule></app-schedule>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button #board color="primary" selected mat-button mat-dialog-close>
-    Close
-  </button>
+  <button color="primary" mat-button mat-dialog-close>Close</button>
 </mat-dialog-actions>
