@@ -4,7 +4,7 @@
       <mat-tab label="{{ page.displayName }}">
         <div class="gridContainer">
           @for (property of page.properties; track property) {
-            <div class="form-row" [class.full-width-row]="property.controlType === 'ace-editor' || property.controlType === 'json-forms' || property.controlType === 'textarea' || property.controlType === 'upload'">
+            <div class="form-row" [class.full-width-row]="property.controlType === 'ace-editor' || property.controlType === 'json-forms' || property.controlType === 'textarea' || property.controlType === 'upload' || property.controlType === 'section'">
               <app-df-property [property]="property" [form]="form" [gadgetTags]="gadgetTags">
               </app-df-property>
             </div>

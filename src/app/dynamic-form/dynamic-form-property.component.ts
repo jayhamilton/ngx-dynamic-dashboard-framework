@@ -41,7 +41,7 @@ export class DynamicFormPropertyComponent implements AfterContentInit {
 
 
   get isValid() {
-    return this.form.controls[this.property.key].valid;
+    return this.form.controls[this.property.key]?.valid ?? true;
   }
 
   constructor(formBuilder: UntypedFormBuilder,

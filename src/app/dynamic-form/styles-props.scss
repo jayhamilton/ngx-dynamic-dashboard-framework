@@ -98,3 +98,15 @@ mat-tab-group {
   font-weight: 500;
   color: rgba(0, 0, 0, 0.6);
 }
+
+.section-header {
+  grid-column: 1 / -1;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #3f51b5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 12px 0 4px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 4px;
+}

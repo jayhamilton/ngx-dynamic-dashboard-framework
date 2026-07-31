@@ -12,13 +12,13 @@ export class PropertyControlService {
     const group: any = {};
 
     propertyPages.forEach((propertyPage) => {
-      propertyPage.properties.forEach(
-        (property: { key: string; required: boolean; value: string|number }) => {
-          group[property.key] = property.required
-            ? new UntypedFormControl(property.value || '', Validators.required)
-            : new UntypedFormControl(property.value || '');
-        }
-      );
+      propertyPage.properties.forEach((property: any) => {
+        if (property.controlType === 'section') return;
+        const val = (property.value !== undefined && property.value !== null) ? property.value : '';
+        group[property.key] = property.required
+          ? new UntypedFormControl(val, Validators.required)
+          : new UntypedFormControl(val);
+      });
     });
 
     return new UntypedFormGroup(group);

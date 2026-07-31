@@ -24,16 +24,17 @@ export class AreaChartComponent extends GadgetBase  implements OnInit {
   curveShape:any =  curveBasis;
   multi: any[] = [];
 // options
-legend: boolean = true;
-showLabels: boolean = true;
-animations: boolean = true;
-xAxis: boolean = true;
-yAxis: boolean = true;
-showYAxisLabel: boolean = true;
-showXAxisLabel: boolean = true;
-xAxisLabel: string = 'February Week 3 2022';
-yAxisLabel: string = 'Output';
-timeline: boolean = true;
+chartLegend: boolean = false;
+chartLegendTitle: string = '';
+chartShowXAxis: boolean = false;
+chartShowYAxis: boolean = false;
+chartShowXAxisLabel: boolean = false;
+chartShowYAxisLabel: boolean = false;
+chartXAxisLabel: string = '';
+chartYAxisLabel: string = '';
+chartGradient: boolean = false;
+chartTimeline: boolean = false;
+chartAnimations: boolean = false;
 
 
 
@@ -52,11 +53,34 @@ colorScheme:Color = {
 
   ngOnInit(): void {
     this.loadChartData();
+    this.loadChartProperties();
   }
 
   override initializeConfiguration(gadgetData: any) {
     super.initializeConfiguration(gadgetData);
     this.loadChartData();
+    this.loadChartProperties();
+  }
+
+  private loadChartProperties(): void {
+    if (!this.propertyPages) return;
+    this.propertyPages.forEach((page) => {
+      page.properties.forEach((property: any) => {
+        switch (property.key) {
+          case 'chartLegend': this.chartLegend = property.value === true || property.value === 'true'; break;
+          case 'chartLegendTitle': if (property.value) this.chartLegendTitle = property.value; break;
+          case 'chartShowXAxis': this.chartShowXAxis = property.value === true || property.value === 'true'; break;
+          case 'chartShowYAxis': this.chartShowYAxis = property.value === true || property.value === 'true'; break;
+          case 'chartShowXAxisLabel': this.chartShowXAxisLabel = property.value === true || property.value === 'true'; break;
+          case 'chartShowYAxisLabel': this.chartShowYAxisLabel = property.value === true || property.value === 'true'; break;
+          case 'chartXAxisLabel': if (property.value) this.chartXAxisLabel = property.value; break;
+          case 'chartYAxisLabel': if (property.value) this.chartYAxisLabel = property.value; break;
+          case 'chartGradient': this.chartGradient = property.value === true || property.value === 'true'; break;
+          case 'chartTimeline': this.chartTimeline = property.value === true || property.value === 'true'; break;
+          case 'chartAnimations': this.chartAnimations = property.value === true || property.value === 'true'; break;
+        }
+      });
+    });
   }
 
   private loadChartData(): void {
@@ -110,7 +134,6 @@ colorScheme:Color = {
     this.eventService.emitGadgetDeleteEvent({ data: this.instanceId });
   }
   propertyChangeEvent(propertiesJSON: string) {
-    console.log('AreaChart: propertyChangeEvent called with:', propertiesJSON);
     //update internal props
     const updatedPropsObject = JSON.parse(propertiesJSON);
 
@@ -119,20 +142,49 @@ colorScheme:Color = {
     }
     if (updatedPropsObject.subtitle != undefined) {
       this.subtitle = updatedPropsObject.subtitle;
-      console.log.apply(this.subtitle);
     }
     if (updatedPropsObject.chartData != undefined) {
       try {
-        console.log('AreaChart: Updating chart data to:', updatedPropsObject.chartData);
         this.multi = JSON.parse(updatedPropsObject.chartData);
-        console.log('AreaChart: Chart data updated successfully:', this.multi);
-        
         // Update property pages to sync between tabs
         this.updatePropertyPagesWithChartData(updatedPropsObject.chartData);
       } catch (error) {
         console.error('Invalid JSON data for chart:', error);
         // Keep existing data if JSON is invalid
       }
+    }
+    if (updatedPropsObject.chartLegend != undefined) {
+      this.chartLegend = updatedPropsObject.chartLegend === true || updatedPropsObject.chartLegend === 'true';
+    }
+    if (updatedPropsObject.chartLegendTitle != undefined) {
+      this.chartLegendTitle = updatedPropsObject.chartLegendTitle;
+    }
+    if (updatedPropsObject.chartShowXAxis != undefined) {
+      this.chartShowXAxis = updatedPropsObject.chartShowXAxis === true || updatedPropsObject.chartShowXAxis === 'true';
+    }
+    if (updatedPropsObject.chartShowYAxis != undefined) {
+      this.chartShowYAxis = updatedPropsObject.chartShowYAxis === true || updatedPropsObject.chartShowYAxis === 'true';
+    }
+    if (updatedPropsObject.chartShowXAxisLabel != undefined) {
+      this.chartShowXAxisLabel = updatedPropsObject.chartShowXAxisLabel === true || updatedPropsObject.chartShowXAxisLabel === 'true';
+    }
+    if (updatedPropsObject.chartShowYAxisLabel != undefined) {
+      this.chartShowYAxisLabel = updatedPropsObject.chartShowYAxisLabel === true || updatedPropsObject.chartShowYAxisLabel === 'true';
+    }
+    if (updatedPropsObject.chartXAxisLabel != undefined) {
+      this.chartXAxisLabel = updatedPropsObject.chartXAxisLabel;
+    }
+    if (updatedPropsObject.chartYAxisLabel != undefined) {
+      this.chartYAxisLabel = updatedPropsObject.chartYAxisLabel;
+    }
+    if (updatedPropsObject.chartGradient != undefined) {
+      this.chartGradient = updatedPropsObject.chartGradient === true || updatedPropsObject.chartGradient === 'true';
+    }
+    if (updatedPropsObject.chartTimeline != undefined) {
+      this.chartTimeline = updatedPropsObject.chartTimeline === true || updatedPropsObject.chartTimeline === 'true';
+    }
+    if (updatedPropsObject.chartAnimations != undefined) {
+      this.chartAnimations = updatedPropsObject.chartAnimations === true || updatedPropsObject.chartAnimations === 'true';
     }
 
     //persist changes

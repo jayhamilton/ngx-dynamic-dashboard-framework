@@ -94,6 +94,12 @@
             </json-forms-editor>
           </div>
         }
+        @case ('section') {
+          <div class="section-header">{{ property.label }}</div>
+        }
+        @case ('checkbox') {
+          <mat-checkbox [formControlName]="property.key">{{ property.label }}</mat-checkbox>
+        }
       }
     </div>
   </div>

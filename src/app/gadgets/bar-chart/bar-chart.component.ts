@@ -26,20 +26,55 @@ export class BarChartComponent extends GadgetBase implements AfterViewInit, OnIn
     group: ScaleType.Linear
   };
 
+  chartLegend: boolean = false;
+  chartLegendTitle: string = '';
+  chartShowXAxis: boolean = false;
+  chartShowYAxis: boolean = false;
+  chartShowXAxisLabel: boolean = false;
+  chartShowYAxisLabel: boolean = false;
+  chartXAxisLabel: string = '';
+  chartYAxisLabel: string = '';
+  chartGradient: boolean = false;
+  chartRoundEdges: boolean = false;
+  chartShowDataLabel: boolean = false;
+
   constructor(private eventService: EventService, private boardService: BoardService, private restClient: HttpClient) {
     super();
   }
 
   ngOnInit(): void {
     this.loadChartData();
+    this.loadChartProperties();
   }
 
   override initializeConfiguration(gadgetData: any) {
     super.initializeConfiguration(gadgetData);
     this.loadChartData();
+    this.loadChartProperties();
   }
 
   ngAfterViewInit(): void {}
+
+  private loadChartProperties(): void {
+    if (!this.propertyPages) return;
+    this.propertyPages.forEach((page) => {
+      page.properties.forEach((property: any) => {
+        switch (property.key) {
+          case 'chartLegend': this.chartLegend = property.value === true || property.value === 'true'; break;
+          case 'chartLegendTitle': if (property.value) this.chartLegendTitle = property.value; break;
+          case 'chartShowXAxis': this.chartShowXAxis = property.value === true || property.value === 'true'; break;
+          case 'chartShowYAxis': this.chartShowYAxis = property.value === true || property.value === 'true'; break;
+          case 'chartShowXAxisLabel': this.chartShowXAxisLabel = property.value === true || property.value === 'true'; break;
+          case 'chartShowYAxisLabel': this.chartShowYAxisLabel = property.value === true || property.value === 'true'; break;
+          case 'chartXAxisLabel': if (property.value) this.chartXAxisLabel = property.value; break;
+          case 'chartYAxisLabel': if (property.value) this.chartYAxisLabel = property.value; break;
+          case 'chartGradient': this.chartGradient = property.value === true || property.value === 'true'; break;
+          case 'chartRoundEdges': this.chartRoundEdges = property.value === true || property.value === 'true'; break;
+          case 'chartShowDataLabel': this.chartShowDataLabel = property.value === true || property.value === 'true'; break;
+        }
+      });
+    });
+  }
 
   private loadChartData(): void {
     let chartDataFound = false;
@@ -89,6 +124,39 @@ export class BarChartComponent extends GadgetBase implements AfterViewInit, OnIn
       } catch (error) {
         console.error('Invalid JSON data for bar chart:', error);
       }
+    }
+    if (updatedPropsObject.chartLegend != undefined) {
+      this.chartLegend = updatedPropsObject.chartLegend === true || updatedPropsObject.chartLegend === 'true';
+    }
+    if (updatedPropsObject.chartLegendTitle != undefined) {
+      this.chartLegendTitle = updatedPropsObject.chartLegendTitle;
+    }
+    if (updatedPropsObject.chartShowXAxis != undefined) {
+      this.chartShowXAxis = updatedPropsObject.chartShowXAxis === true || updatedPropsObject.chartShowXAxis === 'true';
+    }
+    if (updatedPropsObject.chartShowYAxis != undefined) {
+      this.chartShowYAxis = updatedPropsObject.chartShowYAxis === true || updatedPropsObject.chartShowYAxis === 'true';
+    }
+    if (updatedPropsObject.chartShowXAxisLabel != undefined) {
+      this.chartShowXAxisLabel = updatedPropsObject.chartShowXAxisLabel === true || updatedPropsObject.chartShowXAxisLabel === 'true';
+    }
+    if (updatedPropsObject.chartShowYAxisLabel != undefined) {
+      this.chartShowYAxisLabel = updatedPropsObject.chartShowYAxisLabel === true || updatedPropsObject.chartShowYAxisLabel === 'true';
+    }
+    if (updatedPropsObject.chartXAxisLabel != undefined) {
+      this.chartXAxisLabel = updatedPropsObject.chartXAxisLabel;
+    }
+    if (updatedPropsObject.chartYAxisLabel != undefined) {
+      this.chartYAxisLabel = updatedPropsObject.chartYAxisLabel;
+    }
+    if (updatedPropsObject.chartGradient != undefined) {
+      this.chartGradient = updatedPropsObject.chartGradient === true || updatedPropsObject.chartGradient === 'true';
+    }
+    if (updatedPropsObject.chartRoundEdges != undefined) {
+      this.chartRoundEdges = updatedPropsObject.chartRoundEdges === true || updatedPropsObject.chartRoundEdges === 'true';
+    }
+    if (updatedPropsObject.chartShowDataLabel != undefined) {
+      this.chartShowDataLabel = updatedPropsObject.chartShowDataLabel === true || updatedPropsObject.chartShowDataLabel === 'true';
     }
 
     this.boardService.savePropertyPageConfigurationToDestination(

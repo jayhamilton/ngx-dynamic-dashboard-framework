@@ -11,13 +11,17 @@
       <ngx-charts-area-chart
         [scheme]="colorScheme"
         [curve]="curveShape"
-        [legend]="legend"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxis]="xAxis" [yAxis]="yAxis"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        [timeline]="timeline"
+        [legend]="chartLegend"
+        [legendTitle]="chartLegendTitle"
+        [showXAxisLabel]="chartShowXAxisLabel"
+        [showYAxisLabel]="chartShowYAxisLabel"
+        [xAxis]="chartShowXAxis"
+        [yAxis]="chartShowYAxis"
+        [xAxisLabel]="chartXAxisLabel"
+        [yAxisLabel]="chartYAxisLabel"
+        [gradient]="chartGradient"
+        [timeline]="chartTimeline"
+        [animations]="chartAnimations"
         [results]="multi">
       </ngx-charts-area-chart>
     </mat-card-content>

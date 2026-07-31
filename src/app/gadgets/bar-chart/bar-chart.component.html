@@ -12,18 +12,19 @@
   @if (!inConfig) {
     <mat-card-content class="chart-content">
       <ngx-charts-bar-vertical
-        [roundEdges]="false"
+        [roundEdges]="chartRoundEdges"
         [scheme]="colorScheme"
         [results]="footballstats"
-        [xAxisLabel]="'February Week 3 2022'"
-        [legendTitle]="'Players'"
-        [yAxisLabel]="'Total Yards'"
-        [legend]="true"
-        [showXAxisLabel]="true"
-        [showYAxisLabel]="true"
-        [xAxis]="true"
-        [yAxis]="true"
-        [gradient]="true"
+        [xAxisLabel]="chartXAxisLabel"
+        [legendTitle]="chartLegendTitle"
+        [yAxisLabel]="chartYAxisLabel"
+        [legend]="chartLegend"
+        [showXAxisLabel]="chartShowXAxisLabel"
+        [showYAxisLabel]="chartShowYAxisLabel"
+        [xAxis]="chartShowXAxis"
+        [yAxis]="chartShowYAxis"
+        [gradient]="chartGradient"
+        [showDataLabel]="chartShowDataLabel"
         >
       </ngx-charts-bar-vertical>
     </mat-card-content>

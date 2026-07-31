@@ -28,6 +28,102 @@
             "value": "Product component subtitle",
             "required": false,
             "order": 2
+          },
+          {
+            "controlType": "section",
+            "key": "section-chart-props",
+            "label": "Chart Properties",
+            "value": "",
+            "required": false,
+            "order": 10
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartLegend",
+            "label": "Show Legend",
+            "value": true,
+            "required": false,
+            "order": 11
+          },
+          {
+            "controlType": "textbox",
+            "key": "chartLegendTitle",
+            "label": "Legend Title",
+            "value": "Players",
+            "required": false,
+            "order": 12
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartShowXAxis",
+            "label": "Show X Axis",
+            "value": true,
+            "required": false,
+            "order": 13
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartShowXAxisLabel",
+            "label": "Show X Axis Label",
+            "value": true,
+            "required": false,
+            "order": 14
+          },
+          {
+            "controlType": "textbox",
+            "key": "chartXAxisLabel",
+            "label": "X Axis Label",
+            "value": "February Week 3 2022",
+            "required": false,
+            "order": 15
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartShowYAxis",
+            "label": "Show Y Axis",
+            "value": true,
+            "required": false,
+            "order": 16
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartShowYAxisLabel",
+            "label": "Show Y Axis Label",
+            "value": true,
+            "required": false,
+            "order": 17
+          },
+          {
+            "controlType": "textbox",
+            "key": "chartYAxisLabel",
+            "label": "Y Axis Label",
+            "value": "Total Yards",
+            "required": false,
+            "order": 18
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartGradient",
+            "label": "Gradient Fill",
+            "value": true,
+            "required": false,
+            "order": 19
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartRoundEdges",
+            "label": "Round Edges",
+            "value": false,
+            "required": false,
+            "order": 20
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartShowDataLabel",
+            "label": "Show Data Labels",
+            "value": false,
+            "required": false,
+            "order": 21
           }
         ]
       },
@@ -82,6 +178,102 @@
             "value": "Product component subtitle",
             "required": false,
             "order": 2
+          },
+          {
+            "controlType": "section",
+            "key": "section-chart-props",
+            "label": "Chart Properties",
+            "value": "",
+            "required": false,
+            "order": 10
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartLegend",
+            "label": "Show Legend",
+            "value": true,
+            "required": false,
+            "order": 11
+          },
+          {
+            "controlType": "textbox",
+            "key": "chartLegendTitle",
+            "label": "Legend Title",
+            "value": "Legend",
+            "required": false,
+            "order": 12
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartShowXAxis",
+            "label": "Show X Axis",
+            "value": true,
+            "required": false,
+            "order": 13
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartShowXAxisLabel",
+            "label": "Show X Axis Label",
+            "value": true,
+            "required": false,
+            "order": 14
+          },
+          {
+            "controlType": "textbox",
+            "key": "chartXAxisLabel",
+            "label": "X Axis Label",
+            "value": "February Week 3 2022",
+            "required": false,
+            "order": 15
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartShowYAxis",
+            "label": "Show Y Axis",
+            "value": true,
+            "required": false,
+            "order": 16
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartShowYAxisLabel",
+            "label": "Show Y Axis Label",
+            "value": true,
+            "required": false,
+            "order": 17
+          },
+          {
+            "controlType": "textbox",
+            "key": "chartYAxisLabel",
+            "label": "Y Axis Label",
+            "value": "Output",
+            "required": false,
+            "order": 18
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartGradient",
+            "label": "Gradient Fill",
+            "value": false,
+            "required": false,
+            "order": 19
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartTimeline",
+            "label": "Show Timeline",
+            "value": true,
+            "required": false,
+            "order": 20
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartAnimations",
+            "label": "Animations",
+            "value": true,
+            "required": false,
+            "order": 21
           }
         ]
       },
