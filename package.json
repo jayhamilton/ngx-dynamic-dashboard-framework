@@ -33,7 +33,7 @@
     "zone.js": "~0.15.0"
   },
   "overrides": {
-    "follow-redirects": ">=1.15.6",
+    "follow-redirects": ">=1.15.12",
     "on-headers": ">=1.1.0",
     "cookie": ">=0.7.0",
     "socket.io": ">=4.6.2",
