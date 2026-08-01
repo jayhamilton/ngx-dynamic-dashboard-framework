@@ -38,6 +38,9 @@ export class SidenavComponent implements OnInit {
   }
 
   toggleLayout() {
+    if (!this.layout.opened) {
+      this.configPanel.close();
+    }
     this.layout.toggle();
   }
 
@@ -76,6 +79,7 @@ export class SidenavComponent implements OnInit {
       });
 
     this.eventService.listenForOpenConfigPanelEvent().subscribe(() => {
+      this.layout.close();
       this.configPanel.open();
     });
 

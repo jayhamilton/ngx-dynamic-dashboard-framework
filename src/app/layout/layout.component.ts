@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BoardService } from '../board/board.service';
+import { IBoard } from '../board/board.model';
 import { EventService } from '../eventservice/event.service';
 import { layouts, LayoutType } from './layout.model';
 import { NgClass } from '@angular/common';
@@ -17,18 +18,27 @@ export class SidelayoutComponent implements OnInit {
   _layouts = layouts;
   selectedLayoutId = -1;
   constructor(private eventService: EventService, boardService: BoardService) {
-    eventService.listenForBoardSelectedEvent().subscribe((event) => {
-      //get the board and layout then get the id and set it.
-      boardService.getBoardById(event.data).subscribe((board) => {
-        //console.log('Board structure of the selected board!');
-        //console.log(board.structure);
+    // Seed selection from whichever board is already active — the initial
+    // default board on app load never fires a BoardSelectedEvent (that only
+    // happens when the user clicks a board in the nav list), so without this
+    // the panel would show nothing selected until the user switched boards.
+    boardService.getLastSelectedBoard().subscribe((board) => {
+      this.updateSelectedLayoutFromBoard(board);
+    });
 
-        layouts.forEach((layout) => {
-          if (layout.structure.localeCompare(board.structure) == 0) {
-            this.selectedLayoutId = layout.id;
-          }
-        });
+    eventService.listenForBoardSelectedEvent().subscribe((event) => {
+      boardService.getBoardById(event.data).subscribe((board) => {
+        this.updateSelectedLayoutFromBoard(board);
       });
+    });
+  }
+
+  private updateSelectedLayoutFromBoard(board: IBoard) {
+    if (!board) return;
+    layouts.forEach((layout) => {
+      if (layout.structure.localeCompare(board.structure) == 0) {
+        this.selectedLayoutId = layout.id;
+      }
     });
   }
 
