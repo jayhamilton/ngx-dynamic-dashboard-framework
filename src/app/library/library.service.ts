@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import {environment} from '../../environments/environment'
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LibraryService{
     env: any;
 

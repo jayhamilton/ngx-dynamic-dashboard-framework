@@ -7,7 +7,7 @@ export interface IUser {
   username: string;
   roles: string;
 }
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UserService {
   apiEndPoint = environment.apihost + environment.userAPI;
 

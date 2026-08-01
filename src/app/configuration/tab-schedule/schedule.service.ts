@@ -7,7 +7,7 @@ export interface IScheduledEvent {
   description: string;
   datetime: string;
 }
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ScheduleService {
   apiEndPoint = environment.apihost + environment.eventAPI;
 

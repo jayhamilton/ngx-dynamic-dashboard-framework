@@ -4,7 +4,7 @@ import { EventService } from 'src/app/eventservice/event.service';
 import { environment } from 'src/environments/environment';
 import { IScheduledEvent } from './schedule.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ScheduleDataStoreService {
     events: Array<IScheduledEvent> = [];
    

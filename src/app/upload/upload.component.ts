@@ -4,8 +4,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
     selector: 'app-upload',
     templateUrl: './upload.component.html',
     styleUrls: ['./upload.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class UploadComponent implements OnInit {
 

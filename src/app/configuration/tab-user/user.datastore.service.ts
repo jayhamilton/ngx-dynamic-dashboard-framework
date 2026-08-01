@@ -5,7 +5,7 @@ import { IUser } from './user.service';
 import { EventService } from '../../eventservice/event.service';
 
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UserDataStoreService {
     users: Array<IUser> = [];
    

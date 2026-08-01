@@ -4,7 +4,7 @@
 import { Injectable } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PropertyControlService {
   constructor() {}
 
