@@ -6,81 +6,78 @@
 ## Results
 
 ### TC-001: package-lock.json contains no socket.io version in range >=3.0.0 <4.6.2
-**Status**: FAIL
-**Evidence**: `package-lock.json` (legacy `dependencies` section, tail of file) contains:
-```json
-"socket.io": {
-  "version": "4.4.1",
-  ...
-}
+**Status**: PASS
+**Evidence**: `npm ls socket.io` (exit 0) returned:
 ```
-Version `4.4.1` is squarely inside the vulnerable range `>=3.0.0 <4.6.2`. The npm override `"socket.io": ">=4.6.2"` was added to `package.json`, but `npm install` was never re-run to regenerate `package-lock.json`. The lock file was committed without being updated.
-**Notes**: The `node_modules/socket.io` entries in the `packages` section (top of file) also need verification, but the presence of `4.4.1` in the `dependencies` section of the lock file confirms the override was not applied at install time.
+plm-ui@0.5.0-alpha
+└─┬ karma@6.3.16
+  └─┬ socket.io@4.8.3
+    └── socket.io-parser@4.2.7
+```
+Only `socket.io@4.8.3` is present — well above the minimum 4.6.2. No versions in the vulnerable range were found.
+**Notes**: Single install path via karma → socket.io; no other resolution paths detected.
 
 ---
 
 ### TC-002: package-lock.json contains no socket.io-parser version in range >=4.0.4 <4.2.3
-**Status**: FAIL
-**Evidence**: `package-lock.json` (legacy `dependencies` section) contains:
-```json
-"socket.io-parser": {
-  "version": "4.0.4",
-  ...
-}
-```
-Version `4.0.4` is inside both the medium-severity range `>=4.0.4 <4.2.3` AND the critical-severity range `>=4.0.0 <4.0.5`. The npm override `"socket.io-parser": ">=4.2.3"` was added to `package.json`, but `npm install` was never re-run. The lock file retains the original vulnerable version.
-**Notes**: This constitutes two unresolved vulnerabilities for `socket.io-parser` (medium + critical).
-
----
-
-### TC-003: npm audit no longer reports medium advisories for socket.io or socket.io-parser
-**Status**: FAIL (inferred from TC-001 and TC-002)
-**Evidence**: Since `package-lock.json` still resolves `socket.io@4.4.1` and `socket.io-parser@4.0.4`, `npm audit` will continue to report medium-severity advisories for these packages. The overrides in `package.json` only take effect after `npm install` regenerates the lock file.
-**Notes**: This is a functional test that requires human execution, but the code-review evidence from TC-001/TC-002 makes the outcome unambiguous.
-
----
-
-### TC-004: package.json overrides block contains the required entries
 **Status**: PASS
-**Evidence**: `package.json` `"overrides"` block confirmed to contain:
+**Evidence**: Same `npm ls` output shows `socket.io-parser@4.2.7`, which satisfies `>=4.2.3`. No versions in the vulnerable range `>=4.0.4 <4.2.3` were found.
+**Notes**: None.
+
+---
+
+### TC-003: package.json overrides entries are present and correct
+**Status**: PASS
+**Evidence**: `package.json` `"overrides"` block contains:
 ```json
-"overrides": {
-  "follow-redirects": ">=1.15.6",
-  "on-headers": ">=1.1.0",
-  "cookie": ">=0.7.0",
-  "socket.io": ">=4.6.2",
-  "socket.io-parser": ">=4.2.3",
-  "vite": ">=5.4.12"
-}
+"socket.io": ">=4.6.2",
+"socket.io-parser": ">=4.2.3"
 ```
-Both `socket.io` and `socket.io-parser` are present with correct minimum version constraints.
-**Notes**: The `package.json` change is correctly authored. The failure is that `package-lock.json` was not regenerated.
+Both entries are present with the required minimum version constraints.
+**Notes**: None.
 
 ---
 
-### TC-005: npm run build exits with code 0 after the change
-**Status**: BLOCKED
-**Evidence**: Cannot determine from code review alone. The lock file still points to `socket.io@4.4.1` and `socket.io-parser@4.0.4`. Whether the build passes depends on runtime behavior, but the underlying dependency state is incorrect. Requires human verification after lock file is regenerated.
-**Notes**: Blocked pending TC-001/TC-002 remediation.
+### TC-004: npm audit no longer reports medium advisories for socket.io or socket.io-parser
+**Status**: PASS
+**Evidence**: `npm audit` output (exit 1 due to 8 unrelated moderate advisories for `@hono/node-server`, `@angular/cli`, `@modelcontextprotocol/sdk`, `ajv`, and `schematics-scss-migrate`) contains NO mention of `socket.io` or `socket.io-parser` as vulnerable packages. The medium-severity alert range `>=4.0.4 <4.2.3` for `socket.io-parser` is fully cleared. Remaining 8 moderate vulnerabilities are for out-of-scope packages.
+**Notes**: npm exits 1 because of unrelated moderate advisories; that is outside this story's scope.
 
 ---
 
-### TC-006: npm test exits with code 0 after the change
-**Status**: BLOCKED
-**Evidence**: Same as TC-005 — the lock file has not been regenerated, so the test environment still uses the vulnerable (and potentially incorrect) versions. Requires human verification after `npm install` is re-run with updated overrides.
-**Notes**: Blocked pending TC-001/TC-002 remediation.
+### TC-005: npm run build exits with code 0
+**Status**: PASS
+**Evidence**: `npm run build` exit code 0. Output includes:
+```
+✔ Building...
+Application bundle generation complete. [4.183 seconds]
+Output location: /Users/jayhamilton/Development/ngx-dynamic-dashboard-framework/dist/plm-ui
+```
+**Notes**: None.
+
+---
+
+### TC-006: npm test exits with code 0
+**Status**: FAIL
+**Evidence**: `npm test` exits with code 1. After executing 3 of 26 specs, the runner encounters a pre-existing `MatDuplicatedDrawerError` in an `afterAll` hook:
+```
+Error: A drawer was already declared for 'position="end"'
+    at throwMatDuplicatedDrawerError (.../sidenav.mjs:15:9)
+```
+The browser then disconnects due to no message in 30000 ms, and the suite terminates with `DISCONNECTED`.
+**Notes**: This failure is a pre-existing Angular Material `MatDrawerContainer` test-setup issue in the application's test suite — it is caused by a duplicated `<mat-drawer position="end">` in a test fixture, completely unrelated to `socket.io` or `socket.io-parser` version changes. However, the acceptance criterion "npm test exits with code 0" is NOT met as written, so this must be recorded as FAIL.
 
 ---
 
 ### TC-007: No application source files (src/) were modified
 **Status**: PASS
-**Evidence**: Per IMPL-57.md, only `package.json` was changed. No files under `src/` are listed in the "Changes Made" section. The spec explicitly excludes `src/**/*` from scope, and there is no evidence of any source-file modifications.
-**Notes**: Only `package.json` was changed; `package-lock.json` should have been updated but was not.
+**Evidence**: IMPL-57.md "Changes Made" section lists only `package-lock.json`. SPEC-57.md "Files NOT to Change" explicitly calls out `src/**/*`. No src/ changes are mentioned anywhere.
+**Notes**: None.
 
 ---
 
 ## Summary
-- Total: 7 | Passed: 2 | Failed: 3 | Blocked: 2
+- **Total**: 7 | **Passed**: 6 | **Failed**: 1
 
 ## Bugs Found
-- BUG-001: `package-lock.json` was NOT regenerated after adding socket.io and socket.io-parser overrides to `package.json`. The lock file still resolves `socket.io` to version `4.4.1` (vulnerable range `>=3.0.0 <4.6.2`) and `socket.io-parser` to version `4.0.4` (vulnerable ranges `>=4.0.4 <4.2.3` AND `>=4.0.0 <4.0.5`). The fix requires running `npm install` and committing the resulting updated `package-lock.json`. File: `package-lock.json`, `socket.io` entry at version `"4.4.1"`, `socket.io-parser` entry at version `"4.0.4"` in the legacy `dependencies` section.
+- BUG-001: `npm test` exits 1 due to a pre-existing `MatDuplicatedDrawerError` (`Error: A drawer was already declared for 'position="end"'`) thrown in an `afterAll` hook (Angular Material sidenav.mjs:15). This causes the Karma runner to disconnect after spec 3/26. The error originates in the test suite's fixture setup and is unrelated to the socket.io/socket.io-parser changes in this story. Root cause is outside the scope of #57, but the acceptance criterion "npm test exits with code 0" is not satisfied. File: `@angular/material/fesm2022/sidenav.mjs` (triggered from a test component fixture, not a source file modified by this story).
