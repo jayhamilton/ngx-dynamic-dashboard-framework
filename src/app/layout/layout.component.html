@@ -1,12 +1,22 @@
-<div class="grid-layout">
-  <h2>Board Layouts</h2>
-  <ul>
-    @for (layout of _layouts; track layout; let i = $index) {
-      <li style="list-style: none">
-        <img [ngClass]="{ 'layout-selected': selectedLayoutId == layout.id }"
-          src="/assets/images/layout/{{ layout.structure }}.png"
-          (click)="selectBoardLayout(layout.structure, layout.id)" />
-      </li>
-    }
-  </ul>
+<div class="layout-panel">
+  <div class="layout-panel-header">
+    <span class="layout-panel-title">Board Layouts</span>
+    <button mat-icon-button class="layout-panel-close" (click)="close()" aria-label="Close board layouts panel">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="layout-panel-body">
+    <div class="grid-layout">
+      <ul>
+        @for (layout of _layouts; track layout; let i = $index) {
+          <li style="list-style: none">
+            <img [ngClass]="{ 'layout-selected': selectedLayoutId == layout.id }"
+              src="/assets/images/layout/{{ layout.structure }}.png"
+              (click)="selectBoardLayout(layout.structure, layout.id)" />
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
 </div>
