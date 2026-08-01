@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, OnDestroy, Output, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { EventService } from 'src/app/eventservice/event.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle } from '@angular/material/card';
@@ -15,7 +17,7 @@ import { IPropertyPage, ITag } from '../gadget-base/gadget.model';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle, MatIconButton, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem]
 })
-export class GadgetHeaderComponent implements OnInit {
+export class GadgetHeaderComponent implements OnInit, OnDestroy {
   @Output() removeEvent: EventEmitter<any> = new EventEmitter();
   @Output() toggleConfigModeEvent: EventEmitter<any> = new EventEmitter();
   @Input() title: string;
@@ -27,6 +29,7 @@ export class GadgetHeaderComponent implements OnInit {
   @Input() gadgetTags: ITag[] = [];
   @Input() propertyChangeCallback: ((propertiesJSON: string) => void) | null = null;
   menuLabel = 'Configure';
+  private destroy$ = new Subject<void>();
 
   constructor(private eventService: EventService, private dialog: MatDialog) {
     this.title = '';
@@ -39,6 +42,25 @@ export class GadgetHeaderComponent implements OnInit {
     if (this.inConfig) {
       this.setMenuLabel();
     }
+
+    // The panel can close for reasons other than this gadget's own menu
+    // (its close button, backdrop click, escape key, or opening another
+    // side panel) — this is the single place that keeps inConfig in sync
+    // with the panel actually being closed. Guarded by inConfig so this
+    // doesn't double-toggle when the gadget itself just triggered the close.
+    this.eventService.listenForConfigPanelClosedEvent()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((event) => {
+        if (this.inConfig && event.data.instanceId === this.gadgetInstanceId) {
+          this.setMenuLabel();
+          this.toggleConfigModeEvent.emit();
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   remove() {
@@ -58,16 +80,21 @@ export class GadgetHeaderComponent implements OnInit {
   toggleConfigMode() {
     this.setMenuLabel();
     this.toggleConfigModeEvent.emit();
-    // Open configuration in side panel
-    this.eventService.emitOpenConfigPanelEvent({
-      data: {
-        title: this.title,
-        instanceId: this.gadgetInstanceId,
-        propertyPages: this.gadgetPropertyPages,
-        tags: this.gadgetTags,
-        propertyChangeCallback: this.propertyChangeCallback
-      }
-    });
+    if (this.menuLabel === 'Exit Configuration') {
+      // Just entered config mode — open the side panel.
+      this.eventService.emitOpenConfigPanelEvent({
+        data: {
+          title: this.title,
+          instanceId: this.gadgetInstanceId,
+          propertyPages: this.gadgetPropertyPages,
+          tags: this.gadgetTags,
+          propertyChangeCallback: this.propertyChangeCallback
+        }
+      });
+    } else {
+      // Just exited config mode via this gadget's own menu — close it.
+      this.eventService.emitCloseConfigPanelEvent();
+    }
   }
 
   setMenuLabel() {

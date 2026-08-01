@@ -22,6 +22,7 @@ export class SidenavComponent implements OnInit {
   boardData: IBoard[] = [];
 
   selectedBoardId: number | null = null;
+  private openConfigInstanceId: number = -1;
 
   constructor(
     private eventService: EventService,
@@ -42,6 +43,15 @@ export class SidenavComponent implements OnInit {
       this.configPanel.close();
     }
     this.layout.toggle();
+  }
+
+  // Bound to <mat-drawer #configPanel (closed)>. Fires whenever the drawer
+  // actually finishes closing — close button, backdrop click, escape key,
+  // or being closed programmatically (e.g. toggleLayout() above) — so it's
+  // the single reliable place to tell the gadget that was being configured
+  // to exit config mode, regardless of how the panel got closed.
+  onConfigPanelClosed() {
+    this.eventService.emitConfigPanelClosedEvent({ data: { instanceId: this.openConfigInstanceId } });
   }
 
   loadBoards() {
@@ -78,7 +88,8 @@ export class SidenavComponent implements OnInit {
         this.toggleLayout();
       });
 
-    this.eventService.listenForOpenConfigPanelEvent().subscribe(() => {
+    this.eventService.listenForOpenConfigPanelEvent().subscribe((event) => {
+      this.openConfigInstanceId = event.data.instanceId;
       this.layout.close();
       this.configPanel.open();
     });

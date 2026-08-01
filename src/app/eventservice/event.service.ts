@@ -30,6 +30,7 @@ export class EventService {
   private chartDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
   private openConfigPanelSubject: Subject<IEvent> = new Subject<IEvent>();
   private closeConfigPanelSubject: Subject<IEvent> = new Subject<IEvent>();
+  private configPanelClosedSubject: Subject<IEvent> = new Subject<IEvent>();
 
 
   private subscribers: Array<Subject<string>> = [];
@@ -188,6 +189,19 @@ export class EventService {
 
   listenForCloseConfigPanelEvent(): Observable<IEvent> {
     return this.closeConfigPanelSubject.asObservable();
+  }
+
+  // Fired once the config panel drawer has actually finished closing,
+  // regardless of why (close button, backdrop click, escape key, or being
+  // closed programmatically e.g. by opening another side panel) — the
+  // single reliable signal for "this gadget instance is no longer being
+  // configured", unlike emitCloseConfigPanelEvent which is only a request.
+  emitConfigPanelClosedEvent(event: IEvent) {
+    this.configPanelClosedSubject.next(event);
+  }
+
+  listenForConfigPanelClosedEvent(): Observable<IEvent> {
+    return this.configPanelClosedSubject.asObservable();
   }
 }
 //emitScheduledEventDataChanged

@@ -16,7 +16,7 @@
   </mat-drawer>
 
   <mat-drawer-container class="config-panel-container">
-    <mat-drawer #configPanel mode="over" position="end">
+    <mat-drawer #configPanel mode="over" position="end" (closed)="onConfigPanelClosed()">
       <app-config-panel></app-config-panel>
     </mat-drawer>
 
