@@ -4,8 +4,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
     selector: 'app-gadget-operation',
     templateUrl: './gadget-operation.component.html',
     styleUrls: ['./gadget-operation.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class GadgetOperationComponent implements OnInit {
 

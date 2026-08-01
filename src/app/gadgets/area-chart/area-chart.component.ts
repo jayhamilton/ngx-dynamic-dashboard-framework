@@ -1,9 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ScaleType } from '@swimlane/ngx-charts';
+import { ScaleType, AreaChartModule } from '@swimlane/ngx-charts';
 import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import { curveBasis } from 'd3-shape';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { CdkDrag } from '@angular/cdk/drag-drop';
+import { GadgetHeaderComponent } from '../common/gadget-common/gadget-header/gadget-header.component';
+import { DynamicFormComponent } from '../../dynamic-form/dynamic-form.component';
 
 
 export interface Color {
@@ -17,7 +21,7 @@ export interface Color {
     templateUrl: './area-chart.component.html',
     styleUrls: ['./area-chart.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [MatCard, CdkDrag, GadgetHeaderComponent, MatCardContent, AreaChartModule, DynamicFormComponent]
 })
 export class AreaChartComponent extends GadgetBase  implements OnInit {
 

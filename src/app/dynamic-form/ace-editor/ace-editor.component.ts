@@ -7,8 +7,8 @@ import { takeUntil, debounceTime } from 'rxjs/operators';
 declare const ace: any;
 
 @Component({
-  selector: 'custom-ace-editor',
-  template: `
+    selector: 'custom-ace-editor',
+    template: `
     <div #editor style="height: 300px; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
       @if (!editorReady) {
         <div style="padding: 20px; text-align: center; color: #666;">
@@ -17,15 +17,14 @@ declare const ace: any;
       }
     </div>
     `,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => AceEditorComponent),
-      multi: true,
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => AceEditorComponent),
+            multi: true,
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class AceEditorComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
   @ViewChild('editor', { static: true }) editorElement!: ElementRef;

@@ -2,7 +2,7 @@
  * Created by jayhamilton on 2/5/17.
  */
 import { AfterContentInit, Component, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PropertyBase } from './property-base';
 
 import { style, trigger, animate, transition } from '@angular/animations';
@@ -12,6 +12,15 @@ import { ScheduleDataStoreService } from '../configuration/tab-schedule/schedule
 import { EventService } from '../eventservice/event.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { MatFormField, MatLabel, MatHint, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatIcon } from '@angular/material/icon';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { AceEditorComponent } from './ace-editor/ace-editor.component';
+import { JsonFormsEditorComponent } from './json-forms-editor/json-forms-editor.component';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
     selector: 'app-df-property',
@@ -31,7 +40,7 @@ import { takeUntil } from 'rxjs/operators';
         ]),
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatIcon, FileUploadComponent, MatDatepickerInput, MatHint, MatDatepickerToggle, MatSuffix, MatDatepicker, AceEditorComponent, JsonFormsEditorComponent, MatCheckbox]
 })
 export class DynamicFormPropertyComponent implements AfterContentInit, OnDestroy {
   private destroy$ = new Subject<void>();

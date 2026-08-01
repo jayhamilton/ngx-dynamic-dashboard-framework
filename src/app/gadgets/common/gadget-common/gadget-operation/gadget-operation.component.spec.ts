@@ -8,8 +8,8 @@ describe('GadgetOperationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GadgetOperationComponent ]
-    })
+    imports: [GadgetOperationComponent]
+})
     .compileComponents();
   });
 

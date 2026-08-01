@@ -8,8 +8,8 @@ describe('GadgetHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GadgetHeaderComponent ]
-    })
+    imports: [GadgetHeaderComponent]
+})
     .compileComponents();
   });
 

@@ -1,10 +1,16 @@
 import { DataSource } from '@angular/cdk/collections';
 import { formatNumber } from '@angular/common';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { ScheduleDataStoreService } from './schedule.datastore.service';
 import { IScheduledEvent, ScheduleService } from './schedule.service';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatMiniFabButton, MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { MatToolbar } from '@angular/material/toolbar';
 
 
 const ELEMENT_DATA: IScheduledEvent[] = [];
@@ -13,7 +19,7 @@ const ELEMENT_DATA: IScheduledEvent[] = [];
     templateUrl: './schedule.component.html',
     styleUrls: ['./schedule.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatMiniFabButton, MatIcon, MatButton, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatToolbar, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class TabScheduleComponent implements OnInit {
 

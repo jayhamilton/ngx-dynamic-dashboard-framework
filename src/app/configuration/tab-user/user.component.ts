@@ -1,11 +1,18 @@
 import { DataSource } from '@angular/cdk/collections';
 import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { Observable, ReplaySubject } from 'rxjs';
 import { UserDataStoreService } from './user.datastore.service';
 import { UserService, IUser } from './user.service';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatMiniFabButton, MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { MatToolbar } from '@angular/material/toolbar';
 
 
 const ELEMENT_DATA: IUser[] = [];
@@ -14,7 +21,7 @@ const ELEMENT_DATA: IUser[] = [];
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatMiniFabButton, MatIcon, MatButton, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatSortHeader, MatToolbar, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class TabUserComponent implements OnInit, AfterViewInit {
 

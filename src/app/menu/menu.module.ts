@@ -10,19 +10,19 @@ import { ConfigurationModule } from '../configuration/configuration.module';
 import { LibraryModule } from '../library/library.module';
 import { RbacDirective } from '../_authorization/rbac.directive';
 @NgModule({
-  declarations: [MenuComponent, RbacDirective],
-  imports: [
-    CommonModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatDialogModule,
-    ConfigurationModule,
-    MatDialogModule,
-    LibraryModule,
-  ],
-  exports: [MenuComponent],
-  providers: [],
+    imports: [
+        CommonModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatDialogModule,
+        ConfigurationModule,
+        MatDialogModule,
+        LibraryModule,
+        MenuComponent, RbacDirective,
+    ],
+    exports: [MenuComponent],
+    providers: [],
 })
 export class MenuModule {}

@@ -7,9 +7,8 @@ import { UserDataStoreService } from '../configuration/tab-user/user.datastore.s
 import { ScheduleDataStoreService } from '../configuration/tab-schedule/schedule.datastore.service';
 
 @NgModule({
-  declarations: [HomeComponent],
-  imports: [CommonModule, MenuModule, SidenavModule],
-  exports: [],
-  providers:[UserDataStoreService, ScheduleDataStoreService]
+    imports: [CommonModule, MenuModule, SidenavModule, HomeComponent],
+    exports: [],
+    providers: [UserDataStoreService, ScheduleDataStoreService]
 })
 export class HomeModule {}

@@ -1,12 +1,17 @@
 import { Component, forwardRef, Input, OnInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { EventService } from '../../eventservice/event.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { MatCard, MatCardHeader, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'json-forms-editor',
-  template: `
+    selector: 'json-forms-editor',
+    template: `
     <div class="simple-forms-container">
       @for (series of seriesData; track series; let i = $index) {
         <div class="series-form">
@@ -54,15 +59,15 @@ import { takeUntil } from 'rxjs/operators';
       </div>
     </div>
     `,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => JsonFormsEditorComponent),
-      multi: true,
-    }
-  ],
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => JsonFormsEditorComponent),
+            multi: true,
+        }
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [MatCard, MatCardHeader, MatCardTitle, MatCardContent, MatFormField, MatLabel, MatInput, FormsModule, MatIconButton, MatIcon, MatButton]
 })
 export class JsonFormsEditorComponent implements OnInit, OnDestroy, ControlValueAccessor {
   seriesData: any[] = [];

@@ -6,8 +6,7 @@ import { ImageUploadService } from './file-upload.service';
     selector: 'app-file-upload',
     templateUrl: './file-upload.component.html',
     styleUrls: ['./file-upload.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class FileUploadComponent implements OnInit {
   @Output() fileUploadEvent: EventEmitter<any> = new EventEmitter();

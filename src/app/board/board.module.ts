@@ -10,24 +10,22 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 @NgModule({
-  declarations: [
-    BoardComponent
-  ],
-  imports: [
-    CommonModule,
-    DragDropModule,
-    MatGridListModule,
-    GadgetsModule,
-    MatDividerModule,
-    MatCardModule,
-    MatButtonModule,
-    MatTabsModule
-  ],
-  exports:[
-    BoardComponent
-  ],
-  providers:[
-    BoardService
-  ]
+    imports: [
+        CommonModule,
+        DragDropModule,
+        MatGridListModule,
+        GadgetsModule,
+        MatDividerModule,
+        MatCardModule,
+        MatButtonModule,
+        MatTabsModule,
+        BoardComponent
+    ],
+    exports: [
+        BoardComponent
+    ],
+    providers: [
+        BoardService
+    ]
 })
 export class BoardModule { }

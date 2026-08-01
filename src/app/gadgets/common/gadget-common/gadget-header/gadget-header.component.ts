@@ -2,13 +2,17 @@ import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy
 import { MatDialog } from '@angular/material/dialog';
 import { EventService } from 'src/app/eventservice/event.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle } from '@angular/material/card';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-gadget-header',
     templateUrl: './gadget-header.component.html',
     styleUrls: ['./gadget-header.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle, MatIconButton, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem]
 })
 export class GadgetHeaderComponent implements OnInit {
   @Output() removeEvent: EventEmitter<any> = new EventEmitter();

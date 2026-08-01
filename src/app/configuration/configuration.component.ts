@@ -1,11 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatTabGroup, MatTab, MatTabContent } from '@angular/material/tabs';
+import { TabBoardsComponent } from './tab-boards/tab-boards.component';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'app-configuration',
     templateUrl: './configuration.component.html',
     styleUrls: ['./configuration.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatTabGroup, MatTab, MatTabContent, TabBoardsComponent, MatDialogActions, MatButton, MatDialogClose]
 })
 export class ConfigurationComponent {
 

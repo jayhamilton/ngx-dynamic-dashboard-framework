@@ -1,9 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropListGroup, CdkDropList } from '@angular/cdk/drag-drop';
 
 import { IEvent, EventService } from '../eventservice/event.service';
 import { BoardType, IBoard } from './board.model';
@@ -13,6 +9,10 @@ import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.mode
 import { UntypedFormControl } from '@angular/forms';
 import { LayoutService } from '../layout/layout.service';
 import { throttleTime } from 'rxjs/operators';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { NgClass } from '@angular/common';
+import { GadgetGridCellHostComponent } from '../gadgets/gadget-grid-cell-host/gadget-grid-cell-host.component';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 
 @Component({
     selector: 'app-board',
@@ -31,7 +31,7 @@ import { throttleTime } from 'rxjs/operators';
         ]),
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [MatTabGroup, MatTab, CdkDropListGroup, NgClass, CdkDropList, GadgetGridCellHostComponent, MatCard, MatCardTitle, MatCardContent]
 })
 export class BoardComponent implements OnInit {
   boardData!: IBoard;

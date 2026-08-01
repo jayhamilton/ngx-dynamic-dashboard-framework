@@ -21,33 +21,31 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-  declarations: [
-    ConfigurationComponent,
-    TabProductsComponent,
-    TabBoardsComponent,
-    TabUserComponent,
-    TabScheduleComponent
-  ],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatTabsModule,
-    MatTabsModule,
-    MatTableModule,
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatSelectModule,
-    FormsModule,
-    MatSortModule,
-    MatTooltipModule
-  ],
-  providers: [UserService, ScheduleService],
-  exports:[
-    ConfigurationComponent
-  ]
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatTabsModule,
+        MatTabsModule,
+        MatTableModule,
+        MatButtonModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatSelectModule,
+        FormsModule,
+        MatSortModule,
+        MatTooltipModule,
+        ConfigurationComponent,
+        TabProductsComponent,
+        TabBoardsComponent,
+        TabUserComponent,
+        TabScheduleComponent
+    ],
+    providers: [UserService, ScheduleService],
+    exports: [
+        ConfigurationComponent
+    ]
 })
 export class ConfigurationModule { }

@@ -8,8 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { SidelayoutModule } from '../layout/layout.module';
 
 @NgModule({
-  declarations: [SidenavComponent],
-  imports: [CommonModule, MatSidenavModule, BoardModule, MatListModule,MatButtonModule, SidelayoutModule],
-  exports: [SidenavComponent],
+    imports: [CommonModule, MatSidenavModule, BoardModule, MatListModule, MatButtonModule, SidelayoutModule, SidenavComponent],
+    exports: [SidenavComponent],
 })
 export class SidenavModule {}

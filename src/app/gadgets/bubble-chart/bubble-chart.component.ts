@@ -1,15 +1,19 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Color, ScaleType } from '@swimlane/ngx-charts';
+import { Color, ScaleType, BubbleChartModule } from '@swimlane/ngx-charts';
 import { BoardService } from 'src/app/board/board.service';
 import { EventService } from 'src/app/eventservice/event.service';
 import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { CdkDrag } from '@angular/cdk/drag-drop';
+import { GadgetHeaderComponent } from '../common/gadget-common/gadget-header/gadget-header.component';
+import { DynamicFormComponent } from '../../dynamic-form/dynamic-form.component';
 
 @Component({
-  selector: 'app-bubble-chart',
-  templateUrl: './bubble-chart.component.html',
-  styleUrls: ['./bubble-chart.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false
+    selector: 'app-bubble-chart',
+    templateUrl: './bubble-chart.component.html',
+    styleUrls: ['./bubble-chart.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [MatCard, CdkDrag, GadgetHeaderComponent, MatCardContent, BubbleChartModule, DynamicFormComponent]
 })
 export class BubbleChartComponent extends GadgetBase implements OnInit {
   chartData: any[] = [];

@@ -10,16 +10,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthenticationService } from '../_authentication/authentication.service';
 
 @NgModule({
-  declarations: [LoginComponent],
-  imports: [
-    CommonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
-  providers: [AuthenticationService],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        LoginComponent,
+    ],
+    providers: [AuthenticationService],
 })
 export class LoginModule {}

@@ -1,7 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {DataSource} from '@angular/cdk/collections';
 import {Observable, ReplaySubject} from 'rxjs';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIconButton, MatMiniFabButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 
 export interface ProductItem {
   name: string;
@@ -18,7 +24,7 @@ const ELEMENT_DATA: ProductItem[] = [
     templateUrl: './tab-products.component.html',
     styleUrls: ['./tab-products.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatToolbar, MatIconButton, MatIcon, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatMiniFabButton]
 })
 export class TabProductsComponent  {
 

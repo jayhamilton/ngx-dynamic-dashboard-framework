@@ -20,13 +20,7 @@ import { JsonFormsEditorComponent } from './json-forms-editor/json-forms-editor.
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-@NgModule({ declarations: [
-        DynamicFormComponent,
-        DynamicFormPropertyComponent,
-        FileUploadComponent,
-        AceEditorComponent,
-        JsonFormsEditorComponent,
-    ],
+@NgModule({
     exports: [DynamicFormComponent, DynamicFormPropertyComponent], imports: [CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -39,5 +33,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatNativeDateModule,
         MatSelectModule,
         MatCardModule,
-        MatCheckboxModule], providers: [PropertyControlService, ImageUploadService, MatDatepickerModule, provideHttpClient(withXhr(), withInterceptorsFromDi())] })
+        MatCheckboxModule, DynamicFormComponent,
+        DynamicFormPropertyComponent,
+        FileUploadComponent,
+        AceEditorComponent,
+        JsonFormsEditorComponent], providers: [PropertyControlService, ImageUploadService, MatDatepickerModule, provideHttpClient(withXhr(), withInterceptorsFromDi())] })
 export class DynamicFormModule {}

@@ -1,15 +1,18 @@
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
+import { MatDrawer, MatDrawerContainer } from '@angular/material/sidenav';
 import { BoardService } from '../board/board.service';
 import { Hiearchy, IBoard, IBoardCollection } from '../board/board.model';
 import { EventService } from '../eventservice/event.service';
+import { MatNavList, MatListItem } from '@angular/material/list';
+import { SidelayoutComponent } from '../layout/layout.component';
+import { BoardComponent } from '../board/board.component';
 
 @Component({
     selector: 'app-sidenav',
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, SidelayoutComponent, BoardComponent]
 })
 export class SidenavComponent implements OnInit {
   @ViewChild('drawer') public drawer!: MatDrawer;

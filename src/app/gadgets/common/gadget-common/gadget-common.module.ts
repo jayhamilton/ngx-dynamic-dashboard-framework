@@ -10,21 +10,20 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [
-    GadgetHeaderComponent,
-    GadgetOperationComponent
-  ],
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatIconModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatChipsModule,
-    MatDialogModule
-  ],
-  exports: [
-    GadgetHeaderComponent,
-    GadgetOperationComponent
-  ]})
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatIconModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatChipsModule,
+        MatDialogModule,
+        GadgetHeaderComponent,
+        GadgetOperationComponent
+    ],
+    exports: [
+        GadgetHeaderComponent,
+        GadgetOperationComponent
+    ]
+})
 export class GadgetCommonModule { }

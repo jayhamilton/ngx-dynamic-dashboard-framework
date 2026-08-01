@@ -7,10 +7,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
-@Directive({
-    selector: '[checkPermissions]',
-    standalone: false
-})
+@Directive({ selector: '[checkPermissions]' })
 export class RbacDirective implements OnInit, OnDestroy {
   userHasRole = false;
   stop = new Subject<any>();

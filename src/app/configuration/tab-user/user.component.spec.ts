@@ -8,8 +8,8 @@ describe('RbacComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TabUserComponent],
-    }).compileComponents();
+    imports: [TabUserComponent],
+}).compileComponents();
   });
 
   beforeEach(() => {

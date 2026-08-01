@@ -21,7 +21,7 @@ import {
   transition,
 } from '@angular/animations';
 
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -32,6 +32,9 @@ import {
   IPropertyPage,
   ITag,
 } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { DynamicFormPropertyComponent } from './dynamic-form-property.component';
+import { MatButton } from '@angular/material/button';
 
 @Component({
     /* solves error: Expression has changed after it was checked exception resolution - https://www.youtube.com/watch?v=K_BRcal-JfI*/
@@ -64,7 +67,7 @@ import {
     ],
     providers: [PropertyControlService],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, MatTabGroup, MatTab, DynamicFormPropertyComponent, MatButton]
 })
 export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() gadgetTags: ITag[]; //todo - use to control what endpoints are displayed

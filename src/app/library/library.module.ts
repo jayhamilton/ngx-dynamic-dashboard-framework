@@ -11,14 +11,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 
 
-@NgModule({ declarations: [
-        LibraryComponent
-    ], imports: [CommonModule,
+@NgModule({
+    imports: [CommonModule,
         MatButtonModule,
         MatCardModule,
         MatIconModule,
         ScrollingModule,
-        MatDialogModule], providers: [
+        MatDialogModule, LibraryComponent], providers: [
         LibraryService,
         provideHttpClient(withXhr(), withInterceptorsFromDi())
     ] })

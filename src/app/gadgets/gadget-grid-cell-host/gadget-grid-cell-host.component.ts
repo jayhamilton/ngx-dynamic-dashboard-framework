@@ -14,10 +14,9 @@ import { LineChartComponent } from '../line-chart/line-chart.component';
 import { IGadget } from '../common/gadget-common/gadget-base/gadget.model';
 
 @Component({
-  selector: 'gadget-grid-cell-host',
-  template: '',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false
+    selector: 'gadget-grid-cell-host',
+    template: '',
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class GadgetGridCellHostComponent implements OnInit {
   @Input() gadgetData: IGadget;

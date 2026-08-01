@@ -8,8 +8,8 @@ describe('SidelayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SidelayoutComponent ]
-    })
+    imports: [SidelayoutComponent]
+})
     .compileComponents();
   });
 

@@ -27,47 +27,45 @@ import { NumberCardComponent } from './number-card/number-card.component';
 import { LineChartComponent } from './line-chart/line-chart.component';
 
 @NgModule({
-  declarations: [
-    GadgetGridCellHostComponent,
-    BarChartComponent,
-    AreaChartComponent,
-    PieChartComponent,
-    BubbleChartComponent,
-    NumberCardComponent,
-    LineChartComponent
-  ],
-  exports: [
-    GadgetGridCellHostComponent,
-    BarChartComponent,
-    AreaChartComponent,
-    PieChartComponent,
-    BubbleChartComponent,
-    NumberCardComponent,
-    LineChartComponent
-  ],
-  imports: [
-    CommonModule,
-    DragDropModule,
-    MatGridListModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTableModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatButtonModule,
-    MatMenuModule,
-    GadgetCommonModule,
-    DynamicFormModule,
-    FormsModule,
-    MatChipsModule,
-    NgxChartsModule,
-    MatCheckboxModule
-  ],
-  providers: [
-    provideHttpClient(withXhr(), withInterceptorsFromDi())
-  ]
+    exports: [
+        GadgetGridCellHostComponent,
+        BarChartComponent,
+        AreaChartComponent,
+        PieChartComponent,
+        BubbleChartComponent,
+        NumberCardComponent,
+        LineChartComponent
+    ],
+    imports: [
+        CommonModule,
+        DragDropModule,
+        MatGridListModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatSelectModule,
+        MatTableModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatButtonModule,
+        MatMenuModule,
+        GadgetCommonModule,
+        DynamicFormModule,
+        FormsModule,
+        MatChipsModule,
+        NgxChartsModule,
+        MatCheckboxModule,
+        GadgetGridCellHostComponent,
+        BarChartComponent,
+        AreaChartComponent,
+        PieChartComponent,
+        BubbleChartComponent,
+        NumberCardComponent,
+        LineChartComponent
+    ],
+    providers: [
+        provideHttpClient(withXhr(), withInterceptorsFromDi())
+    ]
 })
 export class GadgetsModule {}

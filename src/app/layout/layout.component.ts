@@ -2,13 +2,14 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BoardService } from '../board/board.service';
 import { EventService } from '../eventservice/event.service';
 import { layouts, LayoutType } from './layout.model';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-sidelayout',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [NgClass]
 })
 export class SidelayoutComponent implements OnInit {
   _layouts = layouts;
