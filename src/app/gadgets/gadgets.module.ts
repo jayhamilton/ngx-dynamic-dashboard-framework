@@ -12,7 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { GadgetCommonModule } from './common/gadget-common/gadget-common.module';
+
 import { GadgetGridCellHostComponent } from './gadget-grid-cell-host/gadget-grid-cell-host.component';
 import { DynamicFormModule } from '../dynamic-form/dynamic-form-module';
 import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
@@ -37,33 +37,32 @@ import { LineChartComponent } from './line-chart/line-chart.component';
         LineChartComponent
     ],
     imports: [
-        CommonModule,
-        DragDropModule,
-        MatGridListModule,
-        MatFormFieldModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatSelectModule,
-        MatTableModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatCardModule,
-        MatButtonModule,
-        MatMenuModule,
-        GadgetCommonModule,
-        DynamicFormModule,
-        FormsModule,
-        MatChipsModule,
-        NgxChartsModule,
-        MatCheckboxModule,
-        GadgetGridCellHostComponent,
-        BarChartComponent,
-        AreaChartComponent,
-        PieChartComponent,
-        BubbleChartComponent,
-        NumberCardComponent,
-        LineChartComponent
-    ],
+    CommonModule,
+    DragDropModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTableModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatButtonModule,
+    MatMenuModule,
+    DynamicFormModule,
+    FormsModule,
+    MatChipsModule,
+    NgxChartsModule,
+    MatCheckboxModule,
+    GadgetGridCellHostComponent,
+    BarChartComponent,
+    AreaChartComponent,
+    PieChartComponent,
+    BubbleChartComponent,
+    NumberCardComponent,
+    LineChartComponent
+],
     providers: [
         provideHttpClient(withXhr(), withInterceptorsFromDi())
     ]
