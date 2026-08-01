@@ -33,6 +33,7 @@
     "zone.js": "~0.15.0"
   },
   "overrides": {
+    "http-proxy-middleware": ">=2.0.8 <3.0.0 || >=3.0.4",
     "esbuild": ">=0.25.0",
     "follow-redirects": ">=1.15.12",
     "on-headers": ">=1.1.0",
