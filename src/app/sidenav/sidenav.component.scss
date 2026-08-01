@@ -11,6 +11,11 @@ $primary_color: #3f51b5;
     background-color: whitesmoke;
 }
 
+.config-panel-container {
+    width: 100%;
+    height: 100%;
+}
+
 .example-sidenav {
     display: flex;
     flex-direction: column;
