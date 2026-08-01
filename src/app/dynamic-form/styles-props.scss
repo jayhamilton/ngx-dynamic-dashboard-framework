@@ -84,7 +84,7 @@ mat-tab-group {
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--app-text-secondary);
 }
 
 .json-forms-container {
@@ -96,17 +96,17 @@ mat-tab-group {
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--app-text-secondary);
 }
 
 .section-header {
   grid-column: 1 / -1;
   font-size: 0.8rem;
   font-weight: 600;
-  color: #3f51b5;
+  color: var(--app-brand);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 12px 0 4px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--app-border);
   margin-bottom: 4px;
 }

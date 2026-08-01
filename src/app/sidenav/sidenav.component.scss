@@ -1,5 +1,3 @@
-$primary_color: #3f51b5;
-
 .example-container {
     width: 100%;
     height: 100%;
@@ -8,7 +6,7 @@ $primary_color: #3f51b5;
 .example-sidenav-content {
     height: 100%;
     width: 100%;
-    background-color: whitesmoke;
+    background-color: var(--app-background);
 }
 
 .config-panel-container {
@@ -30,17 +28,17 @@ mat-list-item {
     cursor: pointer;
     border-radius: 4px;
     margin: 2px 8px;
-    color: #333;
+    color: var(--app-text-secondary);
     font-size: 0.9rem;
 
     &:hover {
-        background-color: rgba($primary_color, 0.08);
+        background-color: var(--app-brand-tint);
     }
 
     &.active {
-        background-color: rgba($primary_color, 0.15);
-        color: $primary_color;
+        background-color: var(--app-brand-tint-strong);
+        color: var(--app-brand);
         font-weight: 500;
-        border-left: 3px solid $primary_color;
+        border-left: 3px solid var(--app-brand);
     }
 }

@@ -1,9 +1,7 @@
 
 
-$primary_color: #3f51b5;
-
 mat-card-title {
-  color: $primary_color;
+  color: var(--app-brand);
 }
 
 .mat-card-content-grid-container {
@@ -18,13 +16,13 @@ mat-card-title {
 
 /* Multi-tab strip styling */
 ::ng-deep mat-tab-group:not(.single-tab) .mat-mdc-tab-header {
-  background-color: #f5f5f5;
-  border-bottom: 2px solid $primary_color;
+  background-color: var(--app-background);
+  border-bottom: 2px solid var(--app-brand);
   padding: 0 32px;
 }
 
 ::ng-deep mat-tab-group:not(.single-tab) .mat-mdc-tab .mdc-tab__text-label {
-  color: #555;
+  color: var(--app-text-secondary);
   font-weight: 500;
   font-size: 0.85rem;
   letter-spacing: 0.5px;
@@ -32,17 +30,17 @@ mat-card-title {
 }
 
 ::ng-deep mat-tab-group:not(.single-tab) .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
-  color: $primary_color;
+  color: var(--app-brand);
 }
 
 ::ng-deep mat-tab-group:not(.single-tab) .mdc-tab-indicator__content--underline {
-  border-color: $primary_color;
+  border-color: var(--app-brand);
   border-top-width: 3px;
 }
 p {
   font-style: "Roboto";
   size: 10px;
-  color: $primary_color;
+  color: var(--app-brand);
 }
 
 .one_col {
@@ -100,7 +98,7 @@ p {
   border-color: rgb(202, 153, 248);
   border-width: 2px;
   border-style: dashed;
-  background-color: rgb(233, 227, 227);
+  background-color: var(--app-border);
   min-height: 50vh;
 }
 
@@ -134,7 +132,7 @@ p {
   border-color: blueviolet;
   border-width: 2px;
   border-style: dashed;
-  background-color: rgb(201, 196, 196);
+  background-color: var(--app-border);
 }
 
 .cdk-drag-animating {

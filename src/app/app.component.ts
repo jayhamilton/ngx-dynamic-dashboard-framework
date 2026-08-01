@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ThemeService } from './theme/theme.service';
 
 
 @Component({
@@ -12,5 +13,5 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent {
   title = 'plm-ui';
 
-  
+  constructor(private themeService: ThemeService) { }
 }

@@ -15,8 +15,8 @@
     display: block;
     width: 100%;
     text-align: center;
-    background-color: #e8eaf6;
-    color: #3f51b5;
+    background-color: var(--app-brand-tint-strong);
+    color: var(--app-brand);
     font-size: 0.7rem;
     font-weight: 500;
     letter-spacing: 0.8px;
@@ -28,7 +28,7 @@
 
 /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
 mat-card-title {
-    color: #3f51b5;
+    color: var(--app-brand);
 }
 
 .move-cursor {

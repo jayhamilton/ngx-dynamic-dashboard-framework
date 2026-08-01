@@ -1,6 +1,7 @@
 import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EventService } from '../../eventservice/event.service';
+import { ThemeService } from '../../theme/theme.service';
 import { Subject } from 'rxjs';
 import { takeUntil, debounceTime } from 'rxjs/operators';
 
@@ -9,9 +10,9 @@ declare const ace: any;
 @Component({
     selector: 'custom-ace-editor',
     template: `
-    <div #editor style="height: 300px; width: 100%; border: 1px solid #ccc; border-radius: 4px;">
+    <div #editor style="height: 300px; width: 100%; border: 1px solid var(--app-border); border-radius: 4px;">
       @if (!editorReady) {
-        <div style="padding: 20px; text-align: center; color: #666;">
+        <div style="padding: 20px; text-align: center; color: var(--app-text-secondary);">
           Loading editor...
         </div>
       }
@@ -30,6 +31,7 @@ export class AceEditorComponent implements OnInit, AfterViewInit, OnDestroy, Con
   @ViewChild('editor', { static: true }) editorElement!: ElementRef;
   @Input() mode = 'json';
   @Input() theme = 'github';
+  private darkTheme = 'tomorrow_night';
 
   private editor: any;
   private value = '';
@@ -41,7 +43,7 @@ export class AceEditorComponent implements OnInit, AfterViewInit, OnDestroy, Con
   private instanceId = Math.random().toString(36).substr(2, 9);
   private pendingValue: string | null = null;
 
-  constructor(private eventService: EventService, private cdr: ChangeDetectorRef) {
+  constructor(private eventService: EventService, private cdr: ChangeDetectorRef, private themeService: ThemeService) {
     console.log('AceEditor: Created instance', this.instanceId);
   }
 
@@ -116,8 +118,11 @@ export class AceEditorComponent implements OnInit, AfterViewInit, OnDestroy, Con
       await this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/mode-json.min.js');
       console.log('ACE JSON mode loaded');
       
-      await this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/theme-github.min.js');
-      console.log('ACE theme loaded');
+      await Promise.all([
+        this.loadScript('https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/theme-github.min.js'),
+        this.loadScript(`https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/theme-${this.darkTheme}.min.js`)
+      ]);
+      console.log('ACE themes loaded');
 
       this.initEditor();
     } catch (error) {
@@ -147,10 +152,15 @@ export class AceEditorComponent implements OnInit, AfterViewInit, OnDestroy, Con
     try {
       console.log(`AceEditor[${this.instanceId}]: Initializing ACE editor...`);
       this.editor = ace.edit(this.editorElement.nativeElement);
-      this.editor.setTheme(`ace/theme/${this.theme}`);
       this.editor.session.setMode(`ace/mode/${this.mode}`);
       this.editor.setValue(this.value || '');
       this.editor.clearSelection();
+
+      this.themeService.isDark$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((isDark) => {
+          this.editor.setTheme(`ace/theme/${isDark ? this.darkTheme : this.theme}`);
+        });
       
       // Configure editor options
       this.editor.setOptions({

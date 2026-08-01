@@ -40,6 +40,12 @@
     </button>
   </span>
 
+  <span *checkPermissions>
+    <button mat-icon-button (click)="toggleTheme()" class="example-icon" aria-label="Toggle dark mode">
+      <mat-icon>{{ (themeService.isDark$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+  </span>
+
   <span style="margin-left: 20px;">
     <button mat-icon-button (click)="logout()" class="example-icon favorite-icon"
       aria-label="Example icon-button with heart icon">

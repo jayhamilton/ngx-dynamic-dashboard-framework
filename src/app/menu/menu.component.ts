@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -7,6 +8,7 @@ import { EventService } from '../eventservice/event.service';
 import { LibraryComponent } from '../library/library.component';
 import { BoardService } from '../board/board.service';
 import { IBoard } from '../board/board.model';
+import { ThemeService } from '../theme/theme.service';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RbacDirective } from '../_authorization/rbac.directive';
 import { MatIconButton } from '@angular/material/button';
@@ -17,7 +19,7 @@ import { MatIcon } from '@angular/material/icon';
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatToolbar, RbacDirective, MatIconButton, MatIcon]
+    imports: [MatToolbar, RbacDirective, MatIconButton, MatIcon, AsyncPipe]
 })
 export class MenuComponent implements OnInit {
   visible = true;
@@ -28,7 +30,8 @@ export class MenuComponent implements OnInit {
     public dialog: MatDialog,
     private eventService: EventService,
     private boardService: BoardService,
-    private router: Router
+    private router: Router,
+    public themeService: ThemeService
   ) {
     this.setupEventHandlers();
     this.applicationTitle = environment.applicationTitle;
@@ -69,6 +72,10 @@ export class MenuComponent implements OnInit {
 
   toggleLayout() {
     this.eventService.emitBoardSideLayoutClickEvent();
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
   }
 
   logout() {

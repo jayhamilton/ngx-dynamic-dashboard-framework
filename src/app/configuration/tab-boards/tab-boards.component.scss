@@ -1,11 +1,9 @@
-$primary: #3f51b5;
-
 .section-label {
   font-size: 0.85rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.6px;
-  color: $primary;
+  color: var(--app-brand);
   margin: 16px 0 8px;
 }
 
@@ -50,13 +48,13 @@ $primary: #3f51b5;
 
 .boards-table {
   width: 100%;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--app-border);
   border-radius: 4px;
   overflow: hidden;
 
   th.mat-mdc-header-cell {
-    background-color: $primary;
-    color: white;
+    background-color: var(--app-brand);
+    color: var(--app-brand-contrast);
     font-weight: 600;
     font-size: 0.8rem;
     letter-spacing: 0.4px;
@@ -67,7 +65,7 @@ $primary: #3f51b5;
   td.mat-mdc-cell {
     padding: 6px 16px;
     font-size: 0.9rem;
-    color: #333;
+    color: var(--app-text-secondary);
   }
 
   tr.mat-mdc-row {
@@ -75,12 +73,12 @@ $primary: #3f51b5;
     transition: background-color 0.15s ease;
 
     &:hover {
-      background-color: #f0f2ff;
+      background-color: var(--app-brand-tint);
     }
   }
 
   tr.mat-mdc-row:not(:last-child) td.mat-mdc-cell {
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--app-border);
   }
 }
 
@@ -89,7 +87,7 @@ $primary: #3f51b5;
   height: 18px;
   width: 18px;
   vertical-align: middle;
-  color: #888;
+  color: var(--app-text-secondary);
   margin-right: 2px;
 }
 

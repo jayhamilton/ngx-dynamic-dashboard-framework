@@ -1,3 +1,57 @@
+@use '@angular/material' as mat;
+@use 'theme-colors';
+
+@include mat.core();
+
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: theme-colors.$primary-palette,
+    tertiary: theme-colors.$tertiary-palette,
+  ),
+));
+
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: theme-colors.$primary-palette,
+    tertiary: theme-colors.$tertiary-palette,
+  ),
+));
+
+html {
+  @include mat.all-component-themes($light-theme);
+}
+
+.dark-theme {
+  @include mat.all-component-colors($dark-theme);
+}
+
+// Small set of app-level tokens for the hardcoded brand/gray colors that
+// live outside Material's own component styles (headers, hover tints,
+// page backgrounds). Not a full design-token system — just enough to let
+// those spots respond to the .dark-theme toggle.
+:root {
+  --app-brand: #3f51b5;
+  --app-brand-contrast: #fff;
+  --app-brand-tint: rgba(63, 81, 181, 0.08);
+  --app-brand-tint-strong: rgba(63, 81, 181, 0.15);
+  --app-surface: #fff;
+  --app-background: whitesmoke;
+  --app-text-secondary: #666;
+  --app-border: #e0e0e0;
+}
+
+.dark-theme {
+  --app-brand: #5d6fd4;
+  --app-brand-contrast: #fff;
+  --app-brand-tint: rgba(151, 165, 255, 0.16);
+  --app-brand-tint-strong: rgba(151, 165, 255, 0.28);
+  --app-surface: #1a1b22;
+  --app-background: #121319;
+  --app-text-secondary: #abaab3;
+  --app-border: #46464d;
+}
 
 html,
 body {
@@ -7,7 +61,7 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    background: whitesmoke !important;
+    background: var(--app-background) !important;
 }
 
 .example-spacer {
@@ -15,5 +69,5 @@ body {
 }
 
 mat-dialog-container {
-    background: whitesmoke !important;
+    background: var(--app-background) !important;
 }
