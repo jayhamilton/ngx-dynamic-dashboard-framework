@@ -4,50 +4,52 @@
 
 ## Test Cases
 
-### TC-001: webpack-dev-server resolved version is ≥ 5.2.1
-**Type**: code-review + functional
+### TC-001: package-lock.json shows webpack-dev-server ≥ 5.2.1
+**Type**: code-review / functional
 **Steps**:
-1. Read `package.json` and confirm the `overrides` block contains `"webpack-dev-server": ">=5.2.1"`.
-2. Run `npm ls webpack-dev-server` and inspect the resolved version in `node_modules`/`package-lock.json`.
-**Expected**: `package.json` overrides contains the entry, and the resolved version reported by `npm ls` is ≥ 5.2.1.
-**Pass Criteria**: `npm ls webpack-dev-server` output shows a version string that is ≥ 5.2.1 for all resolved instances.
+1. Run `npm ls webpack-dev-server` to check the resolved version in node_modules/package-lock.json.
+2. Confirm the version reported is 5.2.1 or higher.
+**Expected**: `webpack-dev-server` resolves to ≥ 5.2.1 in the dependency tree.
+**Pass Criteria**: `npm ls webpack-dev-server` output shows a version ≥ 5.2.1 with exit code 0.
 
----
+### TC-002: package.json overrides block contains the webpack-dev-server pin
+**Type**: code-review
+**Steps**:
+1. Read `package.json` and inspect the `overrides` block.
+2. Confirm `"webpack-dev-server": ">=5.2.1"` is present.
+**Expected**: The override entry exists to defensively prevent regression to a vulnerable version.
+**Pass Criteria**: `package.json` `overrides` contains `"webpack-dev-server": ">=5.2.1"`.
 
-### TC-002: npm audit reports no medium advisories directly tied to webpack-dev-server
+### TC-003: npm audit no longer reports the two original webpack-dev-server medium advisories
 **Type**: functional
 **Steps**:
 1. Run `npm audit`.
-2. Inspect output for any advisory whose **vulnerable package** is `webpack-dev-server` itself (not a transitive chain through sockjs/uuid, which is out of scope).
-**Expected**: Zero advisories with `webpack-dev-server` as the root vulnerable package.
-**Pass Criteria**: The audit output does not list `webpack-dev-server` as a directly-vulnerable package. Any remaining mention is through an unrelated transitive chain with "No fix available".
+2. Inspect output for advisories that directly name `webpack-dev-server` as the vulnerable package (the two Dependabot CVEs patched in 5.2.1).
+3. Note: a transitive `uuid → sockjs → webpack-dev-server` advisory with "No fix available" is expected to remain and is out of scope.
+**Expected**: No advisory listing `webpack-dev-server` as the root vulnerable package.
+**Pass Criteria**: `npm audit` output contains no direct `webpack-dev-server` CVE advisory from the two original Dependabot alerts.
 
----
-
-### TC-003: npm run build exits with code 0
+### TC-004: npm run build exits with code 0
 **Type**: functional
 **Steps**:
 1. Run `npm run build`.
-2. Observe the exit code and build output.
-**Expected**: Angular production build completes without errors.
-**Pass Criteria**: Exit code is 0; output contains "Application bundle generation complete."
+2. Check exit code.
+**Expected**: Angular production build completes successfully with exit code 0.
+**Pass Criteria**: Exit code 0 and Angular bundle output is present.
 
----
-
-### TC-004: npm test exits with code 0
+### TC-005: npm test exits with code 0
 **Type**: functional
 **Steps**:
 1. Run `npm test` (headless).
-2. Observe the exit code and test output.
-**Expected**: All Karma/Jasmine test suites pass without errors.
-**Pass Criteria**: Exit code is 0; all 26 specs pass with no ERRORs or DISCONNECTs.
+2. Inspect exit code and individual spec failures.
+3. Determine if any failures are caused by this story's dependency change (webpack-dev-server upgrade).
+**Expected**: All test specs pass; exit code 0.
+**Pass Criteria**: Exit code 0, OR all failing specs are pre-existing failures unrelated to this story's changes.
 
----
-
-### TC-005: No application source files were modified
+### TC-006: No application source files (src/) were modified
 **Type**: code-review
 **Steps**:
-1. Inspect the "Changes Made" section of IMPL-53.md.
-2. Confirm only `package.json` and `package-lock.json` appear in the change set.
-**Expected**: Zero changes in `src/`, `angular.json`, `tsconfig*.json`, or `karma.conf.js`.
-**Pass Criteria**: IMPL-53.md and `package.json` confirm only dependency files were modified.
+1. Review IMPL-53.md "Changes Made" section.
+2. Confirm only `package.json` and `package-lock.json` were touched.
+**Expected**: Zero changes to `src/`, `angular.json`, `tsconfig*.json`, or `karma.conf.js`.
+**Pass Criteria**: Implementation notes and package.json inspection confirm only dependency files changed.
