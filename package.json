@@ -41,7 +41,8 @@
     "socket.io": ">=4.6.2",
     "socket.io-parser": ">=4.2.3",
     "vite": ">=5.4.12",
-    "webpack-dev-server": ">=5.2.1"
+    "webpack-dev-server": ">=5.2.1",
+    "ws": ">=8.17.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^22.1.2",
