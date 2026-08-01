@@ -20,11 +20,16 @@
     --mat-sidenav-container-width: 480px;
 
     // M3's default shape for an "over" drawer rounds its leading (left) corners
-    // (border-radius: 16px 0 0 16px). That reads fine for a drawer that floats
-    // with a gap around it, but this one sits flush under the toolbar, so the
-    // rounded top-left corner cuts an odd notch right where the two meet.
+    // via border-{top,bottom}-left-radius: var(--mat-sidenav-container-shape, ...),
+    // set by Material's own .mat-drawer.mat-drawer-end rule — 2 class selectors,
+    // which beats a plain `mat-drawer { border-radius: 0 }` override here on
+    // specificity. Overriding the same custom property both rules read from
+    // sidesteps the specificity fight entirely. That reads fine for a drawer
+    // that floats with a gap around it, but this one sits flush under the
+    // toolbar, so the rounded top-left corner cuts an odd notch right where
+    // the two meet.
     mat-drawer {
-        border-radius: 0;
+        --mat-sidenav-container-shape: 0;
     }
 }
 
@@ -33,7 +38,7 @@
     --mat-sidenav-container-width: 480px;
 
     // Same flush-under-the-toolbar corner issue as .config-panel-container above.
-    border-radius: 0;
+    --mat-sidenav-container-shape: 0;
 }
 
 .example-sidenav {
