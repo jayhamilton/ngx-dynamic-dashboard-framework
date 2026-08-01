@@ -71,3 +71,11 @@ body {
 mat-dialog-container {
     background: var(--app-background) !important;
 }
+
+// ngx-charts renders raw SVG <text> for axis ticks/labels/data labels with
+// no fill of its own, so it falls back to the SVG default of black — fine
+// against a light card, unreadable against a dark one. Scoped to gadget
+// card content so it can't affect anything else that might use SVG.
+mat-card-content svg text {
+    fill: var(--app-text-secondary);
+}
