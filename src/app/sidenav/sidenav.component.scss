@@ -18,11 +18,22 @@
     // this over-mode drawer and the side-mode #layout drawer below), so it falls back
     // to the 360px default regardless of the drawer's actual 480px content, clipping it.
     --mat-sidenav-container-width: 480px;
+
+    // M3's default shape for an "over" drawer rounds its leading (left) corners
+    // (border-radius: 16px 0 0 16px). That reads fine for a drawer that floats
+    // with a gap around it, but this one sits flush under the toolbar, so the
+    // rounded top-left corner cuts an odd notch right where the two meet.
+    mat-drawer {
+        border-radius: 0;
+    }
 }
 
 .layout-drawer {
     // Same 360px-fallback issue as .config-panel-container above.
     --mat-sidenav-container-width: 480px;
+
+    // Same flush-under-the-toolbar corner issue as .config-panel-container above.
+    border-radius: 0;
 }
 
 .example-sidenav {

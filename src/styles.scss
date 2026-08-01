@@ -36,6 +36,11 @@ html {
   --app-brand-contrast: #fff;
   --app-brand-tint: rgba(63, 81, 181, 0.08);
   --app-brand-tint-strong: rgba(63, 81, 181, 0.15);
+  // The toolbar (mat-toolbar color="primary") is a fixed #3f51b5 regardless
+  // of theme. --app-brand matches that exactly in light mode, so a panel
+  // header using --app-brand sits flush under the toolbar in the same
+  // color and reads as one continuous shape. Deeper and distinct on purpose.
+  --app-panel-header: #303f9f;
   --app-surface: #fff;
   --app-background: whitesmoke;
   --app-text-secondary: #666;
@@ -47,6 +52,7 @@ html {
   --app-brand-contrast: #fff;
   --app-brand-tint: rgba(151, 165, 255, 0.16);
   --app-brand-tint-strong: rgba(151, 165, 255, 0.28);
+  --app-panel-header: #4355b9;
   --app-surface: #1a1b22;
   --app-background: #121319;
   --app-text-secondary: #abaab3;

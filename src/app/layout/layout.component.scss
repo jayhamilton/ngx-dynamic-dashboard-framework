@@ -1,9 +1,14 @@
+@use '@angular/material' as mat;
+
 .layout-panel {
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 480px;
     background: var(--app-surface);
+    // Toolbar and header colors are close enough to blend together — elevation
+    // makes it read as a separate floating layer regardless of color match.
+    @include mat.elevation(4);
 }
 
 .layout-panel-header {
@@ -11,7 +16,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px 16px;
-    background-color: var(--app-brand);
+    background-color: var(--app-panel-header);
     color: var(--app-brand-contrast);
     flex-shrink: 0;
 }
