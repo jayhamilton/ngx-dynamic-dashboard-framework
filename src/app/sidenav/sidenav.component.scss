@@ -12,6 +12,13 @@
 .config-panel-container {
     width: 100%;
     height: 100%;
+
+    // Material's structural .mat-drawer CSS is `width: var(--mat-sidenav-container-width, 360px)`.
+    // autosize only measures/sets an inline width for side/push drawers that need
+    // space reserved in the layout; mode="over" drawers (like #configPanel) are
+    // skipped, so they'd otherwise fall back to the 360px default regardless of
+    // .config-panel's actual 480px content width, clipping it.
+    --mat-sidenav-container-width: 480px;
 }
 
 .example-sidenav {

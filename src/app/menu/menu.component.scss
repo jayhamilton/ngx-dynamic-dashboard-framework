@@ -1,3 +1,13 @@
+// mat-toolbar color="primary" always renders on the fixed brand color
+// regardless of the app's light/dark theme, so its icon-buttons must
+// always be white too. M3's icon-button reads its own color from these
+// tokens instead of inheriting the toolbar's `color: white`, unlike the
+// old M2 prebuilt theme.
+mat-toolbar {
+  --mdc-icon-button-icon-color: #fff;
+  --mat-icon-button-icon-color: #fff;
+}
+
 .menu-text {
   font-size: 0.6em;
 }
