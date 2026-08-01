@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { GadgetHeaderComponent } from '../common/gadget-common/gadget-header/gadget-header.component';
-import { DynamicFormComponent } from '../../dynamic-form/dynamic-form.component';
 
 export interface footballstatsInterface {
   stats: any[];
@@ -18,7 +17,7 @@ export interface footballstatsInterface {
     templateUrl: './bar-chart.component.html',
     styleUrls: ['./bar-chart.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatCard, CdkDrag, GadgetHeaderComponent, MatCardContent, BarChartModule, DynamicFormComponent]
+    imports: [MatCard, CdkDrag, GadgetHeaderComponent, MatCardContent, BarChartModule]
 })
 export class BarChartComponent extends GadgetBase implements AfterViewInit, OnInit {
   footballstats: any[] = [];

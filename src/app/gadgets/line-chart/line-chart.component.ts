@@ -7,14 +7,13 @@ import { curveBasis } from 'd3-shape';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { GadgetHeaderComponent } from '../common/gadget-common/gadget-header/gadget-header.component';
-import { DynamicFormComponent } from '../../dynamic-form/dynamic-form.component';
 
 @Component({
     selector: 'app-line-chart',
     templateUrl: './line-chart.component.html',
     styleUrls: ['./line-chart.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatCard, CdkDrag, GadgetHeaderComponent, MatCardContent, LineChartModule, DynamicFormComponent]
+    imports: [MatCard, CdkDrag, GadgetHeaderComponent, MatCardContent, LineChartModule]
 })
 export class LineChartComponent extends GadgetBase implements OnInit {
   chartData: any[] = [];

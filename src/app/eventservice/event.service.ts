@@ -28,6 +28,8 @@ export class EventService {
   private userDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
   private scheduleEventDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
   private chartDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
+  private openConfigPanelSubject: Subject<IEvent> = new Subject<IEvent>();
+  private closeConfigPanelSubject: Subject<IEvent> = new Subject<IEvent>();
 
 
   private subscribers: Array<Subject<string>> = [];
@@ -170,6 +172,22 @@ export class EventService {
 
   listenForChartDataChangedEvent(): Observable<IEvent> {
     return this.chartDataChangedSubject.asObservable();
+  }
+
+  emitOpenConfigPanelEvent(event: IEvent) {
+    this.openConfigPanelSubject.next(event);
+  }
+
+  listenForOpenConfigPanelEvent(): Observable<IEvent> {
+    return this.openConfigPanelSubject.asObservable();
+  }
+
+  emitCloseConfigPanelEvent() {
+    this.closeConfigPanelSubject.next(this.emptyEvent);
+  }
+
+  listenForCloseConfigPanelEvent(): Observable<IEvent> {
+    return this.closeConfigPanelSubject.asObservable();
   }
 }
 //emitScheduledEventDataChanged

@@ -6,14 +6,13 @@ import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { GadgetHeaderComponent } from '../common/gadget-common/gadget-header/gadget-header.component';
-import { DynamicFormComponent } from '../../dynamic-form/dynamic-form.component';
 
 @Component({
     selector: 'app-number-card',
     templateUrl: './number-card.component.html',
     styleUrls: ['./number-card.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatCard, CdkDrag, GadgetHeaderComponent, MatCardContent, NumberCardModule, DynamicFormComponent]
+    imports: [MatCard, CdkDrag, GadgetHeaderComponent, MatCardContent, NumberCardModule]
 })
 export class NumberCardComponent extends GadgetBase implements OnInit {
   chartData: any[] = [];

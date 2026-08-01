@@ -6,17 +6,19 @@ import { EventService } from '../eventservice/event.service';
 import { MatNavList, MatListItem } from '@angular/material/list';
 import { SidelayoutComponent } from '../layout/layout.component';
 import { BoardComponent } from '../board/board.component';
+import { ConfigPanelComponent } from '../config-panel/config-panel.component';
 
 @Component({
     selector: 'app-sidenav',
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, SidelayoutComponent, BoardComponent]
+    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, SidelayoutComponent, BoardComponent, ConfigPanelComponent]
 })
 export class SidenavComponent implements OnInit {
   @ViewChild('drawer') public drawer!: MatDrawer;
   @ViewChild('layout') public layout!: MatDrawer;
+  @ViewChild('configPanel') public configPanel!: MatDrawer;
   boardData: IBoard[] = [];
 
   selectedBoardId: number | null = null;
@@ -72,6 +74,14 @@ export class SidenavComponent implements OnInit {
       .listenForBoardSideLayoutEvent().subscribe((event) => {
         this.toggleLayout();
       });
+
+    this.eventService.listenForOpenConfigPanelEvent().subscribe(() => {
+      this.configPanel.open();
+    });
+
+    this.eventService.listenForCloseConfigPanelEvent().subscribe(() => {
+      this.configPanel.close();
+    });
 
     this.eventService
       .listenForBoardCreatedCompleteEvent()

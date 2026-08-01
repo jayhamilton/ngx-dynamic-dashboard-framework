@@ -6,6 +6,7 @@ import { MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle } from '@an
 import { MatIconButton } from '@angular/material/button';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
+import { IPropertyPage, ITag } from '../gadget-base/gadget.model';
 
 @Component({
     selector: 'app-gadget-header',
@@ -21,6 +22,10 @@ export class GadgetHeaderComponent implements OnInit {
   @Input() subtitle: string;
   @Input() iconpath: string;
   @Input() inConfig: boolean;
+  @Input() gadgetInstanceId: number = -1;
+  @Input() gadgetPropertyPages: IPropertyPage[] = [];
+  @Input() gadgetTags: ITag[] = [];
+  @Input() propertyChangeCallback: ((propertiesJSON: string) => void) | null = null;
   menuLabel = 'Configure';
 
   constructor(private eventService: EventService, private dialog: MatDialog) {
@@ -53,6 +58,16 @@ export class GadgetHeaderComponent implements OnInit {
   toggleConfigMode() {
     this.setMenuLabel();
     this.toggleConfigModeEvent.emit();
+    // Open configuration in side panel
+    this.eventService.emitOpenConfigPanelEvent({
+      data: {
+        title: this.title,
+        instanceId: this.gadgetInstanceId,
+        propertyPages: this.gadgetPropertyPages,
+        tags: this.gadgetTags,
+        propertyChangeCallback: this.propertyChangeCallback
+      }
+    });
   }
 
   setMenuLabel() {

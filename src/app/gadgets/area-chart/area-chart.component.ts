@@ -7,7 +7,6 @@ import { curveBasis } from 'd3-shape';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { GadgetHeaderComponent } from '../common/gadget-common/gadget-header/gadget-header.component';
-import { DynamicFormComponent } from '../../dynamic-form/dynamic-form.component';
 
 
 export interface Color {
@@ -21,7 +20,7 @@ export interface Color {
     templateUrl: './area-chart.component.html',
     styleUrls: ['./area-chart.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatCard, CdkDrag, GadgetHeaderComponent, MatCardContent, AreaChartModule, DynamicFormComponent]
+    imports: [MatCard, CdkDrag, GadgetHeaderComponent, MatCardContent, AreaChartModule]
 })
 export class AreaChartComponent extends GadgetBase  implements OnInit {
 

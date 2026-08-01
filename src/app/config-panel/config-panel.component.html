@@ -1,0 +1,20 @@
+<div class="config-panel">
+  <div class="config-panel-header">
+    <span class="config-panel-title">Configure: {{ gadgetTitle }}</span>
+    <button mat-icon-button class="config-panel-close" (click)="close()" aria-label="Close configuration panel">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  @if (hasData) {
+    <div class="config-panel-body">
+      <app-dynamic-form
+        [gadgetTags]="tags"
+        [propertyPages]="propertyPages"
+        [instanceId]="instanceId"
+        [tabIndex]="0"
+        (updatePropertiesEvent)="onPropertyChange($event)">
+      </app-dynamic-form>
+    </div>
+  }
+</div>
