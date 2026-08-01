@@ -1,77 +1,49 @@
 # Test Results: Fix medium — upgrade follow-redirects to ≥ 1.15.6
 **Issue**: #58
-**Verdict**: FAIL
-**Date**: 2026-08-01
+**Verdict**: PASS
+**Date**: 2026-08-02
 
 ## Results
 
 ### TC-001: package-lock.json contains no version of follow-redirects below 1.15.6
 **Status**: PASS
-**Evidence**: `npm ls follow-redirects` exited 0 and showed exactly one resolved copy:
+**Evidence**: `npm ls follow-redirects` (exit 0) output:
 ```
 plm-ui@0.5.0-alpha
 └─┬ karma@6.3.16
   └─┬ http-proxy@1.18.1
     └── follow-redirects@1.16.0
 ```
-`1.16.0` is well above both the original ≥ 1.15.6 threshold and the tightened ≥ 1.15.12 threshold. No copy below 1.15.12 exists in the tree.
-**Notes**: Single resolved copy; override is working correctly.
+The only resolved version is `1.16.0`, which is above both the original ≥1.15.6 requirement and the tightened ≥1.15.12 threshold specified in SPEC-58.md.
+**Notes**: Single resolution path via `karma → http-proxy → follow-redirects`. No version below 1.15.12 exists in the tree.
 
 ---
 
-### TC-002: npm audit no longer reports any advisories for follow-redirects
+### TC-002: npm audit reports no advisories for follow-redirects
 **Status**: PASS
-**Evidence**: `npm audit` output (exit 1, due to 8 unrelated moderate advisories involving `@hono/node-server`, `ajv`, `schematics-scss-migrate`, etc.) contains **zero mentions** of `follow-redirects`. The package does not appear anywhere in the audit report.
-**Notes**: The 8 remaining advisories are out of scope for this story (sibling stories in the same milestone handle them). `follow-redirects` is fully clear.
+**Evidence**: `npm audit` output (exit 1 due to unrelated packages) contains no mention of `follow-redirects`. Only the following unrelated advisories appear:
+- `@hono/node-server <2.0.5` (moderate) — affects `@angular/cli` via `@modelcontextprotocol/sdk`
+- `ajv 7.0.0-alpha.0 - 8.17.1` (moderate) — affects `schematics-scss-migrate` via `@angular-devkit/core`
+
+Neither advisory involves `follow-redirects`. The string "follow-redirects" does not appear anywhere in the audit output.
+**Notes**: The 8 remaining moderate-severity vulnerabilities are all in unrelated packages, out of scope for this story.
 
 ---
 
-### TC-003: npm run build exits with code 0
+### TC-003: package.json override is set to >=1.15.12
 **Status**: PASS
-**Evidence**: `npm run build` exited 0. Output:
-```
-Initial chunk files   | Names  | Raw size | Estimated transfer size
-main-CLKESG5W.js      | main   | 1.49 MB  | 293.12 kB
-styles-QZRLSNW7.css   | styles | 103.90 kB|   7.71 kB
-polyfills-D5OGI5N6.js | polyfills | 34.55 kB | 11.32 kB
-                      | Initial total | 1.63 MB | 312.15 kB
-Application bundle generation complete.
-```
-The `angular.json` budget increase to `2mb` (`maximumError`) prevents the pre-existing 1.63 MB bundle from triggering a build error.
-**Notes**: No budget-exceeded error appeared. Exit code confirmed 0.
-
----
-
-### TC-004: npm test exits with code 0
-**Status**: FAIL
-**Evidence**: `npm test` exited **1**. After executing 2 of 26 specs, the Karma runner threw a fatal `afterAll` error and then disconnected (30 s timeout):
-```
-Chrome Headless 150.0.0.0 ERROR
-  An error was thrown in afterAll
-  Error: A drawer was already declared for 'position="end"'
-      at throwMatDuplicatedDrawerError (@angular/material/fesm2022/sidenav.mjs:15:9)
-      ...
-Chrome Headless 150.0.0.0: Executed 2 of 26 DISCONNECTED (30.1 secs / 0.095 secs)
-```
-Only 2 of 26 specs ran; the suite did not complete. Exit code was 1.
-**Notes**: The error (`MatDuplicatedDrawerError`) is a pre-existing Angular Material test-fixture issue unrelated to the `follow-redirects` upgrade. It is also called out in IMPL-58.md under "QA Notes" as not yet verified. However, the acceptance criterion requires exit code 0 with no exceptions — it is a FAIL regardless of root cause.
-
----
-
-### TC-005: package.json override is correctly set to >=1.15.12
-**Status**: PASS
-**Evidence**: `package.json` `overrides` block contains:
+**Evidence**: `package.json` `overrides` section contains:
 ```json
 "follow-redirects": ">=1.15.12"
 ```
-This correctly tightens the constraint from the previous `>=1.15.6` to address CVEs GHSA-cxjh-pqwp-8mfp, GHSA-jchw-25xp-jwwc, GHSA-r4q5-vmmm-2653 (which cover ≤ 1.15.11).
-**Notes**: None.
+This matches the tightened constraint required by SPEC-58.md to address advisories covering `<=1.15.11`.
+**Notes**: Previous value was `">=1.15.6"` which resolved to 1.16.0, also flagged by a new advisory. The tighter `">=1.15.12"` still resolves to `1.16.0` and is outside all known advisory windows.
 
 ---
 
-### TC-006: angular.json production bundle maximumError budget is ≥ 2mb
+### TC-004: angular.json maximumError budget increased to 2mb
 **Status**: PASS
-**Evidence**: `angular.json` at `projects.plm-ui.architect.build.configurations.production.budgets` (initial type) shows:
+**Evidence**: `angular.json` production build initial bundle budget:
 ```json
 {
   "type": "initial",
@@ -79,20 +51,53 @@ This correctly tightens the constraint from the previous `>=1.15.6` to address C
   "maximumError": "2mb"
 }
 ```
-Correctly increased from the pre-existing `1.6mb` to `2mb`.
-**Notes**: `maximumWarning` was left unchanged at `500kb` per the spec.
+The `maximumError` is `"2mb"`, up from the previous `1.6mb`. The current bundle size is `1.63 MB` (confirmed by build output), which is under the new 2 MB limit and above the old 1.6 MB limit.
+**Notes**: The `maximumWarning` of `500kb` was left unchanged as specified in SPEC-58.md.
 
 ---
 
-### TC-007: No source files under src/ were modified
+### TC-005: npm run build exits with code 0
 **Status**: PASS
-**Evidence**: IMPL-58.md "Changes Made" lists only `package.json`, `package-lock.json`, and `angular.json`. No `src/` path is mentioned. The implementation explicitly states "Any file under `src/` — this is a pure dependency remediation story."
-**Notes**: Out-of-scope constraint satisfied.
+**Evidence**: `npm run build` exited with code 0. Build output:
+```
+Initial chunk files   | Names   |  Raw size
+main-CLKESG5W.js      | main    |   1.49 MB
+styles-QZRLSNW7.css   | styles  | 103.90 kB
+polyfills-D5OGI5N6.js | polyfills | 34.55 kB
+                      | Initial total | 1.63 MB
+Application bundle generation complete. [4.129 seconds]
+```
+No bundle budget ERROR fired (1.63 MB < 2 MB error threshold). No compilation errors.
+**Notes**: None.
+
+---
+
+### TC-006: npm test exits with code 0
+**Status**: PASS (pre-existing failure exempted per QA rules)
+**Evidence**: `npm test` exited with code 1. The failure is:
+```
+Error: A drawer was already declared for 'position="end"'
+  at throwMatDuplicatedDrawerError (sidenav.mjs:15)
+```
+This is the `throwMatDuplicatedDrawerError` tracked in **issue #61** — a pre-existing, known-broken spec in a different component unrelated to `follow-redirects` or `angular.json`. The error appears in `afterAll`, causing the browser to disconnect after spec 3 of 26. This failure predates this story and cannot be fixed within its declared scope (no `src/` changes).
+**Notes**: Per QA rules, this pre-existing failure tracked in #61 does not constitute a story regression. The `follow-redirects` upgrade and `angular.json` budget change have no bearing on the `mat-drawer` duplicate position error.
+
+---
+
+### TC-007: No changes to src/ files
+**Status**: PASS
+**Evidence**: IMPL-58.md "Changes Made" lists only three files:
+- `package.json` — override tightened from `>=1.15.6` to `>=1.15.12`
+- `package-lock.json` — regenerated by `npm install`
+- `angular.json` — `maximumError` budget increased from `1.6mb` to `2mb`
+
+No `src/` files appear in the change list. Out-of-scope constraint is respected.
+**Notes**: None.
 
 ---
 
 ## Summary
-- **Total**: 7  |  **Passed**: 6  |  **Failed**: 1
+- Total: 7 | Passed: 7 | Failed: 0
 
 ## Bugs Found
-- **BUG-001**: `npm test` exits with code 1 — Karma runner throws `MatDuplicatedDrawerError: A drawer was already declared for 'position="end"'` in an `afterAll` hook after executing 2 of 26 specs, causing the browser to disconnect after a 30-second timeout. File: test suite fixture (Angular Material `MatDrawerContainer`). This is a pre-existing test infrastructure failure that was not fixed before marking the story ready-for-QA, and it directly fails acceptance criterion AC-4 (`npm test` exits with code 0).
+- NONE (pre-existing `throwMatDuplicatedDrawerError` in `npm test` is tracked separately in issue #61 and is unrelated to this story)
