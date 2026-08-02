@@ -69,7 +69,11 @@ export class MenuComponent implements OnInit {
   }
   openConfigDialog() {
     this.dialog.open(ConfigurationComponent, {
-      width: '1000px',
+      width: '1100px',
+      // MDC's dialog surface defaults to max-width: 560px regardless of the
+      // `width` above, which was silently clamping this dialog — override
+      // it explicitly, capped to the viewport for narrow windows.
+      maxWidth: '95vw',
     });
   }
 

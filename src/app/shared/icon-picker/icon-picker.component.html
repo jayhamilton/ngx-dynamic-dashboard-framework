@@ -10,6 +10,11 @@
   <span class="icon-picker-trigger-label">{{ value }}</span>
 </button>
 
+<!-- Empty spacer matching mat-form-field's subscript wrapper (hint/error
+     row), so this control's total height and top-aligned position lines
+     up with the outline form fields next to it in the same form row. -->
+<div class="icon-picker-subscript-spacer"></div>
+
 <mat-menu #iconMenu="matMenu" class="icon-picker-menu" (closed)="menuClosed()">
   <div class="icon-picker-panel" (click)="$event.stopPropagation()">
     <mat-form-field appearance="outline" class="icon-picker-search-field">

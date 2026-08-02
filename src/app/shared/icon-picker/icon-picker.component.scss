@@ -1,3 +1,8 @@
+:host {
+    display: inline-flex;
+    flex-direction: column;
+}
+
 .icon-picker-trigger {
     display: inline-flex;
     align-items: center;
@@ -5,9 +10,17 @@
     border: 1px solid var(--app-border);
     border-radius: 4px;
     height: 56px;
+    box-sizing: border-box;
     padding: 0 16px;
     color: var(--app-text-secondary);
     text-transform: none;
+}
+
+// Matches .mat-mdc-form-field-subscript-wrapper's reserved height so this
+// control's total height/top position matches the outline mat-form-fields
+// beside it in the same flex row.
+.icon-picker-subscript-spacer {
+    height: 21px;
 }
 
 .icon-picker-trigger-label {
