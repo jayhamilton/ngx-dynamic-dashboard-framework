@@ -61,6 +61,12 @@
     display: flex;
     flex-direction: column;
     min-width: 160px;
+
+    // Same flush-under-the-toolbar corner issue as .config-panel-container above:
+    // M3's default shape rounds this start-position drawer's trailing (right)
+    // corners, which cuts a notch exposing the toolbar's blue behind it and
+    // leaves the right edge looking clipped instead of a clean vertical line.
+    --mat-sidenav-container-shape: 0;
 }
 
 mat-nav-list {
