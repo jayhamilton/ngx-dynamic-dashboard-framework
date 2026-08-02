@@ -8,6 +8,7 @@ import { NgClass } from '@angular/common';
 import { MatIconButton, MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { CdkDropList, CdkDrag, CdkDragHandle, CdkDragDrop } from '@angular/cdk/drag-drop';
 
 interface IRowSummary {
   index: number;
@@ -21,7 +22,7 @@ interface IRowSummary {
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [NgClass, MatIconButton, MatButton, MatIcon, MatTooltip]
+    imports: [NgClass, MatIconButton, MatButton, MatIcon, MatTooltip, CdkDropList, CdkDrag, CdkDragHandle]
 })
 export class SidelayoutComponent implements OnInit {
   _layouts = layouts;
@@ -80,6 +81,33 @@ export class SidelayoutComponent implements OnInit {
     // read against a stale row count.
     this.selectedRowIndex = this.rows.length;
     this.eventService.emitBoardAddRowEvent();
+  }
+
+  dropRow(event: CdkDragDrop<IRowSummary[]>) {
+    const previousIndex = event.previousIndex;
+    const currentIndex = event.currentIndex;
+    if (previousIndex === currentIndex) return;
+
+    // Keep whichever row was selected selected after the move. Set this
+    // before emitting: the event is synchronous, so applyBoard() runs during
+    // the emit and would otherwise reconcile against a stale index.
+    this.selectedRowIndex = this.indexAfterMove(
+      this.selectedRowIndex,
+      previousIndex,
+      currentIndex
+    );
+
+    this.eventService.emitBoardMoveRowEvent({
+      data: { previousIndex, currentIndex },
+    });
+  }
+
+  /** Where `index` ends up once the row at `from` is re-inserted at `to`. */
+  private indexAfterMove(index: number, from: number, to: number): number {
+    if (index === from) return to;
+    if (from < index && to >= index) return index - 1;
+    if (from > index && to <= index) return index + 1;
+    return index;
   }
 
   removeRow(index: number, event: MouseEvent) {

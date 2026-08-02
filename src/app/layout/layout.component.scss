@@ -86,11 +86,52 @@
     }
 }
 
+.row-item-handle {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    cursor: grab;
+    opacity: 0.6;
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
 .row-item-icon {
     font-size: 20px;
     width: 20px;
     height: 20px;
     flex-shrink: 0;
+}
+
+// While a row is being dragged the list still needs to look like a list:
+// the preview floats with the panel's surface color, and the gap left
+// behind stays visible so the drop position is obvious.
+.cdk-drag-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    list-style: none;
+    background-color: var(--app-surface);
+    color: var(--app-brand);
+    border-left: 3px solid var(--app-brand);
+    border-radius: 2px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+    opacity: 0.35;
+}
+
+.cdk-drag-animating,
+.row-list.cdk-drop-list-dragging .row-item:not(.cdk-drag-placeholder) {
+    transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .row-item-label {

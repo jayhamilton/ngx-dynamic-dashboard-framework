@@ -10,12 +10,19 @@
     <div class="row-section">
       <h3 class="section-label">Rows</h3>
 
-      <ul class="row-list">
+      <ul class="row-list" cdkDropList (cdkDropListDropped)="dropRow($event)">
         @for (row of rows; track row.index) {
           <li
+            cdkDrag
+            cdkDragLockAxis="y"
             class="row-item"
             [class.selected]="row.index === selectedRowIndex"
             (click)="selectRow(row.index)">
+            <mat-icon
+              cdkDragHandle
+              class="row-item-handle"
+              matTooltip="Drag to reorder"
+              aria-label="Drag to reorder row">drag_indicator</mat-icon>
             <mat-icon class="row-item-icon">table_rows</mat-icon>
             <span class="row-item-label">Row {{ row.index + 1 }}</span>
             <span class="row-item-meta">

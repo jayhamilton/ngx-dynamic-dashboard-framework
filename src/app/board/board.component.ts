@@ -105,6 +105,16 @@ export class BoardComponent implements OnInit {
       this.announceRowsChanged();
     });
 
+    this.eventService.listenForBoardMoveRowEvent().subscribe((event: IEvent) => {
+      this.layoutService.moveRow(
+        this.boardData,
+        event.data.previousIndex,
+        event.data.currentIndex
+      );
+      this.displayLastSelectedBoard();
+      this.announceRowsChanged();
+    });
+
     this.eventService
       .listenForLibraryAddGadgetEvents()
       .pipe(throttleTime(1000))

@@ -117,6 +117,26 @@ export class LayoutService {
     this.boardService.updateBoardDueToLayoutChange(board);
   }
 
+  /**
+   * Reorders rows. The rows carry their own gadgets and layout, so moving one
+   * is purely positional — nothing needs redistributing.
+   */
+  moveRow(board: IBoard, previousIndex: number, currentIndex: number) {
+    this.ensureRows(board);
+
+    const lastIndex = board.rows.length - 1;
+    if (previousIndex === currentIndex) return;
+    if (previousIndex < 0 || previousIndex > lastIndex) return;
+    if (currentIndex < 0 || currentIndex > lastIndex) return;
+
+    const [moved] = board.rows.splice(previousIndex, 1);
+    board.rows.splice(currentIndex, 0, moved);
+
+    // board.structure mirrors the first row, which may now be a different row.
+    board.structure = board.rows[0].structure || board.structure;
+    this.boardService.updateBoardDueToLayoutChange(board);
+  }
+
   /** A row's layout, falling back to the board's for pre-multi-row boards. */
   structureForRow(board: IBoard, rowIndex: number): string {
     const row = board?.rows?.[rowIndex];

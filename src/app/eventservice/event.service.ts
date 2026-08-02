@@ -25,6 +25,7 @@ export class EventService {
   private sideMenuLayoutSelectSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardAddRowSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardRemoveRowSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardMoveRowSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardRowsChangedSubject: Subject<IEvent> = new Subject<IEvent>();
   private gadgetPropertyChangeSubject: Subject<IEvent> = new Subject<IEvent>();
   private gadgetDeleteSubject: Subject<IEvent> = new Subject<IEvent>();
@@ -174,6 +175,14 @@ export class EventService {
 
   listenForBoardRemoveRowEvent(): Observable<IEvent> {
     return this.boardRemoveRowSubject.asObservable();
+  }
+
+  emitBoardMoveRowEvent(event: IEvent) {
+    this.boardMoveRowSubject.next(event);
+  }
+
+  listenForBoardMoveRowEvent(): Observable<IEvent> {
+    return this.boardMoveRowSubject.asObservable();
   }
 
   // Emitted by the board once a row add/remove/layout change has been applied
