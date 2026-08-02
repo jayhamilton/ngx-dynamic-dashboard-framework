@@ -118,6 +118,18 @@ export class LocalStorageBoardRepository implements IBoardRepository {
     columnIndex: number,
     gadgetTemplate: IGadget
   ): Observable<IGadget> {
+    // instanceIds are Date.now()-based, so the highest one already in use
+    // is effectively "when the last gadget was created." Reject an add
+    // landing within the same 1s window as the last one — a guard at the
+    // actual write, independent of the UI-level debounces upstream
+    // (library.component's lastAddTime, board.component's throttleTime),
+    // for the hard-to-reproduce duplicate-gadget bug those exist to fix.
+    // gadgetTemplate is returned as-is since no current caller consumes
+    // the emitted value when a request is rejected.
+    if (Date.now() - this.lastCreatedInstanceId(this.read()) < 1000) {
+      return of(gadgetTemplate);
+    }
+
     return of(
       this.mutate((collection) => {
         const instance: IGadget = JSON.parse(JSON.stringify(gadgetTemplate));
@@ -185,6 +197,21 @@ export class LocalStorageBoardRepository implements IBoardRepository {
     let candidate = Date.now();
     while (used.has(candidate)) candidate++;
     return candidate;
+  }
+
+  /** Highest instanceId currently in use, or 0 if no gadget exists yet. */
+  private lastCreatedInstanceId(collection: IBoardCollection): number {
+    let latest = 0;
+    collection.boardList.forEach((board) => {
+      board.rows.forEach((row) => {
+        row.columns.forEach((column) => {
+          column.gadgets.forEach((gadget) => {
+            if (gadget.instanceId > latest) latest = gadget.instanceId;
+          });
+        });
+      });
+    });
+    return latest;
   }
 
   private applyProperties(propertiesJSON: string, gadget: IGadget): void {
