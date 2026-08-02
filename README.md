@@ -6,7 +6,27 @@ This project is based on the open source project https://github.com/catalogicsof
 
 ![Dashboard overview](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/dashboard-overview.jpg)
 
-## Key Design Aspects
+## Design Principles
+
+### The framework makes no assumptions about gadgets
+
+Boards are defined and configured at **runtime**, from JSON, rather than being laid out at build time. Because of that, the framework does not assume which gadgets a board will contain — or even which gadgets will eventually exist. A gadget nobody has envisioned yet can be introduced by adding its component and a library entry; the board, layout, drag-and-drop, and configuration machinery need no changes to accommodate it.
+
+The practical consequence is that the person *using* the dashboard decides what it presents, not the person who built it. Which gadgets appear, how many, on which boards, arranged in which layout, showing what data — all of it is a runtime decision.
+
+### Gadgets are templates; boards hold instances
+
+A gadget in the library is a template. What lands on a board is an **instance**. You can place many instances of the same gadget across one board or several, and each instance carries its own configuration and its own data — two Bar Charts side by side can show entirely unrelated series.
+
+Each instance is identified by a generated `instanceId` and stores its own copy of the gadget's property pages, which is why configuring one never affects another. It also means an instance is a snapshot: a gadget already on a board keeps the property definitions it was created with, so changes to `library.json` apply to newly added instances rather than retroactively to existing ones.
+
+### Data is configured, not wired
+
+The framework this project is based on had a notion of data sources backed by REST API endpoints. **That is not exposed in this version.** Data is instead defined as JSON and entered directly into each gadget instance's data control, using the embedded editor in its configuration panel. This keeps the runtime self-contained and makes it possible to build and share a complete board without standing up a backend.
+
+> **Planned:** support for REST API endpoints as a data source. It will be *supplementary to* — not a replacement for — manually configured JSON, so existing boards continue to work and either approach can be chosen per gadget instance.
+
+## Built With
 
 * JSON driven — gadgets and their property pages come from a library definition
 * [Angular Dynamic Components](https://angular.io/guide/dynamic-component-loader) — gadgets are instantiated at runtime
@@ -85,7 +105,7 @@ A toolbar toggle switches the entire app — Material components, chart text, si
 
 ### Persistence
 
-Boards, layouts, gadget instances, and their configured property values are stored in `localStorage`. Note that a gadget instance captures its property pages at the time it is added, so changes to `library.json` affect newly added gadgets rather than ones already placed on a board.
+Boards, layouts, gadget instances, and their configured property values are stored in `localStorage`, so a board survives a reload without any backend. See [Gadgets are templates; boards hold instances](#gadgets-are-templates-boards-hold-instances) for how instance data is captured.
 
 ---
 
