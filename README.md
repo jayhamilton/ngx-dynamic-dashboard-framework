@@ -56,6 +56,26 @@ Gadget configuration, board layout selection, and the gadget library all now ope
 
 ![Add tool panel](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/add-tool-panel.jpg)
 
+#### Board Identity — Icons and Banner
+
+Each board carries its own Material icon alongside its title and description. A banner beneath the toolbar shows the current board's icon, name and description, so it's always clear which board you're looking at.
+
+Board icons are chosen with a searchable icon picker in the board configuration form, and appear in the banner, the navigation rail, and the boards table.
+
+![Board icon picker](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/board-icon-picker.jpg)
+
+#### Collapsible Navigation Rail
+
+The board navigation stays visible at all times, toggling between a full rail (icon + board name) and a compact icon-only rail, with tooltips when collapsed.
+
+![Collapsed navigation rail](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/collapsed-nav-rail.jpg)
+
+#### Configurable Application Title
+
+The configuration dialog is split into two tabs: **Application**, for renaming the app shown in the toolbar, and **Boards**, for the board management controls. The title is persisted locally and can be reset to the built-in default at any time.
+
+![Application configuration](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/app-configuration.jpg)
+
 #### New Gadgets
 
 Pie Chart, Bubble Chart, Number Card (KPI tiles), and Line Chart join the original Bar Chart and Area Chart gadgets — each with its own Material icon (shown above in the gadget library).
@@ -79,6 +99,12 @@ Pie Chart, Bubble Chart, Number Card (KPI tiles), and Line Chart join the origin
 ### Gadget Icon
 
 * Set `icon` to a [Material Icons](https://fonts.google.com/icons?icon.set=Material+Icons) ligature name (e.g. `"bar_chart"`) — no image file needed. It's rendered directly as a `<mat-icon>` in both the gadget header and the library panel, so it automatically themes correctly in light and dark mode.
+
+### Board Icons
+
+* Boards use the same Material Icons ligature convention via an optional `icon` field on the board model. Boards saved before this field existed fall back to `dashboard`.
+* The set of icons offered by the picker is a curated list in [icon-options.ts](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/app/shared/icon-picker/icon-options.ts) — add entries there to extend it. `IconPickerComponent` is a standard `ControlValueAccessor`, so it can be dropped into any reactive form.
+
 ## JSON Definition
 ```
  [
