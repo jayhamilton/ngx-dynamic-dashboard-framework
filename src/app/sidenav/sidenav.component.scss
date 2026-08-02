@@ -86,19 +86,16 @@ mat-nav-list {
 
     // Material's own `.mat-mdc-nav-list .mat-mdc-list-item` rule sets
     // border-radius: var(--mat-list-active-indicator-shape, var(--mat-sys-corner-full))
-    // — a 2-class selector that beats the plain `mat-list-item { border-radius: 4px }`
+    // — a 2-class selector that beats the plain `mat-list-item { border-radius: 0 }`
     // below on specificity, so the active item's highlight fell back to
-    // --mat-sys-corner-full (9999px, a full pill). Combined with the blue
-    // .active border-left tracing around that rounded end, it read as a
-    // separate rounded blue shape sitting behind the item instead of a
-    // simple highlighted row. Override the same custom property Material
-    // reads so it matches the 4px used elsewhere in the app.
-    --mat-list-active-indicator-shape: 4px;
+    // --mat-sys-corner-full (9999px, a full pill) without this override.
+    // Square corners, no rounding at all, for the selected/hover highlight.
+    --mat-list-active-indicator-shape: 0;
 }
 
 mat-list-item {
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 0;
     margin: 2px 8px;
     color: var(--app-text-secondary);
     font-size: 0.9rem;
