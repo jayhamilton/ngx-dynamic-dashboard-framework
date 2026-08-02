@@ -6,6 +6,12 @@ This project is based on the open source project https://github.com/catalogicsof
 
 ![Dashboard overview](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/dashboard-overview.jpg)
 
+## Quick Start
+
+A fresh install has no boards yet. The empty state walks through both steps needed to get a dashboard on screen — open the settings menu to create a board, then open the gadget library to populate it — by looping through the actual toolbar icons and the panels they open.
+
+![Quick start walkthrough](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/quick-start.gif)
+
 ## Design Principles
 
 ### The framework makes no assumptions about gadgets
