@@ -60,13 +60,25 @@
 .example-sidenav {
     display: flex;
     flex-direction: column;
-    min-width: 160px;
 
     // Same flush-under-the-toolbar corner issue as .config-panel-container above:
     // M3's default shape rounds this start-position drawer's trailing (right)
     // corners, which cuts a notch exposing the toolbar's blue behind it and
     // leaves the right edge looking clipped instead of a clean vertical line.
     --mat-sidenav-container-shape: 0;
+
+    // Same 360px structural-default fallback issue as .config-panel-container
+    // above: without an explicit width, this always stays visible (opened is
+    // permanently true) and toggles between a full rail and an icon-only
+    // rail via this custom property, so it needs an explicit value in both
+    // states rather than relying on `autosize`.
+    --mat-sidenav-container-width: 220px;
+    transition: width 200ms ease;
+    overflow-x: hidden;
+
+    &.collapsed {
+        --mat-sidenav-container-width: 64px;
+    }
 }
 
 mat-nav-list {
@@ -100,5 +112,17 @@ mat-list-item {
         color: var(--app-brand);
         font-weight: 500;
         border-left: 3px solid var(--app-brand);
+    }
+}
+
+.example-sidenav.collapsed mat-list-item {
+    margin: 2px 4px;
+
+    ::ng-deep .mdc-list-item__content {
+        display: none;
+    }
+
+    ::ng-deep .mat-mdc-list-item-icon {
+        margin-right: 0;
     }
 }

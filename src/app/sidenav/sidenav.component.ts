@@ -5,6 +5,7 @@ import { Hiearchy, IBoard, IBoardCollection } from '../board/board.model';
 import { EventService } from '../eventservice/event.service';
 import { MatNavList, MatListItem, MatListItemIcon } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { SidelayoutComponent } from '../layout/layout.component';
 import { BoardComponent } from '../board/board.component';
 import { ConfigPanelComponent } from '../config-panel/config-panel.component';
@@ -15,7 +16,7 @@ import { LibraryComponent } from '../library/library.component';
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, MatListItemIcon, MatIcon, SidelayoutComponent, BoardComponent, ConfigPanelComponent, LibraryComponent]
+    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, MatListItemIcon, MatIcon, MatTooltip, SidelayoutComponent, BoardComponent, ConfigPanelComponent, LibraryComponent]
 })
 export class SidenavComponent implements OnInit {
   @ViewChild('drawer') public drawer!: MatDrawer;
@@ -26,6 +27,11 @@ export class SidenavComponent implements OnInit {
 
   selectedBoardId: number | null = null;
   private openConfigInstanceId: number = -1;
+
+  // The left nav (#drawer) is always visible; toggling switches it between
+  // a full width rail (icon + title) and a narrow icon-only rail, rather
+  // than showing/hiding it entirely.
+  navExpanded = false;
 
   constructor(
     private eventService: EventService,
@@ -38,7 +44,7 @@ export class SidenavComponent implements OnInit {
   ngOnInit(): void { }
 
   toggleMenu() {
-    this.drawer.toggle();
+    this.navExpanded = !this.navExpanded;
   }
 
   toggleLayout() {
@@ -67,6 +73,17 @@ export class SidenavComponent implements OnInit {
   // final width by the time this dispatches.
   onPushDrawerAnimationDone() {
     window.dispatchEvent(new Event('resize'));
+  }
+
+  // #drawer no longer opens/closes (it's always [opened]="true") — expanding
+  // and collapsing the icon rail instead animates its `width` via a plain
+  // CSS transition, which never fires (openedChange). Native `transitionend`
+  // is the equivalent "animation actually finished" signal for that case, so
+  // gadget charts still get resized once the board reaches its final width.
+  onNavRailTransitionEnd(event: TransitionEvent) {
+    if (event.propertyName === 'width') {
+      this.onPushDrawerAnimationDone();
+    }
   }
 
   // Bound to <mat-drawer #configPanel (closed)>. Fires whenever the drawer

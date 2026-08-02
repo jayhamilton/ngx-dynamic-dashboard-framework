@@ -1,12 +1,23 @@
 <mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side" (openedChange)="onPushDrawerAnimationDone()">
+  <mat-drawer
+    #drawer
+    class="example-sidenav"
+    [class.collapsed]="!navExpanded"
+    mode="side"
+    [opened]="true"
+    (transitionend)="onNavRailTransitionEnd($event)">
     <mat-nav-list>
       @for (board of boardData; track board) {
         <mat-list-item
           [class.active]="board.id === selectedBoardId"
+          [matTooltip]="board.title"
+          [matTooltipDisabled]="navExpanded"
+          matTooltipPosition="right"
           (click)="selectBoard(board.id)">
           <mat-icon matListItemIcon>{{ board.icon || 'dashboard' }}</mat-icon>
-          {{ board.title }}
+          @if (navExpanded) {
+            {{ board.title }}
+          }
         </mat-list-item>
       }
     </mat-nav-list>
