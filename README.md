@@ -16,9 +16,9 @@ A fresh install has no boards yet. The empty state walks through both steps need
 
 ### The framework makes no assumptions about gadgets
 
-Boards are defined and configured at **runtime**, from JSON, rather than being laid out at build time. Because of that, the framework does not assume which gadgets a board will contain — or even which gadgets will eventually exist. A gadget nobody has envisioned yet can be introduced by adding its component and a library entry; the board, layout, drag-and-drop, and configuration machinery need no changes to accommodate it.
+Boards are defined and configured at **runtime**, from JSON, rather than being laid out at build time. Because of that, the framework does not assume which gadgets a board will contain, or even which gadgets will eventually exist. A gadget nobody has envisioned yet can be introduced by adding its component and a library entry; the board, layout, drag-and-drop, and configuration machinery need no changes to accommodate it.
 
-The practical consequence is that the person *using* the dashboard decides what it presents, not the person who built it. Which gadgets appear, how many, on which boards, arranged in which layout, showing what data — all of it is a runtime decision.
+The practical consequence is that the person *using* the dashboard decides what it presents, not the person who built it. Which gadgets appear, how many, on which boards, arranged in which layout, showing what data. All of it is a runtime decision.
 
 ### Gadgets are templates; boards hold instances
 
