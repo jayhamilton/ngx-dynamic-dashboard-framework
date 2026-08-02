@@ -1,0 +1,43 @@
+.section-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--app-brand);
+  margin: 16px 0 8px;
+}
+
+.application-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.form-field-app-title {
+  width: 360px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  // Aligns these buttons with the form field's input box rather than its
+  // full height, which also reserves space for the hint text below.
+  padding-top: 8px;
+
+  mat-icon {
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+}
+
+.saved-indicator {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--app-brand);
+}

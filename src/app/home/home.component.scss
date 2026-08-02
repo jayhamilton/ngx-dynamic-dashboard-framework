@@ -1,0 +1,24 @@
+// The toolbar and banner are fixed-height; the sidenav (which owns the
+// board area and its own scrolling) takes the remaining space. Without
+// this, app-sidenav's `.example-container { height: 100% }` resolved
+// against the full viewport rather than the leftover space, pushing the
+// page 64px (toolbar) taller than the window — now compounded by the
+// banner. min-height: 0 lets the sidenav shrink below its content size
+// so it scrolls internally instead of overflowing the page.
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+app-menu,
+app-board-banner {
+    flex: 0 0 auto;
+}
+
+app-sidenav {
+    display: block;
+    flex: 1 1 auto;
+    min-height: 0;
+}

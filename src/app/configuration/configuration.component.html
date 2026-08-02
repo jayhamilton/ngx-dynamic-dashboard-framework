@@ -1,6 +1,12 @@
-<h2 mat-dialog-title>Configure Boards</h2>
+<h2 mat-dialog-title>Configuration</h2>
 <mat-dialog-content>
   <mat-tab-group mat-align-tabs="start" mat-stretch-tabs="false">
+    <mat-tab label="Application">
+      <ng-template matTabContent>
+        <app-tab-application></app-tab-application>
+      </ng-template>
+    </mat-tab>
+
     <mat-tab label="Boards">
       <ng-template matTabContent>
         <app-tab-boards (boardAddEvent)="closeDialog()"></app-tab-boards>

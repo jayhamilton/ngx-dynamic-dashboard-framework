@@ -13,12 +13,7 @@
     </button>
   </span>
 
-  @if (boardTitle) {
-    <mat-icon class="board-title-icon">{{ boardIcon || 'dashboard' }}</mat-icon>
-    <span class="board-title">{{ boardTitle }}</span>
-  } @else {
-    <span>{{applicationTitle}}</span>
-  }
+  <span class="app-title">{{ appConfigService.appTitle$ | async }}</span>
   <span class="example-spacer"></span>
 
   <span *checkPermissions>

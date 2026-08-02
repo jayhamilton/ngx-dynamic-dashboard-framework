@@ -3,6 +3,7 @@ import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } fr
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatTabGroup, MatTab, MatTabContent } from '@angular/material/tabs';
 import { TabBoardsComponent } from './tab-boards/tab-boards.component';
+import { TabApplicationComponent } from './tab-application/tab-application.component';
 import { MatButton } from '@angular/material/button';
 
 @Component({
@@ -10,7 +11,7 @@ import { MatButton } from '@angular/material/button';
     templateUrl: './configuration.component.html',
     styleUrls: ['./configuration.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatTabGroup, MatTab, MatTabContent, TabBoardsComponent, MatDialogActions, MatButton, MatDialogClose]
+    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatTabGroup, MatTab, MatTabContent, TabBoardsComponent, TabApplicationComponent, MatDialogActions, MatButton, MatDialogClose]
 })
 export class ConfigurationComponent {
 

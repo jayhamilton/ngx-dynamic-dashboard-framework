@@ -1,0 +1,41 @@
+.board-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    background-color: var(--app-surface);
+    border-bottom: 1px solid var(--app-border);
+}
+
+.banner-icon {
+    // mat-icon's font-size drives the glyph; width/height must be set to
+    // match or the element keeps its default 24px box and clips the glyph.
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    color: var(--app-brand);
+}
+
+.banner-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--app-brand);
+    white-space: nowrap;
+}
+
+.banner-separator {
+    width: 1px;
+    align-self: stretch;
+    margin: 4px 0;
+    background-color: var(--app-border);
+    flex-shrink: 0;
+}
+
+.banner-description {
+    font-size: 0.95rem;
+    color: var(--app-text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

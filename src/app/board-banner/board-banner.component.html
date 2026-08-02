@@ -1,0 +1,10 @@
+@if (boardTitle) {
+  <div class="board-banner">
+    <mat-icon class="banner-icon">{{ boardIcon || 'dashboard' }}</mat-icon>
+    <span class="banner-title">{{ boardTitle }}</span>
+    @if (boardDescription) {
+      <span class="banner-separator"></span>
+      <span class="banner-description">{{ boardDescription }}</span>
+    }
+  </div>
+}
