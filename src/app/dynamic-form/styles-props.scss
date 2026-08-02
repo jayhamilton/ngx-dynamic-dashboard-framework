@@ -50,14 +50,28 @@
   color: rgb(68, 66, 66);
 }
 
+// A two-column CSS grid ties row height to the tallest cell in that row
+// across BOTH columns, so a text field next to a checkbox forces the
+// checkbox's row tall too, leaving visible empty space under it. Property
+// order isn't semantically paired left/right anyway (it's just whatever
+// order the gadget's property list happens to define), so there's no
+// pairing to preserve — CSS multi-column lets each column size to its own
+// content instead, with column-span: all as its native mechanism for the
+// full-width rows (section headers, JSON/text editors) that need to break
+// across both columns.
 .gridContainer {
   padding: 16px 8px;
-  display: grid;
   width: 100%;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px 24px;
-  align-items: start;
+  columns: 2;
+  column-gap: 24px;
+  column-fill: balance;
 }
+
+.form-row {
+  break-inside: avoid;
+  margin-bottom: 8px;
+}
+
 .full_width {
   width: 100%;
 }
@@ -72,7 +86,7 @@ mat-tab-group {
 }
 
 .full-width-row {
-  grid-column: 1 / -1;
+  column-span: all;
 }
 
 .ace-editor-container {
@@ -100,7 +114,7 @@ mat-tab-group {
 }
 
 .section-header {
-  grid-column: 1 / -1;
+  column-span: all;
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--app-brand);
