@@ -66,10 +66,14 @@ export class BoardService {
         if (board.id == incomingBoard.id) {
           let updatedGadgetList: IGadget[] = [];
 
-          //set instanceIdValue
-          incomingGadget.instanceId = Date.now();
+          // incomingGadget is the library template — the same object every
+          // time that gadget type is added. Turning a template into an
+          // instance has to produce an independent copy, otherwise every
+          // instance of a type would share one propertyPages array (and
+          // adding one would stamp its instanceId onto the template).
+          const newGadget = this.createGadgetInstance(incomingGadget, boardCollection);
 
-          updatedGadgetList.push(incomingGadget);
+          updatedGadgetList.push(newGadget);
 
           //pick an empty column to insert the gadget into
           let gadgetAdded = false;
@@ -98,6 +102,43 @@ export class BoardService {
 
       this.saveBoardCollectionToDestination(boardCollection);
     });
+  }
+
+  /**
+   * Deep-copies a library gadget definition into a board-owned instance with
+   * its own id and its own property pages, so configuring one instance can
+   * never affect another instance of the same type — or the library template
+   * it came from.
+   */
+  private createGadgetInstance(
+    template: IGadget,
+    boardCollection: IBoardCollection
+  ): IGadget {
+    const instance: IGadget = JSON.parse(JSON.stringify(template));
+    instance.instanceId = this.nextInstanceId(boardCollection);
+    return instance;
+  }
+
+  /**
+   * Date.now() alone can repeat when two gadgets are added inside the same
+   * millisecond, and duplicate ids would make configuring one instance write
+   * to both. Step past anything already in use.
+   */
+  private nextInstanceId(boardCollection: IBoardCollection): number {
+    const used = new Set<number>();
+    boardCollection.boardList.forEach((board) => {
+      board.rows.forEach((row) => {
+        row.columns.forEach((column) => {
+          column.gadgets.forEach((gadget) => used.add(gadget.instanceId));
+        });
+      });
+    });
+
+    let candidate = Date.now();
+    while (used.has(candidate)) {
+      candidate++;
+    }
+    return candidate;
   }
 
   public updateBoardDueToLayoutChange(incomingBoard: IBoard) {
