@@ -45,6 +45,12 @@ html {
   --app-background: whitesmoke;
   --app-text-secondary: #666;
   --app-border: #e0e0e0;
+  // Matches mat-form-field's own outline color (--mdc-outlined-text-field-outline-color),
+  // which Material scopes locally to each form field rather than publishing
+  // as an inherited custom property. Used to keep custom form controls
+  // (e.g. the icon picker) visually consistent with real mat-form-fields
+  // in the same row.
+  --app-input-border: #757684;
 }
 
 .dark-theme {
@@ -57,6 +63,7 @@ html {
   --app-background: #121319;
   --app-text-secondary: #abaab3;
   --app-border: #46464d;
+  --app-input-border: #8f909e;
 }
 
 html,
