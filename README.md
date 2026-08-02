@@ -1,179 +1,198 @@
 # NGX Dynamic Dashboard Framework
 
-This project is based on the open source project https://github.com/catalogicsoftware/ngx-dynamic-dashboard-framework I created a few years ago. 
+A JSON-driven dashboard framework built with Angular and Angular Material. Gadgets, their configuration forms, and board layouts are all described as data and rendered at runtime — adding a new gadget means adding a component and a JSON entry, not rewriting the dashboard.
 
-The keys design aspects:
+This project is based on the open source project https://github.com/catalogicsoftware/ngx-dynamic-dashboard-framework I created a few years ago.
 
-* JSON Driven
-* [Angular Dynamic Components](https://angular.io/guide/dynamic-component-loader)
-* [Angular Dynamic Forms](https://angular.io/guide/dynamic-form)
-* [NGX Charts](https://swimlane.github.io/ngx-charts/#/ngx-charts/bar-vertical)
+![Dashboard overview](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/dashboard-overview.jpg)
+
+## Key Design Aspects
+
+* JSON driven — gadgets and their property pages come from a library definition
+* [Angular Dynamic Components](https://angular.io/guide/dynamic-component-loader) — gadgets are instantiated at runtime
+* [Angular Dynamic Forms](https://angular.io/guide/dynamic-form) — configuration forms are generated from each gadget's JSON
+* [NGX Charts](https://swimlane.github.io/ngx-charts/#/ngx-charts/bar-vertical) — charting gadgets
+* Angular Material 3 theming with light and dark modes
+
 ## Blog Post
+
 [Medium Blog Post](https://jaystevenhamilton.medium.com/design-of-a-dashboard-framework-c26367cfea64)
 
-## Examples
-#### New Board
+---
 
-![New Board Creation](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/new-board.gif)
+## Features
 
-#### Add Gadget
+### Boards
 
-![Add Gadget](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/add-gadget.gif)
+Multiple dashboards, each with its own title, description, and Material icon. The current board's identity is shown in a banner beneath the toolbar, and boards are switched from the navigation rail on the left. The rail collapses to icons only when you want the space back.
 
-> Note: this GIF shows the gadget library as a modal dialog. It has since moved to a side panel — see [Gadget Library](#gadget-library-side-panel) below for the current UI.
+![Board navigation](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/board-navigation.jpg)
 
-#### Drag/Drop and Layout
+Boards are created and edited from the configuration dialog, which also carries the description and icon shown in the banner and navigation.
 
-![Multi-board Configuration](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/layout.gif)
+![Board configuration](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/board-configuration.jpg)
 
-#### Multiple Boards
+Icons are chosen with a searchable picker drawn from the Material Icons set — no image assets involved.
 
-![Dynamic Navigation](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/multiboard.gif)
+![Icon picker](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/icon-picker.jpg)
 
-## Recent Enhancements
+### Rows and Layouts
 
-#### Dark / Light Theme
+A board is made of rows, and **each row has its own column layout** — so a three-across KPI strip can sit above a two-column detail row. Rows can be added, removed, and dragged into a different order, and the layout thumbnails apply to whichever row is selected.
 
-A theme toggle in the toolbar switches the whole app — Material components, gadget charts, and side panels — between light and dark, persisted across sessions.
-
-| Light | Dark |
-|---|---|
-| ![Light mode](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/light-mode.jpg) | ![Dark mode](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/dark-mode.jpg) |
-
-#### Side Panels for Configuration, Layout, and the Gadget Library
-
-Gadget configuration, board layout selection, and the gadget library all now open as consistent side panels (rather than modal dialogs), and are mutually exclusive — opening one closes whichever of the others is open.
-
-##### Configure a gadget
-
-![Configure panel](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/configure-panel.jpg)
-
-##### Choose a board layout
+Removing a row relocates its gadgets into the first remaining row rather than discarding them.
 
 ![Board layouts panel](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/board-layouts-panel.jpg)
 
-##### Gadget library side panel
+Available layouts: one column, two equal, two narrow/wide, two wide/narrow, and three equal. Gadgets can be dragged between columns and between rows.
 
-![Add tool panel](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/add-tool-panel.jpg)
+### Gadget Library
 
-#### Board Identity — Icons and Banner
+Gadgets are added from a side panel driven entirely by the library JSON.
 
-Each board carries its own Material icon alongside its title and description. A banner beneath the toolbar shows the current board's icon, name and description, so it's always clear which board you're looking at.
+![Gadget library](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/gadget-library.jpg)
 
-Board icons are chosen with a searchable icon picker in the board configuration form, and appear in the banner, the navigation rail, and the boards table.
+| Gadget | Purpose |
+|---|---|
+| Bar Chart | Vertical bar chart for categorical data |
+| Area Chart | Multi-series area chart for trends over time |
+| Line Chart | Multi-series line chart |
+| Pie Chart | Proportional data |
+| Bubble Chart | Three-dimensional (x / y / size) data |
+| Number Card | KPI metric tiles |
+| Table | Rows of tabular data with striping, density, row numbers, and column selection |
+| Statistic | A single metric with an icon, color theme, and trend indicator |
 
-![Board icon picker](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/board-icon-picker.jpg)
+### Gadget Configuration
 
-#### Collapsible Navigation Rail
+Selecting **Configure** on a gadget opens a side panel whose form is generated from that gadget's property definitions. The gadget shows a configuration-mode indicator while the panel is open, and edits are applied live.
 
-The board navigation stays visible at all times, toggling between a full rail (icon + board name) and a compact icon-only rail, with tooltips when collapsed.
+![Gadget configuration](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/gadget-configuration.jpg)
 
-![Collapsed navigation rail](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/collapsed-nav-rail.jpg)
+Supported form controls: `textbox`, `number`, `checkbox`, `dropdown`, `dropdown-ms`, `date`, `textarea`, `upload`, `hidden`, `section`, `icon-picker`, `ace-editor`, and `json-forms`. Gadget data is edited as JSON in an embedded Ace editor.
 
-#### Configurable Application Title
+### Application Configuration
 
-The configuration dialog is split into two tabs: **Application**, for renaming the app shown in the toolbar, and **Boards**, for the board management controls. The title is persisted locally and can be reset to the built-in default at any time.
+The application title shown in the toolbar is configurable and persisted locally, with a reset back to the built-in default.
 
-![Application configuration](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/app-configuration.jpg)
+![Application configuration](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/application-configuration.jpg)
 
-#### New Gadgets
+### Light and Dark Themes
 
-Pie Chart, Bubble Chart, Number Card (KPI tiles), and Line Chart join the original Bar Chart and Area Chart gadgets — each with its own Material icon (shown above in the gadget library).
+A toolbar toggle switches the entire app — Material components, chart text, side panels, and gadgets — between light and dark. The choice is persisted across sessions.
 
+![Light theme](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/light-theme.jpg)
 
-## Developers Guide To Framework Extension - Creating A Gadget
-### Define the Gadget Component, Service and View
+### Persistence
 
-* Bar Chart Component  [bar-chart.component.ts](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/app/gadgets/bar-chart/bar-chart.component.ts)
+Boards, layouts, gadget instances, and their configured property values are stored in `localStorage`. Note that a gadget instance captures its property pages at the time it is added, so changes to `library.json` affect newly added gadgets rather than ones already placed on a board.
+
+---
+
+## Developers Guide — Creating A Gadget
+
+### 1. Define the component, service, and view
+
+* Bar Chart Component [bar-chart.component.ts](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/app/gadgets/bar-chart/bar-chart.component.ts)
 * Bar Chart View [bar-chart.component.html](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/app/gadgets/bar-chart/bar-chart.component.html)
-* Bar Chart Service - you would create a service to call a REST endpoint to get data for the component
+* Optionally add a service to call a REST endpoint for the gadget's data
 
-### Define the gadget's model
+Gadgets extend `GadgetBase`, which supplies the title, subtitle, icon, instance id, property pages, and configuration-mode state.
 
-* The model is used to dynamically create and render the gadget and its property page forms. This model is an entry into a model array used for all gadgets. You will simply add an entry to the model's array. See the BarChartComponent entry.
-* Add an entry for the gadget in the library model array [library.json](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/assets/api/library.json)
+### 2. Define the gadget's model
 
-### Add the gadget entry to the gadget factory class
+Add an entry to the library array in [library.json](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/assets/api/library.json). This entry drives both the library panel card and the generated configuration form.
 
-* Add an entry for your gadget in the gadget grid cell host class that serves as a gadget factory [gadget-grid-cell-host.component.ts](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/app/gadgets/gadget-grid-cell-host/gadget-grid-cell-host.component.ts)
-### Gadget Icon
+Production builds read `library-prod.json`, so add the entry to both files.
 
-* Set `icon` to a [Material Icons](https://fonts.google.com/icons?icon.set=Material+Icons) ligature name (e.g. `"bar_chart"`) — no image file needed. It's rendered directly as a `<mat-icon>` in both the gadget header and the library panel, so it automatically themes correctly in light and dark mode.
+### 3. Register it with the gadget factory
 
-### Board Icons
+Add a case for the new component to [gadget-grid-cell-host.component.ts](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/app/gadgets/gadget-grid-cell-host/gadget-grid-cell-host.component.ts), which instantiates gadgets by `componentType`.
 
-* Boards use the same Material Icons ligature convention via an optional `icon` field on the board model. Boards saved before this field existed fall back to `dashboard`.
-* The set of icons offered by the picker is a curated list in [icon-options.ts](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/app/shared/icon-picker/icon-options.ts) — add entries there to extend it. `IconPickerComponent` is a standard `ControlValueAccessor`, so it can be dropped into any reactive form.
+### 4. Gadget icons
 
-## JSON Definition
-```
- [
-  {...},
+Set `icon` to a [Material Icons](https://fonts.google.com/icons?icon.set=Material+Icons) ligature name (e.g. `"bar_chart"`) — no image file needed. It renders as a `<mat-icon>` in both the gadget header and the library panel, so it themes correctly in light and dark mode.
+
+Boards use the same convention. The icon picker's list lives in [icon-options.ts](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/app/shared/icon-picker/icon-options.ts) — add entries there to extend it. `IconPickerComponent` is a standard `ControlValueAccessor`, so it can be used in any reactive form.
+
+### JSON Definition
+
+```json
+[
   {
-    "componentType": "AreaChartComponent",
-    "title": "Area Chart Component Component Tool",
-    "subtitle": "Area chart tool subtitle",
-    "description": "Select this gadget .....",
-    "icon": "area_chart",
+    "componentType": "StatisticComponent",
+    "title": "Statistic",
+    "subtitle": "Single metric",
+    "description": "Add a single statistic with an icon and color theme.",
+    "icon": "speed",
     "instanceId": -1,
     "tags": [],
     "propertyPages": [
       {
         "displayName": "Configuration",
-        ...
+        "groupId": "config",
+        "position": 10,
         "properties": [
           {
             "controlType": "textbox",
             "key": "title",
             "label": "Title",
-            "value": "Property Components",
+            "value": "Statistic",
             "required": true,
             "order": 1
           },
           {
-            "controlType": "textbox",
-            "key": "subtitle",
-            "label": "Subtitle",
-            "value": "Product component subtitle",
+            "controlType": "icon-picker",
+            "key": "statIcon",
+            "label": "Icon",
+            "value": "speed",
             "required": false,
-            "order": 2
+            "order": 21
+          },
+          {
+            "controlType": "dropdown",
+            "key": "statTheme",
+            "label": "Theme",
+            "value": "brand",
+            "required": false,
+            "order": 22,
+            "options": [
+              { "key": "brand", "value": "Brand" },
+              { "key": "success", "value": "Success (green)" }
+            ]
           }
         ]
       }
     ],
-    "actions": [
-      {
-        "name": "add"
-      }
-    ]
+    "actions": [{ "name": "add" }]
   }
 ]
 ```
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.1.
+---
 
-## Development server
+## Development
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
-Login with username `admin` and password `admin`.
+### Development server
 
-## Code scaffolding
+Run `ng serve` for a dev server, then navigate to `http://localhost:4200/`. The app reloads automatically when source files change.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Log in with username `admin` and password `admin`.
 
-## Build
+### Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build` to build the project. Artifacts are written to `dist/`.
 
-## Running unit tests
+### Unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+### Code scaffolding
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Further help
+### Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Run `ng help` or see the [Angular CLI Overview and Command Reference](https://angular.io/cli).
