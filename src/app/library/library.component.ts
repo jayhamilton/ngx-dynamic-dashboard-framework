@@ -1,6 +1,9 @@
 import {
+  AfterViewInit,
   Component,
+  OnDestroy,
   OnInit,
+  ViewChild,
   ChangeDetectionStrategy
 } from '@angular/core';
 import { EventService } from '../eventservice/event.service';
@@ -19,7 +22,9 @@ import { MatIcon } from '@angular/material/icon';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, MatCard, NgStyle, MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatMiniFabButton, MatIcon, MatIconButton]
 })
-export class LibraryComponent implements OnInit {
+export class LibraryComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(CdkVirtualScrollViewport) viewport?: CdkVirtualScrollViewport;
+  private resizeObserver?: ResizeObserver;
   colors = [
     '#FF5733', '#33FF57', '#3357FF', '#F1C40F', '#8E44AD', '#E74C3C',
     '#3498DB', '#2ECC71', '#1ABC9C', '#9B59B6', '#34495E', '#16A085',
@@ -36,6 +41,25 @@ export class LibraryComponent implements OnInit {
   library!: IGadget[];
   ngOnInit(): void {
     this.getLibrary();
+  }
+
+  ngAfterViewInit(): void {
+    // CdkVirtualScrollViewport measures its container once on init. This
+    // panel lives inside a mat-drawer that animates open from 0 width, so
+    // that initial measurement is stale/undersized — it silently renders
+    // only enough items to fill that small initial size (e.g. 2 of 6) even
+    // though there's plenty of room once the drawer finishes opening.
+    // Re-measure whenever the panel's actual size changes.
+    if (this.viewport) {
+      this.resizeObserver = new ResizeObserver(() => {
+        this.viewport?.checkViewportSize();
+      });
+      this.resizeObserver.observe(this.viewport.elementRef.nativeElement);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
   }
 
   getLibrary() {
