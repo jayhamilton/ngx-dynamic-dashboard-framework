@@ -56,6 +56,18 @@ export class SidenavComponent implements OnInit {
     this.library.toggle();
   }
 
+  // Bound to (openedChange) on the two mode="side" drawers (#drawer, #layout),
+  // which push/resize the board rather than overlay it. That resize is a CSS
+  // transition, not a browser window resize, but ngx-charts only re-measures
+  // its container on the window's native 'resize' event — so without this,
+  // gadget charts stay sized for the old (drawer-open) width until an actual
+  // window resize or full page reload. openedChange fires once the drawer's
+  // open/close animation has finished, so the board has already reached its
+  // final width by the time this dispatches.
+  onPushDrawerAnimationDone() {
+    window.dispatchEvent(new Event('resize'));
+  }
+
   // Bound to <mat-drawer #configPanel (closed)>. Fires whenever the drawer
   // actually finishes closing — close button, backdrop click, escape key,
   // or being closed programmatically (e.g. toggleLayout() above) — so it's
