@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an Angular 19 dynamic dashboard framework (ngx-dd-ui) that enables JSON-driven creation of customizable dashboards with drag/drop functionality. The project is based on the open source NGX Dynamic Dashboard Framework and focuses on production line management interfaces.
+This is an Angular 22 dynamic dashboard framework (ngx-dd-ui) that enables JSON-driven creation of customizable dashboards with drag/drop functionality. The project is based on the open source NGX Dynamic Dashboard Framework and focuses on production line management interfaces.
 
 ## Common Commands
 
@@ -28,21 +28,26 @@ This is an Angular 19 dynamic dashboard framework (ngx-dd-ui) that enables JSON-
 - `GadgetBase` (`src/app/gadgets/common/gadget-common/gadget-base/gadget.base.ts`) - Abstract base class all gadgets extend
 - Gadget library defined in `src/assets/api/library.json` - JSON configuration for all available gadgets
 
-**Available Gadgets**:
-- BarChartComponent, AreaChartComponent (NGX Charts integration)
-- ProductComponent, ScoreCardComponent, PckLineComponent
-- ImageComponent, DateComponent, NotificationComponent
-- UsergroupComponent, EventsComponent
+**Available Gadgets** (wired into the factory switch statement, see below):
+- BarChartComponent, AreaChartComponent, PieChartComponent, BubbleChartComponent (NGX Charts integration)
+- NumberCardComponent (KPI tile), LineChartComponent
 
 **Dynamic Forms**:
 - `DynamicFormComponent` - Renders property configuration forms
-- Form controls: textbox, dropdown, dropdown-ms, number, date, textarea, upload, hidden
+- Form controls: textbox, dropdown, dropdown-ms, number, date, textarea, upload, hidden, ace-editor, json-forms
 - Property definitions in gadget JSON include validation rules
 
 **Layout & Navigation**:
 - Multi-board support with dynamic navigation
 - Drag/drop layout management
 - Board persistence and configuration
+- Gadget configuration, board layout selection, and the gadget library each open as a side panel (`ConfigPanelComponent`, `LayoutComponent`, `LibraryComponent`), not a modal dialog. All three are owned/mutually-exclusive-managed by `SidenavComponent` (`src/app/sidenav/`), which nests a separate `mat-drawer-container` per panel (Material doesn't allow two `mat-drawer`s at the same `position` in one container) and closes whichever panel is open before opening another. Panel open/close is coordinated via `EventService` events (e.g. `emitCloseLibraryPanelEvent`/`listenForCloseLibraryPanelEvent`, `emitConfigPanelClosedEvent`/`listenForConfigPanelClosedEvent`), not direct method calls, so gadget config state stays in sync even when a panel is closed by a route other than its own button (e.g. opening a different panel).
+
+**Theming**:
+- Angular Material M3 theming (`mat.define-theme()`, `mat.core()`) in `src/styles.scss`, with a generated palette in `src/theme-colors.scss` (seed `#3f51b5`).
+- `ThemeService` (`src/app/theme/theme.service.ts`) tracks light/dark as a `BehaviorSubject<boolean>`, persisted to `localStorage`, toggled from the toolbar.
+- App-level design tokens are CSS custom properties defined for both light and dark (`--app-brand`, `--app-panel-header`, `--app-surface`, `--app-background`, `--app-text-secondary`, `--app-border`, `--app-brand-tint`/`--app-brand-tint-strong`, `--app-brand-contrast`) — prefer these over literal hex colors in component styles so they theme correctly.
+- Material's `--mat-sidenav-container-width` / `--mat-sidenav-container-shape` CSS custom properties are the reliable way to override `mat-drawer` sizing/corner-radius; a plain `border-radius`/`width` override loses the specificity fight against Material's own `.mat-drawer.mat-drawer-end` rules.
 
 ### Key Files
 
@@ -56,8 +61,8 @@ This is an Angular 19 dynamic dashboard framework (ngx-dd-ui) that enables JSON-
 
 1. Create component in `src/app/gadgets/[gadget-name]/`
 2. Add component import and case to `GadgetGridCellHostComponent` switch statement
-3. Add gadget definition to `src/assets/api/library.json`
-4. Create icon image in `src/assets/images/`
+3. Add gadget definition to `src/assets/api/library.json` (and `library-prod.json`)
+4. Set `icon` to a [Material Icons](https://fonts.google.com/icons?icon.set=Material+Icons) ligature name (e.g. `"bar_chart"`) — rendered directly as `<mat-icon>`, no image file needed. Gadget instances already placed on a board persist their `icon` value in `localStorage` at add-time, so changing `library.json` later won't retroactively update instances already on a board.
 
 ### Dependencies
 
