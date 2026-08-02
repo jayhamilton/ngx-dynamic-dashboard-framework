@@ -1,6 +1,6 @@
 {
   "name": "plm-ui",
-  "version": "0.5.0-alpha",
+  "version": "0.6.0-alpha",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
