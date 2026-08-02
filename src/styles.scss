@@ -98,6 +98,10 @@ mat-dialog-container {
     // elevated layer rather than blending into the dimmed page behind it,
     // which is especially flat in dark theme.
     --mat-dialog-container-color: var(--app-surface);
+    // M3's default dialog corner radius (28px) reads as oversized against
+    // this app's mostly-4px card/panel radii. Same --mat- (not --mdc-)
+    // token pattern as the color override above.
+    --mat-dialog-container-shape: 8px;
 }
 
 // Material's default dialog backdrop (rgba(0,0,0,.32)) is too subtle to read

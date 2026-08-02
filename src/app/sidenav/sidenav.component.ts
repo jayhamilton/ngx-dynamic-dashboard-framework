@@ -100,6 +100,17 @@ export class SidenavComponent implements OnInit {
       this.boardData = boardCollection.boardList.filter((obj) => {
         return obj.relationship == Hiearchy.PARENT;
       });
+
+      if (this.boardData.length === 0) {
+        // Nothing left for the library/layout/config panels to act on —
+        // most reachable by deleting the last remaining board while one of
+        // them is open. Optional chaining: this also runs from the
+        // constructor, before the drawer ViewChildren exist yet.
+        this.layout?.close();
+        this.library?.close();
+        this.configPanel?.close();
+      }
+
       if (!this.selectedBoardId) {
         this.boardService.getLastSelectedBoard().subscribe((board: IBoard) => {
           if (board && board.id != null) {

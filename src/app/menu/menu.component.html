@@ -23,14 +23,18 @@
     </button>
   </span>
 
-  <span *checkPermissions>
-    <button mat-icon-button (click)="toggleLibraryPanel()" aria-label="Example icon-button with heart icon">
+  <!-- matTooltip sits on the wrapping span, not the button: a disabled
+       button doesn't reliably fire the mouseenter MatTooltip listens for,
+       so the tooltip would silently never show if bound to the button itself. -->
+  <span *checkPermissions [matTooltip]="boardExists ? '' : 'Create a board first'">
+    <button mat-icon-button (click)="toggleLibraryPanel()" [disabled]="!boardExists"
+      aria-label="Example icon-button with heart icon">
       <mat-icon>playlist_add</mat-icon>
     </button>
   </span>
 
-  <span *checkPermissions>
-    <button mat-icon-button (click)="toggleLayout()" class="example-icon favorite-icon"
+  <span *checkPermissions [matTooltip]="boardExists ? '' : 'Create a board first'">
+    <button mat-icon-button (click)="toggleLayout()" class="example-icon favorite-icon" [disabled]="!boardExists"
       aria-label="Example icon-button with heart icon">
       <mat-icon>dashboard</mat-icon>
     </button>

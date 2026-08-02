@@ -50,6 +50,16 @@ export class SidelayoutComponent implements OnInit {
       });
     });
 
+    // A newly created board becomes the last selected board, but that
+    // happens after the constructor's initial (pre-creation) read — without
+    // this the row list stays empty until some other event (row
+    // add/remove/move, or switching boards) happens to trigger a refresh.
+    eventService.listenForBoardCreatedCompleteEvent().subscribe(() => {
+      boardService.getLastSelectedBoard().subscribe((board) => {
+        this.applyBoard(board, true);
+      });
+    });
+
     // Rows added/removed, or a row's layout changed — re-read to stay in sync.
     eventService.listenForBoardRowsChangedEvent().subscribe(() => {
       boardService.getLastSelectedBoard().subscribe((board) => {

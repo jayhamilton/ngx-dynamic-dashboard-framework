@@ -7,28 +7,54 @@ import { ConfigurationComponent } from '../configuration/configuration.component
 import { EventService } from '../eventservice/event.service';
 import { ThemeService } from '../theme/theme.service';
 import { AppConfigService } from '../app-config/app-config.service';
+import { BoardService } from '../board/board.service';
+import { BoardType, IBoard } from '../board/board.model';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RbacDirective } from '../_authorization/rbac.directive';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
     selector: 'app-menu',
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatToolbar, RbacDirective, MatIconButton, MatIcon, AsyncPipe]
+    imports: [MatToolbar, RbacDirective, MatIconButton, MatIcon, AsyncPipe, MatTooltip]
 })
 export class MenuComponent {
   visible = true;
+
+  // The gadget library and layout panel both operate on "the current
+  // board" — with none created yet there's nothing for either to act on,
+  // so both stay disabled until the first board exists (created via the
+  // settings dialog, which is why that icon is never gated).
+  boardExists = false;
 
   constructor(
     public dialog: MatDialog,
     private eventService: EventService,
     private router: Router,
     public themeService: ThemeService,
-    public appConfigService: AppConfigService
-  ) { }
+    public appConfigService: AppConfigService,
+    private boardService: BoardService
+  ) {
+    this.refreshBoardExists();
+
+    this.eventService.listenForBoardCreatedCompleteEvent().subscribe(() => {
+      this.refreshBoardExists();
+    });
+
+    this.eventService.listenForBoardDeletedCompleteEvent().subscribe(() => {
+      this.refreshBoardExists();
+    });
+  }
+
+  private refreshBoardExists() {
+    this.boardService.getLastSelectedBoard().subscribe((board: IBoard) => {
+      this.boardExists = board?.id !== BoardType.EMPTYBOARDCOLLECTION;
+    });
+  }
 
   openConfigDialog() {
     this.dialog.open(ConfigurationComponent, {
