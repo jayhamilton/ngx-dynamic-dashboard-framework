@@ -94,6 +94,17 @@ p {
   padding: 32px;
 }
 
+// Each dashboard column is a cdkDropList of stacked gadgets. Only 2 of the
+// ~10 gadget types set their own (inconsistent — 15px vs 10px) margin-bottom
+// on their mat-card; everything else had no vertical gap at all. Gap on the
+// column container itself gives every gadget type the same spacing
+// regardless of its own component styles.
+.cdk-drop-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .empty-column-placeholder {
   border-color: rgb(202, 153, 248);
   border-width: 2px;
