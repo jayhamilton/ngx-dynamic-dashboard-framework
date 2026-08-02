@@ -14,19 +14,51 @@ The keys design aspects:
 ## Examples
 #### New Board
 
-![New Board Creation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/new-board.gif)
+![New Board Creation](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/new-board.gif)
 
 #### Add Gadget
 
-![Add Gadget](https://github.com/jayhamilton/plm-ui/blob/main/documentation/add-gadget.gif)
+![Add Gadget](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/add-gadget.gif)
+
+> Note: this GIF shows the gadget library as a modal dialog. It has since moved to a side panel — see [Gadget Library](#gadget-library-side-panel) below for the current UI.
 
 #### Drag/Drop and Layout
 
-![Multi-board Configuration](https://github.com/jayhamilton/plm-ui/blob/main/documentation/layout.gif)
+![Multi-board Configuration](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/layout.gif)
 
 #### Multiple Boards
 
-![Dynamic Navigation](https://github.com/jayhamilton/plm-ui/blob/main/documentation/multiboard.gif)
+![Dynamic Navigation](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/multiboard.gif)
+
+## Recent Enhancements
+
+#### Dark / Light Theme
+
+A theme toggle in the toolbar switches the whole app — Material components, gadget charts, and side panels — between light and dark, persisted across sessions.
+
+| Light | Dark |
+|---|---|
+| ![Light mode](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/light-mode.jpg) | ![Dark mode](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/dark-mode.jpg) |
+
+#### Side Panels for Configuration, Layout, and the Gadget Library
+
+Gadget configuration, board layout selection, and the gadget library all now open as consistent side panels (rather than modal dialogs), and are mutually exclusive — opening one closes whichever of the others is open.
+
+##### Configure a gadget
+
+![Configure panel](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/configure-panel.jpg)
+
+##### Choose a board layout
+
+![Board layouts panel](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/board-layouts-panel.jpg)
+
+##### Gadget library side panel
+
+![Add tool panel](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/add-tool-panel.jpg)
+
+#### New Gadgets
+
+Pie Chart, Bubble Chart, Number Card (KPI tiles), and Line Chart join the original Bar Chart and Area Chart gadgets — each with its own Material icon (shown above in the gadget library).
 
 
 ## Developers Guide To Framework Extension - Creating A Gadget
@@ -46,7 +78,7 @@ The keys design aspects:
 * Add an entry for your gadget in the gadget grid cell host class that serves as a gadget factory [gadget-grid-cell-host.component.ts](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/app/gadgets/gadget-grid-cell-host/gadget-grid-cell-host.component.ts)
 ### Gadget Icon
 
-* Define an image/icon for your gadget [bar-chart.png](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/assets/images/bar-chart.png)
+* Set `icon` to a [Material Icons](https://fonts.google.com/icons?icon.set=Material+Icons) ligature name (e.g. `"bar_chart"`) — no image file needed. It's rendered directly as a `<mat-icon>` in both the gadget header and the library panel, so it automatically themes correctly in light and dark mode.
 ## JSON Definition
 ```
  [
@@ -56,7 +88,7 @@ The keys design aspects:
     "title": "Area Chart Component Component Tool",
     "subtitle": "Area chart tool subtitle",
     "description": "Select this gadget .....",
-    "icon": "../../assets/images/trend.png",
+    "icon": "area_chart",
     "instanceId": -1,
     "tags": [],
     "propertyPages": [
