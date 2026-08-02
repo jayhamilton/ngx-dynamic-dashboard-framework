@@ -127,7 +127,12 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.payLoad) {
       this.showMessage = true;
       if (this.showMessageTimer) clearTimeout(this.showMessageTimer);
-      this.showMessageTimer = setTimeout(() => { this.showMessage = false; }, 2000);
+      // setTimeout isn't an Angular-recognized trigger under zoneless change
+      // detection, so the mutation below needs an explicit check.
+      this.showMessageTimer = setTimeout(() => {
+        this.showMessage = false;
+        this.changeDetectionRef.detectChanges();
+      }, 2000);
     }
 
     //console.log(this.payLoad);

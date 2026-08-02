@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormField, MatLabel, MatHint } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -17,7 +17,7 @@ export class TabApplicationComponent {
   appTitle = new UntypedFormControl('');
   saved = false;
 
-  constructor(private appConfigService: AppConfigService) {
+  constructor(private appConfigService: AppConfigService, private cdr: ChangeDetectorRef) {
     this.appTitle.setValue(this.appConfigService.appTitle);
   }
 
@@ -39,6 +39,12 @@ export class TabApplicationComponent {
 
   private flashSaved() {
     this.saved = true;
-    setTimeout(() => (this.saved = false), 2000);
+    // setTimeout isn't an Angular-recognized trigger under zoneless change
+    // detection, so the mutation below needs an explicit check — no global
+    // tick gets scheduled for a bare timer callback.
+    setTimeout(() => {
+      this.saved = false;
+      this.cdr.detectChanges();
+    }, 2000);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ApplicationRef, Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 export interface IEvent {
@@ -40,7 +40,38 @@ export class EventService {
 
   private subscribers: Array<Subject<string>> = [];
 
-  constructor() {}
+  // Zoneless Angular only auto-schedules a re-render for a specific set of
+  // triggers (template events, signals, async pipe, explicit tick()) — a
+  // subscribe() callback reacting to one of these Subjects doesn't
+  // qualify. Scheduling a tick after every emit restores the "any event
+  // may need a redraw" behavior zone.js used to provide automatically,
+  // without requiring every listener across the app to call
+  // markForCheck() itself.
+  constructor(private appRef: ApplicationRef) {}
+
+  private tickScheduled = false;
+
+  // Emits routinely cascade synchronously — one emit's subscriber emits
+  // another event, whose subscriber emits another, etc. (e.g. creating a
+  // board: emitBoardCreateRequestEvent → BoardService creates it →
+  // emitBoardCreatedCompleteEvent → BoardComponent/MenuComponent update
+  // their own state). Calling appRef.tick() inline on every individual
+  // emit ticks the whole tree multiple times per user action, each catching
+  // it at a different partial-settle point — which trips Angular's
+  // dev-mode "ExpressionChangedAfterItHasBeenCheckedError" check, since a
+  // later nested emit changes a binding a tick already rendered earlier in
+  // the same synchronous cascade. Coalescing into one microtask-scheduled
+  // tick — the same pattern Angular's own zoneless scheduler uses — means
+  // the whole cascade finishes and settles first, and the tree is only
+  // ever checked once it's stable.
+  private scheduleTick(): void {
+    if (this.tickScheduled) return;
+    this.tickScheduled = true;
+    queueMicrotask(() => {
+      this.tickScheduled = false;
+      this.appRef.tick();
+    });
+  }
 
   emptyEvent: IEvent = {
     data: {},
@@ -48,6 +79,7 @@ export class EventService {
 
   emitLibraryMenuOpenEvent() {
     this.libraryMenuSubject.next(this.emptyEvent);
+    this.scheduleTick();
   }
   listenForLibraryOpenMenuEvent(): Observable<IEvent> {
     return this.libraryMenuSubject.asObservable();
@@ -55,6 +87,7 @@ export class EventService {
 
   emitCloseLibraryPanelEvent() {
     this.closeLibraryPanelSubject.next(this.emptyEvent);
+    this.scheduleTick();
   }
   listenForCloseLibraryPanelEvent(): Observable<IEvent> {
     return this.closeLibraryPanelSubject.asObservable();
@@ -62,6 +95,7 @@ export class EventService {
 
   emitBoardMenuSideNavClickEvent() {
     this.sideNavClickEvent.next({ data: {} });
+    this.scheduleTick();
   }
   listenForBoardMenuSideNavClickEvent(): Observable<IEvent> {
     return this.sideNavClickEvent.asObservable();
@@ -69,16 +103,19 @@ export class EventService {
 
   emitBoardSelectedEvent(event: IEvent) {
     this.boardSelectedSubject.next(event);
+    this.scheduleTick();
   }
   listenForBoardSelectedEvent(): Observable<IEvent> {
     return this.boardSelectedSubject.asObservable();
   }
   emitBoardCreateRequestEvent(event: IEvent) {
     this.boardCreateRequestSubject.next(event);
+    this.scheduleTick();
   }
 
   emitBoardCreatedCompleteEvent(event: IEvent) {
     this.boardCreatedCompleteRequestSubject.next(event);
+    this.scheduleTick();
   }
 
   listenForBoardCreateRequestEvent(): Observable<IEvent> {
@@ -90,6 +127,7 @@ export class EventService {
 
   emitBoardUpdateNameDescription(event: IEvent){
     this.boardUpdateNameDescriptionSubject.next(event);
+    this.scheduleTick();
   }
   listenForBoardUpdateNameDescriptionRequestEvent(): Observable<IEvent> {
     return this.boardUpdateNameDescriptionSubject.asObservable();
@@ -97,10 +135,12 @@ export class EventService {
 
   emitBoardDeleteRequestEvent(event: IEvent) {
     this.boardDeleteRequestSubject.next(event);
+    this.scheduleTick();
   }
 
   emitBoardDeletedCompleteEvent(event: IEvent) {
     this.boardDeletedCompleteRequestSubject.next(event);
+    this.scheduleTick();
   }
 
   listenForBoardDeleteRequestEvent(): Observable<IEvent> {
@@ -112,6 +152,7 @@ export class EventService {
 
   emitLibraryAddGadgetEvent(event: IEvent) {
     this.addGadgetSubect.next(event);
+    this.scheduleTick();
   }
 
   listenForLibraryAddGadgetEvents(): Observable<IEvent> {
@@ -120,6 +161,7 @@ export class EventService {
 
   emitGadgetDeleteEvent(event: IEvent) {
     this.gadgetDeleteSubject.next(event);
+    this.scheduleTick();
   }
 
   listenForGadgetDeleteEvent(): Observable<IEvent> {
@@ -128,6 +170,7 @@ export class EventService {
 
   emitBoardSideLayoutClickEvent() {
     this.sideLayoutSubject.next(this.emptyEvent);
+    this.scheduleTick();
   }
 
   listenForBoardSideLayoutEvent(): Observable<IEvent> {
@@ -136,6 +179,7 @@ export class EventService {
 
   emitBoardGadgetPropertyChangeEvent(){
     this.gadgetPropertyChangeSubject.next(this.emptyEvent);
+    this.scheduleTick();
   }
   listenForGadgetPropertyChangeEvents(): Observable<IEvent>{
     return this.gadgetPropertyChangeSubject.asObservable();
@@ -155,6 +199,7 @@ export class EventService {
 
   emitLayoutChange(event: IEvent) {
     this.sideMenuLayoutSelectSubject.next(event);
+    this.scheduleTick();
   }
 
   listenForLayoutChangeEvent(): Observable<IEvent> {
@@ -163,6 +208,7 @@ export class EventService {
 
   emitBoardAddRowEvent() {
     this.boardAddRowSubject.next(this.emptyEvent);
+    this.scheduleTick();
   }
 
   listenForBoardAddRowEvent(): Observable<IEvent> {
@@ -171,6 +217,7 @@ export class EventService {
 
   emitBoardRemoveRowEvent(event: IEvent) {
     this.boardRemoveRowSubject.next(event);
+    this.scheduleTick();
   }
 
   listenForBoardRemoveRowEvent(): Observable<IEvent> {
@@ -179,6 +226,7 @@ export class EventService {
 
   emitBoardMoveRowEvent(event: IEvent) {
     this.boardMoveRowSubject.next(event);
+    this.scheduleTick();
   }
 
   listenForBoardMoveRowEvent(): Observable<IEvent> {
@@ -190,6 +238,7 @@ export class EventService {
   // this to re-read the board and refresh its row list.
   emitBoardRowsChangedEvent(event: IEvent) {
     this.boardRowsChangedSubject.next(event);
+    this.scheduleTick();
   }
 
   listenForBoardRowsChangedEvent(): Observable<IEvent> {
@@ -199,6 +248,7 @@ export class EventService {
 
   emitUserDataChanged() {
     this.userDataChangedSubject.next(this.emptyEvent);
+    this.scheduleTick();
   }
 
   listenForUserDataChangedEvent(): Observable<IEvent> {
@@ -207,6 +257,7 @@ export class EventService {
 
   emitScheduleEventDataChanged() {
     this.scheduleEventDataChangedSubject.next(this.emptyEvent);
+    this.scheduleTick();
   }
 
   listenForScheduleEventDataChangedEvent(): Observable<IEvent> {
@@ -216,6 +267,7 @@ export class EventService {
   emitChartDataChanged(event: IEvent) {
     console.log('EventService: Emitting chart data change:', event);
     this.chartDataChangedSubject.next(event);
+    this.scheduleTick();
   }
 
   listenForChartDataChangedEvent(): Observable<IEvent> {
@@ -224,6 +276,7 @@ export class EventService {
 
   emitOpenConfigPanelEvent(event: IEvent) {
     this.openConfigPanelSubject.next(event);
+    this.scheduleTick();
   }
 
   listenForOpenConfigPanelEvent(): Observable<IEvent> {
@@ -232,6 +285,7 @@ export class EventService {
 
   emitCloseConfigPanelEvent() {
     this.closeConfigPanelSubject.next(this.emptyEvent);
+    this.scheduleTick();
   }
 
   listenForCloseConfigPanelEvent(): Observable<IEvent> {
@@ -245,6 +299,7 @@ export class EventService {
   // configured", unlike emitCloseConfigPanelEvent which is only a request.
   emitConfigPanelClosedEvent(event: IEvent) {
     this.configPanelClosedSubject.next(event);
+    this.scheduleTick();
   }
 
   listenForConfigPanelClosedEvent(): Observable<IEvent> {

@@ -138,6 +138,7 @@ export class BoardComponent implements OnInit {
       if (this.boardData.id === event.data['id']){
         this.boardData.description = event.data['description'];
         this.boardData.title = event.data['title'];
+        this.scheduleDetectChanges();
       }
     });
   }
@@ -173,6 +174,34 @@ export class BoardComponent implements OnInit {
   prepareBoardAndShow(boardData: IBoard) {
     this.boardData = boardData;
     this.boardExists = this.doesABoardExist();
+    this.scheduleDetectChanges();
+  }
+
+  private detectChangesScheduled = false;
+
+  /**
+   * BoardComponent lives inside SidenavComponent's nested mat-drawer-
+   * container structure. ApplicationRef.tick() (scheduled by EventService
+   * on every emit) walks the tree from the root, but that Material
+   * CDK-managed view container isn't reliably reached by it — this
+   * mutation is otherwise invisible until something else happens to
+   * trigger a check on this specific view.
+   *
+   * Calling detectChanges() synchronously here (instead of scheduling it,
+   * like EventService does for the app-wide tick) checks this view before
+   * the rest of the tree has settled, which trips the same dev-mode
+   * "changed after checked" verification the synchronous version of this
+   * fix caused in EventService — so this is deferred to a microtask too,
+   * landing after the app-wide tick EventService already scheduled for
+   * the same cascade.
+   */
+  private scheduleDetectChanges(): void {
+    if (this.detectChangesScheduled) return;
+    this.detectChangesScheduled = true;
+    queueMicrotask(() => {
+      this.detectChangesScheduled = false;
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   /**
