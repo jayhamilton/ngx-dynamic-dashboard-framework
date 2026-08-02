@@ -75,9 +75,20 @@ export class GadgetGridCellHostComponent implements OnInit {
 
     if (gadgetRef) {
       gadgetRef.instance.initializeConfiguration(this.gadgetData);
+
       // createComponent inserts the gadget as a sibling of this host element,
       // so the gadget's own root is what needs animating, not the host.
-      this.animationService.gadgetEnter(gadgetRef.location.nativeElement);
+      const element: HTMLElement = gadgetRef.location.nativeElement;
+
+      // Layout changes rebuild these components rather than moving them, so
+      // stamp a stable id Flip can use to match the new element back to where
+      // the old one was.
+      element.setAttribute(
+        AnimationService.FLIP_ID_ATTR,
+        String(this.gadgetData.instanceId)
+      );
+
+      this.animationService.gadgetEnter(element);
     }
   }
 }

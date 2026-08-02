@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropListGroup, CdkDropList } from '@angular/cdk/drag-drop';
 
 import { IEvent, EventService } from '../eventservice/event.service';
@@ -13,6 +13,7 @@ import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { NgClass } from '@angular/common';
 import { GadgetGridCellHostComponent } from '../gadgets/gadget-grid-cell-host/gadget-grid-cell-host.component';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { AnimationService } from '../animation/animation.service';
 
 @Component({
     selector: 'app-board',
@@ -41,7 +42,9 @@ export class BoardComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private boardService: BoardService,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private animationService: AnimationService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     this.boardExists = false;
     this.boardHasGadgets = false;
@@ -87,32 +90,29 @@ export class BoardComponent implements OnInit {
       this.eventService
       .listenForLayoutChangeEvent()
       .subscribe((event: IEvent) => {
-        this.layoutService.changeLayout(event, this.boardData);
-
-        this.displayLastSelectedBoard();
-        this.announceRowsChanged();
+        this.applyLayoutChange(() =>
+          this.layoutService.changeLayout(event, this.boardData)
+        );
       });
 
     this.eventService.listenForBoardAddRowEvent().subscribe(() => {
-      this.layoutService.addRow(this.boardData);
-      this.displayLastSelectedBoard();
-      this.announceRowsChanged();
+      this.applyLayoutChange(() => this.layoutService.addRow(this.boardData));
     });
 
     this.eventService.listenForBoardRemoveRowEvent().subscribe((event: IEvent) => {
-      this.layoutService.removeRow(this.boardData, event.data.rowIndex);
-      this.displayLastSelectedBoard();
-      this.announceRowsChanged();
+      this.applyLayoutChange(() =>
+        this.layoutService.removeRow(this.boardData, event.data.rowIndex)
+      );
     });
 
     this.eventService.listenForBoardMoveRowEvent().subscribe((event: IEvent) => {
-      this.layoutService.moveRow(
-        this.boardData,
-        event.data.previousIndex,
-        event.data.currentIndex
+      this.applyLayoutChange(() =>
+        this.layoutService.moveRow(
+          this.boardData,
+          event.data.previousIndex,
+          event.data.currentIndex
+        )
       );
-      this.displayLastSelectedBoard();
-      this.announceRowsChanged();
     });
 
     this.eventService
@@ -171,6 +171,27 @@ export class BoardComponent implements OnInit {
   prepareBoardAndShow(boardData: IBoard) {
     this.boardData = boardData;
     this.boardExists = this.doesABoardExist();
+  }
+
+  /**
+   * Every row/layout mutation follows the same shape: record where the
+   * gadgets are, change the board, re-render, then animate them from their
+   * old positions to their new ones.
+   *
+   * detectChanges() in the middle is what makes the flip possible — the DOM
+   * has to have actually moved before Flip can measure the new positions,
+   * and the re-render would otherwise not happen until after this handler
+   * returns.
+   */
+  private applyLayoutChange(mutate: () => void) {
+    this.animationService.beginLayoutFlip();
+
+    mutate();
+    this.displayLastSelectedBoard();
+    this.changeDetectorRef.detectChanges();
+
+    this.animationService.completeLayoutFlip();
+    this.announceRowsChanged();
   }
 
   /**
