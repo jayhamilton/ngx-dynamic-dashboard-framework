@@ -82,7 +82,28 @@ body {
 }
 
 mat-dialog-container {
-    background: var(--app-background) !important;
+    // Material's M3 dialog surface paints its background from
+    // --mat-dialog-container-color (not the MDC --mdc- prefixed variable),
+    // via `background-color: var(--mat-dialog-container-color, ...)` on the
+    // inner .mat-mdc-dialog-surface — setting `background` on the host
+    // element itself has no visible effect. Use --app-surface (distinct
+    // from --app-background in both themes) so the dialog reads as its own
+    // elevated layer rather than blending into the dimmed page behind it,
+    // which is especially flat in dark theme.
+    --mat-dialog-container-color: var(--app-surface);
+}
+
+// Material's default dialog backdrop (rgba(0,0,0,.32)) is too subtle to read
+// as "this dialog is in focus" against the app's own light background.
+// Darken it noticeably so the dialog clearly pops off the dimmed page.
+.cdk-overlay-dark-backdrop {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.dark-theme .cdk-overlay-dark-backdrop {
+    // Dark theme already sits on a near-black background, so the same
+    // backdrop needs to go even darker to read as distinct dimming.
+    background: rgba(0, 0, 0, 0.75);
 }
 
 // ngx-charts renders raw SVG <text> for axis ticks/labels/data labels with
