@@ -39,22 +39,6 @@
           },
           {
             "controlType": "checkbox",
-            "key": "chartLegend",
-            "label": "Show Legend",
-            "value": true,
-            "required": false,
-            "order": 11
-          },
-          {
-            "controlType": "textbox",
-            "key": "chartLegendTitle",
-            "label": "Legend Title",
-            "value": "Legend",
-            "required": false,
-            "order": 12
-          },
-          {
-            "controlType": "checkbox",
             "key": "chartShowXAxis",
             "label": "Show X Axis",
             "value": true,
@@ -76,6 +60,22 @@
             "value": "Category",
             "required": false,
             "order": 15
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartLegend",
+            "label": "Show Legend",
+            "value": true,
+            "required": false,
+            "order": 11
+          },
+          {
+            "controlType": "textbox",
+            "key": "chartLegendTitle",
+            "label": "Legend Title",
+            "value": "Legend",
+            "required": false,
+            "order": 12
           },
           {
             "controlType": "checkbox",
@@ -185,22 +185,6 @@
           },
           {
             "controlType": "checkbox",
-            "key": "chartLegend",
-            "label": "Show Legend",
-            "value": true,
-            "required": false,
-            "order": 11
-          },
-          {
-            "controlType": "textbox",
-            "key": "chartLegendTitle",
-            "label": "Legend Title",
-            "value": "Legend",
-            "required": false,
-            "order": 12
-          },
-          {
-            "controlType": "checkbox",
             "key": "chartShowXAxis",
             "label": "Show X Axis",
             "value": true,
@@ -222,6 +206,22 @@
             "value": "Time",
             "required": false,
             "order": 15
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartLegend",
+            "label": "Show Legend",
+            "value": true,
+            "required": false,
+            "order": 11
+          },
+          {
+            "controlType": "textbox",
+            "key": "chartLegendTitle",
+            "label": "Legend Title",
+            "value": "Legend",
+            "required": false,
+            "order": 12
           },
           {
             "controlType": "checkbox",
@@ -331,22 +331,6 @@
           },
           {
             "controlType": "checkbox",
-            "key": "chartLegend",
-            "label": "Show Legend",
-            "value": true,
-            "required": false,
-            "order": 11
-          },
-          {
-            "controlType": "textbox",
-            "key": "chartLegendTitle",
-            "label": "Legend Title",
-            "value": "Legend",
-            "required": false,
-            "order": 12
-          },
-          {
-            "controlType": "checkbox",
             "key": "chartShowLabels",
             "label": "Show Labels",
             "value": true,
@@ -376,6 +360,22 @@
             "value": false,
             "required": false,
             "order": 16
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartLegend",
+            "label": "Show Legend",
+            "value": true,
+            "required": false,
+            "order": 11
+          },
+          {
+            "controlType": "textbox",
+            "key": "chartLegendTitle",
+            "label": "Legend Title",
+            "value": "Legend",
+            "required": false,
+            "order": 12
           }
         ]
       },
@@ -437,22 +437,6 @@
           },
           {
             "controlType": "checkbox",
-            "key": "chartLegend",
-            "label": "Show Legend",
-            "value": true,
-            "required": false,
-            "order": 11
-          },
-          {
-            "controlType": "textbox",
-            "key": "chartLegendTitle",
-            "label": "Legend Title",
-            "value": "Legend",
-            "required": false,
-            "order": 12
-          },
-          {
-            "controlType": "checkbox",
             "key": "chartShowXAxis",
             "label": "Show X Axis",
             "value": true,
@@ -474,6 +458,22 @@
             "value": "X",
             "required": false,
             "order": 15
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartLegend",
+            "label": "Show Legend",
+            "value": true,
+            "required": false,
+            "order": 11
+          },
+          {
+            "controlType": "textbox",
+            "key": "chartLegendTitle",
+            "label": "Legend Title",
+            "value": "Legend",
+            "required": false,
+            "order": 12
           },
           {
             "controlType": "checkbox",
@@ -657,22 +657,6 @@
           },
           {
             "controlType": "checkbox",
-            "key": "chartLegend",
-            "label": "Show Legend",
-            "value": true,
-            "required": false,
-            "order": 11
-          },
-          {
-            "controlType": "textbox",
-            "key": "chartLegendTitle",
-            "label": "Legend Title",
-            "value": "Legend",
-            "required": false,
-            "order": 12
-          },
-          {
-            "controlType": "checkbox",
             "key": "chartShowXAxis",
             "label": "Show X Axis",
             "value": true,
@@ -694,6 +678,22 @@
             "value": "Time",
             "required": false,
             "order": 15
+          },
+          {
+            "controlType": "checkbox",
+            "key": "chartLegend",
+            "label": "Show Legend",
+            "value": true,
+            "required": false,
+            "order": 11
+          },
+          {
+            "controlType": "textbox",
+            "key": "chartLegendTitle",
+            "label": "Legend Title",
+            "value": "Legend",
+            "required": false,
+            "order": 12
           },
           {
             "controlType": "checkbox",
