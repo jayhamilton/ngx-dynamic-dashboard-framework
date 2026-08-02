@@ -143,12 +143,14 @@ p {
   margin: 32px 0 56px;
 }
 
-// A single looping walkthrough — 4 stages cross-fading in a 12s cycle
+// A single looping walkthrough — 4 stages cross-fading in a 16s cycle
 // (highlight the settings icon, show the resulting config panel, highlight
 // the library icon, show the resulting gadget panel) — rather than 4
 // separate animations, every .tour-stage/.tour-dot shares one keyframe
 // shape and is staggered via animation-delay, so they naturally settle into
-// a round-robin rotation once the first cycle completes.
+// a round-robin rotation once the first cycle completes. Each 4s stage
+// spends 1s fading in, 2s held fully visible, and 1s fading out, so the
+// crossfade itself reads as a deliberate dissolve rather than a snap.
 // Sized off the viewport (not a fixed px box) so the walkthrough actually
 // reads as a feature on a large/high-resolution display instead of
 // shrinking to a small fixed box lost in the middle of the page. Capped at
@@ -172,19 +174,19 @@ p {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  animation: tour-cycle 12s infinite;
+  animation: tour-cycle 16s infinite;
   animation-fill-mode: both;
 
   &:nth-child(1) { animation-delay: 0s; }
-  &:nth-child(2) { animation-delay: 3s; }
-  &:nth-child(3) { animation-delay: 6s; }
-  &:nth-child(4) { animation-delay: 9s; }
+  &:nth-child(2) { animation-delay: 4s; }
+  &:nth-child(3) { animation-delay: 8s; }
+  &:nth-child(4) { animation-delay: 12s; }
 }
 
 @keyframes tour-cycle {
   0% { opacity: 0; }
-  4% { opacity: 1; }
-  21% { opacity: 1; }
+  6.25% { opacity: 1; }
+  18.75% { opacity: 1; }
   25% { opacity: 0; }
   100% { opacity: 0; }
 }
@@ -257,19 +259,19 @@ p {
   height: 6px;
   border-radius: 50%;
   background: var(--app-border);
-  animation: tour-dot-cycle 12s infinite;
+  animation: tour-dot-cycle 16s infinite;
   animation-fill-mode: both;
 
   &:nth-child(1) { animation-delay: 0s; }
-  &:nth-child(2) { animation-delay: 3s; }
-  &:nth-child(3) { animation-delay: 6s; }
-  &:nth-child(4) { animation-delay: 9s; }
+  &:nth-child(2) { animation-delay: 4s; }
+  &:nth-child(3) { animation-delay: 8s; }
+  &:nth-child(4) { animation-delay: 12s; }
 }
 
 @keyframes tour-dot-cycle {
   0% { background: var(--app-border); transform: scale(1); }
-  4% { background: var(--app-brand); transform: scale(1.3); }
-  21% { background: var(--app-brand); transform: scale(1.3); }
+  6.25% { background: var(--app-brand); transform: scale(1.3); }
+  18.75% { background: var(--app-brand); transform: scale(1.3); }
   25% { background: var(--app-border); transform: scale(1); }
   100% { background: var(--app-border); transform: scale(1); }
 }
@@ -288,7 +290,7 @@ p {
   margin: 0;
   color: var(--app-text-secondary);
   opacity: 0;
-  animation: tour-caption-cycle 12s infinite;
+  animation: tour-caption-cycle 16s infinite;
   animation-fill-mode: both;
 
   strong {
@@ -296,13 +298,13 @@ p {
   }
 
   &:nth-child(1) { animation-delay: 0s; }
-  &:nth-child(2) { animation-delay: 6s; }
+  &:nth-child(2) { animation-delay: 8s; }
 }
 
 @keyframes tour-caption-cycle {
   0% { opacity: 0; }
-  4% { opacity: 1; }
-  46% { opacity: 1; }
+  6.25% { opacity: 1; }
+  43.75% { opacity: 1; }
   50% { opacity: 0; }
   100% { opacity: 0; }
 }
