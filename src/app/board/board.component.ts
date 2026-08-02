@@ -90,7 +90,20 @@ export class BoardComponent implements OnInit {
         this.layoutService.changeLayout(event, this.boardData);
 
         this.displayLastSelectedBoard();
+        this.announceRowsChanged();
       });
+
+    this.eventService.listenForBoardAddRowEvent().subscribe(() => {
+      this.layoutService.addRow(this.boardData);
+      this.displayLastSelectedBoard();
+      this.announceRowsChanged();
+    });
+
+    this.eventService.listenForBoardRemoveRowEvent().subscribe((event: IEvent) => {
+      this.layoutService.removeRow(this.boardData, event.data.rowIndex);
+      this.displayLastSelectedBoard();
+      this.announceRowsChanged();
+    });
 
     this.eventService
       .listenForLibraryAddGadgetEvents()
@@ -150,6 +163,16 @@ export class BoardComponent implements OnInit {
     this.boardExists = this.doesABoardExist();
   }
 
+  /**
+   * The layout panel keeps no board state of its own, so tell it the row
+   * set changed and let it re-read from the board service.
+   */
+  private announceRowsChanged() {
+    this.eventService.emitBoardRowsChangedEvent({
+      data: { boardId: this.boardData?.id },
+    });
+  }
+
   saveNewGadget(gadgetData: IGadget) {
     this.boardService.saveNewGadgetToBoard(this.boardData, gadgetData);
     this.displayLastSelectedBoard();
@@ -173,8 +196,13 @@ export class BoardComponent implements OnInit {
     this.eventService.emitLibraryMenuOpenEvent();
   }
 
-  getColumnIndexAsString(idx: number) {
-    return '' + idx;
+  /** Unique per row+column — column index alone repeats across rows. */
+  getColumnDropListId(rowIndex: number, columnIndex: number) {
+    return 'r' + rowIndex + '-c' + columnIndex;
+  }
+
+  structureForRow(rowIndex: number) {
+    return this.layoutService.structureForRow(this.boardData, rowIndex);
   }
 
   drop(event: CdkDragDrop<IGadget[]>) {

@@ -18,6 +18,11 @@ export interface IBoard {
 
 export interface IRow {
   columns: IColumn[];
+  /**
+   * Per-row layout. Optional so boards saved before multi-row support keep
+   * working — those rows fall back to the board-level `structure`.
+   */
+  structure?: string;
 }
 
 export interface IColumn {

@@ -7,16 +7,59 @@
   </div>
 
   <div class="layout-panel-body">
-    <div class="grid-layout">
-      <ul>
-        @for (layout of _layouts; track layout; let i = $index) {
-          <li style="list-style: none">
-            <img [ngClass]="{ 'layout-selected': selectedLayoutId == layout.id }"
-              src="/assets/images/layout/{{ layout.structure }}.png"
-              (click)="selectBoardLayout(layout.structure, layout.id)" />
+    <div class="row-section">
+      <h3 class="section-label">Rows</h3>
+
+      <ul class="row-list">
+        @for (row of rows; track row.index) {
+          <li
+            class="row-item"
+            [class.selected]="row.index === selectedRowIndex"
+            (click)="selectRow(row.index)">
+            <mat-icon class="row-item-icon">table_rows</mat-icon>
+            <span class="row-item-label">Row {{ row.index + 1 }}</span>
+            <span class="row-item-meta">
+              {{ row.columnCount }} {{ row.columnCount === 1 ? 'column' : 'columns' }}
+              &middot;
+              {{ row.gadgetCount }} {{ row.gadgetCount === 1 ? 'gadget' : 'gadgets' }}
+            </span>
+            @if (canRemoveRow) {
+              <button
+                mat-icon-button
+                class="row-item-remove"
+                (click)="removeRow(row.index, $event)"
+                [matTooltip]="row.gadgetCount > 0
+                  ? 'Remove row (its gadgets move to Row 1)'
+                  : 'Remove row'"
+                aria-label="Remove row">
+                <mat-icon>delete</mat-icon>
+              </button>
+            }
           </li>
         }
       </ul>
+
+      <button mat-stroked-button color="primary" class="add-row-button" (click)="addRow()">
+        <mat-icon>add</mat-icon> Add Row
+      </button>
+    </div>
+
+    <div class="layout-section">
+      <h3 class="section-label">
+        Layout @if (selectedRow) { <span class="section-label-target">for Row {{ selectedRowIndex + 1 }}</span> }
+      </h3>
+
+      <div class="grid-layout">
+        <ul>
+          @for (layout of _layouts; track layout; let i = $index) {
+            <li style="list-style: none">
+              <img [ngClass]="{ 'layout-selected': selectedLayoutId == layout.id }"
+                src="/assets/images/layout/{{ layout.structure }}.png"
+                (click)="selectBoardLayout(layout.structure, layout.id)" />
+            </li>
+          }
+        </ul>
+      </div>
     </div>
   </div>
 </div>

@@ -37,6 +37,82 @@
     padding: 8px;
 }
 
+.section-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--app-brand);
+    margin: 8px 0;
+}
+
+.section-label-target {
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 400;
+    color: var(--app-text-secondary);
+}
+
+.row-section {
+    padding: 8px 16px 16px;
+    border-bottom: 1px solid var(--app-border);
+}
+
+.row-list {
+    list-style: none;
+    margin: 0 0 12px;
+    padding: 0;
+    -webkit-padding-start: 0;
+}
+
+.row-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    color: var(--app-text-secondary);
+    border-left: 3px solid transparent;
+
+    &:hover {
+        background-color: var(--app-brand-tint);
+    }
+
+    &.selected {
+        background-color: var(--app-brand-tint-strong);
+        border-left-color: var(--app-brand);
+        color: var(--app-brand);
+    }
+}
+
+.row-item-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.row-item-label {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.row-item-meta {
+    // Pushes the delete button to the far edge while staying beside the label.
+    flex: 1;
+    font-size: 0.78rem;
+    opacity: 0.75;
+}
+
+.row-item-remove {
+    flex-shrink: 0;
+}
+
+.layout-section {
+    padding: 8px 16px 16px;
+}
+
 .grid-layout {
     display: grid;
     justify-content: center;

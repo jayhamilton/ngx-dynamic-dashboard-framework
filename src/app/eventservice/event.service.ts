@@ -23,6 +23,9 @@ export class EventService {
   private addGadgetSubect: Subject<IEvent> = new Subject<IEvent>();
   private libraryMenuSubject: Subject<IEvent> = new Subject<IEvent>();
   private sideMenuLayoutSelectSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardAddRowSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardRemoveRowSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardRowsChangedSubject: Subject<IEvent> = new Subject<IEvent>();
   private gadgetPropertyChangeSubject: Subject<IEvent> = new Subject<IEvent>();
   private gadgetDeleteSubject: Subject<IEvent> = new Subject<IEvent>();
   private userDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
@@ -155,6 +158,33 @@ export class EventService {
 
   listenForLayoutChangeEvent(): Observable<IEvent> {
     return this.sideMenuLayoutSelectSubject.asObservable();
+  }
+
+  emitBoardAddRowEvent() {
+    this.boardAddRowSubject.next(this.emptyEvent);
+  }
+
+  listenForBoardAddRowEvent(): Observable<IEvent> {
+    return this.boardAddRowSubject.asObservable();
+  }
+
+  emitBoardRemoveRowEvent(event: IEvent) {
+    this.boardRemoveRowSubject.next(event);
+  }
+
+  listenForBoardRemoveRowEvent(): Observable<IEvent> {
+    return this.boardRemoveRowSubject.asObservable();
+  }
+
+  // Emitted by the board once a row add/remove/layout change has been applied
+  // and saved. The layout panel owns no board state of its own, so it uses
+  // this to re-read the board and refresh its row list.
+  emitBoardRowsChangedEvent(event: IEvent) {
+    this.boardRowsChangedSubject.next(event);
+  }
+
+  listenForBoardRowsChangedEvent(): Observable<IEvent> {
+    return this.boardRowsChangedSubject.asObservable();
   }
 
 

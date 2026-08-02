@@ -6,13 +6,15 @@
     >
     @for (tab of boardData.tabs; track tab; let index = $index) {
       <mat-tab [label]="tab.title">
-        @for (row of boardData.rows; track row; let r = $index) {
-          <div>
-            <div cdkDropListGroup [ngClass]="boardData.structure">
+        <!-- One drop list group spanning every row, so gadgets can be dragged
+             between rows and not just between columns of the same row. -->
+        <div cdkDropListGroup>
+          @for (row of boardData.rows; track row; let r = $index) {
+            <div class="board-row" [ngClass]="structureForRow(r)">
               @for (col of row.columns; track col; let c = $index) {
                 <div
                   cdkDropList
-                  [id]="getColumnIndexAsString(c)"
+                  [id]="getColumnDropListId(r, c)"
                   [cdkDropListData]="col.gadgets"
                   (cdkDropListDropped)="drop($event)"
                   [ngClass]="col.gadgets.length == 0 ? 'empty-column-placeholder' : ''"
@@ -25,8 +27,8 @@
                 </div>
               }
             </div>
-          </div>
-        }
+          }
+        </div>
       </mat-tab>
     }
   </mat-tab-group>
