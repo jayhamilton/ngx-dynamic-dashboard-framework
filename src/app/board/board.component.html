@@ -35,22 +35,58 @@
 }
 
 @if (!boardExists) {
-  <div class="grid-instruction">
-    <mat-card appearance="outlined" class="board-instruction">
-      <mat-card-title>Step 1</mat-card-title>
-      <mat-card-content class="mat-card-content-grid-container">
-        <p>Create a board instance.</p>
-        <img width="100%" src="../../assets/help/new-board.gif" />
-      </mat-card-content>
-    </mat-card>
-    <mat-card appearance="outlined" class="board-instruction">
-      <mat-card-title>Step 2</mat-card-title>
-      <mat-card-content class="mat-card-con qtent-grid-container">
-        <p>
-          Populate the board with one or more gadgets.
-        </p>
-        <img width="100%" src="../../assets/help/add-gadget.gif" />
-      </mat-card-content>
-    </mat-card>
+  <div class="empty-state">
+    <mat-icon class="empty-state-icon">space_dashboard</mat-icon>
+    <h2>Let's build your first dashboard</h2>
+    <p>Here's a quick walkthrough of the two steps to get started.</p>
+
+    <div class="tour">
+      <div class="tour-frame">
+        <div class="tour-stage">
+          <div class="tour-toolbar-window">
+            <img
+              [src]="(themeService.isDark$ | async) ? 'assets/images/onboarding/toolbar-nav-dark.png' : 'assets/images/onboarding/toolbar-nav.png'"
+              alt=""
+              />
+            <div class="tour-ring tour-ring-settings"></div>
+          </div>
+        </div>
+        <div class="tour-stage">
+          <img
+            class="panel-image"
+            [src]="(themeService.isDark$ | async) ? 'assets/images/onboarding/configuration-panel-dark.png' : 'assets/images/onboarding/configuration-panel.png'"
+            alt="The board configuration panel, where a new board is defined"
+            />
+        </div>
+        <div class="tour-stage">
+          <div class="tour-toolbar-window">
+            <img
+              [src]="(themeService.isDark$ | async) ? 'assets/images/onboarding/toolbar-nav-dark.png' : 'assets/images/onboarding/toolbar-nav.png'"
+              alt=""
+              />
+            <div class="tour-ring tour-ring-library"></div>
+          </div>
+        </div>
+        <div class="tour-stage">
+          <img
+            class="panel-image"
+            [src]="(themeService.isDark$ | async) ? 'assets/images/onboarding/library-panel-dark.png' : 'assets/images/onboarding/library-panel.png'"
+            alt="The gadget library panel, listing gadgets that can be added to a board"
+            />
+        </div>
+      </div>
+
+      <div class="tour-dots" aria-hidden="true">
+        <span class="tour-dot"></span>
+        <span class="tour-dot"></span>
+        <span class="tour-dot"></span>
+        <span class="tour-dot"></span>
+      </div>
+
+      <div class="tour-caption">
+        <p class="tour-caption-text"><strong>Step 1</strong> — use the settings menu to create your first board instance.</p>
+        <p class="tour-caption-text"><strong>Step 2</strong> — open the gadget library and populate the board with one or more gadgets.</p>
+      </div>
+    </div>
   </div>
 }

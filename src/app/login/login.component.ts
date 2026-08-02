@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../_authentication/authentication.service';
 import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
-import { MatFormField } from '@angular/material/form-field';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 
@@ -14,7 +14,7 @@ import { MatButton } from '@angular/material/button';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatCard, MatCardTitle, MatIcon, MatCardContent, FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatButton]
+    imports: [MatCard, MatCardTitle, MatIcon, MatCardContent, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatButton]
 })
 export class LoginComponent implements OnInit {
   showMessage = false;

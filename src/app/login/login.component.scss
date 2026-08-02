@@ -1,67 +1,87 @@
 :host {
-    display: flex;
-    justify-content: center;
-    margin: 100px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  width: 100%;
+  padding: 24px;
+}
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 380px;
+  padding: 40px 32px 32px;
+  text-align: center;
+}
+
+.login-brand {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--app-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+
+  mat-icon {
+    color: var(--app-brand-contrast);
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+mat-card-title {
+  color: var(--app-brand);
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.login-subtitle {
+  margin: 4px 0 24px;
+  color: var(--app-text-secondary);
+}
+
+mat-card-content {
+  width: 100%;
 }
 
 .mat-mdc-form-field {
-    width: 100%;
-    min-width: 300px;
+  width: 100%;
+  margin-bottom: 8px;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-mat-card-header,
-mat-card-title,
-mat-icon,
-mat-card-content {
-    display: flex;
-    justify-content: center;
-}
+.login-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 16px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  background-color: var(--app-error-bg);
+  color: var(--app-error);
+  font-size: 0.875rem;
+  text-align: left;
 
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-mat-card {
-    min-width: 500px;
-}
-
-mat-icon {
-    color: lightgray;
-    font-size: 60px !important;
-    width: 100%;
-    min-width: 300px;
-    padding-bottom: 50px;
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-mat-icon,
-mat-card-title {
-    font-size: 30px;
-    line-height: 70px;
-    display: flex;
-    justify-content: center;
-    color: var(--app-brand);
-}
-
-.error {
-    padding: 16px;
-    width: 300px;
-    color: white;
-    background-color: red;
-}
-
-.button {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.form-row-message {
-    margin:10px;
-    padding:10px;
-    display: grid;
-    width: 100%;
-    background-color: rgb(243, 224, 224);
-    align-content: left;
-    justify-content: center;
-    line-height: 40px;
-    font: 20px;
-    color: rgb(68, 66, 66);
+  mat-icon {
+    flex: none;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
   }
+}
+
+.login-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}

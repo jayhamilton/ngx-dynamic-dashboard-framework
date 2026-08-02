@@ -10,10 +10,11 @@ import { UntypedFormControl } from '@angular/forms';
 import { LayoutService } from '../layout/layout.service';
 import { throttleTime } from 'rxjs/operators';
 import { MatTabGroup, MatTab } from '@angular/material/tabs';
-import { NgClass } from '@angular/common';
+import { NgClass, AsyncPipe } from '@angular/common';
 import { GadgetGridCellHostComponent } from '../gadgets/gadget-grid-cell-host/gadget-grid-cell-host.component';
-import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
 import { AnimationService } from '../animation/animation.service';
+import { ThemeService } from '../theme/theme.service';
 
 @Component({
     selector: 'app-board',
@@ -32,7 +33,7 @@ import { AnimationService } from '../animation/animation.service';
         ]),
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatTabGroup, MatTab, CdkDropListGroup, NgClass, CdkDropList, GadgetGridCellHostComponent, MatCard, MatCardTitle, MatCardContent]
+    imports: [MatTabGroup, MatTab, CdkDropListGroup, NgClass, CdkDropList, GadgetGridCellHostComponent, MatIcon, AsyncPipe]
 })
 export class BoardComponent implements OnInit {
   boardData!: IBoard;
@@ -44,7 +45,8 @@ export class BoardComponent implements OnInit {
     private boardService: BoardService,
     private layoutService: LayoutService,
     private animationService: AnimationService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    public themeService: ThemeService
   ) {
     this.boardExists = false;
     this.boardHasGadgets = false;

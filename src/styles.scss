@@ -51,6 +51,11 @@ html {
   // (e.g. the icon picker) visually consistent with real mat-form-fields
   // in the same row.
   --app-input-border: #757684;
+  // Matches the M3 error palette generated in theme-colors.scss (values 90/40),
+  // so ad-hoc error UI (e.g. the login failure message) reads as the same
+  // "error" color Material's own form-field/validation states use.
+  --app-error: #ba1a1a;
+  --app-error-bg: #ffdad6;
 }
 
 .dark-theme {
@@ -64,6 +69,8 @@ html {
   --app-text-secondary: #abaab3;
   --app-border: #46464d;
   --app-input-border: #8f909e;
+  --app-error: #ffb4ab;
+  --app-error-bg: #93000a;
 }
 
 html,
