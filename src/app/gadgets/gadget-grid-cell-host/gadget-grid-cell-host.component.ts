@@ -11,6 +11,8 @@ import { PieChartComponent } from '../pie-chart/pie-chart.component';
 import { BubbleChartComponent } from '../bubble-chart/bubble-chart.component';
 import { NumberCardComponent } from '../number-card/number-card.component';
 import { LineChartComponent } from '../line-chart/line-chart.component';
+import { TableComponent } from '../table/table.component';
+import { StatisticComponent } from '../statistic/statistic.component';
 import { IGadget } from '../common/gadget-common/gadget-base/gadget.model';
 
 @Component({
@@ -56,6 +58,12 @@ export class GadgetGridCellHostComponent implements OnInit {
         break;
       case 'LineChartComponent':
         gadgetRef = this.componentHost.createComponent(LineChartComponent);
+        break;
+      case 'TableComponent':
+        gadgetRef = this.componentHost.createComponent(TableComponent);
+        break;
+      case 'StatisticComponent':
+        gadgetRef = this.componentHost.createComponent(StatisticComponent);
         break;
       default:
         // do nothing

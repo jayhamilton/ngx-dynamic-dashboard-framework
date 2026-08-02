@@ -143,7 +143,11 @@
         ]
       }
     ],
-    "actions": [{ "name": "add" }]
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
   },
   {
     "componentType": "AreaChartComponent",
@@ -289,7 +293,11 @@
         ]
       }
     ],
-    "actions": [{ "name": "add" }]
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
   },
   {
     "componentType": "PieChartComponent",
@@ -395,7 +403,11 @@
         ]
       }
     ],
-    "actions": [{ "name": "add" }]
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
   },
   {
     "componentType": "BubbleChartComponent",
@@ -533,7 +545,11 @@
         ]
       }
     ],
-    "actions": [{ "name": "add" }]
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
   },
   {
     "componentType": "NumberCardComponent",
@@ -615,7 +631,11 @@
         ]
       }
     ],
-    "actions": [{ "name": "add" }]
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
   },
   {
     "componentType": "LineChartComponent",
@@ -761,6 +781,257 @@
         ]
       }
     ],
-    "actions": [{ "name": "add" }]
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
+  },
+  {
+    "componentType": "TableComponent",
+    "title": "Table",
+    "subtitle": "Tabular data",
+    "description": "Add a table to display rows of tabular data.",
+    "icon": "table_chart",
+    "instanceId": -1,
+    "tags": [],
+    "propertyPages": [
+      {
+        "displayName": "Configuration",
+        "groupId": "config",
+        "position": 10,
+        "properties": [
+          {
+            "controlType": "textbox",
+            "key": "title",
+            "label": "Title",
+            "value": "Table",
+            "required": true,
+            "order": 1
+          },
+          {
+            "controlType": "textbox",
+            "key": "subtitle",
+            "label": "Subtitle",
+            "value": "Tabular data",
+            "required": false,
+            "order": 2
+          },
+          {
+            "controlType": "section",
+            "key": "section-table-props",
+            "label": "Table Properties",
+            "value": "",
+            "required": false,
+            "order": 10
+          },
+          {
+            "controlType": "textbox",
+            "key": "tableColumns",
+            "label": "Columns (comma separated, blank = all)",
+            "value": "",
+            "required": false,
+            "order": 11
+          },
+          {
+            "controlType": "number",
+            "key": "maxRows",
+            "label": "Max Rows (0 = all)",
+            "value": 0,
+            "required": false,
+            "order": 12
+          },
+          {
+            "controlType": "checkbox",
+            "key": "showStriped",
+            "label": "Striped Rows",
+            "value": true,
+            "required": false,
+            "order": 13
+          },
+          {
+            "controlType": "checkbox",
+            "key": "showDense",
+            "label": "Dense Rows",
+            "value": false,
+            "required": false,
+            "order": 14
+          },
+          {
+            "controlType": "checkbox",
+            "key": "showRowNumbers",
+            "label": "Show Row Numbers",
+            "value": false,
+            "required": false,
+            "order": 15
+          }
+        ]
+      },
+      {
+        "displayName": "Data",
+        "groupId": "data",
+        "position": 20,
+        "properties": [
+          {
+            "controlType": "ace-editor",
+            "key": "tableData",
+            "label": "Table Data (JSON array of row objects)",
+            "value": "[\n  {\n    \"Line\": \"Line A\",\n    \"Output\": 1240,\n    \"Defects\": 12,\n    \"Status\": \"Running\"\n  },\n  {\n    \"Line\": \"Line B\",\n    \"Output\": 980,\n    \"Defects\": 31,\n    \"Status\": \"Running\"\n  },\n  {\n    \"Line\": \"Line C\",\n    \"Output\": 0,\n    \"Defects\": 0,\n    \"Status\": \"Stopped\"\n  },\n  {\n    \"Line\": \"Line D\",\n    \"Output\": 1515,\n    \"Defects\": 4,\n    \"Status\": \"Running\"\n  }\n]",
+            "required": false,
+            "order": 1
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
+  },
+  {
+    "componentType": "StatisticComponent",
+    "title": "Statistic",
+    "subtitle": "Single metric",
+    "description": "Add a single statistic with an icon and color theme.",
+    "icon": "speed",
+    "instanceId": -1,
+    "tags": [],
+    "propertyPages": [
+      {
+        "displayName": "Configuration",
+        "groupId": "config",
+        "position": 10,
+        "properties": [
+          {
+            "controlType": "textbox",
+            "key": "title",
+            "label": "Title",
+            "value": "Statistic",
+            "required": true,
+            "order": 1
+          },
+          {
+            "controlType": "textbox",
+            "key": "subtitle",
+            "label": "Subtitle",
+            "value": "Single metric",
+            "required": false,
+            "order": 2
+          },
+          {
+            "controlType": "section",
+            "key": "section-stat-value",
+            "label": "Statistic",
+            "value": "",
+            "required": false,
+            "order": 10
+          },
+          {
+            "controlType": "textbox",
+            "key": "statValue",
+            "label": "Value",
+            "value": "94.2%",
+            "required": false,
+            "order": 11
+          },
+          {
+            "controlType": "textbox",
+            "key": "statLabel",
+            "label": "Label",
+            "value": "Overall Equipment Effectiveness",
+            "required": false,
+            "order": 12
+          },
+          {
+            "controlType": "textbox",
+            "key": "statChange",
+            "label": "Change (e.g. +2.4%, -3)",
+            "value": "+2.4%",
+            "required": false,
+            "order": 13
+          },
+          {
+            "controlType": "textbox",
+            "key": "statCaption",
+            "label": "Caption",
+            "value": "vs. last week",
+            "required": false,
+            "order": 14
+          },
+          {
+            "controlType": "section",
+            "key": "section-stat-appearance",
+            "label": "Appearance",
+            "value": "",
+            "required": false,
+            "order": 20
+          },
+          {
+            "controlType": "icon-picker",
+            "key": "statIcon",
+            "label": "Icon",
+            "value": "speed",
+            "required": false,
+            "order": 21
+          },
+          {
+            "controlType": "dropdown",
+            "key": "statTheme",
+            "label": "Theme",
+            "value": "brand",
+            "required": false,
+            "order": 22,
+            "options": [
+              {
+                "key": "brand",
+                "value": "Brand"
+              },
+              {
+                "key": "success",
+                "value": "Success (green)"
+              },
+              {
+                "key": "warning",
+                "value": "Warning (orange)"
+              },
+              {
+                "key": "danger",
+                "value": "Danger (red)"
+              },
+              {
+                "key": "info",
+                "value": "Info (blue)"
+              },
+              {
+                "key": "purple",
+                "value": "Purple"
+              },
+              {
+                "key": "teal",
+                "value": "Teal"
+              },
+              {
+                "key": "neutral",
+                "value": "Neutral (gray)"
+              }
+            ]
+          },
+          {
+            "controlType": "checkbox",
+            "key": "showIcon",
+            "label": "Show Icon",
+            "value": true,
+            "required": false,
+            "order": 23
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
   }
 ]

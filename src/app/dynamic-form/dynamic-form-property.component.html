@@ -100,6 +100,12 @@
         @case ('checkbox') {
           <mat-checkbox [formControlName]="property.key">{{ property.label }}</mat-checkbox>
         }
+        @case ('icon-picker') {
+          <div class="icon-picker-field">
+            <mat-label [attr.for]="property.key">{{ property.label }}</mat-label>
+            <app-icon-picker [formControlName]="property.key"></app-icon-picker>
+          </div>
+        }
       }
     </div>
   </div>

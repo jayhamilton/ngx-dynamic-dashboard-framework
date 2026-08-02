@@ -21,6 +21,7 @@ import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular
 import { AceEditorComponent } from './ace-editor/ace-editor.component';
 import { JsonFormsEditorComponent } from './json-forms-editor/json-forms-editor.component';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { IconPickerComponent } from '../shared/icon-picker/icon-picker.component';
 
 @Component({
     selector: 'app-df-property',
@@ -40,7 +41,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
         ]),
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatIcon, FileUploadComponent, MatDatepickerInput, MatHint, MatDatepickerToggle, MatSuffix, MatDatepicker, AceEditorComponent, JsonFormsEditorComponent, MatCheckbox]
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatIcon, FileUploadComponent, MatDatepickerInput, MatHint, MatDatepickerToggle, MatSuffix, MatDatepicker, AceEditorComponent, JsonFormsEditorComponent, MatCheckbox, IconPickerComponent]
 })
 export class DynamicFormPropertyComponent implements AfterContentInit, OnDestroy {
   private destroy$ = new Subject<void>();
@@ -128,15 +129,22 @@ export class DynamicFormPropertyComponent implements AfterContentInit, OnDestroy
   }
 
   setDropDownOptions(dropDownType: string) {
-  
+
     let _options: { key: string, value: string }[] = [];
+
+    // Whether this key's options come from a runtime data source below.
+    // Keys that aren't listed supply their own static options in the
+    // gadget's JSON definition (library.json) instead — overwriting those
+    // with the empty list would silently leave the dropdown with no
+    // choices, so leave them untouched.
+    let dataDriven = true;
 
     switch (dropDownType) {
 
       case "driver":
       case "qc":
       case "lead":
-        this.userDataStoreService.getUsersByRole(dropDownType).forEach(user => { _options.push({ key: user.username, value: user.username, }) }); 
+        this.userDataStoreService.getUsersByRole(dropDownType).forEach(user => { _options.push({ key: user.username, value: user.username, }) });
         break;
       case "lunch":
         this.scheduleDataStoreService.getEvents().forEach(event => { _options.push({ key: event.description + " " + event.datetime, value: event.description + " " + event.datetime }) });
@@ -151,10 +159,12 @@ export class DynamicFormPropertyComponent implements AfterContentInit, OnDestroy
         }
         break;
       default:
-        { }
+        dataDriven = false;
     }
 
-    this.property.options = _options;
+    if (dataDriven) {
+      this.property.options = _options;
+    }
   }
 
   updateFileList(fileList: FileList) {

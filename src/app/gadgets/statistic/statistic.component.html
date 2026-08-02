@@ -1,0 +1,43 @@
+<mat-card appearance="outlined" cdkDrag>
+  <app-gadget-header
+    [title]="title"
+    [subtitle]="subtitle"
+    [iconpath]="icon"
+    (removeEvent)="remove()"
+    [inConfig]="inConfig"
+    [gadgetInstanceId]="instanceId"
+    [gadgetPropertyPages]="propertyPages"
+    [gadgetTags]="tags"
+    [propertyChangeCallback]="propertyChangeEvent.bind(this)"
+    (toggleConfigModeEvent)="toggleConfigMode()">
+  </app-gadget-header>
+
+  <mat-card-content class="statistic-content">
+    <div class="statistic" [attr.data-theme]="statTheme">
+      @if (showIcon) {
+        <div class="statistic-icon-wrap">
+          <mat-icon class="statistic-icon">{{ statIcon }}</mat-icon>
+        </div>
+      }
+
+      <div class="statistic-body">
+        <div class="statistic-value">{{ statValue }}</div>
+
+        @if (statLabel) {
+          <div class="statistic-label">{{ statLabel }}</div>
+        }
+
+        @if (statChange) {
+          <div class="statistic-change" [attr.data-trend]="trend">
+            <mat-icon class="statistic-trend-icon">{{ trendIcon }}</mat-icon>
+            <span>{{ statChange }}</span>
+          </div>
+        }
+
+        @if (statCaption) {
+          <div class="statistic-caption">{{ statCaption }}</div>
+        }
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

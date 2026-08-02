@@ -1,0 +1,96 @@
+mat-card-content.statistic-content {
+  // Shorter than the 380px chart gadgets — a single stat doesn't need the
+  // height, and this lets several stack in a column beside one chart.
+  height: 160px;
+  display: flex;
+  align-items: center;
+}
+
+// Each theme sets a single accent color; everything below derives from it,
+// so adding a theme only means adding one more selector here (and one more
+// dropdown option in library.json).
+.statistic {
+  --stat-accent: var(--app-brand);
+
+  &[data-theme='success'] { --stat-accent: #2e7d32; }
+  &[data-theme='warning'] { --stat-accent: #ed6c02; }
+  &[data-theme='danger']  { --stat-accent: #c62828; }
+  &[data-theme='info']    { --stat-accent: #0277bd; }
+  &[data-theme='purple']  { --stat-accent: #6a1b9a; }
+  &[data-theme='teal']    { --stat-accent: #00796b; }
+  &[data-theme='neutral'] { --stat-accent: var(--app-text-secondary); }
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 0 8px;
+}
+
+.statistic-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  // Tint of the accent rather than a second token, so the circle tracks
+  // whatever theme is selected.
+  background-color: color-mix(in srgb, var(--stat-accent) 14%, transparent);
+  color: var(--stat-accent);
+}
+
+.statistic-icon {
+  font-size: 38px;
+  width: 38px;
+  height: 38px;
+}
+
+.statistic-body {
+  min-width: 0;
+}
+
+.statistic-value {
+  font-size: 2.6rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--stat-accent);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statistic-label {
+  margin-top: 2px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--app-text-secondary);
+}
+
+.statistic-change {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  // Trend color is semantic (up good / down bad) and deliberately
+  // independent of the chosen theme accent.
+  &[data-trend='up']   { color: #2e7d32; }
+  &[data-trend='down'] { color: #c62828; }
+  &[data-trend='flat'] { color: var(--app-text-secondary); }
+}
+
+.statistic-trend-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.statistic-caption {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: var(--app-text-secondary);
+}

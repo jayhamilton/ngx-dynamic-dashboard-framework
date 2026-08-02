@@ -1,0 +1,48 @@
+<mat-card appearance="outlined" cdkDrag>
+  <app-gadget-header
+    [title]="title"
+    [subtitle]="subtitle"
+    [iconpath]="icon"
+    (removeEvent)="remove()"
+    [inConfig]="inConfig"
+    [gadgetInstanceId]="instanceId"
+    [gadgetPropertyPages]="propertyPages"
+    [gadgetTags]="tags"
+    [propertyChangeCallback]="propertyChangeEvent.bind(this)"
+    (toggleConfigModeEvent)="toggleConfigMode()">
+  </app-gadget-header>
+
+  <mat-card-content class="table-content">
+    @if (columns.length > 0 && visibleRows.length > 0) {
+      <table
+        class="gadget-table"
+        [class.striped]="showStriped"
+        [class.dense]="showDense">
+        <thead>
+          <tr>
+            @if (showRowNumbers) {
+              <th class="row-number-cell">#</th>
+            }
+            @for (column of columns; track column) {
+              <th>{{ column }}</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of visibleRows; track $index) {
+            <tr>
+              @if (showRowNumbers) {
+                <td class="row-number-cell">{{ $index + 1 }}</td>
+              }
+              @for (column of columns; track column) {
+                <td>{{ row[column] }}</td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <div class="table-empty">No data to display.</div>
+    }
+  </mat-card-content>
+</mat-card>

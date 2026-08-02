@@ -113,6 +113,21 @@ mat-tab-group {
   color: var(--app-text-secondary);
 }
 
+// The icon picker isn't a mat-form-field, so it has no floating label of
+// its own — pair it with an explicit label stacked above, matching how the
+// surrounding fields read.
+.icon-picker-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+
+  mat-label {
+    font-size: 0.75rem;
+    color: var(--app-text-secondary);
+  }
+}
+
 .section-header {
   column-span: all;
   font-size: 0.8rem;

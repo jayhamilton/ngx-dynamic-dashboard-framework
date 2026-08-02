@@ -1,0 +1,70 @@
+mat-card-content.table-content {
+  // Matches the fixed content height the chart gadgets use so a table sits
+  // in a column alongside them without changing the row rhythm.
+  height: 380px;
+  overflow: auto;
+}
+
+.gadget-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+
+  th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    text-align: left;
+    padding: 10px 12px;
+    background-color: var(--app-brand);
+    color: var(--app-brand-contrast);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 8px 12px;
+    color: var(--app-text-secondary);
+    border-bottom: 1px solid var(--app-border);
+    white-space: nowrap;
+  }
+
+  tbody tr:hover td {
+    background-color: var(--app-brand-tint);
+  }
+
+  &.striped tbody tr:nth-child(even) td {
+    background-color: var(--app-brand-tint);
+  }
+
+  // Keep the hover cue visible on striped rows, which already carry a tint.
+  &.striped tbody tr:hover td {
+    background-color: var(--app-brand-tint-strong);
+  }
+
+  &.dense {
+    th {
+      padding: 6px 10px;
+    }
+
+    td {
+      padding: 3px 10px;
+    }
+  }
+}
+
+.row-number-cell {
+  width: 1%;
+  text-align: right;
+  opacity: 0.7;
+}
+
+.table-empty {
+  padding: 24px 8px;
+  text-align: center;
+  color: var(--app-text-secondary);
+  font-size: 0.9rem;
+}
