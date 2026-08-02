@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ConfigurationComponent } from '../configuration/configuration.component';
 import { EventService } from '../eventservice/event.service';
-import { LibraryComponent } from '../library/library.component';
 import { BoardService } from '../board/board.service';
 import { IBoard } from '../board/board.model';
 import { ThemeService } from '../theme/theme.service';
@@ -44,10 +43,6 @@ export class MenuComponent implements OnInit {
   }
 
   setupEventHandlers() {
-    this.eventService.listenForLibraryOpenMenuEvent().subscribe(() => {
-      this.openGadgetLibraryDialog();
-    });
-
     this.eventService.listenForBoardSelectedEvent().subscribe((event) => {
       this.boardService.getBoardById(event.data).subscribe((board: IBoard) => {
         if (board?.title) this.boardTitle = board.title;
@@ -60,10 +55,8 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  openGadgetLibraryDialog() {
-    this.dialog.open(LibraryComponent, {
-      width: '700px',
-    });
+  toggleLibraryPanel() {
+    this.eventService.emitLibraryMenuOpenEvent();
   }
 
   toggleMenu() {

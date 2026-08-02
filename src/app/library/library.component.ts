@@ -1,19 +1,15 @@
 import {
-  AfterViewInit,
   Component,
-  ElementRef,
   OnInit,
-  ViewChild,
   ChangeDetectionStrategy
 } from '@angular/core';
 import { EventService } from '../eventservice/event.service';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 import { LibraryService } from './library.service';
-import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
-import { CdkScrollable, CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
 import { MatCard, MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions } from '@angular/material/card';
 import { NgStyle } from '@angular/common';
-import { MatMiniFabButton, MatButton } from '@angular/material/button';
+import { MatMiniFabButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -21,12 +17,9 @@ import { MatIcon } from '@angular/material/icon';
     templateUrl: './library.component.html',
     styleUrls: ['./library.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatDialogTitle, CdkScrollable, MatDialogContent, CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, MatCard, NgStyle, MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatMiniFabButton, MatIcon, MatDialogActions, MatButton, MatDialogClose]
+    imports: [CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, MatCard, NgStyle, MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatMiniFabButton, MatIcon, MatIconButton]
 })
-export class LibraryComponent implements OnInit, AfterViewInit {
-  @ViewChild('dialog', { read: ElementRef })
-  libraryDialogCloseButton?: ElementRef;
-
+export class LibraryComponent implements OnInit {
   colors = [
     '#FF5733', '#33FF57', '#3357FF', '#F1C40F', '#8E44AD', '#E74C3C',
     '#3498DB', '#2ECC71', '#1ABC9C', '#9B59B6', '#34495E', '#16A085',
@@ -39,9 +32,6 @@ export class LibraryComponent implements OnInit, AfterViewInit {
     private libraryService: LibraryService,
     private eventService: EventService
   ) {}
-  ngAfterViewInit(): void {
-    console.log(this.libraryDialogCloseButton);
-  }
 
   library!: IGadget[];
   ngOnInit(): void {
@@ -61,6 +51,9 @@ export class LibraryComponent implements OnInit, AfterViewInit {
     if (now - this.lastAddTime < 1000) return;
     this.lastAddTime = now;
     this.eventService.emitLibraryAddGadgetEvent({ data: gadgetData });
-    this.libraryDialogCloseButton?.nativeElement.click();
+  }
+
+  close() {
+    this.eventService.emitCloseLibraryPanelEvent();
   }
 }

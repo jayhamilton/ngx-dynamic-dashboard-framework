@@ -20,8 +20,14 @@
       <app-config-panel></app-config-panel>
     </mat-drawer>
 
-    <div class="example-sidenav-content">
-      <app-board></app-board>
-    </div>
+    <mat-drawer-container class="library-panel-container">
+      <mat-drawer #library mode="over" position="end">
+        <app-library></app-library>
+      </mat-drawer>
+
+      <div class="example-sidenav-content">
+        <app-board></app-board>
+      </div>
+    </mat-drawer-container>
   </mat-drawer-container>
 </mat-drawer-container>

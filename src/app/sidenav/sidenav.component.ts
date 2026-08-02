@@ -7,18 +7,20 @@ import { MatNavList, MatListItem } from '@angular/material/list';
 import { SidelayoutComponent } from '../layout/layout.component';
 import { BoardComponent } from '../board/board.component';
 import { ConfigPanelComponent } from '../config-panel/config-panel.component';
+import { LibraryComponent } from '../library/library.component';
 
 @Component({
     selector: 'app-sidenav',
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, SidelayoutComponent, BoardComponent, ConfigPanelComponent]
+    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, SidelayoutComponent, BoardComponent, ConfigPanelComponent, LibraryComponent]
 })
 export class SidenavComponent implements OnInit {
   @ViewChild('drawer') public drawer!: MatDrawer;
   @ViewChild('layout') public layout!: MatDrawer;
   @ViewChild('configPanel') public configPanel!: MatDrawer;
+  @ViewChild('library') public library!: MatDrawer;
   boardData: IBoard[] = [];
 
   selectedBoardId: number | null = null;
@@ -41,8 +43,17 @@ export class SidenavComponent implements OnInit {
   toggleLayout() {
     if (!this.layout.opened) {
       this.configPanel.close();
+      this.library.close();
     }
     this.layout.toggle();
+  }
+
+  toggleLibrary() {
+    if (!this.library.opened) {
+      this.configPanel.close();
+      this.layout.close();
+    }
+    this.library.toggle();
   }
 
   // Bound to <mat-drawer #configPanel (closed)>. Fires whenever the drawer
@@ -91,11 +102,20 @@ export class SidenavComponent implements OnInit {
     this.eventService.listenForOpenConfigPanelEvent().subscribe((event) => {
       this.openConfigInstanceId = event.data.instanceId;
       this.layout.close();
+      this.library.close();
       this.configPanel.open();
     });
 
     this.eventService.listenForCloseConfigPanelEvent().subscribe(() => {
       this.configPanel.close();
+    });
+
+    this.eventService.listenForLibraryOpenMenuEvent().subscribe(() => {
+      this.toggleLibrary();
+    });
+
+    this.eventService.listenForCloseLibraryPanelEvent().subscribe(() => {
+      this.library.close();
     });
 
     this.eventService

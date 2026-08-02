@@ -31,6 +31,7 @@ export class EventService {
   private openConfigPanelSubject: Subject<IEvent> = new Subject<IEvent>();
   private closeConfigPanelSubject: Subject<IEvent> = new Subject<IEvent>();
   private configPanelClosedSubject: Subject<IEvent> = new Subject<IEvent>();
+  private closeLibraryPanelSubject: Subject<IEvent> = new Subject<IEvent>();
 
 
   private subscribers: Array<Subject<string>> = [];
@@ -46,6 +47,13 @@ export class EventService {
   }
   listenForLibraryOpenMenuEvent(): Observable<IEvent> {
     return this.libraryMenuSubject.asObservable();
+  }
+
+  emitCloseLibraryPanelEvent() {
+    this.closeLibraryPanelSubject.next(this.emptyEvent);
+  }
+  listenForCloseLibraryPanelEvent(): Observable<IEvent> {
+    return this.closeLibraryPanelSubject.asObservable();
   }
 
   emitBoardMenuSideNavClickEvent() {

@@ -33,6 +33,22 @@
     }
 }
 
+// Nested one level deeper than .config-panel-container for the same reason
+// #configPanel needed its own container: a mat-drawer-container can't
+// declare two drawers at the same position, so #library needs its own too.
+// Explicit width/shape overrides here rather than relying on inheriting
+// them from the .config-panel-container ancestor, so this doesn't silently
+// break if the nesting is ever restructured.
+.library-panel-container {
+    width: 100%;
+    height: 100%;
+    --mat-sidenav-container-width: 480px;
+
+    mat-drawer {
+        --mat-sidenav-container-shape: 0;
+    }
+}
+
 .layout-drawer {
     // Same 360px-fallback issue as .config-panel-container above.
     --mat-sidenav-container-width: 480px;

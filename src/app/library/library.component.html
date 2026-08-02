@@ -1,26 +1,31 @@
-<h2 mat-dialog-title>Add Tool <span class="gadget-count">({{ library?.length }})</span></h2>
-<mat-dialog-content class="library-content">
-  <cdk-virtual-scroll-viewport itemSize="160" class="library-viewport">
-    <mat-card class="library-card"
-      *cdkVirtualFor="let gadget of library; let idx = index"
-      appearance="outlined"
-      [ngStyle]="{'border-top-color': colors[idx]}">
-      <mat-card-header>
-        <mat-icon mat-card-avatar class="library-icon">{{ gadget.icon }}</mat-icon>
-        <mat-card-title>{{ gadget.title }}</mat-card-title>
-        <mat-card-subtitle>{{ gadget.subtitle }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        {{ gadget.description }}
-      </mat-card-content>
-      <mat-card-actions align="end">
-        <button mat-mini-fab color="primary" (click)="addGadget(gadget)">
-          <mat-icon>{{ gadget.actions[0].name }}</mat-icon>
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </cdk-virtual-scroll-viewport>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button color="primary" mat-dialog-close>Close</button>
-</mat-dialog-actions>
+<div class="library-panel">
+  <div class="library-panel-header">
+    <span class="library-panel-title">Add Tool ({{ library?.length }})</span>
+    <button mat-icon-button class="library-panel-close" (click)="close()" aria-label="Close gadget library panel">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="library-panel-body">
+    <cdk-virtual-scroll-viewport itemSize="160" class="library-viewport">
+      <mat-card class="library-card"
+        *cdkVirtualFor="let gadget of library; let idx = index"
+        appearance="outlined"
+        [ngStyle]="{'border-top-color': colors[idx]}">
+        <mat-card-header>
+          <mat-icon mat-card-avatar class="library-icon">{{ gadget.icon }}</mat-icon>
+          <mat-card-title>{{ gadget.title }}</mat-card-title>
+          <mat-card-subtitle>{{ gadget.subtitle }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          {{ gadget.description }}
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-mini-fab color="primary" (click)="addGadget(gadget)">
+            <mat-icon>{{ gadget.actions[0].name }}</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </cdk-virtual-scroll-viewport>
+  </div>
+</div>
