@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, OnDestroy, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, OnDestroy, Output, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -9,6 +9,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { IPropertyPage, ITag } from '../gadget-base/gadget.model';
+import { AnimationService } from 'src/app/animation/animation.service';
 
 @Component({
     selector: 'app-gadget-header',
@@ -31,7 +32,12 @@ export class GadgetHeaderComponent implements OnInit, OnDestroy {
   menuLabel = 'Configure';
   private destroy$ = new Subject<void>();
 
-  constructor(private eventService: EventService, private dialog: MatDialog) {
+  constructor(
+    private eventService: EventService,
+    private dialog: MatDialog,
+    private elementRef: ElementRef<HTMLElement>,
+    private animationService: AnimationService
+  ) {
     this.title = '';
     this.subtitle = '';
     this.iconpath = '';
@@ -86,7 +92,18 @@ export class GadgetHeaderComponent implements OnInit, OnDestroy {
       }
     });
     ref.afterClosed().subscribe(confirmed => {
-      if (confirmed) this.removeEvent.emit();
+      if (!confirmed) return;
+
+      // Every gadget renders its header inside its own mat-card, so this is
+      // the one place that can fade the whole card out for all gadget types
+      // without touching each gadget component. Emit once the card is gone
+      // so the board doesn't re-render out from under the animation.
+      const card = this.elementRef.nativeElement.closest('mat-card') as HTMLElement | null;
+      if (!card) {
+        this.removeEvent.emit();
+        return;
+      }
+      this.animationService.gadgetLeave(card).then(() => this.removeEvent.emit());
     });
   }
 

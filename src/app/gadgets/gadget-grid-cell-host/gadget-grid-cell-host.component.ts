@@ -14,6 +14,7 @@ import { LineChartComponent } from '../line-chart/line-chart.component';
 import { TableComponent } from '../table/table.component';
 import { StatisticComponent } from '../statistic/statistic.component';
 import { IGadget } from '../common/gadget-common/gadget-base/gadget.model';
+import { AnimationService } from '../../animation/animation.service';
 
 @Component({
     selector: 'gadget-grid-cell-host',
@@ -23,7 +24,10 @@ import { IGadget } from '../common/gadget-common/gadget-base/gadget.model';
 export class GadgetGridCellHostComponent implements OnInit {
   @Input() gadgetData: IGadget;
 
-  constructor(private componentHost: ViewContainerRef) {
+  constructor(
+    private componentHost: ViewContainerRef,
+    private animationService: AnimationService
+  ) {
     this.gadgetData = {
       componentType: '',
       title: '',
@@ -71,6 +75,9 @@ export class GadgetGridCellHostComponent implements OnInit {
 
     if (gadgetRef) {
       gadgetRef.instance.initializeConfiguration(this.gadgetData);
+      // createComponent inserts the gadget as a sibling of this host element,
+      // so the gadget's own root is what needs animating, not the host.
+      this.animationService.gadgetEnter(gadgetRef.location.nativeElement);
     }
   }
 }
