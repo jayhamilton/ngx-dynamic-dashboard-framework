@@ -72,16 +72,24 @@ export class BoardService {
   }
 
   /**
-   * Places a new gadget instance in the first empty column of row 0,
-   * or appends it into that row's first column if every column is
-   * already occupied.
+   * Places a new gadget instance in row 0's least-full column, so gadgets
+   * keep balancing across every column rather than just filling each one
+   * once and then always landing back in column 0 (findIndex-for-empty
+   * only ever matches during that first pass).
    */
   public saveNewGadgetToBoard(incomingBoard: IBoard, incomingGadget: IGadget): void {
     this.repo.getBoard(incomingBoard.id).subscribe((board) => {
       if (!board) return;
 
-      let columnIndex = board.rows[0].columns.findIndex((column) => column.gadgets.length === 0);
-      if (columnIndex < 0) columnIndex = 0;
+      const columns = board.rows[0].columns;
+      let columnIndex = 0;
+      let fewestGadgets = Infinity;
+      columns.forEach((column, index) => {
+        if (column.gadgets.length < fewestGadgets) {
+          fewestGadgets = column.gadgets.length;
+          columnIndex = index;
+        }
+      });
 
       this.repo.addGadget(board.id, 0, columnIndex, incomingGadget).subscribe();
     });
