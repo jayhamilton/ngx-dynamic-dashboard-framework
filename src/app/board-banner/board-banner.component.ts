@@ -37,6 +37,16 @@ export class BoardBannerComponent implements OnInit {
       });
     });
 
+    // A newly created board becomes the last selected board, but that
+    // happens after ngOnInit's initial (empty) read — without this the
+    // banner stays blank until some other event (select/update/delete)
+    // happens to fire.
+    this.eventService.listenForBoardCreatedCompleteEvent().subscribe(() => {
+      this.boardService.getLastSelectedBoard().subscribe((board: IBoard) => {
+        if (board?.title) this.applyBoard(board);
+      });
+    });
+
     // Keep the banner in sync when the currently displayed board's
     // name/description/icon is edited from the Configure Boards dialog,
     // without waiting for it to be reselected.
