@@ -20,7 +20,6 @@
     "@angular/platform-browser": "^22.1.0",
     "@angular/platform-browser-dynamic": "^22.1.0",
     "@angular/router": "^22.1.0",
-    "@angular/upgrade": "^22.1.0",
     "@jsonforms/angular": "^3.8.0",
     "@jsonforms/angular-material": "^3.8.0",
     "@jsonforms/core": "^3.8.0",
