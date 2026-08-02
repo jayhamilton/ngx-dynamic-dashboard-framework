@@ -33,6 +33,7 @@ export class BoardService {
       relationship: Hiearchy.PARENT,
       tabs: [],
       rows: [],
+      icon: 'dashboard',
     };
 
     this.setupEventListeners();
@@ -200,6 +201,7 @@ export class BoardService {
         id: BoardType.DEFAULT,
         tabs: [{ title: 'Board', id: BoardType.DEFAULT }],
         relationship: Hiearchy.PARENT,
+        icon: 'dashboard',
         rows: [
           {
             columns: [
@@ -266,6 +268,7 @@ export class BoardService {
       newBoard.title = event.data['title'];
       newBoard.description = event.data['description'];
       newBoard.relationship = Hiearchy.PARENT;
+      newBoard.icon = event.data['icon'] || 'dashboard';
 
       let tabs: ITab[] = [];
       tabs.push({ title: event.data['title'], id: newBoard.id });
@@ -308,6 +311,7 @@ export class BoardService {
           console.log("found board with id: " + event.data['id']);
           board.title = event.data['title'];
           board.description = event.data['description'];
+          board.icon = event.data['icon'] || board.icon || 'dashboard';
         }
       });
       this.saveBoardCollectionToDestination(boardCollection);

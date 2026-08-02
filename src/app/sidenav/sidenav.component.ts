@@ -3,7 +3,8 @@ import { MatDrawer, MatDrawerContainer } from '@angular/material/sidenav';
 import { BoardService } from '../board/board.service';
 import { Hiearchy, IBoard, IBoardCollection } from '../board/board.model';
 import { EventService } from '../eventservice/event.service';
-import { MatNavList, MatListItem } from '@angular/material/list';
+import { MatNavList, MatListItem, MatListItemIcon } from '@angular/material/list';
+import { MatIcon } from '@angular/material/icon';
 import { SidelayoutComponent } from '../layout/layout.component';
 import { BoardComponent } from '../board/board.component';
 import { ConfigPanelComponent } from '../config-panel/config-panel.component';
@@ -14,7 +15,7 @@ import { LibraryComponent } from '../library/library.component';
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, SidelayoutComponent, BoardComponent, ConfigPanelComponent, LibraryComponent]
+    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, MatListItemIcon, MatIcon, SidelayoutComponent, BoardComponent, ConfigPanelComponent, LibraryComponent]
 })
 export class SidenavComponent implements OnInit {
   @ViewChild('drawer') public drawer!: MatDrawer;

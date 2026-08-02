@@ -24,6 +24,8 @@ export class MenuComponent implements OnInit {
   visible = true;
   applicationTitle: string;
   boardTitle: string = '';
+  boardIcon: string = '';
+  private currentBoardId?: number;
 
   constructor(
     public dialog: MatDialog,
@@ -38,16 +40,32 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.boardService.getLastSelectedBoard().subscribe((board: IBoard) => {
-      if (board?.title) this.boardTitle = board.title;
+      if (board?.title) this.applyBoard(board);
     });
   }
 
   setupEventHandlers() {
     this.eventService.listenForBoardSelectedEvent().subscribe((event) => {
       this.boardService.getBoardById(event.data).subscribe((board: IBoard) => {
-        if (board?.title) this.boardTitle = board.title;
+        if (board?.title) this.applyBoard(board);
       });
     });
+
+    // Keep the toolbar in sync if the currently displayed board's name/icon
+    // is edited from the Configure Boards dialog, without waiting for a
+    // reselection.
+    this.eventService.listenForBoardUpdateNameDescriptionRequestEvent().subscribe((event) => {
+      if (event.data['id'] === this.currentBoardId) {
+        this.boardTitle = event.data['title'];
+        this.boardIcon = event.data['icon'] || 'dashboard';
+      }
+    });
+  }
+
+  private applyBoard(board: IBoard) {
+    this.currentBoardId = board.id;
+    this.boardTitle = board.title;
+    this.boardIcon = board.icon || 'dashboard';
   }
   openConfigDialog() {
     this.dialog.open(ConfigurationComponent, {

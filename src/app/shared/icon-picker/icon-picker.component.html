@@ -1,0 +1,42 @@
+<button
+  type="button"
+  mat-button
+  #menuTrigger="matMenuTrigger"
+  class="icon-picker-trigger"
+  [matMenuTriggerFor]="iconMenu"
+  [disabled]="disabled"
+  matTooltip="Choose an icon">
+  <mat-icon>{{ value }}</mat-icon>
+  <span class="icon-picker-trigger-label">{{ value }}</span>
+</button>
+
+<mat-menu #iconMenu="matMenu" class="icon-picker-menu" (closed)="menuClosed()">
+  <div class="icon-picker-panel" (click)="$event.stopPropagation()">
+    <mat-form-field appearance="outline" class="icon-picker-search-field">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>Search icons</mat-label>
+      <input
+        matInput
+        [(ngModel)]="filterText"
+        (keydown)="$event.stopPropagation()"
+        placeholder="e.g. factory, chart, home" />
+    </mat-form-field>
+
+    <div class="icon-picker-grid">
+      @for (icon of filteredIcons; track icon) {
+        <button
+          type="button"
+          mat-icon-button
+          class="icon-picker-option"
+          [class.selected]="icon === value"
+          [matTooltip]="icon"
+          (click)="select(icon); menuTrigger.closeMenu()">
+          <mat-icon>{{ icon }}</mat-icon>
+        </button>
+      }
+      @if (filteredIcons.length === 0) {
+        <div class="icon-picker-empty">No icons match "{{ filterText }}"</div>
+      }
+    </div>
+  </div>
+</mat-menu>

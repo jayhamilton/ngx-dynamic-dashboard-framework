@@ -18,12 +18,14 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { MatTooltip } from '@angular/material/tooltip';
+import { IconPickerComponent } from 'src/app/shared/icon-picker/icon-picker.component';
 
 export interface IBoardNewRequestData {
   title: string;
   description: string;
   product: string;
   tabvalue: string;
+  icon: string;
 }
 
 const ELEMENT_DATA: IBoard[] = [];
@@ -32,7 +34,7 @@ const ELEMENT_DATA: IBoard[] = [];
     templateUrl: './tab-boards.component.html',
     styleUrls: ['./tab-boards.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatButton, MatIcon, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIconButton, MatTooltip, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatButton, MatIcon, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIconButton, MatTooltip, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, IconPickerComponent]
 })
 export class TabBoardsComponent implements OnInit {
 
@@ -43,9 +45,10 @@ export class TabBoardsComponent implements OnInit {
   boardTitle = new UntypedFormControl();
   boardDescription = new UntypedFormControl();
   boardTabvalue = new UntypedFormControl();
+  boardIcon = new UntypedFormControl('dashboard');
   hideRequiredControl = new UntypedFormControl(false); //TODO
   floatLabelControl = new UntypedFormControl('auto'); //TODO
-  displayedColumns: string[] = ['title', 'description', 'tools'];
+  displayedColumns: string[] = ['icon', 'title', 'description', 'tools'];
   dropDownListSelection: IBoard[] = [];
   dataSource = new ExampleDataSource(ELEMENT_DATA);
   selectedId?: number;
@@ -63,6 +66,7 @@ export class TabBoardsComponent implements OnInit {
       boardTitle: this.boardTitle,
       boardDescription: this.boardDescription,
       boardTabvalue: this.boardTabvalue,
+      boardIcon: this.boardIcon,
     });
 
     this.setupEventListeners();
@@ -163,6 +167,7 @@ export class TabBoardsComponent implements OnInit {
       description: this.boardDescription.value,
       product: '',
       tabvalue: this.boardTabvalue.value,
+      icon: this.boardIcon.value || 'dashboard',
     };
 
     this.eventService.emitBoardCreateRequestEvent({
@@ -181,6 +186,7 @@ export class TabBoardsComponent implements OnInit {
 
     this.boardTitle.setValue(item['title']);
     this.boardDescription.setValue(item['description']);
+    this.boardIcon.setValue(item['icon'] || 'dashboard');
     this.editMode = true;
     this.selectedId = item.id;
     this.editMode = true;
@@ -195,7 +201,8 @@ export class TabBoardsComponent implements OnInit {
         {
           id: this.selectedId,
           title: this.boardTitle.value,
-          description: this.boardDescription.value
+          description: this.boardDescription.value,
+          icon: this.boardIcon.value || 'dashboard'
         }
       });
 

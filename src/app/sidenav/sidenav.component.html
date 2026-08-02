@@ -5,6 +5,7 @@
         <mat-list-item
           [class.active]="board.id === selectedBoardId"
           (click)="selectBoard(board.id)">
+          <mat-icon matListItemIcon>{{ board.icon || 'dashboard' }}</mat-icon>
           {{ board.title }}
         </mat-list-item>
       }

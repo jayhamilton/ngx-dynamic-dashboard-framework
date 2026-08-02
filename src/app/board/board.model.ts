@@ -13,6 +13,7 @@ export interface IBoard {
   relationship: Hiearchy;
   tabs: ITab[];
   rows: IRow[];
+  icon?: string;
 }
 
 export interface IRow {

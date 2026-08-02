@@ -13,10 +13,11 @@
     </button>
   </span>
 
-  <span>{{applicationTitle}}</span>
   @if (boardTitle) {
-    <span class="board-title-divider">|</span>
-    <span class="board-title">{{boardTitle}}</span>
+    <mat-icon class="board-title-icon">{{ boardIcon || 'dashboard' }}</mat-icon>
+    <span class="board-title">{{ boardTitle }}</span>
+  } @else {
+    <span>{{applicationTitle}}</span>
   }
   <span class="example-spacer"></span>
 
