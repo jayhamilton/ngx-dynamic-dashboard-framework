@@ -4,7 +4,7 @@
     "title": "Bar Chart",
     "subtitle": "Vertical bar chart",
     "description": "Add a vertical bar chart to visualize categorical data.",
-    "icon": "../../assets/images/bar-chart.png",
+    "icon": "bar_chart",
     "instanceId": -1,
     "tags": [],
     "propertyPages": [
@@ -150,7 +150,7 @@
     "title": "Area Chart",
     "subtitle": "Multi-series area chart",
     "description": "Add a smooth area chart to visualize trends over time.",
-    "icon": "../../assets/images/trend.png",
+    "icon": "area_chart",
     "instanceId": -1,
     "tags": [],
     "propertyPages": [
@@ -296,7 +296,7 @@
     "title": "Pie Chart",
     "subtitle": "Proportional data chart",
     "description": "Add a pie chart to show proportional data.",
-    "icon": "../../assets/images/bar-chart.png",
+    "icon": "pie_chart",
     "instanceId": -1,
     "tags": [],
     "propertyPages": [
@@ -402,7 +402,7 @@
     "title": "Bubble Chart",
     "subtitle": "X/Y/size scatter chart",
     "description": "Add a bubble chart to visualize three-dimensional data.",
-    "icon": "../../assets/images/news.png",
+    "icon": "bubble_chart",
     "instanceId": -1,
     "tags": [],
     "propertyPages": [
@@ -540,7 +540,7 @@
     "title": "Number Card",
     "subtitle": "KPI metric cards",
     "description": "Add number cards to display key performance indicators.",
-    "icon": "../../assets/images/count.jpg",
+    "icon": "dashboard",
     "instanceId": -1,
     "tags": [],
     "propertyPages": [
@@ -622,7 +622,7 @@
     "title": "Line Chart",
     "subtitle": "Multi-series line chart",
     "description": "Add a line chart to visualize trends across multiple series.",
-    "icon": "../../assets/images/trend.png",
+    "icon": "show_chart",
     "instanceId": -1,
     "tags": [],
     "propertyPages": [

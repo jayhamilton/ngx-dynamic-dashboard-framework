@@ -1,8 +1,11 @@
 .gadget-icon {
-    border-radius: 0 !important;
-    background-size: contain !important;
-    background-repeat: no-repeat;
-    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--app-brand);
+    font-size: 28px;
+    height: 40px;
+    width: 40px;
 }
 
 .more-button {

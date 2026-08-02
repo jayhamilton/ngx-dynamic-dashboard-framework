@@ -72,11 +72,7 @@
         ]
       }
     ],
-    "actions": [
-      {
-        "name": "add"
-      }
-    ]
+    "actions": [{ "name": "add" }]
   },
   {
     "componentType": "DateComponent",
@@ -119,11 +115,7 @@
         ]
       }
     ],
-    "actions": [
-      {
-        "name": "add"
-      }
-    ]
+    "actions": [{ "name": "add" }]
   },
   {
     "componentType": "NotificationComponent",
@@ -166,11 +158,7 @@
         ]
       }
     ],
-    "actions": [
-      {
-        "name": "add"
-      }
-    ]
+    "actions": [{ "name": "add" }]
   },
   {
     "componentType": "UsergroupComponent",
@@ -205,11 +193,7 @@
         ]
       }
     ],
-    "actions": [
-      {
-        "name": "add"
-      }
-    ]
+    "actions": [{ "name": "add" }]
   },
   {
     "componentType": "EventsComponent",
@@ -244,11 +228,7 @@
         ]
       }
     ],
-    "actions": [
-      {
-        "name": "add"
-      }
-    ]
+    "actions": [{ "name": "add" }]
   },
   {
     "componentType": "ImageComponent",
@@ -298,11 +278,7 @@
         ]
       }
     ],
-    "actions": [
-      {
-        "name": "add"
-      }
-    ]
+    "actions": [{ "name": "add" }]
   },
   {
     "componentType": "ProductComponent",
@@ -352,11 +328,7 @@
         ]
       }
     ],
-    "actions": [
-      {
-        "name": "add"
-      }
-    ]
+    "actions": [{ "name": "add" }]
   },
   {
     "componentType": "ScoreCardComponent",
@@ -415,18 +387,14 @@
         ]
       }
     ],
-    "actions": [
-      {
-        "name": "add"
-      }
-    ]
+    "actions": [{ "name": "add" }]
   },
   {
     "componentType": "BarChartComponent",
     "title": "Bar Chart Component Component Tool",
     "subtitle": "Bar chart tool subtitle",
     "description": "Select this tool to define and add a Product definition to the production line board.",
-    "icon": "../../assets/images/bar-chart.png",
+    "icon": "bar_chart",
     "instanceId": -1,
     "tags": [],
     "propertyPages": [
@@ -454,18 +422,14 @@
         ]
       }
     ],
-    "actions": [
-      {
-        "name": "add"
-      }
-    ]
+    "actions": [{ "name": "add" }]
   },
   {
     "componentType": "AreaChartComponent",
     "title": "Area Chart Component Component Tool",
     "subtitle": "Area chart tool subtitle",
     "description": "Select this tool to define and add a Product definition to the production line board.",
-    "icon": "../../assets/images/trend.png",
+    "icon": "area_chart",
     "instanceId": -1,
     "tags": [],
     "propertyPages": [
@@ -493,10 +457,6 @@
         ]
       }
     ],
-    "actions": [
-      {
-        "name": "add"
-      }
-    ]
+    "actions": [{ "name": "add" }]
   }
 ]

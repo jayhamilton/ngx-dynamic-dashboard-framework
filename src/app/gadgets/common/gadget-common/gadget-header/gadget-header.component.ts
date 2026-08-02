@@ -63,6 +63,19 @@ export class GadgetHeaderComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  // Gadgets already placed on a board before the icon field switched from an
+  // image path to a Material icon ligature name still have the old path
+  // persisted in their saved instance data (board config doesn't re-read
+  // library.json once placed). Rendering a path string as a <mat-icon>
+  // ligature shows nothing usable, so fall back to a generic icon for
+  // anything that doesn't look like a plain ligature name.
+  get displayIcon(): string {
+    if (!this.iconpath || /[\/.]/.test(this.iconpath)) {
+      return 'widgets';
+    }
+    return this.iconpath;
+  }
+
   remove() {
     const ref = this.dialog.open(ConfirmDialogComponent, {
       width: '380px',

@@ -6,7 +6,7 @@
       appearance="outlined"
       [ngStyle]="{'border-top-color': colors[idx]}">
       <mat-card-header>
-        <div mat-card-avatar class="library-icon" [style.background-image]="'url(' + gadget.icon + ')'"></div>
+        <mat-icon mat-card-avatar class="library-icon">{{ gadget.icon }}</mat-icon>
         <mat-card-title>{{ gadget.title }}</mat-card-title>
         <mat-card-subtitle>{{ gadget.subtitle }}</mat-card-subtitle>
       </mat-card-header>
