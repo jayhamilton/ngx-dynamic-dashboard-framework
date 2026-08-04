@@ -24,13 +24,13 @@ This is an Angular 22 dynamic dashboard framework (ngx-dd-ui) that enables JSON-
 ### Key Components
 
 **Gadget System**:
-- `GadgetGridCellHostComponent` (`src/app/gadgets/gadget-grid-cell-host/gadget-grid-cell-host.component.ts:49-82`) - Factory component that dynamically creates gadget instances via switch statement
+- `GadgetGridCellHostComponent` (`src/app/gadgets/gadget-grid-cell-host/gadget-grid-cell-host.component.ts`) - Factory component that dynamically creates gadget instances. Takes `gadgetData` as a signal `input.required<IGadget>()`; a constructor `effect()` reacts to it, looks up `gadgetData().componentType` in `GADGET_REGISTRY` (`src/app/gadgets/gadget-registry.ts`), dynamically `import()`s and creates that gadget component via `ViewContainerRef.createComponent()`. Each registry entry is a dynamic import (not a static one), so the bundler code-splits every gadget into its own chunk — a gadget type is only downloaded the first time a board actually renders one.
 - `GadgetBase` (`src/app/gadgets/common/gadget-common/gadget-base/gadget.base.ts`) - Abstract base class all gadgets extend
 - Gadget library defined in `src/assets/api/library.json` - JSON configuration for all available gadgets
 
-**Available Gadgets** (wired into the factory switch statement, see below):
+**Available Gadgets** (wired into `GADGET_REGISTRY`, see below):
 - BarChartComponent, AreaChartComponent, PieChartComponent, BubbleChartComponent (NGX Charts integration)
-- NumberCardComponent (KPI tile), LineChartComponent
+- NumberCardComponent (KPI tile), LineChartComponent, TableComponent, StatisticComponent, TextComponent (markdown)
 
 **Dynamic Forms**:
 - `DynamicFormComponent` - Renders property configuration forms
@@ -51,7 +51,7 @@ This is an Angular 22 dynamic dashboard framework (ngx-dd-ui) that enables JSON-
 
 ### Key Files
 
-- `src/app/gadgets/gadget-grid-cell-host/gadget-grid-cell-host.component.ts` - Gadget factory (add new gadgets here)
+- `src/app/gadgets/gadget-registry.ts` - Gadget factory registry (add new gadgets here); `src/app/gadgets/gadget-grid-cell-host/gadget-grid-cell-host.component.ts` is the signal-driven host component that consumes it
 - `src/assets/api/library.json` - Gadget definitions and property schemas
 - `src/app/dynamic-form/` - Dynamic form generation system
 - `src/app/board/` - Dashboard board management
@@ -60,8 +60,7 @@ This is an Angular 22 dynamic dashboard framework (ngx-dd-ui) that enables JSON-
 ### Adding New Gadgets
 
 1. Create component in `src/app/gadgets/[gadget-name]/`
-2. Add component import and case to `GadgetGridCellHostComponent` switch statement
-3. Add gadget definition to `src/assets/api/library.json` (and `library-prod.json`)
+2. Add a `componentType: () => import(...).then(m => m.YourComponent)` entry to `GADGET_REGISTRY` in `src/app/gadgets/gadget-registry.ts`
 4. Set `icon` to a [Material Icons](https://fonts.google.com/icons?icon.set=Material+Icons) ligature name (e.g. `"bar_chart"`) — rendered directly as `<mat-icon>`, no image file needed. Gadget instances already placed on a board persist their `icon` value in `localStorage` at add-time, so changing `library.json` later won't retroactively update instances already on a board.
 
 ### Dependencies

@@ -1,98 +1,59 @@
 import {
   Component,
-  Input,
   ViewContainerRef,
-  OnInit,
+  input,
+  effect,
+  Type,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { BarChartComponent } from '../bar-chart/bar-chart.component';
-import { AreaChartComponent } from '../area-chart/area-chart.component';
-import { PieChartComponent } from '../pie-chart/pie-chart.component';
-import { BubbleChartComponent } from '../bubble-chart/bubble-chart.component';
-import { NumberCardComponent } from '../number-card/number-card.component';
-import { LineChartComponent } from '../line-chart/line-chart.component';
-import { TableComponent } from '../table/table.component';
-import { StatisticComponent } from '../statistic/statistic.component';
-import { TextComponent } from '../text/text.component';
 import { IGadget } from '../common/gadget-common/gadget-base/gadget.model';
+import { GadgetBase } from '../common/gadget-common/gadget-base/gadget.base';
 import { AnimationService } from '../../animation/animation.service';
+import { GADGET_REGISTRY } from '../gadget-registry';
 
 @Component({
     selector: 'gadget-grid-cell-host',
     template: '',
     changeDetection: ChangeDetectionStrategy.Eager
 })
-export class GadgetGridCellHostComponent implements OnInit {
-  @Input() gadgetData: IGadget;
+export class GadgetGridCellHostComponent {
+  gadgetData = input.required<IGadget>();
+
+  // Bumped on every gadgetData change so a dynamic import for a superseded
+  // value can't create a component after a newer one already has.
+  private loadToken = 0;
 
   constructor(
     private componentHost: ViewContainerRef,
     private animationService: AnimationService
   ) {
-    this.gadgetData = {
-      componentType: '',
-      title: '',
-      subtitle: '',
-      description: '',
-      icon: '',
-      instanceId: -1,
-      tags: [],
-      propertyPages: [],
-      actions: [],
-    };
+    effect(() => {
+      const data = this.gadgetData();
+      this.loadGadget(data);
+    });
   }
 
-  ngOnInit() {
-    let gadgetRef = null;
+  private async loadGadget(data: IGadget) {
+    const token = ++this.loadToken;
+    const loader = GADGET_REGISTRY[data.componentType];
+    this.componentHost.clear();
+    if (!loader) return;
 
-    switch (this.gadgetData.componentType) {
-      case 'BarChartComponent':
-        gadgetRef = this.componentHost.createComponent(BarChartComponent);
-        break;
-      case 'AreaChartComponent':
-        gadgetRef = this.componentHost.createComponent(AreaChartComponent);
-        break;
-      case 'PieChartComponent':
-        gadgetRef = this.componentHost.createComponent(PieChartComponent);
-        break;
-      case 'BubbleChartComponent':
-        gadgetRef = this.componentHost.createComponent(BubbleChartComponent);
-        break;
-      case 'NumberCardComponent':
-        gadgetRef = this.componentHost.createComponent(NumberCardComponent);
-        break;
-      case 'LineChartComponent':
-        gadgetRef = this.componentHost.createComponent(LineChartComponent);
-        break;
-      case 'TableComponent':
-        gadgetRef = this.componentHost.createComponent(TableComponent);
-        break;
-      case 'StatisticComponent':
-        gadgetRef = this.componentHost.createComponent(StatisticComponent);
-        break;
-      case 'TextComponent':
-        gadgetRef = this.componentHost.createComponent(TextComponent);
-        break;
-      default:
-        // do nothing
-    }
+    const componentType: Type<GadgetBase> = await loader();
+    if (token !== this.loadToken) return;
 
-    if (gadgetRef) {
-      gadgetRef.instance.initializeConfiguration(this.gadgetData);
+    const gadgetRef = this.componentHost.createComponent(componentType);
+    gadgetRef.instance.initializeConfiguration(data);
 
-      // createComponent inserts the gadget as a sibling of this host element,
-      // so the gadget's own root is what needs animating, not the host.
-      const element: HTMLElement = gadgetRef.location.nativeElement;
+    // createComponent inserts the gadget as a sibling of this host element,
+    // so the gadget's own root is what needs animating, not the host.
+    const element: HTMLElement = gadgetRef.location.nativeElement;
 
-      // Layout changes rebuild these components rather than moving them, so
-      // stamp a stable id Flip can use to match the new element back to where
-      // the old one was.
-      element.setAttribute(
-        AnimationService.FLIP_ID_ATTR,
-        String(this.gadgetData.instanceId)
-      );
+    // Layout changes rebuild these components rather than moving them, so
+    // stamp a stable id Flip can use to match the new element back to where
+    // the old one was.
+    element.setAttribute(AnimationService.FLIP_ID_ATTR, String(data.instanceId));
 
-      this.animationService.gadgetEnter(element);
-    }
+    this.animationService.gadgetEnter(element);
   }
 }
