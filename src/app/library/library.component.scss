@@ -5,7 +5,7 @@
   flex-direction: column;
   height: 100%;
   width: 480px;
-  background: var(--app-surface);
+  background: var(--app-background);
   @include mat.elevation(4);
 }
 
@@ -41,14 +41,51 @@
     bottom: 0;
     display: block;
     height: 40px;
-    background: linear-gradient(to bottom, transparent, var(--app-surface));
+    background: linear-gradient(to bottom, transparent, var(--app-background));
     pointer-events: none;
   }
 }
 
 .library-card {
-  margin-bottom: 8px;
-  @include mat.elevation(2);
+  margin-bottom: 16px;
+  background: var(--app-surface);
+  border: none;
+  border-top: 4px solid;
+  border-radius: 12px;
+  box-shadow: var(--app-card-shadow);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--app-card-shadow-hover);
+  }
+
+  mat-card-header {
+    padding: 12px 12px 0;
+  }
+
+  mat-card-content {
+    padding: 0 12px;
+
+    &:first-child {
+      padding-top: 8px;
+    }
+
+    &:last-child {
+      padding-bottom: 8px;
+    }
+
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 0.85rem;
+  }
+
+  mat-card-actions {
+    padding: 4px 8px 8px;
+    min-height: 0;
+  }
 }
 
 .library-viewport {
@@ -60,7 +97,8 @@
   align-items: center;
   justify-content: center;
   color: var(--app-brand);
-  font-size: 28px;
-  height: 40px;
-  width: 40px;
+  font-size: 22px;
+  height: 32px;
+  width: 32px;
+  margin-bottom: 8px;
 }

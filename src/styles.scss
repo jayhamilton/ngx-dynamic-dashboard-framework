@@ -56,6 +56,11 @@ html {
   // "error" color Material's own form-field/validation states use.
   --app-error: #ba1a1a;
   --app-error-bg: #ffdad6;
+  // Soft layered shadow used by gadget/library cards instead of a hard 1px
+  // border, so they read as lifted off the page rather than flat outlined
+  // boxes. -hover is the deeper version used on interactive card hover.
+  --app-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.08);
+  --app-card-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .dark-theme {
@@ -71,6 +76,10 @@ html {
   --app-input-border: #8f909e;
   --app-error: #ffb4ab;
   --app-error-bg: #93000a;
+  // Dark backgrounds need noticeably more opaque shadows to read as elevation
+  // at all — the light-theme alpha values are nearly invisible against #121319.
+  --app-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.4);
+  --app-card-shadow-hover: 0 4px 10px rgba(0, 0, 0, 0.35), 0 10px 24px rgba(0, 0, 0, 0.5);
 }
 
 html,
@@ -86,6 +95,13 @@ body {
 
 .example-spacer {
     flex: 1 1 auto;
+}
+
+// M3 mini-fabs default to a rounded-square (corner-medium) shape rather than
+// the classic circular fab. Every mini-fab in this app is an "add" action
+// (library, schedule/products/user tabs) and reads better as a circle.
+html {
+    --mat-fab-small-container-shape: 50%;
 }
 
 mat-dialog-container {

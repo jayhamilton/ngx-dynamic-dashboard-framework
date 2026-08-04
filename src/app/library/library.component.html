@@ -7,10 +7,9 @@
   </div>
 
   <div class="library-panel-body">
-    <cdk-virtual-scroll-viewport itemSize="160" class="library-viewport">
+    <cdk-virtual-scroll-viewport itemSize="150" class="library-viewport">
       <mat-card class="library-card"
         *cdkVirtualFor="let gadget of library; let idx = index"
-        appearance="outlined"
         [ngStyle]="{'border-top-color': colors[idx]}">
         <mat-card-header>
           <mat-icon mat-card-avatar class="library-icon">{{ gadget.icon }}</mat-icon>

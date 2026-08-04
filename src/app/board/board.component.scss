@@ -3,6 +3,17 @@
   display: none;
 }
 
+// Gadget cards previously used appearance="outlined" (hard 1px border, no
+// shadow), which read as flat against the near-white board background.
+// Swap to a soft layered shadow with no border so cards visually lift off
+// the page instead of just being outlined boxes sitting on it.
+::ng-deep .cdk-drop-list mat-card {
+  background: var(--app-surface);
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--app-card-shadow);
+}
+
 /* Multi-tab strip styling */
 ::ng-deep mat-tab-group:not(.single-tab) .mat-mdc-tab-header {
   background-color: var(--app-background);
