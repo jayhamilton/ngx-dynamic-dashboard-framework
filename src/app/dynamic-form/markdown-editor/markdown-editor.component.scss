@@ -1,0 +1,75 @@
+@use '../../shared/markdown-prose' as prose;
+
+.markdown-editor {
+  border: 1px solid var(--app-border);
+  border-radius: 4px;
+  overflow: hidden;
+
+  &.disabled {
+    opacity: 0.6;
+  }
+}
+
+.markdown-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px;
+  background: var(--app-background);
+  border-bottom: 1px solid var(--app-border);
+
+  button {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+    }
+  }
+}
+
+.toolbar-text-icon {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.markdown-panes {
+  display: flex;
+  height: 260px;
+}
+
+.markdown-textarea {
+  flex: 1 1 50%;
+  resize: none;
+  border: none;
+  border-right: 1px solid var(--app-border);
+  outline: none;
+  padding: 10px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: inherit;
+  background: var(--app-surface);
+}
+
+.markdown-preview {
+  flex: 1 1 50%;
+  overflow-y: auto;
+  padding: 10px 14px;
+  background: var(--app-surface);
+}
+
+.markdown-preview-placeholder {
+  color: var(--app-text-secondary);
+  font-style: italic;
+  margin: 0;
+}
+
+.markdown-preview-body {
+  @include prose.markdown-prose;
+  font-size: 0.9rem;
+}

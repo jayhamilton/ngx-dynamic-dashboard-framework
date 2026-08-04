@@ -1057,7 +1057,7 @@
             "order": 2
           },
           {
-            "controlType": "textarea",
+            "controlType": "markdown",
             "key": "content",
             "label": "Content (Markdown)",
             "value": "## Heading\n\nEnter your **markdown** text here.",

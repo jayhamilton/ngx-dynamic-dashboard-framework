@@ -20,6 +20,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
 import { AceEditorComponent } from './ace-editor/ace-editor.component';
 import { JsonFormsEditorComponent } from './json-forms-editor/json-forms-editor.component';
+import { MarkdownEditorComponent } from './markdown-editor/markdown-editor.component';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { IconPickerComponent } from '../shared/icon-picker/icon-picker.component';
 
@@ -41,7 +42,7 @@ import { IconPickerComponent } from '../shared/icon-picker/icon-picker.component
         ]),
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatIcon, FileUploadComponent, MatDatepickerInput, MatHint, MatDatepickerToggle, MatSuffix, MatDatepicker, AceEditorComponent, JsonFormsEditorComponent, MatCheckbox, IconPickerComponent]
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatIcon, FileUploadComponent, MatDatepickerInput, MatHint, MatDatepickerToggle, MatSuffix, MatDatepicker, AceEditorComponent, JsonFormsEditorComponent, MarkdownEditorComponent, MatCheckbox, IconPickerComponent]
 })
 export class DynamicFormPropertyComponent implements AfterContentInit, OnDestroy {
   private destroy$ = new Subject<void>();

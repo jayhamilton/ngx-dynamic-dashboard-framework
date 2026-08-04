@@ -1,0 +1,39 @@
+<div class="markdown-editor" [class.disabled]="disabled">
+  <div class="markdown-toolbar">
+    @for (item of toolbarActions; track item.tooltip) {
+      <button
+        type="button"
+        mat-icon-button
+        [matTooltip]="item.tooltip"
+        [disabled]="disabled"
+        (click)="item.action()">
+        @if (item.icon) {
+          <mat-icon>{{ item.icon }}</mat-icon>
+        } @else {
+          <span class="toolbar-text-icon">{{ item.label }}</span>
+        }
+      </button>
+    }
+  </div>
+
+  <div class="markdown-panes">
+    <textarea
+      #textareaEl
+      class="markdown-textarea"
+      [value]="value"
+      [disabled]="disabled"
+      (input)="onInput($event)"
+      (blur)="onBlur()"
+      placeholder="Write markdown here…"
+      spellcheck="true">
+    </textarea>
+
+    <div class="markdown-preview">
+      @if (renderedHtml) {
+        <div class="markdown-preview-body" [innerHTML]="renderedHtml"></div>
+      } @else {
+        <p class="markdown-preview-placeholder">Preview will appear here as you type.</p>
+      }
+    </div>
+  </div>
+</div>

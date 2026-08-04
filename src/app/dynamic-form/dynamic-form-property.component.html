@@ -75,6 +75,14 @@
             </mat-form-field>
           </div>
         }
+        @case ('markdown') {
+          <div class="markdown-editor-container">
+            <mat-label [attr.for]="property.key">{{ property.label }}</mat-label>
+            <app-markdown-editor
+              [formControlName]="property.key">
+            </app-markdown-editor>
+          </div>
+        }
         @case ('ace-editor') {
           <div class="ace-editor-container">
             <mat-label [attr.for]="property.key">{{ property.label }}</mat-label>
