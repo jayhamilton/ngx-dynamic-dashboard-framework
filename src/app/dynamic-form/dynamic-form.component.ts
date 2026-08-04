@@ -5,6 +5,8 @@ import {
   Component,
   Input,
   OnInit,
+  OnChanges,
+  SimpleChanges,
   Output,
   EventEmitter,
   ChangeDetectorRef,
@@ -69,7 +71,7 @@ import { MatButton } from '@angular/material/button';
     changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule, ReactiveFormsModule, MatTabGroup, MatTab, DynamicFormPropertyComponent, MatButton]
 })
-export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DynamicFormComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() gadgetTags: ITag[]; //todo - use to control what endpoints are displayed
   @Input() propertyPages: IPropertyPage[];
   @Input() instanceId: number;
@@ -85,6 +87,10 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
   payLoad = '';
   showMessage: boolean = false;
   private destroy$ = new Subject<void>();
+  // Torn down and recreated each time buildForm() runs, so the valueChanges
+  // subscription for a previous gadget's form doesn't linger after the panel
+  // switches to a different gadget.
+  private formDestroy$ = new Subject<void>();
   private showMessageTimer: any = null;
 
   constructor(
@@ -106,12 +112,35 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    // ngOnChanges already builds the form — it fires before ngOnInit for the
+    // initial bound @Input() values, and again on every later gadget switch.
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // The config panel reuses a single DynamicFormComponent instance across
+    // gadgets, only pushing new @Input() values — rebuild the form whenever
+    // the selected gadget changes, or property values (and the stale-value
+    // bug) from the previous gadget carry over into the new one.
+    if (changes['propertyPages'] || changes['instanceId']) {
+      this.buildForm();
+    }
+  }
+
+  private buildForm() {
+    // Tear down the previous form's subscription before replacing it, and
+    // clear any leftover "Saved!" flash/payload from the prior gadget.
+    this.formDestroy$.next();
+    if (this.showMessageTimer) clearTimeout(this.showMessageTimer);
+    this.showMessage = false;
+    this.payLoad = '';
+
     this.form = this.pcs.toFormGroupFromPP(this.propertyPages);
-    
+
     // Subscribe to form value changes for real-time updates with debouncing
     this.form.valueChanges.pipe(
       debounceTime(100), // Reduced delay for more responsive updates
       distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)),
+      takeUntil(this.formDestroy$),
       takeUntil(this.destroy$)
     ).subscribe((value) => {
       console.log('DynamicForm: Form value changed (debounced), emitting update:', value);
