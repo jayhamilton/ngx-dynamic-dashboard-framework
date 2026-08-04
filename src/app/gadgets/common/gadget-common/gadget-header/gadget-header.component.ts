@@ -29,6 +29,10 @@ export class GadgetHeaderComponent implements OnInit, OnDestroy {
   @Input() gadgetPropertyPages: IPropertyPage[] = [];
   @Input() gadgetTags: ITag[] = [];
   @Input() propertyChangeCallback: ((propertiesJSON: string) => void) | null = null;
+  // Slug matching a file under src/assets/help/<helpTopic>.md, rendered in
+  // the help panel. Set as a literal per gadget component (see its .html),
+  // since componentType isn't populated on GadgetBase instances.
+  @Input() helpTopic: string = '';
   menuLabel = 'Configure';
   private destroy$ = new Subject<void>();
 
@@ -125,6 +129,12 @@ export class GadgetHeaderComponent implements OnInit, OnDestroy {
       // Just exited config mode via this gadget's own menu — close it.
       this.eventService.emitCloseConfigPanelEvent();
     }
+  }
+
+  openHelp() {
+    this.eventService.emitOpenHelpPanelEvent({
+      data: { title: this.title, helpTopic: this.helpTopic }
+    });
   }
 
   setMenuLabel() {

@@ -37,9 +37,15 @@
         <app-library></app-library>
       </mat-drawer>
 
-      <div class="example-sidenav-content">
-        <app-board></app-board>
-      </div>
+      <mat-drawer-container class="help-panel-container">
+        <mat-drawer #helpPanel mode="over" position="end">
+          <app-help-panel></app-help-panel>
+        </mat-drawer>
+
+        <div class="example-sidenav-content">
+          <app-board></app-board>
+        </div>
+      </mat-drawer-container>
     </mat-drawer-container>
   </mat-drawer-container>
 </mat-drawer-container>

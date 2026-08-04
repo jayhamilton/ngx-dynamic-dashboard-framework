@@ -1,0 +1,20 @@
+<div class="help-panel">
+  <div class="help-panel-header">
+    <span class="help-panel-title">Help: {{ gadgetTitle }}</span>
+    <button mat-icon-button class="help-panel-close" (click)="close()" aria-label="Close help panel">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  @if (hasData) {
+    <div class="help-panel-body">
+      @if (loading) {
+        <p class="help-loading">Loading…</p>
+      } @else if (renderedHtml) {
+        <div class="help-body" [innerHTML]="renderedHtml"></div>
+      } @else {
+        <p class="help-loading">No help content is available for this gadget yet.</p>
+      }
+    </div>
+  }
+</div>
