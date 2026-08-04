@@ -1,0 +1,102 @@
+.text-content {
+  padding-top: 8px;
+}
+
+.text-placeholder {
+  color: var(--app-text-secondary);
+  font-style: italic;
+  margin: 0;
+}
+
+// Typography for author-supplied markdown — a plain 'prose' reset since
+// the markdown source has no classes/styling of its own to hook into.
+.text-body {
+  line-height: 1.6;
+  color: inherit;
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 1.2em 0 0.5em;
+  }
+
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.15rem; }
+  h4, h5, h6 { font-size: 1rem; }
+
+  p {
+    margin: 0 0 1em;
+  }
+
+  a {
+    color: var(--app-brand);
+  }
+
+  blockquote {
+    margin: 1em 0;
+    padding: 4px 16px;
+    border-left: 3px solid var(--app-brand);
+    color: var(--app-text-secondary);
+  }
+
+  ul, ol {
+    margin: 0 0 1em;
+    padding-left: 1.4em;
+  }
+
+  li {
+    margin-bottom: 0.3em;
+  }
+
+  code {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9em;
+    background: var(--app-background);
+    padding: 2px 5px;
+    border-radius: 4px;
+  }
+
+  pre {
+    background: var(--app-background);
+    padding: 12px;
+    border-radius: 8px;
+    overflow-x: auto;
+
+    code {
+      background: none;
+      padding: 0;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--app-border);
+    margin: 1.5em 0;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 0 1em;
+  }
+
+  th, td {
+    border: 1px solid var(--app-border);
+    padding: 6px 10px;
+    text-align: left;
+  }
+}

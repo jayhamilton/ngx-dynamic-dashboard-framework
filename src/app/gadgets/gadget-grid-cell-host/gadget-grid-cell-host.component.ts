@@ -13,6 +13,7 @@ import { NumberCardComponent } from '../number-card/number-card.component';
 import { LineChartComponent } from '../line-chart/line-chart.component';
 import { TableComponent } from '../table/table.component';
 import { StatisticComponent } from '../statistic/statistic.component';
+import { TextComponent } from '../text/text.component';
 import { IGadget } from '../common/gadget-common/gadget-base/gadget.model';
 import { AnimationService } from '../../animation/animation.service';
 
@@ -68,6 +69,9 @@ export class GadgetGridCellHostComponent implements OnInit {
         break;
       case 'StatisticComponent':
         gadgetRef = this.componentHost.createComponent(StatisticComponent);
+        break;
+      case 'TextComponent':
+        gadgetRef = this.componentHost.createComponent(TextComponent);
         break;
       default:
         // do nothing

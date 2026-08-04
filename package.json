@@ -28,6 +28,7 @@
     "ace-builds": "^1.43.2",
     "ace-editor-builds": "^1.2.4",
     "gsap": "^3.15.0",
+    "marked": "^18.0.7",
     "rxjs": "^7.8.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

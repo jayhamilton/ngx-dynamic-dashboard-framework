@@ -1,0 +1,22 @@
+<mat-card cdkDrag>
+  <app-gadget-header
+    [title]="title"
+    [subtitle]="subtitle"
+    [iconpath]="icon"
+    (removeEvent)="remove()"
+    [inConfig]="inConfig"
+    [gadgetInstanceId]="instanceId"
+    [gadgetPropertyPages]="propertyPages"
+    [gadgetTags]="tags"
+    [propertyChangeCallback]="propertyChangeEvent.bind(this)"
+    (toggleConfigModeEvent)="toggleConfigMode()">
+  </app-gadget-header>
+
+  <mat-card-content class="text-content">
+    @if (renderedHtml) {
+      <div class="text-body" [innerHTML]="renderedHtml"></div>
+    } @else {
+      <p class="text-placeholder">Configure this gadget to add text.</p>
+    }
+  </mat-card-content>
+</mat-card>

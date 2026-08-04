@@ -1025,5 +1025,52 @@
         "name": "add"
       }
     ]
+  },
+  {
+    "componentType": "TextComponent",
+    "title": "Text",
+    "subtitle": "Markdown text block",
+    "description": "Add a block of markdown-formatted text for narrative content.",
+    "icon": "notes",
+    "instanceId": -1,
+    "tags": [],
+    "propertyPages": [
+      {
+        "displayName": "Configuration",
+        "groupId": "config",
+        "position": 10,
+        "properties": [
+          {
+            "controlType": "textbox",
+            "key": "title",
+            "label": "Title",
+            "value": "",
+            "required": false,
+            "order": 1
+          },
+          {
+            "controlType": "textbox",
+            "key": "subtitle",
+            "label": "Subtitle",
+            "value": "",
+            "required": false,
+            "order": 2
+          },
+          {
+            "controlType": "textarea",
+            "key": "content",
+            "label": "Content (Markdown)",
+            "value": "## Heading\n\nEnter your **markdown** text here.",
+            "required": false,
+            "order": 3
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
   }
 ]
