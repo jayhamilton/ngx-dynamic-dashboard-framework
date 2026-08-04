@@ -32,12 +32,17 @@ The framework this project is based on had a notion of data sources backed by RE
 
 > **Planned:** support for REST API endpoints as a data source. It will be *supplementary to* — not a replacement for — manually configured JSON, so existing boards continue to work and either approach can be chosen per gadget instance.
 
+### Toward report-style boards
+
+Most of the gadgets below are chart/data widgets, but the framework is growing toward supporting mixed text-and-visualization "story" boards — narrative commentary alongside charts, in the spirit of data-journalism graphics — rather than only dashboards of isolated widgets. The Text gadget and per-gadget help system (both described below) are the first steps in that direction.
+
 ## Built With
 
 * JSON driven — gadgets and their property pages come from a library definition
-* [Angular Dynamic Components](https://angular.io/guide/dynamic-component-loader) — gadgets are instantiated at runtime
+* [Angular Dynamic Components](https://angular.io/guide/dynamic-component-loader) — gadgets are instantiated at runtime via a signal-based, lazily-loaded registry
 * [Angular Dynamic Forms](https://angular.io/guide/dynamic-form) — configuration forms are generated from each gadget's JSON
 * [NGX Charts](https://swimlane.github.io/ngx-charts/#/ngx-charts/bar-vertical) — charting gadgets
+* [marked](https://marked.js.org/) — renders markdown content (Text gadget, gadget help panel) to HTML
 * Angular Material 3 theming with light and dark modes
 
 ## Blog Post
@@ -74,7 +79,7 @@ Available layouts: one column, two equal, two narrow/wide, two wide/narrow, and 
 
 ### Gadget Library
 
-Gadgets are added from a side panel driven entirely by the library JSON.
+Gadgets are added from a side panel driven entirely by the library JSON. Each card shows a colored accent matching its gadget type and lifts off the panel background with a soft shadow rather than a hard outline.
 
 ![Gadget library](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/gadget-library.jpg)
 
@@ -88,6 +93,7 @@ Gadgets are added from a side panel driven entirely by the library JSON.
 | Number Card | KPI metric tiles |
 | Table | Rows of tabular data with striping, density, row numbers, and column selection |
 | Statistic | A single metric with an icon, color theme, and trend indicator |
+| Text | A block of markdown-formatted narrative content — headings, links, lists, quotes, code, tables, images. Title/subtitle are optional, so it can read as plain continuing text |
 
 ### Gadget Configuration
 
@@ -95,11 +101,24 @@ Selecting **Configure** on a gadget opens a side panel whose form is generated f
 
 ![Gadget configuration](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/gadget-configuration.jpg)
 
-Supported form controls: `textbox`, `number`, `checkbox`, `dropdown`, `dropdown-ms`, `date`, `textarea`, `upload`, `hidden`, `section`, `icon-picker`, `ace-editor`, and `json-forms`. Gadget data is edited as JSON in an embedded Ace editor.
+Supported form controls: `textbox`, `number`, `checkbox`, `dropdown`, `dropdown-ms`, `date`, `textarea`, `upload`, `hidden`, `section`, `icon-picker`, `ace-editor`, `json-forms`, and `markdown`. Gadget data is edited as JSON in an embedded Ace editor.
+
+The `markdown` control (used by the Text gadget's content field) is aimed at people who don't already know markdown syntax: a small toolbar inserts the right syntax at the cursor — bold, italic, headings, lists, quotes, inline code, links — and a live preview sits next to the raw text so the effect of each edit is immediately visible.
+
+![Markdown editor](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/markdown-editor.jpg)
+
+### Gadget Help
+
+Every gadget's menu has a **Help** item, alongside Configure and Remove, opening a side panel with that gadget's own documentation — its purpose, its configuration options, and the JSON shape its data control expects. Help content is markdown, one file per gadget type, so it's easy to keep in sync as gadgets evolve.
+
+![Gadget help panel](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/help-panel.jpg)
 
 ### Application Configuration
 
-The application title shown in the toolbar is configurable and persisted locally, with a reset back to the built-in default.
+Application-wide settings, independent of any single board:
+
+- **Application title** — shown in the toolbar, persisted locally, with a reset back to the built-in default.
+- **Transparent card backgrounds** — a toggle that drops the card fill and shadow from every gadget on the board, so gadgets sit directly on the page background instead of inside their own card.
 
 ![Application configuration](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/application-configuration.jpg)
 
@@ -131,15 +150,26 @@ Add an entry to the library array in [library.json](https://github.com/jayhamilt
 
 Production builds read `library-prod.json`, so add the entry to both files.
 
-### 3. Register it with the gadget factory
+### 3. Register it with the gadget registry
 
-Add a case for the new component to [gadget-grid-cell-host.component.ts](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/app/gadgets/gadget-grid-cell-host/gadget-grid-cell-host.component.ts), which instantiates gadgets by `componentType`.
+Add a `componentType -> dynamic import()` entry to [gadget-registry.ts](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/app/gadgets/gadget-registry.ts):
+
+```ts
+MyNewGadgetComponent: () =>
+  import('./my-new-gadget/my-new-gadget.component').then((m) => m.MyNewGadgetComponent),
+```
+
+`GadgetGridCellHostComponent` takes `gadgetData` as a signal input; a constructor `effect()` reacts to it, looks up the loader by `componentType`, and creates the resolved component via `ViewContainerRef.createComponent()`. Because each entry is a dynamic import rather than a static one, the bundler code-splits every gadget into its own chunk — a gadget type is only downloaded the first time a board actually renders one.
 
 ### 4. Gadget icons
 
 Set `icon` to a [Material Icons](https://fonts.google.com/icons?icon.set=Material+Icons) ligature name (e.g. `"bar_chart"`) — no image file needed. It renders as a `<mat-icon>` in both the gadget header and the library panel, so it themes correctly in light and dark mode.
 
 Boards use the same convention. The icon picker's list lives in [icon-options.ts](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/src/app/shared/icon-picker/icon-options.ts) — add entries there to extend it. `IconPickerComponent` is a standard `ControlValueAccessor`, so it can be used in any reactive form.
+
+### 5. Help content
+
+Add a markdown file at `src/assets/help/<componentType-slug>.md` (e.g. `bar-chart.md`) describing the gadget's purpose, its configuration options, and the JSON shape its data control expects. It's rendered in the gadget's Help side panel — see [Gadget Help](#gadget-help) above.
 
 ### JSON Definition
 
