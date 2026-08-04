@@ -104,6 +104,16 @@ html {
     --mat-fab-small-container-shape: 50%;
 }
 
+// M3 slide-toggles draw a 2px outline ring around the track (in every
+// state) so the "off" state doesn't read as a plain filled pill. This app's
+// track fill color already contrasts enough on its own, so drop the ring
+// for a flatter, cleaner look.
+html {
+    --mat-slide-toggle-track-outline-width: 0;
+    --mat-slide-toggle-selected-track-outline-width: 0;
+    --mat-slide-toggle-disabled-unselected-track-outline-width: 0;
+}
+
 mat-dialog-container {
     // Material's M3 dialog surface paints its background from
     // --mat-dialog-container-color (not the MDC --mdc- prefixed variable),

@@ -4,27 +4,53 @@
   text-transform: uppercase;
   letter-spacing: 0.6px;
   color: var(--app-brand);
-  margin: 16px 0 8px;
+  margin: 16px 0 4px;
 }
 
-.application-form {
+// Each app-level setting is its own row: label, description, then its
+// control, stacked and left-aligned — separated from the next setting by a
+// hairline divider rather than everything competing for space side by side.
+.setting-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 10px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--app-border);
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 4px;
+  }
+}
+
+.setting-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.setting-description {
+  font-size: 0.8rem;
+  color: var(--app-text-secondary);
+  margin-top: 2px;
+  max-width: 420px;
+}
+
+.setting-control {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
 }
 
 .form-field-app-title {
-  width: 360px;
+  width: 320px;
 }
 
 .form-actions {
   display: flex;
   align-items: center;
   gap: 8px;
-  // Aligns these buttons with the form field's input box rather than its
-  // full height, which also reserves space for the hint text below.
-  padding-top: 8px;
 
   mat-icon {
     font-size: 18px;

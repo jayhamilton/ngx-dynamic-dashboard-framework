@@ -14,6 +14,15 @@
   box-shadow: var(--app-card-shadow);
 }
 
+// "Transparent card backgrounds" app setting (AppConfigService), toggled on
+// <body> the same way ThemeService toggles .dark-theme — lets gadgets sit
+// directly on the page background instead of their own card fill, a first
+// step toward report-style layouts where charts overlay a shared canvas.
+:host-context(body.transparent-cards) ::ng-deep .cdk-drop-list mat-card {
+  background: transparent;
+  box-shadow: none;
+}
+
 /* Multi-tab strip styling */
 ::ng-deep mat-tab-group:not(.single-tab) .mat-mdc-tab-header {
   background-color: var(--app-background);

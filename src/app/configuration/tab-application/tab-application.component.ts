@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormField, MatLabel, MatHint } from '@angular/material/form-field';
+import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { AppConfigService } from 'src/app/app-config/app-config.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { AppConfigService } from 'src/app/app-config/app-config.service';
     templateUrl: './tab-application.component.html',
     styleUrls: ['./tab-application.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatHint, MatInput, MatButton, MatIcon]
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatButton, MatIcon, MatSlideToggle]
 })
 export class TabApplicationComponent {
   appTitle = new UntypedFormControl('');
@@ -19,6 +20,14 @@ export class TabApplicationComponent {
 
   constructor(private appConfigService: AppConfigService, private cdr: ChangeDetectorRef) {
     this.appTitle.setValue(this.appConfigService.appTitle);
+  }
+
+  get cardBackgroundTransparent(): boolean {
+    return this.appConfigService.cardBackgroundTransparent;
+  }
+
+  toggleCardBackgroundTransparent(checked: boolean) {
+    this.appConfigService.setCardBackgroundTransparent(checked);
   }
 
   save() {

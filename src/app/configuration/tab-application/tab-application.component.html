@@ -1,25 +1,41 @@
 <div class="application-form-section">
   <h3 class="section-label">Application</h3>
 
-  <div class="application-form">
-    <mat-form-field appearance="outline" class="form-field-app-title">
-      <mat-label>Application title</mat-label>
-      <input [formControl]="appTitle" matInput placeholder="Enter an application title" />
-      <mat-hint>Shown in the toolbar across the top of the app.</mat-hint>
-    </mat-form-field>
+  <div class="setting-row">
+    <div class="setting-info">
+      <div class="setting-title">Application title</div>
+      <div class="setting-description">Shown in the toolbar across the top of the app.</div>
+    </div>
+    <div class="setting-control">
+      <mat-form-field appearance="outline" class="form-field-app-title">
+        <input [formControl]="appTitle" matInput placeholder="Enter an application title" />
+      </mat-form-field>
+      <div class="form-actions">
+        <button mat-flat-button color="primary" (click)="save()" [disabled]="appTitle.pristine">
+          <mat-icon>check</mat-icon> Save
+        </button>
+        <button mat-stroked-button color="primary" (click)="resetToDefault()">
+          Reset to default
+        </button>
+        @if (saved) {
+          <span class="saved-indicator">
+            <mat-icon>check_circle</mat-icon> Saved
+          </span>
+        }
+      </div>
+    </div>
+  </div>
 
-    <div class="form-actions">
-      <button mat-flat-button color="primary" (click)="save()" [disabled]="appTitle.pristine">
-        <mat-icon>check</mat-icon> Save
-      </button>
-      <button mat-stroked-button color="primary" (click)="resetToDefault()">
-        Reset to default
-      </button>
-      @if (saved) {
-        <span class="saved-indicator">
-          <mat-icon>check_circle</mat-icon> Saved
-        </span>
-      }
+  <div class="setting-row">
+    <div class="setting-info">
+      <div class="setting-title">Transparent card backgrounds</div>
+      <div class="setting-description">Removes the card fill on the board, so gadgets sit directly on the page background.</div>
+    </div>
+    <div class="setting-control">
+      <mat-slide-toggle
+        [checked]="cardBackgroundTransparent"
+        (change)="toggleCardBackgroundTransparent($event.checked)">
+      </mat-slide-toggle>
     </div>
   </div>
 </div>

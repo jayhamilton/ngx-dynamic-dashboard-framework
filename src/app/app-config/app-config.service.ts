@@ -17,9 +17,19 @@ import { environment } from 'src/environments/environment';
 })
 export class AppConfigService {
   APP_TITLE_KEY: string = 'applicationTitle';
+  CARD_TRANSPARENT_KEY: string = 'cardBackgroundTransparent';
 
   private appTitleSubject = new BehaviorSubject<string>(this.getStoredTitle());
   appTitle$ = this.appTitleSubject.asObservable();
+
+  private cardBackgroundTransparentSubject = new BehaviorSubject<boolean>(
+    this.getStoredCardBackgroundTransparent()
+  );
+  cardBackgroundTransparent$ = this.cardBackgroundTransparentSubject.asObservable();
+
+  constructor() {
+    this.applyCardBackgroundTransparent(this.cardBackgroundTransparentSubject.value);
+  }
 
   get appTitle(): string {
     return this.appTitleSubject.value;
@@ -36,10 +46,32 @@ export class AppConfigService {
     this.appTitleSubject.next(environment.applicationTitle);
   }
 
+  get cardBackgroundTransparent(): boolean {
+    return this.cardBackgroundTransparentSubject.value;
+  }
+
+  setCardBackgroundTransparent(value: boolean) {
+    localStorage.setItem(this.CARD_TRANSPARENT_KEY, JSON.stringify(value));
+    this.cardBackgroundTransparentSubject.next(value);
+    this.applyCardBackgroundTransparent(value);
+  }
+
   private getStoredTitle(): string {
     const stored = localStorage.getItem(this.APP_TITLE_KEY);
     return stored != null && stored.trim() !== ''
       ? stored
       : environment.applicationTitle;
+  }
+
+  private getStoredCardBackgroundTransparent(): boolean {
+    const stored = localStorage.getItem(this.CARD_TRANSPARENT_KEY);
+    return stored != null ? JSON.parse(stored) : false;
+  }
+
+  // Toggled on <body>, same pattern as ThemeService's dark-theme class, so
+  // board.component.scss can target it with :host-context() without this
+  // service needing to know about board-specific DOM/styling.
+  private applyCardBackgroundTransparent(value: boolean) {
+    document.body.classList.toggle('transparent-cards', value);
   }
 }
