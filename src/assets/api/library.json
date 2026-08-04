@@ -741,14 +741,6 @@
           },
           {
             "controlType": "checkbox",
-            "key": "chartGradient",
-            "label": "Gradient Fill",
-            "value": false,
-            "required": false,
-            "order": 19
-          },
-          {
-            "controlType": "checkbox",
             "key": "chartTimeline",
             "label": "Show Timeline",
             "value": true,
