@@ -6,7 +6,7 @@
 /* Multi-tab strip styling */
 ::ng-deep mat-tab-group:not(.single-tab) .mat-mdc-tab-header {
   background-color: var(--app-background);
-  border-bottom: 2px solid var(--app-brand);
+  border-bottom: 2px solid var(--app-border);
   padding: 0 32px;
 }
 
