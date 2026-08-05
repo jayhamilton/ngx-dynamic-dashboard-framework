@@ -5,6 +5,7 @@ import { Hiearchy, IBoard, IBoardCollection } from '../board/board.model';
 import { EventService } from '../eventservice/event.service';
 import { MatNavList, MatListItem, MatListItemIcon } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { SidelayoutComponent } from '../layout/layout.component';
 import { BoardComponent } from '../board/board.component';
@@ -17,7 +18,7 @@ import { HelpPanelComponent } from '../help-panel/help-panel.component';
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, MatListItemIcon, MatIcon, MatTooltip, SidelayoutComponent, BoardComponent, ConfigPanelComponent, LibraryComponent, HelpPanelComponent]
+    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, MatListItemIcon, MatIcon, MatIconButton, MatTooltip, SidelayoutComponent, BoardComponent, ConfigPanelComponent, LibraryComponent, HelpPanelComponent]
 })
 export class SidenavComponent implements OnInit {
   @ViewChild('drawer') public drawer!: MatDrawer;
@@ -30,10 +31,31 @@ export class SidenavComponent implements OnInit {
   selectedBoardId: number | null = null;
   private openConfigInstanceId: number = -1;
 
-  // The left nav (#drawer) is always visible; toggling switches it between
-  // a full width rail (icon + title) and a narrow icon-only rail, rather
-  // than showing/hiding it entirely.
-  navExpanded = false;
+  // The left nav (#drawer) has three widths, driven by two independent
+  // controls rather than one control cycling through all three:
+  //  - the toolbar hamburger (toggleMenu) only ever switches between the
+  //    two *visible* rail widths, 'expanded' and 'icon' — its icon never
+  //    changes, so a control that could also silently jump to "gone" was
+  //    confusing.
+  //  - a dedicated chevron docked to the rail's own edge (collapseNav) is
+  //    the only thing that takes it to 'hidden' (0px, completely out of
+  //    the way); the same edge position hosts a reveal tab (expandNav)
+  //    once hidden. It's still technically always [opened] — 'hidden'
+  //    animates its width to 0 rather than closing it.
+  navState: 'expanded' | 'icon' | 'hidden' = 'expanded';
+
+  // What to restore when expandNav() brings the rail back — whichever of
+  // the two visible widths was showing right before it was collapsed.
+  private lastVisibleNavState: 'expanded' | 'icon' = 'expanded';
+
+  get navExpanded(): boolean {
+    return this.navState === 'expanded';
+  }
+
+  /** 220 (expanded) / 64 (icon-only) — mirrors the widths in sidenav.component.scss, used to dock the collapse chevron to the rail's current right edge. */
+  get navRailWidthPx(): number {
+    return this.navState === 'expanded' ? 220 : 64;
+  }
 
   constructor(
     private eventService: EventService,
@@ -45,8 +67,26 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  /** Toolbar hamburger: switches only between the two visible rail widths. */
   toggleMenu() {
-    this.navExpanded = !this.navExpanded;
+    this.navState =
+      this.navState === 'hidden'
+        ? this.lastVisibleNavState
+        : this.navState === 'expanded'
+          ? 'icon'
+          : 'expanded';
+    this.lastVisibleNavState = this.navState;
+  }
+
+  /** Bound to the chevron docked to the rail's edge while it's visible. */
+  collapseNav() {
+    this.lastVisibleNavState = this.navState === 'hidden' ? this.lastVisibleNavState : this.navState;
+    this.navState = 'hidden';
+  }
+
+  /** Bound to the same edge position's reveal tab once the rail is hidden. */
+  expandNav() {
+    this.navState = this.lastVisibleNavState;
   }
 
   toggleLayout() {

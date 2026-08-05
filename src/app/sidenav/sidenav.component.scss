@@ -92,6 +92,69 @@
     &.collapsed {
         --mat-sidenav-container-width: 64px;
     }
+
+    // Fully collapsed: distinct from .collapsed's icon-only rail, this
+    // takes the rail out of the layout entirely. The .nav-reveal tab
+    // (rendered as a sibling, not inside the drawer — overflow-x:hidden
+    // above would clip anything trying to poke out of a 0-width element)
+    // is what brings it back.
+    &.hidden {
+        --mat-sidenav-container-width: 0px;
+    }
+}
+
+// Shared shape for the two rail-edge controls below: a slim tab, always
+// vertically centered. position: fixed rather than absolute: mat-drawer-
+// container auto-wraps any non-drawer child (these buttons included) in
+// its own synthetic .mat-drawer-content, which is itself position:
+// relative and margin-pushed by the drawer's width — an absolutely
+// positioned child of THAT box would land at the pushed content's edge,
+// not the true edge these need to track. Fixed positioning is viewport-
+// relative and sidesteps that wrapper entirely.
+.nav-edge-toggle {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 56px;
+    padding: 0;
+    min-width: 0;
+    border-radius: 0 8px 8px 0;
+    background-color: var(--app-surface);
+    color: var(--app-text-secondary);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+
+    &:hover {
+        background-color: var(--app-brand-tint);
+        color: var(--app-brand);
+    }
+
+    mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+    }
+}
+
+// Only rendered while the rail is .hidden (0px) — pinned to the true
+// viewport left edge, so the menu is never more than one click away even
+// with the rail completely out of the way.
+.nav-reveal {
+    left: 0;
+}
+
+// Rendered whenever the rail is visible ('expanded' or 'icon') — docked
+// to its current right edge via navRailWidthPx() (bound as inline `left`,
+// since that value depends on component state, not just a CSS class) and
+// animated alongside the rail's own width transition so it visibly
+// slides with the edge it's attached to.
+.nav-collapse {
+    transition: left 200ms ease;
 }
 
 mat-nav-list {

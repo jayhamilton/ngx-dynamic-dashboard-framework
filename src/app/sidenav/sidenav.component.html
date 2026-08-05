@@ -1,8 +1,34 @@
 <mat-drawer-container class="example-container" autosize>
+  @if (navState === 'hidden') {
+    <button
+      type="button"
+      mat-icon-button
+      class="nav-edge-toggle nav-reveal"
+      (click)="expandNav()"
+      matTooltip="Show menu"
+      matTooltipPosition="right"
+      aria-label="Show board menu">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  } @else {
+    <button
+      type="button"
+      mat-icon-button
+      class="nav-edge-toggle nav-collapse"
+      [style.left.px]="navRailWidthPx"
+      (click)="collapseNav()"
+      matTooltip="Collapse menu"
+      matTooltipPosition="right"
+      aria-label="Collapse board menu">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+  }
+
   <mat-drawer
     #drawer
     class="example-sidenav"
-    [class.collapsed]="!navExpanded"
+    [class.collapsed]="navState === 'icon'"
+    [class.hidden]="navState === 'hidden'"
     mode="side"
     [opened]="true"
     (transitionend)="onNavRailTransitionEnd($event)">
