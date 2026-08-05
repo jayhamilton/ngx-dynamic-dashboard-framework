@@ -41,7 +41,7 @@ This is an Angular 22 dynamic dashboard framework (ngx-dd-ui) that enables JSON-
 - Multi-board support with dynamic navigation
 - Drag/drop layout management
 - Board persistence and configuration
-- Gadget configuration, board layout selection, and the gadget library each open as a side panel (`ConfigPanelComponent`, `LayoutComponent`, `LibraryComponent`), not a modal dialog. All three are owned/mutually-exclusive-managed by `SidenavComponent` (`src/app/sidenav/`), which nests a separate `mat-drawer-container` per panel (Material doesn't allow two `mat-drawer`s at the same `position` in one container) and closes whichever panel is open before opening another. Panel open/close is coordinated via `EventService` events (e.g. `emitCloseLibraryPanelEvent`/`listenForCloseLibraryPanelEvent`, `emitConfigPanelClosedEvent`/`listenForConfigPanelClosedEvent`), not direct method calls, so gadget config state stays in sync even when a panel is closed by a route other than its own button (e.g. opening a different panel).
+- Gadget configuration, board layout selection, the gadget library, and per-gadget help content each open as a side panel (`ConfigPanelComponent`, `SidelayoutComponent`, `LibraryComponent`, `HelpPanelComponent`), not a modal dialog. All four are owned/mutually-exclusive-managed by `SidenavComponent` (`src/app/sidenav/`), which nests a separate `mat-drawer-container` per panel (Material doesn't allow two `mat-drawer`s at the same `position` in one container) and closes whichever panel is open before opening another. Panel open/close is coordinated via `EventService` events (e.g. `emitCloseLibraryPanelEvent`/`listenForCloseLibraryPanelEvent`, `emitConfigPanelClosedEvent`/`listenForConfigPanelClosedEvent`, `emitOpenHelpPanelEvent`/`emitCloseHelpPanelEvent`), not direct method calls, so gadget config state stays in sync even when a panel is closed by a route other than its own button (e.g. opening a different panel).
 
 **Theming**:
 - Angular Material M3 theming (`mat.define-theme()`, `mat.core()`) in `src/styles.scss`, with a generated palette in `src/theme-colors.scss` (seed `#3f51b5`).
@@ -65,7 +65,7 @@ This is an Angular 22 dynamic dashboard framework (ngx-dd-ui) that enables JSON-
 
 ### Dependencies
 
-- Angular 19 with Angular Material
+- Angular 22 with Angular Material
 - NGX Charts (@swimlane/ngx-charts) for data visualization
 - RxJS for reactive programming
-- TypeScript 5.6.3
+- TypeScript ~6.0.3
