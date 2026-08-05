@@ -23,6 +23,7 @@ export class EventService {
   private addGadgetSubect: Subject<IEvent> = new Subject<IEvent>();
   private libraryMenuSubject: Subject<IEvent> = new Subject<IEvent>();
   private sideMenuLayoutSelectSubject: Subject<IEvent> = new Subject<IEvent>();
+  private boardWidthChangeSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardAddRowSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardRemoveRowSubject: Subject<IEvent> = new Subject<IEvent>();
   private boardMoveRowSubject: Subject<IEvent> = new Subject<IEvent>();
@@ -206,6 +207,15 @@ export class EventService {
 
   listenForLayoutChangeEvent(): Observable<IEvent> {
     return this.sideMenuLayoutSelectSubject.asObservable();
+  }
+
+  emitBoardWidthChangeEvent(event: IEvent) {
+    this.boardWidthChangeSubject.next(event);
+    this.scheduleTick();
+  }
+
+  listenForBoardWidthChangeEvent(): Observable<IEvent> {
+    return this.boardWidthChangeSubject.asObservable();
   }
 
   emitBoardAddRowEvent() {

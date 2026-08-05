@@ -112,6 +112,16 @@ export class LocalStorageBoardRepository implements IBoardRepository {
     );
   }
 
+  updateBoardContentWidth(boardId: number, contentWidth: string): Observable<void> {
+    return of(
+      this.mutate((collection) => {
+        const board = collection.boardList.find((b) => b.id === boardId);
+        if (!board) return;
+        board.contentWidth = contentWidth;
+      })
+    );
+  }
+
   addGadget(
     boardId: number,
     rowIndex: number,

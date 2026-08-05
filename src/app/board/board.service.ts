@@ -105,6 +105,12 @@ export class BoardService {
     this.repo.replaceBoardRows(incomingBoard.id, incomingBoard.rows).subscribe();
   }
 
+  public updateBoardDueToWidthChange(incomingBoard: IBoard): void {
+    this.repo
+      .updateBoardContentWidth(incomingBoard.id, incomingBoard.contentWidth ?? 'normal')
+      .subscribe();
+  }
+
   public savePropertyPageConfigurationToDestination(
     gadgetPropertiesAsJSON: string,
     instanceId: number

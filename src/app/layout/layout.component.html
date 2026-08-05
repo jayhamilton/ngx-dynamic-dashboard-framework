@@ -7,66 +7,90 @@
   </div>
 
   <div class="layout-panel-body">
-    <div class="row-section">
-      <h3 class="section-label">Rows</h3>
+    <mat-tab-group class="layout-tabs">
+      <mat-tab label="Layout">
+        <div class="row-section">
+          <h3 class="section-label">Rows</h3>
 
-      <ul class="row-list" cdkDropList (cdkDropListDropped)="dropRow($event)">
-        @for (row of rows; track row.index) {
-          <li
-            cdkDrag
-            cdkDragLockAxis="y"
-            class="row-item"
-            [class.selected]="row.index === selectedRowIndex"
-            (click)="selectRow(row.index)">
-            <mat-icon
-              cdkDragHandle
-              class="row-item-handle"
-              matTooltip="Drag to reorder"
-              aria-label="Drag to reorder row">drag_indicator</mat-icon>
-            <mat-icon class="row-item-icon">table_rows</mat-icon>
-            <span class="row-item-label">Row {{ row.index + 1 }}</span>
-            <span class="row-item-meta">
-              {{ row.columnCount }} {{ row.columnCount === 1 ? 'column' : 'columns' }}
-              &middot;
-              {{ row.gadgetCount }} {{ row.gadgetCount === 1 ? 'gadget' : 'gadgets' }}
-            </span>
-            @if (canRemoveRow) {
-              <button
-                mat-icon-button
-                class="row-item-remove"
-                (click)="removeRow(row.index, $event)"
-                [matTooltip]="row.gadgetCount > 0
-                  ? 'Remove row (its gadgets move to Row 1)'
-                  : 'Remove row'"
-                aria-label="Remove row">
-                <mat-icon>delete</mat-icon>
-              </button>
+          <ul class="row-list" cdkDropList (cdkDropListDropped)="dropRow($event)">
+            @for (row of rows; track row.index) {
+              <li
+                cdkDrag
+                cdkDragLockAxis="y"
+                class="row-item"
+                [class.selected]="row.index === selectedRowIndex"
+                (click)="selectRow(row.index)">
+                <mat-icon
+                  cdkDragHandle
+                  class="row-item-handle"
+                  matTooltip="Drag to reorder"
+                  aria-label="Drag to reorder row">drag_indicator</mat-icon>
+                <mat-icon class="row-item-icon">table_rows</mat-icon>
+                <span class="row-item-label">Row {{ row.index + 1 }}</span>
+                <span class="row-item-meta">
+                  {{ row.columnCount }} {{ row.columnCount === 1 ? 'column' : 'columns' }}
+                  &middot;
+                  {{ row.gadgetCount }} {{ row.gadgetCount === 1 ? 'gadget' : 'gadgets' }}
+                </span>
+                @if (canRemoveRow) {
+                  <button
+                    mat-icon-button
+                    class="row-item-remove"
+                    (click)="removeRow(row.index, $event)"
+                    [matTooltip]="row.gadgetCount > 0
+                      ? 'Remove row (its gadgets move to Row 1)'
+                      : 'Remove row'"
+                    aria-label="Remove row">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                }
+              </li>
             }
-          </li>
-        }
-      </ul>
+          </ul>
 
-      <button mat-stroked-button color="primary" class="add-row-button" (click)="addRow()">
-        <mat-icon>add</mat-icon> Add Row
-      </button>
-    </div>
+          <button mat-stroked-button color="primary" class="add-row-button" (click)="addRow()">
+            <mat-icon>add</mat-icon> Add Row
+          </button>
+        </div>
 
-    <div class="layout-section">
-      <h3 class="section-label">
-        Layout @if (selectedRow) { <span class="section-label-target">for Row {{ selectedRowIndex + 1 }}</span> }
-      </h3>
+        <div class="layout-section">
+          <h3 class="section-label">
+            Layout @if (selectedRow) { <span class="section-label-target">for Row {{ selectedRowIndex + 1 }}</span> }
+          </h3>
 
-      <div class="grid-layout">
-        <ul>
-          @for (layout of _layouts; track layout; let i = $index) {
-            <li style="list-style: none">
-              <img [ngClass]="{ 'layout-selected': selectedLayoutId == layout.id }"
-                src="/assets/images/layout/{{ layout.structure }}.png"
-                (click)="selectBoardLayout(layout.structure, layout.id)" />
-            </li>
-          }
-        </ul>
-      </div>
-    </div>
+          <div class="grid-layout">
+            <ul>
+              @for (layout of _layouts; track layout; let i = $index) {
+                <li style="list-style: none">
+                  <img [ngClass]="{ 'layout-selected': selectedLayoutId == layout.id }"
+                    src="/assets/images/layout/{{ layout.structure }}.png"
+                    (click)="selectBoardLayout(layout.structure, layout.id)" />
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Width">
+        <div class="width-section">
+          <h3 class="section-label">Board Width</h3>
+
+          <ul class="width-list">
+            @for (width of _boardWidths; track width.value) {
+              <li
+                class="width-item"
+                [class.selected]="width.value === selectedWidth"
+                [matTooltip]="width.description"
+                matTooltipPosition="right"
+                (click)="selectBoardWidth(width.value)">
+                <mat-icon class="width-item-icon">{{ width.icon }}</mat-icon>
+                <span class="width-item-label">{{ width.label }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>

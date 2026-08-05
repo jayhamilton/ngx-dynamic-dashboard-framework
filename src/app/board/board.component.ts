@@ -97,6 +97,14 @@ export class BoardComponent implements OnInit {
         );
       });
 
+    this.eventService
+      .listenForBoardWidthChangeEvent()
+      .subscribe((event: IEvent) => {
+        this.applyLayoutChange(() =>
+          this.layoutService.updateBoardWidth(this.boardData, event.data.contentWidth)
+        );
+      });
+
     this.eventService.listenForBoardAddRowEvent().subscribe(() => {
       this.applyLayoutChange(() => this.layoutService.addRow(this.boardData));
     });
@@ -265,6 +273,10 @@ export class BoardComponent implements OnInit {
 
   structureForRow(rowIndex: number) {
     return this.layoutService.structureForRow(this.boardData, rowIndex);
+  }
+
+  boardWidthClass() {
+    return 'board-width-' + (this.boardData.contentWidth || 'normal');
   }
 
   drop(event: CdkDragDrop<IGadget[]>) {

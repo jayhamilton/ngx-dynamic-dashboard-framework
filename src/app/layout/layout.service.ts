@@ -14,6 +14,7 @@ export class LayoutService {
   static columnCountFor(structure: string): number {
     switch (structure) {
       case LayoutType.ONE_COL:
+      case LayoutType.ONE_COL_FULL:
         return 1;
       case LayoutType.TWO_COL_EQUAL:
       case LayoutType.TWO_COL_NARROW_WIDE:
@@ -75,6 +76,12 @@ export class LayoutService {
     }
 
     this.boardService.updateBoardDueToLayoutChange(board);
+  }
+
+  /** Sets the whole-board width/padding preset (see IBoard.contentWidth). */
+  updateBoardWidth(board: IBoard, contentWidth: string) {
+    board.contentWidth = contentWidth;
+    this.boardService.updateBoardDueToWidthChange(board);
   }
 
   /** Appends an empty row using the given layout. */

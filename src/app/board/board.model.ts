@@ -14,6 +14,13 @@ export interface IBoard {
   tabs: ITab[];
   rows: IRow[];
   icon?: string;
+  /**
+   * Whole-board side-padding preset ('full' | 'normal' | 'narrow', see
+   * BoardWidth in layout.model.ts). Optional so boards saved before this
+   * setting existed fall back to 'normal', which reproduces their original
+   * padding exactly.
+   */
+  contentWidth?: string;
 }
 
 export interface IRow {

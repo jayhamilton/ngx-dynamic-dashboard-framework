@@ -7,8 +7,10 @@
     @for (tab of boardData.tabs; track tab; let index = $index) {
       <mat-tab [label]="tab.title">
         <!-- One drop list group spanning every row, so gadgets can be dragged
-             between rows and not just between columns of the same row. -->
-        <div cdkDropListGroup>
+             between rows and not just between columns of the same row. The
+             board-width-* class scales each row structure's side padding
+             (see board.component.scss) via the whole-board Width setting. -->
+        <div cdkDropListGroup [ngClass]="boardWidthClass()">
           @for (row of boardData.rows; track row; let r = $index) {
             <div class="board-row" [ngClass]="structureForRow(r)">
               @for (col of row.columns; track col; let c = $index) {

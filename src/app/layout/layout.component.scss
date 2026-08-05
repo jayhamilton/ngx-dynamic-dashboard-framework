@@ -176,3 +176,54 @@ menu,
 dir {
     -webkit-padding-start: 5px;
 }
+
+.width-section {
+    padding: 8px 16px 16px;
+}
+
+.width-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    -webkit-padding-start: 0;
+}
+
+// Same visual language and row height as .row-item (left accent bar +
+// brand tint on select/hover, single line) so the Width tab reads as
+// part of the same panel rather than a bolted-on control. Each option's
+// longer explanation lives in a matTooltip instead of always-on subtext
+// — with three options whose descriptions run to very different lengths,
+// variable-height rows made the icons/labels drift out of alignment with
+// each other down the list.
+.width-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    color: var(--app-text-secondary);
+    border-left: 3px solid transparent;
+
+    &:hover {
+        background-color: var(--app-brand-tint);
+    }
+
+    &.selected {
+        background-color: var(--app-brand-tint-strong);
+        border-left-color: var(--app-brand);
+        color: var(--app-brand);
+    }
+}
+
+.width-item-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.width-item-label {
+    font-weight: 500;
+    font-size: 0.9rem;
+}

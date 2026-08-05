@@ -2,12 +2,13 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BoardService } from '../board/board.service';
 import { IBoard } from '../board/board.model';
 import { EventService } from '../eventservice/event.service';
-import { layouts, LayoutType } from './layout.model';
+import { layouts, LayoutType, boardWidths, BoardWidth } from './layout.model';
 import { LayoutService } from './layout.service';
 import { NgClass } from '@angular/common';
 import { MatIconButton, MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { CdkDropList, CdkDrag, CdkDragHandle, CdkDragDrop } from '@angular/cdk/drag-drop';
 
 interface IRowSummary {
@@ -22,11 +23,14 @@ interface IRowSummary {
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [NgClass, MatIconButton, MatButton, MatIcon, MatTooltip, CdkDropList, CdkDrag, CdkDragHandle]
+    imports: [NgClass, MatIconButton, MatButton, MatIcon, MatTooltip, MatTabGroup, MatTab, CdkDropList, CdkDrag, CdkDragHandle]
 })
 export class SidelayoutComponent implements OnInit {
   _layouts = layouts;
   selectedLayoutId = -1;
+
+  _boardWidths = boardWidths;
+  selectedWidth: BoardWidth = BoardWidth.NORMAL;
 
   rows: IRowSummary[] = [];
   selectedRowIndex = 0;
@@ -135,8 +139,15 @@ export class SidelayoutComponent implements OnInit {
     });
   }
 
+  selectBoardWidth(contentWidth: BoardWidth) {
+    this.selectedWidth = contentWidth;
+    this.eventService.emitBoardWidthChangeEvent({ data: { contentWidth } });
+  }
+
   private applyBoard(board: IBoard, resetSelection: boolean) {
     if (!board) return;
+
+    this.selectedWidth = (board.contentWidth as BoardWidth) || BoardWidth.NORMAL;
 
     const boardRows = board.rows || [];
     this.rows = boardRows.map((row, index) => {

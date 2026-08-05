@@ -68,6 +68,9 @@ export interface IBoardRepository {
    */
   replaceBoardRows(boardId: number, rows: IRow[], structure?: string): Observable<void>;
 
+  /** Persists the whole-board width/padding preset (see IBoard.contentWidth). */
+  updateBoardContentWidth(boardId: number, contentWidth: string): Observable<void>;
+
   /**
    * Persists a new gadget instance into a specific board/row/column.
    * The repository (not the caller) assigns instanceId, since a REST

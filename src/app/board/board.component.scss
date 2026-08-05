@@ -52,6 +52,17 @@ p {
   color: var(--app-brand);
 }
 
+// Every row structure's side padding is expressed as
+// calc(base * --board-width-scale + --board-width-extra) rather than a
+// flat px value, driven by whichever .board-width-* class is on the
+// wrapper around a tab's rows (board.component.ts always sets one, see
+// boardWidthClass() — 'normal' when a board has no contentWidth saved
+// yet). --board-width-full zeroes the scale for edge-to-edge rows;
+// --board-width-normal/-narrow each add a flat, viewport-relative inset
+// (a %, so it scales with viewport) on top of each row's own base
+// padding — see those classes below. The var() fallbacks (scale 1,
+// extra 0px) only matter if a row somehow renders with no width class
+// at all.
 .one_col {
   display: grid;
   grid-template-columns: 75%;
@@ -59,8 +70,24 @@ p {
   column-gap: 25px;
   justify-content: center;
   margin: 40px;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding-left: calc(100px * var(--board-width-scale, 1) + var(--board-width-extra, 0px));
+  padding-right: calc(100px * var(--board-width-scale, 1) + var(--board-width-extra, 0px));
+}
+
+// The single-column layout meant to fill the board's width rather than
+// sit centered in a 75% column like .one_col. Same base side padding as
+// the two/three-column rows (32px) so its edges line up with theirs —
+// "full width" here means filling the row, not using a different inset
+// than every other row structure.
+.one_col_full {
+  display: grid;
+  grid-template-columns: 100%;
+  row-gap: 25px;
+  column-gap: 25px;
+  justify-content: center;
+  margin: 10px 0;
+  padding-left: calc(32px * var(--board-width-scale, 1) + var(--board-width-extra, 0px));
+  padding-right: calc(32px * var(--board-width-scale, 1) + var(--board-width-extra, 0px));
 }
 
 .two_col_equal {
@@ -70,7 +97,10 @@ p {
   column-gap: 25px;
   justify-content: center;
   margin: 10px;
-  padding: 32px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  padding-left: calc(32px * var(--board-width-scale, 1) + var(--board-width-extra, 0px));
+  padding-right: calc(32px * var(--board-width-scale, 1) + var(--board-width-extra, 0px));
 }
 
 .two_col_wide_narrow {
@@ -80,7 +110,10 @@ p {
   column-gap: 25px;
   justify-content: center;
   margin: 10px;
-  padding: 32px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  padding-left: calc(32px * var(--board-width-scale, 1) + var(--board-width-extra, 0px));
+  padding-right: calc(32px * var(--board-width-scale, 1) + var(--board-width-extra, 0px));
 }
 
 .two_col_narrow_wide {
@@ -90,7 +123,10 @@ p {
   column-gap: 25px;
   justify-content: center;
   margin: 10px;
-  padding: 32px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  padding-left: calc(32px * var(--board-width-scale, 1) + var(--board-width-extra, 0px));
+  padding-right: calc(32px * var(--board-width-scale, 1) + var(--board-width-extra, 0px));
 }
 
 .three_col_equal {
@@ -100,7 +136,34 @@ p {
   column-gap: 25px;
   justify-content: center;
   margin: 10px;
-  padding: 32px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  padding-left: calc(32px * var(--board-width-scale, 1) + var(--board-width-extra, 0px));
+  padding-right: calc(32px * var(--board-width-scale, 1) + var(--board-width-extra, 0px));
+}
+
+// Whole-board width/padding setting (Rows tab > Width). Applied on the
+// wrapper around all of a tab's rows in board.component.html.
+.board-width-full {
+  --board-width-scale: 0;
+  --board-width-extra: 0px;
+}
+
+// The default, but no longer a no-op: adds a modest viewport-relative
+// inset on top of each row's own base padding so boards read with some
+// breathing room out of the box, not just edge-to-edge-minus-32px.
+.board-width-normal {
+  --board-width-scale: 1;
+  --board-width-extra: 6%;
+}
+
+// A flat, viewport-relative inset on top of each row's own base padding
+// (rather than just multiplying the base) so every row structure narrows
+// down to roughly the same reading-width column regardless of how little
+// side padding it started with.
+.board-width-narrow {
+  --board-width-scale: 1;
+  --board-width-extra: 20%;
 }
 
 // Each layout class already carries its own margin/padding, so rows stack
