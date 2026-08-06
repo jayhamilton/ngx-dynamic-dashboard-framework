@@ -122,6 +122,12 @@ Application-wide settings, independent of any single board:
 
 ![Application configuration](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/application-configuration.jpg)
 
+### Agentic Assistant (early support)
+
+The dashboard now includes an early conversational assistant experience exposed from the toolbar. It opens as a side panel and supports a chat-style flow for requests such as creating boards, adding widgets, or explaining the current view.
+
+The initial implementation is intentionally lightweight and designed to grow into a richer agent workflow. Assistant responses can carry text, structured tool-calls, and richer UI payloads such as A2UI/AGUI-style component content or iframe-based MCP app previews, so the panel can eventually host interactive app experiences directly inside the conversation.
+
 ### Light and Dark Themes
 
 A toolbar toggle switches the entire app — Material components, chart text, side panels, and gadgets — between light and dark. The choice is persisted across sessions.
