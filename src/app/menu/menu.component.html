@@ -8,9 +8,11 @@
 
 <mat-toolbar color="primary">
   <span *checkPermissions>
-    <button *ngIf="boardExists" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="toggleMenu()">
-      <mat-icon>menu</mat-icon>
-    </button>
+    @if (boardExists) {
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="toggleMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    }
   </span>
 
   <span class="app-title">{{ appConfigService.appTitle$ | async }}</span>
