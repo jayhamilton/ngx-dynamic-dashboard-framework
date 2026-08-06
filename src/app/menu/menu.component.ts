@@ -30,6 +30,7 @@ export class MenuComponent {
   // so both stay disabled until the first board exists (created via the
   // settings dialog, which is why that icon is never gated).
   boardExists = false;
+  agentPanelOpen = false;
 
   constructor(
     public dialog: MatDialog,
@@ -47,6 +48,10 @@ export class MenuComponent {
 
     this.eventService.listenForBoardDeletedCompleteEvent().subscribe(() => {
       this.refreshBoardExists();
+    });
+
+    this.eventService.listenForCloseAgentPanelEvent().subscribe(() => {
+      this.agentPanelOpen = false;
     });
   }
 
@@ -76,6 +81,17 @@ export class MenuComponent {
 
   toggleLayout() {
     this.eventService.emitBoardSideLayoutClickEvent();
+  }
+
+  toggleAgentPanel() {
+    if (this.agentPanelOpen) {
+      this.eventService.emitCloseAgentPanelEvent();
+      this.agentPanelOpen = false;
+      return;
+    }
+
+    this.agentPanelOpen = true;
+    this.eventService.emitOpenAgentPanelEvent();
   }
 
   toggleTheme() {

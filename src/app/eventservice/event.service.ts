@@ -39,6 +39,8 @@ export class EventService {
   private closeLibraryPanelSubject: Subject<IEvent> = new Subject<IEvent>();
   private openHelpPanelSubject: Subject<IEvent> = new Subject<IEvent>();
   private closeHelpPanelSubject: Subject<IEvent> = new Subject<IEvent>();
+  private openAgentPanelSubject: Subject<IEvent> = new Subject<IEvent>();
+  private closeAgentPanelSubject: Subject<IEvent> = new Subject<IEvent>();
 
 
   private subscribers: Array<Subject<string>> = [];
@@ -334,6 +336,24 @@ export class EventService {
 
   listenForCloseHelpPanelEvent(): Observable<IEvent> {
     return this.closeHelpPanelSubject.asObservable();
+  }
+
+  emitOpenAgentPanelEvent() {
+    this.openAgentPanelSubject.next(this.emptyEvent);
+    this.scheduleTick();
+  }
+
+  listenForOpenAgentPanelEvent(): Observable<IEvent> {
+    return this.openAgentPanelSubject.asObservable();
+  }
+
+  emitCloseAgentPanelEvent() {
+    this.closeAgentPanelSubject.next(this.emptyEvent);
+    this.scheduleTick();
+  }
+
+  listenForCloseAgentPanelEvent(): Observable<IEvent> {
+    return this.closeAgentPanelSubject.asObservable();
   }
 }
 //emitScheduledEventDataChanged

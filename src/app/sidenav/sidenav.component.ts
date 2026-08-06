@@ -12,13 +12,14 @@ import { BoardComponent } from '../board/board.component';
 import { ConfigPanelComponent } from '../config-panel/config-panel.component';
 import { LibraryComponent } from '../library/library.component';
 import { HelpPanelComponent } from '../help-panel/help-panel.component';
+import { AgentPanelComponent } from '../agent/agent-panel.component';
 
 @Component({
     selector: 'app-sidenav',
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, MatListItemIcon, MatIcon, MatIconButton, MatTooltip, SidelayoutComponent, BoardComponent, ConfigPanelComponent, LibraryComponent, HelpPanelComponent]
+    imports: [MatDrawerContainer, MatDrawer, MatNavList, MatListItem, MatListItemIcon, MatIcon, MatIconButton, MatTooltip, SidelayoutComponent, BoardComponent, ConfigPanelComponent, LibraryComponent, HelpPanelComponent, AgentPanelComponent]
 })
 export class SidenavComponent implements OnInit {
   @ViewChild('drawer') public drawer!: MatDrawer;
@@ -26,6 +27,7 @@ export class SidenavComponent implements OnInit {
   @ViewChild('configPanel') public configPanel!: MatDrawer;
   @ViewChild('library') public library!: MatDrawer;
   @ViewChild('helpPanel') public helpPanel!: MatDrawer;
+  @ViewChild('agentPanel') public agentPanel!: MatDrawer;
   boardData: IBoard[] = [];
 
   selectedBoardId: number | null = null;
@@ -94,6 +96,7 @@ export class SidenavComponent implements OnInit {
       this.configPanel.close();
       this.library.close();
       this.helpPanel.close();
+      this.agentPanel.close();
     }
     this.layout.toggle();
   }
@@ -103,6 +106,7 @@ export class SidenavComponent implements OnInit {
       this.configPanel.close();
       this.layout.close();
       this.helpPanel.close();
+      this.agentPanel.close();
     }
     this.library.toggle();
   }
@@ -154,6 +158,7 @@ export class SidenavComponent implements OnInit {
         this.library?.close();
         this.configPanel?.close();
         this.helpPanel?.close();
+        this.agentPanel?.close();
       }
 
       if (!this.selectedBoardId) {
@@ -190,6 +195,7 @@ export class SidenavComponent implements OnInit {
       this.layout.close();
       this.library.close();
       this.helpPanel.close();
+      this.agentPanel.close();
       this.configPanel.open();
     });
 
@@ -209,11 +215,24 @@ export class SidenavComponent implements OnInit {
       this.layout.close();
       this.library.close();
       this.configPanel.close();
+      this.agentPanel.close();
       this.helpPanel.open();
     });
 
     this.eventService.listenForCloseHelpPanelEvent().subscribe(() => {
       this.helpPanel.close();
+    });
+
+    this.eventService.listenForOpenAgentPanelEvent().subscribe(() => {
+      this.layout.close();
+      this.library.close();
+      this.configPanel.close();
+      this.helpPanel.close();
+      this.agentPanel.open();
+    });
+
+    this.eventService.listenForCloseAgentPanelEvent().subscribe(() => {
+      this.agentPanel.close();
     });
 
     this.eventService

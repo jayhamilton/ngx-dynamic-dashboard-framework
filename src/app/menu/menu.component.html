@@ -8,8 +8,8 @@
 
 <mat-toolbar color="primary">
   <span *checkPermissions>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon (click)="toggleMenu()">menu</mat-icon>
+    <button *ngIf="boardExists" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="toggleMenu()">
+      <mat-icon>menu</mat-icon>
     </button>
   </span>
 
@@ -37,6 +37,12 @@
     <button mat-icon-button (click)="toggleLayout()" class="example-icon favorite-icon" [disabled]="!boardExists"
       aria-label="Example icon-button with heart icon">
       <mat-icon>dashboard</mat-icon>
+    </button>
+  </span>
+
+  <span *checkPermissions>
+    <button mat-icon-button (click)="toggleAgentPanel()" class="example-icon" aria-label="Open assistant">
+      <mat-icon>auto_awesome</mat-icon>
     </button>
   </span>
 

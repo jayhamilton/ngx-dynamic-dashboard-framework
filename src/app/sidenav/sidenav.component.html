@@ -1,5 +1,6 @@
 <mat-drawer-container class="example-container" autosize>
-  @if (navState === 'hidden') {
+  @if (boardData.length > 0) {
+    @if (navState === 'hidden') {
     <button
       type="button"
       mat-icon-button
@@ -10,21 +11,23 @@
       aria-label="Show board menu">
       <mat-icon>chevron_right</mat-icon>
     </button>
-  } @else {
-    <button
-      type="button"
-      mat-icon-button
-      class="nav-edge-toggle nav-collapse"
-      [style.left.px]="navRailWidthPx"
-      (click)="collapseNav()"
-      matTooltip="Collapse menu"
-      matTooltipPosition="right"
-      aria-label="Collapse board menu">
-      <mat-icon>chevron_left</mat-icon>
-    </button>
+    } @else {
+      <button
+        type="button"
+        mat-icon-button
+        class="nav-edge-toggle nav-collapse"
+        [style.left.px]="navRailWidthPx"
+        (click)="collapseNav()"
+        matTooltip="Collapse menu"
+        matTooltipPosition="right"
+        aria-label="Collapse board menu">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+    }
   }
 
-  <mat-drawer
+  @if (boardData.length > 0) {
+    <mat-drawer
     #drawer
     class="example-sidenav"
     [class.collapsed]="navState === 'icon'"
@@ -47,7 +50,8 @@
         </mat-list-item>
       }
     </mat-nav-list>
-  </mat-drawer>
+    </mat-drawer>
+  }
 
   <mat-drawer #layout class="layout-drawer" mode="side" position="end" (openedChange)="onPushDrawerAnimationDone()">
     <app-sidelayout></app-sidelayout>
@@ -68,9 +72,15 @@
           <app-help-panel></app-help-panel>
         </mat-drawer>
 
-        <div class="example-sidenav-content">
-          <app-board></app-board>
-        </div>
+        <mat-drawer-container class="agent-panel-container">
+          <mat-drawer #agentPanel mode="over" position="end">
+            <app-agent-panel></app-agent-panel>
+          </mat-drawer>
+
+          <div class="example-sidenav-content">
+            <app-board></app-board>
+          </div>
+        </mat-drawer-container>
       </mat-drawer-container>
     </mat-drawer-container>
   </mat-drawer-container>
