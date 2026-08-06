@@ -89,6 +89,23 @@ export class AnimationService {
   /**
    * Animates gadgets from their recorded positions to wherever the re-render
    * put them. Must be called after the DOM has actually updated.
+   *
+   * Two things have to be true for this to actually animate anything, and
+   * neither is true by default:
+   *
+   * 1. `Flip.from(state, vars)` only re-matches elements by FLIP_ID_ATTR
+   *    against a fresh `vars.targets` selector. Leave `targets` unset and it
+   *    falls back to `state.targets` — the *original* elements captured in
+   *    beginLayoutFlip — which Angular has by now destroyed and replaced, so
+   *    the tween runs against detached, unrendered nodes and produces no
+   *    visible motion.
+   * 2. Gadgets are loaded via a dynamic `import()` (see
+   *    GadgetGridCellHostComponent), which is asynchronous even for an
+   *    already-cached chunk. detectChanges() only rebuilds the column
+   *    structure synchronously; the new gadget elements — and the
+   *    FLIP_ID_ATTR they stamp on themselves once loaded — don't exist yet
+   *    by the time this runs. Re-querying the DOM immediately would just
+   *    match zero elements.
    */
   completeLayoutFlip(): void {
     const state = this.layoutState;
@@ -99,29 +116,75 @@ export class AnimationService {
       return;
     }
 
-    Flip.from(state, {
-      duration: this.LAYOUT_DURATION,
-      ease: 'power2.inOut',
-      // Takes the gadgets out of flow while they move, so a card travelling
-      // between columns of different widths doesn't drag the layout with it.
-      absolute: true,
-      nested: true,
-      // Gadgets with no recorded position are genuinely new (or gone) rather
-      // than moving, so they get a plain fade instead of a flight path.
-      onEnter: (elements) =>
-        gsap.fromTo(
-          elements,
-          { opacity: 0, scale: 0.96 },
-          { opacity: 1, scale: 1, duration: this.ENTER_DURATION, ease: 'power2.out' }
-        ),
-      onLeave: (elements) =>
-        gsap.to(elements, {
-          opacity: 0,
-          scale: 0.96,
-          duration: this.LEAVE_DURATION,
-          ease: 'power2.in',
-        }),
-      onComplete: () => this.setSuppressEnter(false),
+    this.waitForGadgetElements(state.targets.length).then(() => {
+      Flip.from(state, {
+        // Forces GSAP to re-query the live DOM and match by FLIP_ID_ATTR
+        // instead of reusing the stale (by now destroyed) captured elements.
+        targets: `[${AnimationService.FLIP_ID_ATTR}]`,
+        duration: this.LAYOUT_DURATION,
+        ease: 'power2.inOut',
+        // Takes the gadgets out of flow while they move, so a card travelling
+        // between columns of different widths doesn't drag the layout with it.
+        absolute: true,
+        nested: true,
+        // Gadgets with no recorded position are genuinely new (or gone) rather
+        // than moving, so they get a plain fade instead of a flight path.
+        onEnter: (elements) =>
+          gsap.fromTo(
+            elements,
+            { opacity: 0, scale: 0.96 },
+            { opacity: 1, scale: 1, duration: this.ENTER_DURATION, ease: 'power2.out' }
+          ),
+        onLeave: (elements) =>
+          gsap.to(elements, {
+            opacity: 0,
+            scale: 0.96,
+            duration: this.LEAVE_DURATION,
+            ease: 'power2.in',
+          }),
+        onComplete: () => this.setSuppressEnter(false),
+      });
+    });
+  }
+
+  /**
+   * Every current layout mutation (row add/remove/move, column layout
+   * change, width change) preserves the total gadget count — it only
+   * relocates them — so the count recorded at beginLayoutFlip is exactly
+   * what should exist again once every dynamic import above has resolved.
+   * Resolves early if they're already there; otherwise waits for the
+   * FLIP_ID_ATTR mutations that mark each gadget as mounted, capped by a
+   * timeout so a failed gadget load can't hang the suppression indefinitely
+   * (the existing setSuppressEnter fallback timer still releases it either
+   * way).
+   */
+  private waitForGadgetElements(expectedCount: number): Promise<void> {
+    const selector = `[${AnimationService.FLIP_ID_ATTR}]`;
+
+    if (document.querySelectorAll(selector).length >= expectedCount) {
+      return Promise.resolve();
+    }
+
+    return new Promise<void>((resolve) => {
+      const finish = () => {
+        clearTimeout(timeoutId);
+        observer.disconnect();
+        resolve();
+      };
+
+      const observer = new MutationObserver(() => {
+        if (document.querySelectorAll(selector).length >= expectedCount) {
+          finish();
+        }
+      });
+
+      observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: [AnimationService.FLIP_ID_ATTR],
+        subtree: true,
+      });
+
+      const timeoutId = setTimeout(finish, 2000);
     });
   }
 
