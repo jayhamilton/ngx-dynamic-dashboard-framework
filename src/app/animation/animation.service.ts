@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ApplicationRef, Injectable } from '@angular/core';
 import { gsap } from 'gsap';
 import { Flip } from 'gsap/Flip';
 
@@ -39,6 +39,8 @@ export class AnimationService {
   private layoutState: Flip.FlipState | null = null;
   private suppressEnter = false;
   private suppressTimer: any = null;
+
+  constructor(private appRef: ApplicationRef) {}
 
   get prefersReducedMotion(): boolean {
     return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -156,9 +158,41 @@ export class AnimationService {
             duration: this.LEAVE_DURATION,
             ease: 'power2.in',
           }),
-        onComplete: () => this.setSuppressEnter(false),
+        onComplete: () => {
+          this.setSuppressEnter(false);
+          this.notifyChartsToResize();
+        },
       });
     });
+  }
+
+  /**
+   * ngx-charts has no ResizeObserver — BaseChartComponent only re-measures
+   * its container on a real `window` 'resize' event (debounced 200ms) or a
+   * bound @Input change (see @swimlane/ngx-charts' bindWindowResizeEvent/
+   * update). Flip moves and resizes gadget cards purely via transforms and
+   * temporary absolute positioning, neither of which fires that event, so a
+   * chart's <svg> is left sized against whatever it measured before the flip
+   * started — visibly overflowing its card — until something nudges it.
+   *
+   * Dispatching the event alone isn't sufficient here, though: ngx-charts'
+   * resize subscription recomputes its width/height correctly and calls
+   * ChangeDetectorRef.markForCheck(), but — same gap EventService documents
+   * for its own emits — a subscribe() callback reacting to an RxJS stream
+   * doesn't qualify as one of the triggers zoneless Angular auto-schedules a
+   * tick for, so the component's internal state updates while its <svg>
+   * never actually re-renders. An explicit tick is what flushes it — but it
+   * has to land *after* ngx-charts' own debounced subscription has actually
+   * called markForCheck(), or it checks the component while it's still
+   * clean and does nothing. Ticking twice, comfortably past the 200ms
+   * debounce and then again shortly after, covers that race without
+   * depending on either firing at exactly the expected moment; a tick when
+   * nothing is dirty is a harmless no-op.
+   */
+  private notifyChartsToResize(): void {
+    window.dispatchEvent(new Event('resize'));
+    setTimeout(() => this.appRef.tick(), 350);
+    setTimeout(() => this.appRef.tick(), 700);
   }
 
   /**
@@ -205,7 +239,11 @@ export class AnimationService {
   /**
    * Flip's onComplete does not fire when there was nothing to animate, so the
    * suppression is also released on a timer — otherwise one no-op layout
-   * change would silently disable every later enter animation.
+   * change would silently disable every later enter animation. This is also
+   * the safety net for the resize nudge below: if a tween gets superseded by
+   * a later layout change and never reaches its own onComplete, this timer
+   * still fires once the dust settles, so charts recover without needing a
+   * manual refresh.
    */
   private setSuppressEnter(value: boolean): void {
     this.suppressEnter = value;
@@ -219,6 +257,7 @@ export class AnimationService {
       this.suppressTimer = setTimeout(() => {
         this.suppressEnter = false;
         this.suppressTimer = null;
+        this.notifyChartsToResize();
       }, (this.LAYOUT_DURATION + 0.5) * 1000);
     }
   }
