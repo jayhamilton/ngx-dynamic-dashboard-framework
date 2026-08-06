@@ -78,11 +78,25 @@ export class AnimationService {
    * moving the existing DOM, so Flip matches the new elements back to the
    * recorded positions via the FLIP_ID_ATTR the gadget factory stamps on
    * each one. Without that they would be treated as unrelated elements.
+   *
+   * `{ kill: false }` matters here specifically because a person previewing
+   * layouts clicks through several before settling — by default Flip.getState
+   * force-completes (snaps) any Flip tween still running on these elements
+   * before capturing a new state, so a second change mid-animation would cut
+   * the first one short. This opts out of that snap and instead captures
+   * wherever the elements currently, visually are — mid-flight or at rest —
+   * so the next flip continues smoothly instead of restarting from a jump.
    */
   beginLayoutFlip(): void {
     if (this.prefersReducedMotion) return;
 
-    this.layoutState = Flip.getState(`[${AnimationService.FLIP_ID_ATTR}]`);
+    // `kill` is a real, documented Flip.getState option that GSAP's bundled
+    // Flip.d.ts just doesn't declare — the cast is working around a gap in
+    // their types, not weakening ours.
+    this.layoutState = Flip.getState(
+      `[${AnimationService.FLIP_ID_ATTR}]`,
+      { kill: false } as Flip.FlipStateVars
+    );
     this.setSuppressEnter(true);
   }
 
