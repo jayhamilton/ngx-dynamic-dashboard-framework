@@ -30,6 +30,7 @@ export class EventService {
   private boardRowsChangedSubject: Subject<IEvent> = new Subject<IEvent>();
   private gadgetPropertyChangeSubject: Subject<IEvent> = new Subject<IEvent>();
   private gadgetDeleteSubject: Subject<IEvent> = new Subject<IEvent>();
+  private gadgetMoveRequestSubject: Subject<IEvent> = new Subject<IEvent>();
   private userDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
   private scheduleEventDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
   private chartDataChangedSubject: Subject<IEvent> = new Subject<IEvent>();
@@ -171,6 +172,15 @@ export class EventService {
 
   listenForGadgetDeleteEvent(): Observable<IEvent> {
     return this.gadgetDeleteSubject.asObservable();
+  }
+
+  emitGadgetMoveRequestEvent(event: IEvent) {
+    this.gadgetMoveRequestSubject.next(event);
+    this.scheduleTick();
+  }
+
+  listenForGadgetMoveRequestEvent(): Observable<IEvent> {
+    return this.gadgetMoveRequestSubject.asObservable();
   }
 
   emitBoardSideLayoutClickEvent() {

@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { forkJoin, interval, map, Observable, of, take } from 'rxjs';
 import { AgentService, AgentResponse, AgentUiPart } from './agent.service';
-import { AgentActionService, BoardSummary } from './agent-action.service';
+import { AgentActionService, BoardSummary, GadgetMoveDirection } from './agent-action.service';
 import { EventService } from '../eventservice/event.service';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 
@@ -15,6 +15,10 @@ interface ChatPart extends AgentUiPart {
   gadgetPreview?: IGadget;
   gadgetAdded?: boolean;
   boardSummaries?: BoardSummary[];
+  gadgetMoveTarget?: IGadget;
+  gadgetMoveQuery?: string;
+  direction?: GadgetMoveDirection;
+  moved?: boolean;
 }
 
 interface ChatMessage {
@@ -110,6 +114,30 @@ interface ChatMessage {
                         </ul>
                       } @else {
                         <p>No boards found yet.</p>
+                      }
+                    </div>
+                  }
+
+                  @if (part.type === 'component' && part.componentType === 'gadget-move') {
+                    <div class="agent-panel__component-card">
+                      <div class="agent-panel__component-label">Move gadget</div>
+                      @if (part.gadgetMoveTarget) {
+                        <div class="agent-panel__gadget-preview">
+                          <mat-icon>{{ part.gadgetMoveTarget.icon }}</mat-icon>
+                          <div>
+                            <div class="agent-panel__gadget-title">{{ part.gadgetMoveTarget.title }}</div>
+                            <div class="agent-panel__gadget-subtitle">Move {{ part.direction }}</div>
+                          </div>
+                        </div>
+                        <button
+                          mat-stroked-button
+                          [disabled]="part.moved"
+                          (click)="moveGadgetPart(part)"
+                        >
+                          {{ part.moved ? 'Moved ✓' : 'Move ' + part.direction }}
+                        </button>
+                      } @else {
+                        <p>Couldn't find a gadget matching "{{ part.gadgetMoveQuery }}" on this board.</p>
                       }
                     </div>
                   }
@@ -400,6 +428,13 @@ export class AgentPanelComponent implements OnDestroy {
     this.agentActionService.selectBoard(boardId);
   }
 
+  moveGadgetPart(part: ChatPart) {
+    if (!part.gadgetMoveTarget || !part.direction || part.moved) return;
+    this.agentActionService.moveGadget(part.gadgetMoveTarget.instanceId, part.direction);
+    part.moved = true;
+    this.cdr.markForCheck();
+  }
+
   parsedPayload(part: AgentUiPart): { title?: string; summary?: string } | undefined {
     if (typeof part.payload !== 'string') return part.payload as { title?: string; summary?: string } | undefined;
     try {
@@ -429,6 +464,17 @@ export class AgentPanelComponent implements OnDestroy {
       return this.agentActionService
         .getBoardSummaries()
         .pipe(map((boardSummaries) => ({ ...part, boardSummaries })));
+    }
+
+    if (part.componentType === 'gadget-move') {
+      const payload = this.parsedPayload(part) as { direction?: GadgetMoveDirection; gadgetQuery?: string } | undefined;
+      const direction = payload?.direction;
+      const gadgetMoveQuery = payload?.gadgetQuery ?? '';
+      if (!direction) return of({ ...part });
+
+      return this.agentActionService.findGadgetOnBoard(gadgetMoveQuery).pipe(
+        map((gadgetMoveTarget) => ({ ...part, gadgetMoveTarget, gadgetMoveQuery, direction, moved: false }))
+      );
     }
 
     return of({ ...part });

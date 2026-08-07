@@ -10,6 +10,8 @@ export interface BoardSummary {
   title: string;
 }
 
+export type GadgetMoveDirection = 'left' | 'right' | 'up' | 'down';
+
 /**
  * Turns an assistant tool-call intent into a real app mutation by reusing
  * the same EventService/BoardService/LibraryService paths the Library and
@@ -42,5 +44,27 @@ export class AgentActionService {
 
   selectBoard(boardId: number): void {
     this.eventService.emitBoardSelectedEvent({ data: boardId });
+  }
+
+  findGadgetOnBoard(query: string): Observable<IGadget | undefined> {
+    const needle = query.trim().toLowerCase();
+
+    return this.boardService.getLastSelectedBoard().pipe(
+      map((board) => {
+        if (!needle) return undefined;
+
+        for (const row of board.rows) {
+          for (const column of row.columns) {
+            const found = column.gadgets.find((gadget) => gadget.title.toLowerCase().includes(needle));
+            if (found) return found;
+          }
+        }
+        return undefined;
+      })
+    );
+  }
+
+  moveGadget(instanceId: number, direction: GadgetMoveDirection): void {
+    this.eventService.emitGadgetMoveRequestEvent({ data: { instanceId, direction } });
   }
 }

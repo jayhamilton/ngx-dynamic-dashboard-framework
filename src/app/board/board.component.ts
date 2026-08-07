@@ -141,6 +141,10 @@ export class BoardComponent implements OnInit {
       this.displayLastSelectedBoard();
     });
 
+    this.eventService.listenForGadgetMoveRequestEvent().subscribe((event: IEvent) => {
+      this.moveGadget(event.data.instanceId, event.data.direction);
+    });
+
     this.eventService.listenForBoardUpdateNameDescriptionRequestEvent().subscribe((event)=>{
 
       if (this.boardData.id === event.data['id']){
@@ -296,5 +300,55 @@ export class BoardComponent implements OnInit {
     }
 
     this.boardService.updateBoardDueToDragAndDrop(this.boardData);
+  }
+
+  /**
+   * Chat-driven equivalent of drop() above — same persistence call, but
+   * triggered from EventService (cross-component) instead of a drag
+   * gesture in this component's own template, so the view needs an
+   * explicit refresh via scheduleDetectChanges() afterward.
+   */
+  private moveGadget(instanceId: number, direction: 'left' | 'right' | 'up' | 'down') {
+    const location = this.findGadgetLocation(instanceId);
+    if (!location) return;
+
+    const { rowIndex, columnIndex, gadgetIndex } = location;
+    const sourceColumn = this.boardData.rows[rowIndex].columns[columnIndex];
+
+    let targetRowIndex = rowIndex;
+    let targetColumnIndex = columnIndex;
+
+    if (direction === 'left' || direction === 'right') {
+      targetColumnIndex += direction === 'left' ? -1 : 1;
+      const columnsInRow = this.boardData.rows[rowIndex].columns.length;
+      if (targetColumnIndex < 0 || targetColumnIndex >= columnsInRow) return;
+    } else {
+      targetRowIndex += direction === 'up' ? -1 : 1;
+      if (targetRowIndex < 0 || targetRowIndex >= this.boardData.rows.length) return;
+      // A different row may have a different column count — land on the
+      // nearest valid column rather than refusing the move.
+      targetColumnIndex = Math.min(columnIndex, this.boardData.rows[targetRowIndex].columns.length - 1);
+      if (targetColumnIndex < 0) return;
+    }
+
+    const targetColumn = this.boardData.rows[targetRowIndex].columns[targetColumnIndex];
+    const [gadget] = sourceColumn.gadgets.splice(gadgetIndex, 1);
+    targetColumn.gadgets.push(gadget);
+
+    this.boardService.updateBoardDueToDragAndDrop(this.boardData);
+    this.scheduleDetectChanges();
+  }
+
+  private findGadgetLocation(
+    instanceId: number
+  ): { rowIndex: number; columnIndex: number; gadgetIndex: number } | undefined {
+    for (let rowIndex = 0; rowIndex < this.boardData.rows.length; rowIndex++) {
+      const columns = this.boardData.rows[rowIndex].columns;
+      for (let columnIndex = 0; columnIndex < columns.length; columnIndex++) {
+        const gadgetIndex = columns[columnIndex].gadgets.findIndex((g) => g.instanceId === instanceId);
+        if (gadgetIndex !== -1) return { rowIndex, columnIndex, gadgetIndex };
+      }
+    }
+    return undefined;
   }
 }
