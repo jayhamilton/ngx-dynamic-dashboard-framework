@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { forkJoin, map, Observable, of } from 'rxjs';
+import { forkJoin, interval, map, Observable, of, take } from 'rxjs';
 import { AgentService, AgentResponse, AgentUiPart } from './agent.service';
 import { AgentActionService, BoardSummary } from './agent-action.service';
+import { EventService } from '../eventservice/event.service';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
 
 interface ChatPart extends AgentUiPart {
@@ -31,8 +32,23 @@ interface ChatMessage {
   template: `
     <div class="agent-panel">
       <div class="agent-panel__header">
-        <h3>Assistant</h3>
-        <span>Conversational dashboard helper</span>
+        <div class="agent-panel__header-row">
+          <div>
+            <h3>Assistant</h3>
+            <span>Conversational dashboard helper</span>
+          </div>
+          @if (voiceOutputSupported) {
+            <button
+              mat-icon-button
+              [class.agent-panel__voice-toggle--active]="readAloud"
+              (click)="toggleReadAloud()"
+              [attr.aria-pressed]="readAloud"
+              [attr.aria-label]="readAloud ? 'Turn off reading replies aloud' : 'Read replies aloud'"
+            >
+              <mat-icon>{{ readAloud ? 'volume_up' : 'volume_off' }}</mat-icon>
+            </button>
+          }
+        </div>
       </div>
 
       <div class="agent-panel__conversation">
@@ -127,6 +143,15 @@ interface ChatMessage {
             </div>
           </div>
         }
+
+        @if (sending) {
+          <div class="agent-panel__message agent-panel__message--assistant">
+            <div class="agent-panel__message-role">Assistant</div>
+            <div class="agent-panel__typing" aria-label="Assistant is typing">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        }
       </div>
 
       <div class="agent-panel__composer">
@@ -136,13 +161,36 @@ interface ChatMessage {
             matInput
             rows="5"
             [(ngModel)]="prompt"
+            [disabled]="sending"
             (keyup.enter)="send()"
           ></textarea>
         </mat-form-field>
 
-        <button mat-icon-button class="agent-panel__send" (click)="send()" aria-label="Send message">
-          <mat-icon>send</mat-icon>
-        </button>
+        <div class="agent-panel__composer-actions">
+          @if (voiceInputSupported) {
+            <button
+              mat-icon-button
+              class="agent-panel__mic"
+              [class.agent-panel__mic--active]="listening"
+              [disabled]="sending"
+              (click)="toggleListening()"
+              [attr.aria-pressed]="listening"
+              [attr.aria-label]="listening ? 'Stop voice input' : 'Start voice input'"
+            >
+              <mat-icon>{{ listening ? 'mic' : 'mic_none' }}</mat-icon>
+            </button>
+          }
+
+          <button
+            mat-icon-button
+            class="agent-panel__send"
+            [disabled]="sending"
+            (click)="send()"
+            aria-label="Send message"
+          >
+            <mat-icon>send</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
   `,
@@ -150,8 +198,10 @@ interface ChatMessage {
     `:host { display: block; height: 100%; padding: 16px; box-sizing: border-box; }`,
     `.agent-panel { display: flex; flex-direction: column; gap: 12px; height: 100%; }`,
     `.agent-panel__header { display: flex; flex-direction: column; gap: 4px; }`,
+    `.agent-panel__header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }`,
     `.agent-panel__header h3 { margin: 0; font-size: 1.1rem; }`,
     `.agent-panel__header span { color: var(--app-text-secondary); font-size: 0.9rem; }`,
+    `.agent-panel__voice-toggle--active { color: var(--app-brand); }`,
     `.agent-panel__conversation { flex: 1; display: flex; flex-direction: column; gap: 12px; overflow: auto; padding-right: 4px; }`,
     `.agent-panel__composer { display: flex; flex-direction: column; gap: 8px; }`,
     `.agent-panel__input { width: 100%; }`,
@@ -170,24 +220,110 @@ interface ChatMessage {
     `.agent-panel__board-list li { display: flex; align-items: center; justify-content: space-between; gap: 8px; }`,
     `.agent-panel__iframe-card iframe { width: 100%; min-height: 220px; border: 0; border-radius: 8px; background: white; }`,
     `.agent-panel__empty-state p { margin: 0; color: var(--app-text-secondary); }`,
-    `.agent-panel__send { width: 44px; height: 44px; min-width: 44px; min-height: 44px; padding: 0; border-radius: 50%; background: var(--app-brand); color: var(--app-brand-contrast); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); align-self: flex-end; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }`,
+    `.agent-panel__typing { display: flex; gap: 4px; align-items: center; height: 20px; }`,
+    `.agent-panel__typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--app-text-secondary); opacity: 0.4; animation: agent-panel-typing 1s infinite ease-in-out; }`,
+    `.agent-panel__typing span:nth-child(2) { animation-delay: 0.15s; }`,
+    `.agent-panel__typing span:nth-child(3) { animation-delay: 0.3s; }`,
+    `@keyframes agent-panel-typing { 0%, 60%, 100% { opacity: 0.4; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }`,
+    `.agent-panel__composer-actions { display: flex; gap: 8px; align-self: flex-end; }`,
+    `.agent-panel__send { width: 44px; height: 44px; min-width: 44px; min-height: 44px; padding: 0; border-radius: 50%; background: var(--app-brand); color: var(--app-brand-contrast); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); display: inline-flex; align-items: center; justify-content: center; line-height: 1; }`,
     `.agent-panel__send:hover { background: var(--app-brand-tint-strong); color: var(--app-brand); }`,
-    `.agent-panel__send mat-icon { display: flex; align-items: center; justify-content: center; font-size: 20px; width: 20px; height: 20px; }`
+    `.agent-panel__send mat-icon { display: flex; align-items: center; justify-content: center; font-size: 20px; width: 20px; height: 20px; }`,
+    `.agent-panel__mic { width: 44px; height: 44px; min-width: 44px; min-height: 44px; padding: 0; border-radius: 50%; border: 1px solid var(--app-border); display: inline-flex; align-items: center; justify-content: center; line-height: 1; color: var(--app-text-secondary); }`,
+    `.agent-panel__mic--active { color: #d32f2f; border-color: #d32f2f; animation: agent-panel-mic-pulse 1.2s infinite ease-in-out; }`,
+    `@keyframes agent-panel-mic-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.35); } 50% { box-shadow: 0 0 0 6px rgba(211, 47, 47, 0); } }`
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AgentPanelComponent {
+export class AgentPanelComponent implements OnDestroy {
   prompt = '';
   messages: ChatMessage[] = [];
+  sending = false;
+
+  private readonly speechRecognitionCtor: any =
+    (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+  private recognition: any;
+  listening = false;
+  readonly voiceInputSupported = !!this.speechRecognitionCtor;
+
+  readAloud = false;
+  readonly voiceOutputSupported = 'speechSynthesis' in window;
 
   constructor(
     private agentService: AgentService,
     private agentActionService: AgentActionService,
+    private eventService: EventService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+    // The drawer hides this component on close rather than destroying it, so
+    // a mic left listening or a reply still being read aloud would otherwise
+    // keep running silently in the background — stop both when the panel closes.
+    this.eventService.listenForCloseAgentPanelEvent().subscribe(() => {
+      this.recognition?.stop();
+      if (this.voiceOutputSupported) {
+        window.speechSynthesis.cancel();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.recognition?.stop();
+    if (this.voiceOutputSupported) {
+      window.speechSynthesis.cancel();
+    }
+  }
+
+  toggleListening() {
+    if (!this.voiceInputSupported || this.sending) return;
+
+    if (this.listening) {
+      this.recognition?.stop();
+      return;
+    }
+
+    this.recognition = new this.speechRecognitionCtor();
+    this.recognition.lang = 'en-US';
+    this.recognition.interimResults = true;
+    this.recognition.continuous = false;
+
+    this.recognition.onresult = (event: any) => {
+      let transcript = '';
+      for (let i = 0; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      this.prompt = transcript;
+      this.cdr.markForCheck();
+    };
+
+    this.recognition.onend = () => {
+      this.listening = false;
+      this.cdr.markForCheck();
+    };
+
+    this.recognition.onerror = () => {
+      this.listening = false;
+      this.cdr.markForCheck();
+    };
+
+    this.listening = true;
+    this.recognition.start();
+  }
+
+  toggleReadAloud() {
+    this.readAloud = !this.readAloud;
+    if (!this.readAloud) {
+      window.speechSynthesis.cancel();
+    }
+  }
+
+  private speak(text: string) {
+    if (!this.readAloud || !this.voiceOutputSupported || !text) return;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+  }
 
   send() {
-    if (!this.prompt.trim()) return;
+    if (!this.prompt.trim() || this.sending) return;
 
     const userMessage: ChatMessage = {
       id: Date.now(),
@@ -195,22 +331,62 @@ export class AgentPanelComponent {
       content: this.prompt.trim()
     };
 
+    // Synchronous, inside this click/keyup handler's own template — OnPush
+    // repaints this automatically without markForCheck().
     this.messages = [...this.messages, userMessage];
     this.prompt = '';
+    this.sending = true;
 
-    this.agentService.chat(userMessage.content!).subscribe((response: AgentResponse) => {
-      this.resolveParts(response.parts ?? []).subscribe((resolvedParts) => {
-        const assistantMessage: ChatMessage = {
-          id: Date.now() + 1,
-          role: 'assistant',
-          content: response.message,
-          parts: resolvedParts,
-          toolCalls: response.toolCalls ?? [],
-        };
-
-        this.messages = [...this.messages, assistantMessage];
-      });
+    this.agentService.chat(userMessage.content!).subscribe({
+      next: (response: AgentResponse) => {
+        this.resolveParts(response.parts ?? []).subscribe({
+          next: (resolvedParts) => this.revealAssistantMessage(response, resolvedParts),
+          error: () => this.showAssistantError(),
+        });
+      },
+      error: () => this.showAssistantError(),
     });
+  }
+
+  /**
+   * Simulates a streaming reply by revealing response.message word-by-word,
+   * then attaching the resolved cards once the text finishes — a stand-in
+   * for real token streaming until a live ChatClient backs Phase 2.
+   */
+  private revealAssistantMessage(response: AgentResponse, resolvedParts: ChatPart[]) {
+    const assistantMessage: ChatMessage = { id: Date.now() + 1, role: 'assistant', content: '' };
+    this.messages = [...this.messages, assistantMessage];
+    this.sending = false;
+    this.cdr.markForCheck();
+    this.speak(response.message);
+
+    const words = response.message.split(' ');
+    interval(45)
+      .pipe(take(words.length))
+      .subscribe({
+        next: (i) => {
+          assistantMessage.content = words.slice(0, i + 1).join(' ');
+          this.cdr.markForCheck();
+        },
+        complete: () => {
+          assistantMessage.parts = resolvedParts;
+          assistantMessage.toolCalls = response.toolCalls ?? [];
+          this.cdr.markForCheck();
+        },
+      });
+  }
+
+  private showAssistantError() {
+    this.sending = false;
+    this.messages = [
+      ...this.messages,
+      {
+        id: Date.now() + 1,
+        role: 'assistant',
+        content: "Sorry, I couldn't reach the dashboard assistant. Please try again.",
+      },
+    ];
+    this.cdr.markForCheck();
   }
 
   addGadget(part: ChatPart) {
