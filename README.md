@@ -124,7 +124,9 @@ Application-wide settings, independent of any single board:
 
 ### Agentic Assistant (early support)
 
-The dashboard now includes an early conversational assistant experience exposed from the toolbar. It opens as a side panel and supports a chat-style flow for requests such as creating boards, adding widgets, or explaining the current view.
+The dashboard now includes an early conversational assistant experience exposed from the toolbar. It opens as a side panel and supports a chat-style flow for requests such as creating boards, adding widgets, or explaining the current view. A typing indicator shows while a request is in flight, and the reply is revealed word-by-word rather than popping in all at once.
+
+Suggestions render as real, actionable cards rather than raw data: an "Add to board" button on a suggested gadget adds it through the same path as the gadget library, and a board list offers a "Switch" button per board. The panel also supports voice, via the browser's built-in Web Speech API — a mic button transcribes spoken requests into the composer, and replies can optionally be read aloud, toggled from the header.
 
 The initial implementation is intentionally lightweight and designed to grow into a richer agent workflow. Assistant responses can carry text, structured tool-calls, and richer UI payloads such as A2UI/AGUI-style component content or iframe-based MCP app previews, so the panel can eventually host interactive app experiences directly inside the conversation.
 
