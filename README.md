@@ -32,6 +32,12 @@ The framework this project is based on had a notion of data sources backed by RE
 
 > **Planned:** support for REST API endpoints as a data source. It will be *supplementary to* — not a replacement for — manually configured JSON, so existing boards continue to work and either approach can be chosen per gadget instance.
 
+### Local-first, with an optional backend
+
+The UI is fully self-contained — boards, layouts, and gadget data all live in `localStorage`, so the dashboard runs standalone with no backend at all. A companion [microservice](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework-microservice) (Spring Boot) exists alongside this project and currently backs authentication and the agentic assistant's chat endpoint. It's optional today, but as AI functionality grows, more of the experience will come to depend on it running.
+
+> **Planned:** move toward a true local-first architecture, where `localStorage` stays the source of truth for instant, offline-capable use and changes sync to the backend automatically in the background, rather than the backend being required up front.
+
 ### Toward report-style boards
 
 Most of the gadgets below are chart/data widgets, but the framework is growing toward supporting mixed text-and-visualization "story" boards — narrative commentary alongside charts, in the spirit of data-journalism graphics — rather than only dashboards of isolated widgets. The Text and Video gadgets, plus the per-gadget help system (all described below), are the first steps in that direction.
@@ -52,6 +58,16 @@ Most of the gadgets below are chart/data widgets, but the framework is growing t
 ---
 
 ## Features
+
+### Agentic Assistant (early support)
+
+The dashboard includes an early conversational assistant experience exposed from the toolbar. It opens as a side panel and supports a chat-style flow for requests such as creating boards, adding widgets, or explaining the current view. A typing indicator shows while a request is in flight, and the reply is revealed word-by-word rather than popping in all at once.
+
+Suggestions render as real, actionable cards rather than raw data: an "Add to board" button on a suggested gadget adds it through the same path as the gadget library, and a board list offers a "Switch" button per board. The panel also supports voice, via the browser's built-in Web Speech API — a mic button transcribes spoken requests into the composer, and replies can optionally be read aloud, toggled from the header.
+
+The initial implementation is intentionally lightweight and designed to grow into a richer agent workflow. Assistant responses can carry text, structured tool-calls, and richer UI payloads such as A2UI/AGUI-style component content or iframe-based MCP app previews, so the panel can eventually host interactive app experiences directly inside the conversation.
+
+![Agentic assistant panel](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/agentic-panel.jpg)
 
 ### Boards
 
@@ -128,16 +144,6 @@ Application-wide settings, independent of any single board:
 - **Transparent card backgrounds** — a toggle that drops the card fill and shadow from every gadget on the board, so gadgets sit directly on the page background instead of inside their own card.
 
 ![Application configuration](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/application-configuration.jpg)
-
-### Agentic Assistant (early support)
-
-The dashboard now includes an early conversational assistant experience exposed from the toolbar. It opens as a side panel and supports a chat-style flow for requests such as creating boards, adding widgets, or explaining the current view. A typing indicator shows while a request is in flight, and the reply is revealed word-by-word rather than popping in all at once.
-
-Suggestions render as real, actionable cards rather than raw data: an "Add to board" button on a suggested gadget adds it through the same path as the gadget library, and a board list offers a "Switch" button per board. The panel also supports voice, via the browser's built-in Web Speech API — a mic button transcribes spoken requests into the composer, and replies can optionally be read aloud, toggled from the header.
-
-The initial implementation is intentionally lightweight and designed to grow into a richer agent workflow. Assistant responses can carry text, structured tool-calls, and richer UI payloads such as A2UI/AGUI-style component content or iframe-based MCP app previews, so the panel can eventually host interactive app experiences directly inside the conversation.
-
-![Agentic assistant panel](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/agentic-panel.jpg)
 
 ### Light and Dark Themes
 
