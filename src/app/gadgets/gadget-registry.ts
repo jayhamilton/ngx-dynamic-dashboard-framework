@@ -28,4 +28,6 @@ export const GADGET_REGISTRY: Record<string, GadgetLoader> = {
     import('./statistic/statistic.component').then((m) => m.StatisticComponent),
   TextComponent: () =>
     import('./text/text.component').then((m) => m.TextComponent),
+  VideoComponent: () =>
+    import('./video/video.component').then((m) => m.VideoComponent),
 };

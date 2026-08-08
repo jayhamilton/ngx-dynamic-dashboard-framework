@@ -1072,5 +1072,60 @@
         "name": "add"
       }
     ]
+  },
+  {
+    "componentType": "VideoComponent",
+    "title": "Video",
+    "subtitle": "YouTube video player",
+    "description": "Embed a YouTube video on the board.",
+    "icon": "smart_display",
+    "instanceId": -1,
+    "tags": [],
+    "propertyPages": [
+      {
+        "displayName": "Configuration",
+        "groupId": "config",
+        "position": 10,
+        "properties": [
+          {
+            "controlType": "textbox",
+            "key": "title",
+            "label": "Title",
+            "value": "",
+            "required": false,
+            "order": 1
+          },
+          {
+            "controlType": "textbox",
+            "key": "subtitle",
+            "label": "Subtitle",
+            "value": "",
+            "required": false,
+            "order": 2
+          },
+          {
+            "controlType": "textbox",
+            "key": "videoUrl",
+            "label": "YouTube URL or Video ID",
+            "value": "",
+            "required": false,
+            "order": 3
+          },
+          {
+            "controlType": "checkbox",
+            "key": "autoplay",
+            "label": "Autoplay (muted)",
+            "value": false,
+            "required": false,
+            "order": 4
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "name": "add"
+      }
+    ]
   }
 ]
