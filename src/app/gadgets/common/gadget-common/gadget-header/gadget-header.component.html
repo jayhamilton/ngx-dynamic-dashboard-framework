@@ -1,7 +1,11 @@
 <mat-card-header class="move-cursor">
   <mat-icon mat-card-avatar class="gadget-icon">{{ displayIcon }}</mat-icon>
-  <mat-card-title>{{ title }}</mat-card-title>
-  <mat-card-subtitle>{{ subtitle }}</mat-card-subtitle>
+  @if (!locked) {
+    <mat-card-title>{{ title }}</mat-card-title>
+  }
+  @if (!locked) {
+    <mat-card-subtitle>{{ subtitle }}</mat-card-subtitle>
+  }
   <!--<mat-card-subtitle>{{description}}</mat-card-subtitle>-->
     <button
       mat-icon-button
