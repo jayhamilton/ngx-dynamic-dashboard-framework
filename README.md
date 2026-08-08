@@ -97,7 +97,7 @@ Gadgets are added from a side panel driven entirely by the library JSON. Each ca
 
 ### Gadget Configuration
 
-Selecting **Configure** on a gadget opens a side panel whose form is generated from that gadget's property definitions. The gadget shows a configuration-mode indicator while the panel is open, and edits are applied live.
+Each gadget's header carries three icons — **Help**, **Configure**, and **Remove** — instead of a dropdown menu. Selecting **Configure** opens a side panel whose form is generated from that gadget's property definitions; the card shows a configuration-mode indicator while the panel is open, and edits are applied live.
 
 ![Gadget configuration](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/gadget-configuration.jpg)
 
@@ -109,9 +109,15 @@ The `markdown` control (used by the Text gadget's content field) is aimed at peo
 
 ### Gadget Help
 
-Every gadget's menu has a **Help** item, alongside Configure and Remove, opening a side panel with that gadget's own documentation — its purpose, its configuration options, and the JSON shape its data control expects. Help content is markdown, one file per gadget type, so it's easy to keep in sync as gadgets evolve.
+Selecting **Help** opens a side panel with that gadget's own documentation — its purpose, its configuration options, and the JSON shape its data control expects. Help content is markdown, one file per gadget type, so it's easy to keep in sync as gadgets evolve.
 
 ![Gadget help panel](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/help-panel.jpg)
+
+### Locking a Board
+
+A toolbar lock toggle switches a board to a protected, read-only state: gadget headers shrink to bare content — no Configure/Help/Remove icons, no title, subtitle, or icon — drag-and-drop is disabled, and the toolbar's board settings, library, and layout icons hide. Useful for a shared or kiosk display where accidental edits aren't welcome.
+
+![Locked board](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/board-locked.jpg)
 
 ### Application Configuration
 
