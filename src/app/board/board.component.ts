@@ -39,6 +39,7 @@ export class BoardComponent implements OnInit {
   boardData!: IBoard;
   boardExists: boolean;
   boardHasGadgets: boolean;
+  locked = false;
 
   constructor(
     private eventService: EventService,
@@ -51,6 +52,14 @@ export class BoardComponent implements OnInit {
     this.boardExists = false;
     this.boardHasGadgets = false;
     this.setupBoardEventListeners();
+
+    // Disabling a cdkDropList also disables dragging for the cdkDrag items
+    // inside it, so this one flag is enough to freeze every gadget on the
+    // board without touching each gadget component individually.
+    this.boardService.locked$.subscribe((locked) => {
+      this.locked = locked;
+      this.scheduleDetectChanges();
+    });
   }
 
   selected = new UntypedFormControl(0);

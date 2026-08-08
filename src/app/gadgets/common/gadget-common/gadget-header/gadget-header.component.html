@@ -12,7 +12,9 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu" xPosition="before">
-      <button mat-menu-item (click)="toggleConfigMode()">{{ menuLabel }}</button>
+      @if (!locked) {
+        <button mat-menu-item (click)="toggleConfigMode()">{{ menuLabel }}</button>
+      }
       <button mat-menu-item (click)="openHelp()">Help</button>
       <button mat-menu-item (click)="remove()">Remove</button>
     </mat-menu>

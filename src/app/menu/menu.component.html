@@ -42,6 +42,13 @@
     </button>
   </span>
 
+  <span *checkPermissions [matTooltip]="boardExists ? ((locked$ | async) ? 'Unlock board' : 'Lock board') : 'Create a board first'">
+    <button mat-icon-button (click)="toggleLocked()" class="example-icon" [disabled]="!boardExists"
+      [attr.aria-label]="(locked$ | async) ? 'Unlock board' : 'Lock board'">
+      <mat-icon>{{ (locked$ | async) ? 'lock' : 'lock_open' }}</mat-icon>
+    </button>
+  </span>
+
   <span *checkPermissions>
     <button mat-icon-button (click)="toggleAgentPanel()" class="example-icon" aria-label="Open assistant">
       <mat-icon>auto_awesome</mat-icon>

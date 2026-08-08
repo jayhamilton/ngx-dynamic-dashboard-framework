@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -31,6 +32,7 @@ export class MenuComponent {
   // settings dialog, which is why that icon is never gated).
   boardExists = false;
   agentPanelOpen = false;
+  locked$: Observable<boolean>;
 
   constructor(
     public dialog: MatDialog,
@@ -40,6 +42,7 @@ export class MenuComponent {
     public appConfigService: AppConfigService,
     private boardService: BoardService
   ) {
+    this.locked$ = this.boardService.locked$;
     this.refreshBoardExists();
 
     this.eventService.listenForBoardCreatedCompleteEvent().subscribe(() => {
@@ -96,6 +99,10 @@ export class MenuComponent {
 
   toggleTheme() {
     this.themeService.toggleTheme();
+  }
+
+  toggleLocked() {
+    this.boardService.toggleLocked();
   }
 
   logout() {

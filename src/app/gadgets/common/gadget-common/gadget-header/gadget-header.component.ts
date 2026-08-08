@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EventService } from 'src/app/eventservice/event.service';
+import { BoardService } from 'src/app/board/board.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle } from '@angular/material/card';
 import { MatIconButton } from '@angular/material/button';
@@ -34,10 +35,12 @@ export class GadgetHeaderComponent implements OnInit, OnDestroy {
   // since componentType isn't populated on GadgetBase instances.
   @Input() helpTopic: string = '';
   menuLabel = 'Configure';
+  locked = false;
   private destroy$ = new Subject<void>();
 
   constructor(
     private eventService: EventService,
+    private boardService: BoardService,
     private dialog: MatDialog,
     private elementRef: ElementRef<HTMLElement>,
     private animationService: AnimationService
@@ -64,6 +67,18 @@ export class GadgetHeaderComponent implements OnInit, OnDestroy {
         if (this.inConfig && event.data.instanceId === this.gadgetInstanceId) {
           this.setMenuLabel();
           this.toggleConfigModeEvent.emit();
+        }
+      });
+
+    // Locking mid-edit shouldn't leave a gadget stuck in configuration mode
+    // with no menu item left to exit it — force it closed the moment the
+    // board locks.
+    this.boardService.locked$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((locked) => {
+        this.locked = locked;
+        if (locked && this.inConfig) {
+          this.toggleConfigMode();
         }
       });
   }

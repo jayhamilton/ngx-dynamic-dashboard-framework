@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { combineLatest, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { IEvent, EventService } from '../eventservice/event.service';
 import { IGadget } from '../gadgets/common/gadget-common/gadget-base/gadget.model';
@@ -20,6 +20,12 @@ import { BoardType, Hiearchy, IBoard, IBoardCollection } from './board.model';
 export class BoardService {
   emptyBoardCollectionObject: IBoard;
 
+  // Session-scoped UI state, not persisted to the repository — locking is a
+  // "don't let me fat-finger this right now" toggle, not a board property,
+  // so it intentionally resets on reload like the agent panel's open state.
+  private lockedSubject = new BehaviorSubject<boolean>(false);
+  locked$ = this.lockedSubject.asObservable();
+
   constructor(
     private eventService: EventService,
     @Inject(BOARD_REPOSITORY) private repo: IBoardRepository
@@ -36,6 +42,14 @@ export class BoardService {
     };
 
     this.setupEventListeners();
+  }
+
+  public isLocked(): boolean {
+    return this.lockedSubject.value;
+  }
+
+  public toggleLocked(): void {
+    this.lockedSubject.next(!this.lockedSubject.value);
   }
 
   public getBoardCollection(): Observable<IBoardCollection> {

@@ -18,6 +18,7 @@
                   cdkDropList
                   [id]="getColumnDropListId(r, c)"
                   [cdkDropListData]="col.gadgets"
+                  [cdkDropListDisabled]="locked"
                   (cdkDropListDropped)="drop($event)"
                   [ngClass]="col.gadgets.length == 0 ? 'empty-column-placeholder' : ''"
                   >
