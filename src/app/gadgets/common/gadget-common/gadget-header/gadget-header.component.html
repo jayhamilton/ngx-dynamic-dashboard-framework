@@ -1,5 +1,7 @@
 <mat-card-header class="move-cursor">
-  <mat-icon mat-card-avatar class="gadget-icon">{{ displayIcon }}</mat-icon>
+  @if (!locked) {
+    <mat-icon mat-card-avatar class="gadget-icon">{{ displayIcon }}</mat-icon>
+  }
   @if (!locked) {
     <mat-card-title>{{ title }}</mat-card-title>
   }
@@ -10,6 +12,7 @@
     <button
       mat-icon-button
       class="help-button"
+      [class.help-button-only]="locked"
       matTooltip="Help"
       aria-label="Help"
       (click)="openHelp()"
@@ -27,15 +30,17 @@
         <mat-icon>settings</mat-icon>
       </button>
     }
-    <button
-      mat-icon-button
-      class="remove-button"
-      matTooltip="Remove"
-      aria-label="Remove"
-      (click)="remove()"
-      >
-      <mat-icon>delete</mat-icon>
-    </button>
+    @if (!locked) {
+      <button
+        mat-icon-button
+        class="remove-button"
+        matTooltip="Remove"
+        aria-label="Remove"
+        (click)="remove()"
+        >
+        <mat-icon>delete</mat-icon>
+      </button>
+    }
   </mat-card-header>
 @if (inConfig) {
   <div class="config-mode-indicator">Configuration Mode</div>

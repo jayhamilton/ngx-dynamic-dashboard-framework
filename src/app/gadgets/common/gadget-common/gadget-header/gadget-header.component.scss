@@ -26,6 +26,13 @@
     right: 78px;
 }
 
+/* When locked, Configure and Remove are gone — pull Help over to where
+   they'd normally sit rather than leaving it stranded with empty space
+   to its right. */
+.help-button-only {
+    right: 10px;
+}
+
 .config-mode-indicator {
     display: block;
     width: 100%;
