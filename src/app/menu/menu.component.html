@@ -9,7 +9,7 @@
 <mat-toolbar color="primary">
   <span *checkPermissions>
     @if (boardExists) {
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="toggleMenu()">
+      <button mat-icon-button class="example-icon" matTooltip="Open board menu" aria-label="Open board menu" (click)="toggleMenu()">
         <mat-icon>menu</mat-icon>
       </button>
     }
@@ -20,7 +20,7 @@
 
   <span *checkPermissions>
     <button mat-icon-button (click)="openConfigDialog()" class="example-icon"
-      aria-label="Example icon-button with share icon">
+      matTooltip="Board settings" aria-label="Board settings">
       <mat-icon>settings</mat-icon>
     </button>
   </span>
@@ -28,16 +28,16 @@
   <!-- matTooltip sits on the wrapping span, not the button: a disabled
        button doesn't reliably fire the mouseenter MatTooltip listens for,
        so the tooltip would silently never show if bound to the button itself. -->
-  <span *checkPermissions [matTooltip]="boardExists ? '' : 'Create a board first'">
+  <span *checkPermissions [matTooltip]="boardExists ? 'Gadget library' : 'Create a board first'">
     <button mat-icon-button (click)="toggleLibraryPanel()" [disabled]="!boardExists"
-      aria-label="Example icon-button with heart icon">
+      aria-label="Gadget library">
       <mat-icon>playlist_add</mat-icon>
     </button>
   </span>
 
-  <span *checkPermissions [matTooltip]="boardExists ? '' : 'Create a board first'">
+  <span *checkPermissions [matTooltip]="boardExists ? 'Board layout' : 'Create a board first'">
     <button mat-icon-button (click)="toggleLayout()" class="example-icon favorite-icon" [disabled]="!boardExists"
-      aria-label="Example icon-button with heart icon">
+      aria-label="Board layout">
       <mat-icon>dashboard</mat-icon>
     </button>
   </span>
@@ -49,21 +49,21 @@
     </button>
   </span>
 
-  <span *checkPermissions>
-    <button mat-icon-button (click)="toggleAgentPanel()" class="example-icon" aria-label="Open assistant">
+  <span *checkPermissions [matTooltip]="agentPanelOpen ? 'Close assistant' : 'Open assistant'">
+    <button mat-icon-button (click)="toggleAgentPanel()" class="example-icon" [attr.aria-label]="agentPanelOpen ? 'Close assistant' : 'Open assistant'">
       <mat-icon>auto_awesome</mat-icon>
     </button>
   </span>
 
-  <span *checkPermissions>
-    <button mat-icon-button (click)="toggleTheme()" class="example-icon" aria-label="Toggle dark mode">
+  <span *checkPermissions [matTooltip]="(themeService.isDark$ | async) ? 'Switch to light mode' : 'Switch to dark mode'">
+    <button mat-icon-button (click)="toggleTheme()" class="example-icon" [attr.aria-label]="(themeService.isDark$ | async) ? 'Switch to light mode' : 'Switch to dark mode'">
       <mat-icon>{{ (themeService.isDark$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
     </button>
   </span>
 
-  <span style="margin-left: 20px;">
+  <span style="margin-left: 20px;" matTooltip="Log out">
     <button mat-icon-button (click)="logout()" class="example-icon favorite-icon"
-      aria-label="Example icon-button with heart icon">
+      aria-label="Log out">
       <mat-icon>logout</mat-icon>
     </button>
   </span>
