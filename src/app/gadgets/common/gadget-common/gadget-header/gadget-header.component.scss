@@ -27,22 +27,6 @@
     right: 78px;
 }
 
-/* When locked, Configure and Remove are gone — pull Help over to where
-   they'd normally sit rather than leaving it stranded with empty space
-   to its right, and tone it down since it's the only thing left on an
-   otherwise-bare locked card. */
-.help-button-only {
-    right: 10px;
-    color: var(--app-text-secondary);
-    opacity: 0.6;
-    transition: opacity 0.15s ease;
-
-    &:hover,
-    &:focus-visible {
-        opacity: 1;
-    }
-}
-
 .config-mode-indicator {
     display: block;
     width: 100%;

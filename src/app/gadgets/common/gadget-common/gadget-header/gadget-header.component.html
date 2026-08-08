@@ -9,16 +9,17 @@
     <mat-card-subtitle>{{ subtitle }}</mat-card-subtitle>
   }
   <!--<mat-card-subtitle>{{description}}</mat-card-subtitle>-->
-    <button
-      mat-icon-button
-      class="help-button"
-      [class.help-button-only]="locked"
-      matTooltip="Help"
-      aria-label="Help"
-      (click)="openHelp()"
-      >
-      <mat-icon>help_outline</mat-icon>
-    </button>
+    @if (!locked) {
+      <button
+        mat-icon-button
+        class="help-button"
+        matTooltip="Help"
+        aria-label="Help"
+        (click)="openHelp()"
+        >
+        <mat-icon>help_outline</mat-icon>
+      </button>
+    }
     @if (!locked) {
       <button
         mat-icon-button
