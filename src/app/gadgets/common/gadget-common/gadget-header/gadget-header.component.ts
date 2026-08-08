@@ -9,6 +9,7 @@ import { MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle } from '@an
 import { MatIconButton } from '@angular/material/button';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { IPropertyPage, ITag } from '../gadget-base/gadget.model';
 import { AnimationService } from 'src/app/animation/animation.service';
 
@@ -17,7 +18,7 @@ import { AnimationService } from 'src/app/animation/animation.service';
     templateUrl: './gadget-header.component.html',
     styleUrls: ['./gadget-header.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle, MatIconButton, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem]
+    imports: [MatCardHeader, MatCardAvatar, MatCardTitle, MatCardSubtitle, MatIconButton, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem, MatTooltip]
 })
 export class GadgetHeaderComponent implements OnInit, OnDestroy {
   @Output() removeEvent: EventEmitter<any> = new EventEmitter();

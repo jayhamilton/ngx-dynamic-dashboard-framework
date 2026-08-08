@@ -5,6 +5,15 @@
   <!--<mat-card-subtitle>{{description}}</mat-card-subtitle>-->
     <button
       mat-icon-button
+      class="help-button"
+      matTooltip="Help"
+      aria-label="Help"
+      (click)="openHelp()"
+      >
+      <mat-icon>help_outline</mat-icon>
+    </button>
+    <button
+      mat-icon-button
       class="more-button"
       [matMenuTriggerFor]="menu"
       aria-label="Toggle menu"
@@ -15,7 +24,6 @@
       @if (!locked) {
         <button mat-menu-item (click)="toggleConfigMode()">{{ menuLabel }}</button>
       }
-      <button mat-menu-item (click)="openHelp()">Help</button>
       <button mat-menu-item (click)="remove()">Remove</button>
     </mat-menu>
   </mat-card-header>
