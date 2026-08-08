@@ -34,7 +34,7 @@ The framework this project is based on had a notion of data sources backed by RE
 
 ### Toward report-style boards
 
-Most of the gadgets below are chart/data widgets, but the framework is growing toward supporting mixed text-and-visualization "story" boards — narrative commentary alongside charts, in the spirit of data-journalism graphics — rather than only dashboards of isolated widgets. The Text gadget and per-gadget help system (both described below) are the first steps in that direction.
+Most of the gadgets below are chart/data widgets, but the framework is growing toward supporting mixed text-and-visualization "story" boards — narrative commentary alongside charts, in the spirit of data-journalism graphics — rather than only dashboards of isolated widgets. The Text and Video gadgets, plus the per-gadget help system (all described below), are the first steps in that direction.
 
 ## Built With
 
@@ -94,6 +94,7 @@ Gadgets are added from a side panel driven entirely by the library JSON. Each ca
 | Table | Rows of tabular data with striping, density, row numbers, and column selection |
 | Statistic | A single metric with an icon, color theme, and trend indicator |
 | Text | A block of markdown-formatted narrative content — headings, links, lists, quotes, code, tables, images. Title/subtitle are optional, so it can read as plain continuing text |
+| Video | Embeds a YouTube video from a pasted URL or bare video ID, with an optional muted-autoplay toggle |
 
 ### Gadget Configuration
 
