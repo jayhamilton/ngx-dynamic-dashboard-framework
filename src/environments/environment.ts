@@ -11,7 +11,7 @@ export const environment = {
   eventAPI: '/event',
   sessionToken: 'API_KEY',
   demo: true,
-  applicationTitle:'NGX Dynamic Dashboard'
+  applicationTitle:'Armature'
 };
 
 

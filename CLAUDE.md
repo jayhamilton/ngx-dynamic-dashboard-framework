@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an Angular 22 dynamic dashboard framework (ngx-dd-ui) that enables JSON-driven creation of customizable dashboards with drag/drop functionality. The project is based on the open source NGX Dynamic Dashboard Framework and focuses on production line management interfaces.
+This is **Armature** (package name `armature`), a runtime for interfaces that are described rather than built. It is an Angular 22 framework that enables JSON-driven creation of customizable dashboards with drag/drop functionality, where boards, gadgets, and configuration forms are all defined as data and composed at runtime.
+
+The project was formerly named NGX Dynamic Dashboard Framework (`ngx-dd-ui`, `plm-ui`) and is based on the open source project of that name. The rename dropped both the Angular-specific `ngx` prefix and the "dashboard" framing, since the direction of the project is toward agent-composed interfaces (A2UI, AG-UI, MCP Apps) rather than dashboards alone. Use **Armature** in all new docs and identifiers.
 
 ## Common Commands
 

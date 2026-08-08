@@ -1,8 +1,14 @@
-# NGX Dynamic Dashboard Framework
+# Armature
 
-A JSON-driven dashboard framework built with Angular and Angular Material. Gadgets, their configuration forms, and board layouts are all described as data and rendered at runtime — adding a new gadget means adding a component and a JSON entry, not rewriting the dashboard.
+**A runtime for interfaces that are described rather than built.**
 
-This project is based on the open source project https://github.com/catalogicsoftware/ngx-dynamic-dashboard-framework I created a few years ago.
+Gadgets, their configuration forms, and board layouts are all defined as data and composed at runtime, so adding a new gadget means adding a component and a JSON entry rather than rewriting the dashboard.
+
+An armature is the internal skeleton a sculptor builds around, shaped to hold a form nobody has committed to yet. That is the idea here. The framework holds the structure and makes no assumptions about what gets attached to it, or when, or by whom. Increasingly that "whom" includes an AI agent composing an interface on request, which works for the same reason a person configuring a board works: every board, gadget, and configuration form is JSON rather than code.
+
+Armature is implemented with Angular and Angular Material. The model it implements is not Angular-specific.
+
+> Formerly **NGX Dynamic Dashboard Framework**. This project is based on the open source project https://github.com/catalogicsoftware/ngx-dynamic-dashboard-framework I created a few years ago.
 
 ![Dashboard overview](https://github.com/jayhamilton/ngx-dynamic-dashboard-framework/blob/main/documentation/dashboard-overview.jpg)
 

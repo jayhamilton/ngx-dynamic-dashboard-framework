@@ -3,7 +3,7 @@
 	"version": 1,
 	"newProjectRoot": "projects",
 	"projects": {
-		"plm-ui": {
+		"armature": {
 			"projectType": "application",
 			"schematics": {
 				"@schematics/angular:application": {
@@ -21,7 +21,7 @@
 					"builder": "@angular-devkit/build-angular:application",
 					"options": {
 						"outputPath": {
-              "base": "dist/plm-ui"
+              "base": "dist/armature"
             },
             "index": "src/index.html",
 						"polyfills": [
@@ -73,10 +73,10 @@
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
             "production": {
-              "buildTarget": "plm-ui:build:production"
+              "buildTarget": "armature:build:production"
 						},
             "development": {
-              "buildTarget": "plm-ui:build:development"
+              "buildTarget": "armature:build:development"
 						}
 					},
 					"defaultConfiguration": "development"
@@ -84,7 +84,7 @@
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "plm-ui:build"
+            "buildTarget": "armature:build"
 					}
 				},
 				"test": {

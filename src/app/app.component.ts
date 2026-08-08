@@ -11,7 +11,7 @@ import { ThemeService } from './theme/theme.service';
     imports: [RouterOutlet]
 })
 export class AppComponent {
-  title = 'plm-ui';
+  title = 'armature';
 
   constructor(private themeService: ThemeService) { }
 }
