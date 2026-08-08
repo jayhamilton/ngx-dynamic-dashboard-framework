@@ -12,20 +12,26 @@
       >
       <mat-icon>help_outline</mat-icon>
     </button>
+    @if (!locked) {
+      <button
+        mat-icon-button
+        class="configure-button"
+        [matTooltip]="menuLabel"
+        [attr.aria-label]="menuLabel"
+        (click)="toggleConfigMode()"
+        >
+        <mat-icon>settings</mat-icon>
+      </button>
+    }
     <button
       mat-icon-button
-      class="more-button"
-      [matMenuTriggerFor]="menu"
-      aria-label="Toggle menu"
+      class="remove-button"
+      matTooltip="Remove"
+      aria-label="Remove"
+      (click)="remove()"
       >
-      <mat-icon>more_vert</mat-icon>
+      <mat-icon>delete</mat-icon>
     </button>
-    <mat-menu #menu="matMenu" xPosition="before">
-      @if (!locked) {
-        <button mat-menu-item (click)="toggleConfigMode()">{{ menuLabel }}</button>
-      }
-      <button mat-menu-item (click)="remove()">Remove</button>
-    </mat-menu>
   </mat-card-header>
 @if (inConfig) {
   <div class="config-mode-indicator">Configuration Mode</div>

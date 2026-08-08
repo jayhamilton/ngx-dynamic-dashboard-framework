@@ -8,16 +8,22 @@
     width: 40px;
 }
 
-.more-button {
+.remove-button {
     position: absolute;
     top: 5px;
     right: 10px;
 }
 
-.help-button {
+.configure-button {
     position: absolute;
     top: 5px;
     right: 44px;
+}
+
+.help-button {
+    position: absolute;
+    top: 5px;
+    right: 78px;
 }
 
 .config-mode-indicator {
